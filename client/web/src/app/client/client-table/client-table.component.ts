@@ -14,7 +14,7 @@ export class ClientTableComponent implements OnInit {
   }
 
   columnDefs: ColDef[] = [
-    { field: 'make', sortable: true, filter: true, resizable: true },
+    { field: 'make', sortable: true, filter: true, resizable: true, editable: true},
     { field: 'model', sortable: true, filter: true, resizable: true },
     { field: 'price', sortable: true, filter: true, resizable: true }
   ];
