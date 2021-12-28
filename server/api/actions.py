@@ -3,16 +3,20 @@ from fastapi.security import OAuth2PasswordBearer
 from db.general import *
 from db import models
 from api import schemas
-from typing import List
+from typing import List, Optional
+from sqlalchemy import and_, or_, not_
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-@router.get("/Clients/{id}", tags=["Clients"])
-async def get(id: int = Path(..., title="The ID of the client to get", ge=0)) -> schemas.Client:
-        Client = Db.session.query(models.Client).filter(models.Client.id == id).first()
-        return Client
+@router.get("/Clients", tags=["Clients"])
+async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None) -> List[schemas.Client]:
+        parameters = {"id": id, "name": name, "address": address}
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.Client, attribute) == value for attribute, value in selectedParameters.items()]
+        Clients = Db.session.query(models.Client).filter(and_(*filters)).all()
+        return Clients
 
 @router.post("/Clients", tags=["Clients"])
 async def post(client: schemas.Client) -> schemas.Client:
@@ -34,10 +38,13 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-@router.get("/Projects/{id}", tags=["Projects"])
-async def get(id: int = Path(..., title="The ID of the project to get", ge=0)) -> schemas.Project:
-        Project = Db.session.query(models.Project).filter(models.Project.id == id).all()
-        return Project
+@router.get("/Projects", tags=["Projects"])
+async def get(id: Optional[int] = None, name: Optional[str] = None, idClient: Optional[int] = None) -> List[schemas.Project]:
+        parameters = {"id": id, "name": name, "idClient": idClient}
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.Project, attribute) == value for attribute, value in selectedParameters.items()]
+        Projects = Db.session.query(models.Project).filter(and_(*filters)).all()
+        return Projects
 
 @router.post("/Projects", tags=["Projects"])
 async def post(project: schemas.Project) -> schemas.Project:
@@ -59,11 +66,13 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-
-@router.get("/ItemsToOrder/{id}", tags=["Items to order"])
-async def get(id: int = Path(..., title="The ID of the item to order to get", ge=0) ) -> schemas.ItemToOrder:
-    ItemToOrder = Db.session.query(models.ItemToOrder).filter(models.ItemToOrder.id == id).first()
-    return ItemToOrder
+@router.get("/ItemsToOrder", tags=["Items to order"])
+async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None) -> List[schemas.Project]:
+        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity}
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.ItemToOrder, attribute) == value for attribute, value in selectedParameters.items()]
+        ItemsToOrder = Db.session.query(models.ItemToOrder).filter(and_(*filters)).all()
+        return ItemsToOrder
 
 @router.post("/ItemsToOrder", tags=["Items to order"])
 async def post(ItemToOrder: schemas.ItemToOrder) -> schemas.ItemToOrder:
@@ -85,12 +94,15 @@ async def delete(id: int):
     Db.session.query(models.ItemToOrder).filter(models.ItemToOrder.id == id).delete()
     Db.session.commit()
     return {"Deleted id": id}
+    
 
-
-@router.get("/Distributors/{id}", tags=["Distributors"])
-async def get(id: int = Path(..., title="The ID of the distributor to get", ge=0)) -> schemas.Distributor:
-        Distributor = Db.session.query(models.Distributor).filter(models.Distributor.id == id).all()
-        return Distributor
+@router.get("/Distributors", tags=["Distributors"])
+async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, phone: Optional[str] = None) -> List[schemas.Distributor]:
+        parameters = {"id": id, "name": name, "address": address, 'phone': phone}
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.Distributor, attribute) == value for attribute, value in selectedParameters.items()]
+        Distributors = Db.session.query(models.Distributor).filter(and_(*filters)).all()
+        return Distributors
 
 @router.post("/Distributors", tags=["Distributors"])
 async def post(distributor: schemas.Distributor) -> schemas.Distributor:
