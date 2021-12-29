@@ -15,6 +15,9 @@ export class ClientTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getClients().subscribe((response) => console.log(response));
+    this.service.getProjects().subscribe((response) => console.log(response));
+    this.service.getItemsToOrder().subscribe((response) => console.log(response));
+    this.service.getDistributors().subscribe((response) => console.log(response));
   }
 
   columnDefs: ColDef[] = [
