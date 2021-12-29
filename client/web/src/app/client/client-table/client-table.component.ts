@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
+import { ApiService } from '../client-services/api/api.service';
+
+
 
 @Component({
   selector: 'app-client-table',
@@ -8,9 +11,10 @@ import { ColDef } from 'ag-grid-community';
 })
 export class ClientTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: ApiService) { }
 
   ngOnInit(): void {
+    this.service.loadData();
   }
 
   columnDefs: ColDef[] = [
