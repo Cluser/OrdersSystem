@@ -15,19 +15,16 @@ import { ClientModalAddItemComponent } from '../client-shared/modals/client-moda
 export class ClientTableComponent implements OnInit {
 
   public columnDefs: ColDef[] = [
-    { field: 'id', sortable: true, filter: true, resizable: true },
-    { field: 'name', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'quantity', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'status', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'idProject', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'idDistributor', sortable: true, filter: true, resizable: true, editable: true }
+    { checkboxSelection: true },
+    { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true },
+    { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'quantity', headerName: 'Ilość',  sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'idProject', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'idDistributor', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true }
   ];
   public rowData: IItemToOrder[] = [];
 
-  public user = {
-    name: 'Izzat Nadiri',
-    age: 26
- }
 
   constructor(private api: ApiService, private modalService: NgbModal) { }
 
