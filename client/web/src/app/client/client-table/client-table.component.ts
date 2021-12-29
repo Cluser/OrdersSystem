@@ -22,7 +22,7 @@ export class ClientTableComponent implements OnInit {
   ];
   public rowData: IItemToOrder[] = [];
 
-  constructor(private service: ApiService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit(): void {
     this.getItemsData()
@@ -30,13 +30,7 @@ export class ClientTableComponent implements OnInit {
 
 
   private getItemsData(): void {
-    // this.service.getClients().subscribe((response) => console.log(response));
-    // this.service.getProjects().subscribe((response) => console.log(response));
-    // this.service.getItemsToOrder().subscribe((response) => console.log(response));
-    // this.service.getDistributors().subscribe((response) => console.log(response));
-
-    // this.service.getClients().subscribe((response) => this.rowData = response);
-    this.service.getItemsToOrder().subscribe((response) => this.rowData = response);
+    this.api.getItemsToOrder().subscribe((response) => this.rowData = response);
   }
 
 

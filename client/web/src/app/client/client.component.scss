@@ -3,10 +3,34 @@
     height: 100%;
 }
 
+.client-menu-left-section {
+    position: fixed;
+    left: 0%;
+    top: 0%;
+    width: 3%;
+    height: 100%;
+}
+
+.client-menu-left-details-section {
+    position: fixed;
+    left: 3%;
+    top: 0%;
+    width: 12%;
+    height: 100%;
+}
+
+.client-menu-right-section {
+    position: fixed;
+    left: 85%;
+    top: 0%;
+    width: 15%;
+    height: 100%;
+}
+
 .client-table-section {
     position: fixed;
-    left: 10%;
-    top: 10%;
-    width: 80%;
-    height: 80%;
+    left: 15%;
+    top: 0%;
+    width: 70%;
+    height: 100%;
 }
