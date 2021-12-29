@@ -1,9 +1,17 @@
 <div class="client-table-section">
-    <ag-grid-angular
-        style="width: 100%; height: 100%;"
-        class="ag-theme-balham"
-        [rowData]="rowData"
-        [columnDefs]="columnDefs">
-    </ag-grid-angular>
+    <div class="menu">
+        <div class="button" (click)="this.getItemsData()">
+            Dodaj
+        </div>
+    </div>
+
+    <div class="table">
+        <ag-grid-angular
+            style="width: 100%; height: 100%;"
+            class="ag-theme-balham"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs">
+        </ag-grid-angular>
+    </div>
 </div>
 

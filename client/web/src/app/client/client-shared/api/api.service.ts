@@ -18,6 +18,9 @@ export class ApiService {
   }
 
   
+  ////////////////////////////////////////////////////////////
+  // CLIENTS
+  ////////////////////////////////////////////////////////////
   public getClients(client?: IClient): Observable<IClient[]> {
     let params: any = {};
 
@@ -26,6 +29,18 @@ export class ApiService {
     return this.httpClient.get<IClient[]>(this.clientsEndpointUrl, {params: params});
   }
 
+  public addClients(client?: IClient): Observable<IClient[]> {
+    let params: any = {};
+
+    if (client) { params = JSON.parse(JSON.stringify(client)) }
+
+    return this.httpClient.post<IClient[]>(this.clientsEndpointUrl, params);
+  }
+
+
+  ////////////////////////////////////////////////////////////
+  // PROJECTS
+  ////////////////////////////////////////////////////////////
   public getProjects(project?: IProject): Observable<IProject[]> {
     let params: any = {}
 
@@ -34,6 +49,18 @@ export class ApiService {
     return this.httpClient.get<IProject[]>(this.projectsEndpointUrl, {params: params});
   }
 
+  public addProjects(project?: IProject): Observable<IProject[]> {
+    let params: any = {}
+
+    if (project) { params = JSON.parse(JSON.stringify(project)) }
+
+    return this.httpClient.post<IProject[]>(this.projectsEndpointUrl, params);
+  }
+
+
+  ////////////////////////////////////////////////////////////
+  // ITEMS TO ORDER
+  ////////////////////////////////////////////////////////////
   public getItemsToOrder(itemToOrder?: IItemToOrder): Observable<IItemToOrder[]> {
     let params: any = {}
 
@@ -42,6 +69,18 @@ export class ApiService {
     return this.httpClient.get<IItemToOrder[]>(this.itemsToOrderEndpointUrl, {params: params});
   }
 
+  public addItemsToOrder(itemToOrder?: IItemToOrder): Observable<IItemToOrder[]> {
+    let params: any = {}
+
+    if (itemToOrder) { params = JSON.parse(JSON.stringify(itemToOrder)) }
+
+    return this.httpClient.post<IItemToOrder[]>(this.itemsToOrderEndpointUrl, params);
+  }
+
+
+  ////////////////////////////////////////////////////////////
+  // DISTRIBUTORS
+  ////////////////////////////////////////////////////////////
   public getDistributors(distributor?: IDistributor): Observable<IDistributor[]> {
     let params: any = {}
 

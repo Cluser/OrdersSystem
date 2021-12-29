@@ -26,13 +26,22 @@ export class ClientTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItemsData()
+    this.addClient()
   }
 
 
-  private getItemsData(): void {
+  public getItemsData(): void {
     this.api.getItemsToOrder().subscribe((response) => this.rowData = response);
   }
 
+  public addClient(): void {
+      let item: IItemToOrder = {};
+      item.name = 'tttt';
+      item.idDistributor = 1;
+      item.idProject = 1;
+      item.quantity = 2;
+      item.status = ''
 
-
+      this.api.addItemsToOrder(item).subscribe();
+  }
 }
