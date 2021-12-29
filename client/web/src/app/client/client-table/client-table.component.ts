@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../client-shared/api/api.service';
 import { IItemToOrder } from '../client-shared/models/models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 
 
 
@@ -13,20 +15,24 @@ import { IItemToOrder } from '../client-shared/models/models';
 export class ClientTableComponent implements OnInit {
 
   public columnDefs: ColDef[] = [
-    { field: 'id', sortable: true, filter: true, resizable: true, editable: true},
-    { field: 'name', sortable: true, filter: true, resizable: true },
-    { field: 'quantity', sortable: true, filter: true, resizable: true },
-    { field: 'status', sortable: true, filter: true, resizable: true },
-    { field: 'idProject', sortable: true, filter: true, resizable: true },
-    { field: 'idDistributor', sortable: true, filter: true, resizable: true }
+    { field: 'id', sortable: true, filter: true, resizable: true },
+    { field: 'name', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'quantity', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'status', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'idProject', sortable: true, filter: true, resizable: true, editable: true },
+    { field: 'idDistributor', sortable: true, filter: true, resizable: true, editable: true }
   ];
   public rowData: IItemToOrder[] = [];
 
-  constructor(private api: ApiService) { }
+  public user = {
+    name: 'Izzat Nadiri',
+    age: 26
+ }
+
+  constructor(private api: ApiService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.getItemsData()
-    this.addClient()
+    this.getItemsData();
   }
 
 
@@ -34,14 +40,11 @@ export class ClientTableComponent implements OnInit {
     this.api.getItemsToOrder().subscribe((response) => this.rowData = response);
   }
 
-  public addClient(): void {
-      let item: IItemToOrder = {};
-      item.name = 'tttt';
-      item.idDistributor = 1;
-      item.idProject = 1;
-      item.quantity = 2;
-      item.status = ''
-
-      this.api.addItemsToOrder(item).subscribe();
-  }
+  openModal() {
+    const modalRef = this.modalService.open(ClientModalAddItemComponent);
+    modalRef.componentInstance.itemAdded.subscribe(() => {
+      this.modalService.dismissAll();
+      this.getItemsData();
+    })
+ }
 }

@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { AgGridModule } from 'ag-grid-angular';
+
 import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientTableComponent } from './client-table/client-table.component';
-import { AgGridModule } from 'ag-grid-angular';
 import { ClientMenuLeftComponent } from './client-menu-left/client-menu-left.component';
 import { ClientMenuRightComponent } from './client-menu-right/client-menu-right.component';
 import { ClientMenuLeftDetailsComponent } from './client-menu-left-details/client-menu-left-details.component';
+import { ClientModalAddItemComponent } from './client-shared/modals/client-modal-add-item/client-modal-add-item.component';
+
 
 
 @NgModule({
@@ -15,12 +20,17 @@ import { ClientMenuLeftDetailsComponent } from './client-menu-left-details/clien
     ClientTableComponent,
     ClientMenuLeftComponent,
     ClientMenuRightComponent,
-    ClientMenuLeftDetailsComponent
+    ClientMenuLeftDetailsComponent,
+    ClientModalAddItemComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ClientRoutingModule,
     AgGridModule.withComponents([])
+  ],
+  entryComponents: [
+    ClientModalAddItemComponent
   ]
 })
 export class ClientModule { }

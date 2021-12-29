@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodawanie przedmiotu</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span></button>
+ </div>
+ <div class="modal-body">
+     <input type="text" class="form-control" [(ngModel)]="this.item.name" type="text">
+     <input type="text" class="form-control" [(ngModel)]="this.item.quantity" type="number">
+     <input type="text" class="form-control" [(ngModel)]="this.item.status" type="text">
+     <input type="text" class="form-control" [(ngModel)]="this.item.idProject" type="number">
+     <input type="text" class="form-control" [(ngModel)]="this.item.idDistributor" type="number">
+     <button (click)="addItem(this.item)" type="submit" class="btn btn-primary w-100">Pass back</button>
+</div>
