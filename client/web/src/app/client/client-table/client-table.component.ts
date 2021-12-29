@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../client-shared/api/api.service';
+import { IItemToOrder } from '../client-shared/models/models';
 
 
 
@@ -11,25 +12,33 @@ import { ApiService } from '../client-shared/api/api.service';
 })
 export class ClientTableComponent implements OnInit {
 
+  public columnDefs: ColDef[] = [
+    { field: 'id', sortable: true, filter: true, resizable: true, editable: true},
+    { field: 'name', sortable: true, filter: true, resizable: true },
+    { field: 'quantity', sortable: true, filter: true, resizable: true },
+    { field: 'status', sortable: true, filter: true, resizable: true },
+    { field: 'idProject', sortable: true, filter: true, resizable: true },
+    { field: 'idDistributor', sortable: true, filter: true, resizable: true }
+  ];
+  public rowData: IItemToOrder[] = [];
+
   constructor(private service: ApiService) { }
 
   ngOnInit(): void {
-    this.service.getClients().subscribe((response) => console.log(response));
-    this.service.getProjects().subscribe((response) => console.log(response));
-    this.service.getItemsToOrder().subscribe((response) => console.log(response));
-    this.service.getDistributors().subscribe((response) => console.log(response));
+    this.getItemsData()
   }
 
-  columnDefs: ColDef[] = [
-    { field: 'make', sortable: true, filter: true, resizable: true, editable: true},
-    { field: 'model', sortable: true, filter: true, resizable: true },
-    { field: 'price', sortable: true, filter: true, resizable: true }
-  ];
 
-  rowData = [
-      { make: 'Toyota', model: 'Celica', price: 35000 },
-      { make: 'Ford', model: 'Mondeo', price: 32000 },
-      { make: 'Porsche', model: 'Boxter', price: 72000 }
-  ];
+  private getItemsData(): void {
+    // this.service.getClients().subscribe((response) => console.log(response));
+    // this.service.getProjects().subscribe((response) => console.log(response));
+    // this.service.getItemsToOrder().subscribe((response) => console.log(response));
+    // this.service.getDistributors().subscribe((response) => console.log(response));
+
+    // this.service.getClients().subscribe((response) => this.rowData = response);
+    this.service.getItemsToOrder().subscribe((response) => this.rowData = response);
+  }
+
+
 
 }
