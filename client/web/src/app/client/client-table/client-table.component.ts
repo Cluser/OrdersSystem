@@ -25,6 +25,8 @@ export class ClientTableComponent implements OnInit {
   ];
   public rowData: IItemToOrder[] = [];
 
+  public filter: string = '';
+
 
   constructor(private api: ApiService, private modalService: NgbModal) { }
 
@@ -35,6 +37,11 @@ export class ClientTableComponent implements OnInit {
 
   public getItemsData(): void {
     this.api.getItemsToOrder().subscribe((response) => this.rowData = response);
+  }
+
+  public search(filter: any): void {
+    if (filter) {this.api.getItemsToOrder({'name': filter}).subscribe((response) => this.rowData = response);} else
+                {this.api.getItemsToOrder().subscribe((response) => this.rowData = response);}
   }
 
   openModal() {

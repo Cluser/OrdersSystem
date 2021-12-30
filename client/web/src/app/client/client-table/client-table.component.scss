@@ -25,7 +25,15 @@
 .button {
     position: absolute;
     left: 0%;
-    background-color: red;
+    background-color: blue;
     width: 10%;
+    height: 100%;
+}
+
+.search-input {
+    position: absolute;
+    left: 80%;
+    background-color: white;
+    width: 20%;
     height: 100%;
 }
