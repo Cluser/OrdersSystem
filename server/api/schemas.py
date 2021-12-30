@@ -42,3 +42,10 @@ class ItemToOrder(BaseModel):
     class Config:
         orm_mode = True
 
+class Inquiry(BaseModel):
+    idDistributor: int
+    dateAndTime: str
+
+    class Config:
+        orm_mode = True
+

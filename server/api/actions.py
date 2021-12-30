@@ -123,3 +123,31 @@ async def delete(id: int):
     Db.session.query(models.Distributor).filter(models.Distributor.id == id).delete()
     Db.session.commit()
     return {"Deleted id": id}
+
+@router.get("/Inquiries", tags=["Inquiries"])
+async def get(id: Optional[int] = None, idDistributor: Optional[str] = None, dateAndTime: Optional[str] = None) -> List[schemas.Inquiry]:
+        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
+        Inquiries = Db.session.query(models.Inquiry).filter(and_(*filters)).all()
+        return Inquiries
+
+@router.post("/Inquiries", tags=["Inquiries"])
+async def post(inquiry: schemas.Inquiry) -> schemas.Inquiry:
+    inquiry = models.Inquiry(**inquiry.dict())
+    Db.session.add(inquiry)
+    Db.session.commit()
+    Db.session.refresh(inquiry)
+    return inquiry
+
+@router.put("/Inquiries/{id}", tags=["Inquiries"])
+async def put(id: int, inquiry: schemas.Inquiry) -> schemas.Distributor:
+    Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).update({**inquiry.dict()}, synchronize_session = False)
+    Db.session.commit()
+    return inquiry
+
+@router.delete("/Inquiries/{id}", tags=["Inquiries"])
+async def delete(id: int):
+    Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).delete()
+    Db.session.commit()
+    return {"Deleted id": id}
