@@ -11,13 +11,24 @@
     <input id="quantity" type="text" class="form-control" [(ngModel)]="this.item.quantity" type="number">
 
     <label for="status">Status</label>
-    <input id="status" type="text" class="form-control" [(ngModel)]="this.item.status" type="text">
+    <select id="status" class="form-control" [(ngModel)]="this.item.status">
+      <option selected>Wybierz status</option>
+      <option>Do zamówienia</option>
+      <option>Zamówiony</option>
+      <option>Oderany</option>
+    </select>
 
-    <label for="idProject">Numer projektu</label>
-    <input id="idProject" type="text" class="form-control" [(ngModel)]="this.item.idProject" type="number">
+    <label for="project">Projekt</label>
+    <select id="project" class="form-control" [(ngModel)]="this.item.idProject">
+      <option selected>Wybierz projekt</option>
+      <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
+    </select>
 
-    <label for="idDistributor">Dystrybutor</label>
-    <input id="idDistributor" type="text" class="form-control" [(ngModel)]="this.item.idDistributor" type="number">
+    <label for="distributor">Dystrybutor</label>
+    <select id="distributor" class="form-control" [(ngModel)]="this.item.idDistributor">
+      <option selected>Wybierz dystrybutora</option>
+      <option *ngFor="let distributor of distributors" [value]="distributor.id">{{distributor.name}}</option>
+    </select>
 
     <button (click)="addItem(this.item)" type="submit" class="btn btn-primary w-100">Dodaj przedmiot</button>
 </div>
