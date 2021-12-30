@@ -67,8 +67,8 @@ async def delete(id: int):
     return {"Deleted id": id}
 
 @router.get("/ItemsToOrder", tags=["Items to order"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None) -> List[schemas.Project]:
-        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity}
+async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, idDistributor: Optional[int] = None) -> List[schemas.Project]:
+        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject, 'idDistributor': idDistributor}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.ItemToOrder, attribute) == value for attribute, value in selectedParameters.items()]
         ItemsToOrder = Db.session.query(models.ItemToOrder).filter(and_(*filters)).all()

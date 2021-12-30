@@ -9,7 +9,7 @@ class Client(Db.Base):
 
     name = Column(String, nullable=False, unique=True)
     address = Column(String)
-    project = relationship("Project", lazy = "joined")
+    project = relationship("Project")
 
     def __init__(self, name, address):
         self.name = name
@@ -21,7 +21,8 @@ class Project(Db.Base):
     idClient = Column(Integer, ForeignKey('clients.id'))
 
     name = Column(String)
-    ItemToOrder = relationship("ItemToOrder", lazy = "joined")
+    ItemToOrder = relationship("ItemToOrder")
+    client = relationship("Client", viewonly=True)
 
     def __init__(self, idClient, name):
         self.idClient = idClient
@@ -46,7 +47,7 @@ class Distributor(Db.Base):
     address = Column(String)
     phone = Column(String)
 
-    itemToOrder = relationship('ItemToOrder', lazy = "joined")
+    itemToOrder = relationship('ItemToOrder')
 
     def __init__(self, name, address, phone):
         self.name = name
@@ -62,6 +63,8 @@ class ItemToOrder(Db.Base):
     name = Column(String, nullable = False, unique = True)
     quantity = Column(Integer)
     status = Column(String)
+    project = relationship("Project", lazy = "joined", viewonly=True)
+    distributor = relationship("Distributor", lazy = "joined", viewonly=True)
 
     def __init__(self, idProject, idDistributor, name, quantity, status):
         self.idProject = idProject
