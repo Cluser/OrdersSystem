@@ -86,3 +86,22 @@ class Inquiry(Db.Base):
     def __init__(self, idDistributor, dateAndTime):
         self.idDistributor = idDistributor
         self.dateAndTime = dateAndTime
+
+
+class BookAuthor(Db.Base):
+    __tablename__ = 'book_authors'
+    book_id = Column(ForeignKey('books.id'), primary_key=True)
+    author_id = Column(ForeignKey('authors.id'), primary_key=True)
+    blurb = Column(String, nullable=False)
+
+class Book(Db.Base):
+    __tablename__ = 'books'
+    id = Column(Integer, primary_key=True)
+    title = Column(String, nullable=False)
+    authors = relationship("Author", secondary="book_authors", viewonly=True)
+
+class Author(Db.Base):
+    __tablename__ = 'authors'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    books = relationship("Book", secondary="book_authors", viewonly=True)
