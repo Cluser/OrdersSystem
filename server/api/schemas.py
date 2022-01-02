@@ -49,3 +49,24 @@ class Inquiry(BaseModel):
     class Config:
         orm_mode = True
 
+class AuthorBase(BaseModel):
+    id: int
+    name: str
+    blurb: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+class BookBase(BaseModel):
+    id: int
+    title: str
+    blurb: Optional[str]
+
+    class Config:
+        orm_mode = True
+
+class BookSchema(BookBase):
+    authors: List[AuthorBase]
+
+class AuthorSchema(AuthorBase):
+    books: List[BookBase]

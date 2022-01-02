@@ -1,5 +1,6 @@
 from fastapi import Depends, APIRouter, Path, Query
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy.orm import contains_eager
 from db.general import *
 from db import models
 from api import schemas
@@ -151,3 +152,14 @@ async def delete(id: int):
     Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).delete()
     Db.session.commit()
     return {"Deleted id": id}
+
+
+@router.get("/Books", tags=["Books"])
+async def get():
+        Books = Db.session.query(models.Book).join(models.Book.authors).options(contains_eager(models.Book.authors)).populate_existing().all()
+        return Books
+
+@router.get("/Authors", tags=["Authors"])
+async def get():
+        Authors = Db.session.query(models.Author).join(models.Author.books).options(contains_eager(models.Author.books)).populate_existing().all()
+        return Authors
