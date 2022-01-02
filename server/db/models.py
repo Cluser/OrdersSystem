@@ -56,10 +56,12 @@ class Distributor(Db.Base):
         self.phone = phone
 
 class ItemToOrderInquiry(Db.Base):
-    __tablename__ = 'itemsToOrder_Inquiries'
+    __tablename__ = 'itemsToOrder_inquiries'
     itemToOrder_id = Column(ForeignKey('itemsToOrder.id'), primary_key=True)
     inquiry_id = Column(ForeignKey('inquiries.id'), primary_key=True)
     price = Column(Integer, nullable=False)
+    itemToOrder = relationship('ItemToOrder', back_populates="inquiries")
+    inquiry = relationship('Inquiry', back_populates="itemsToOrder")
 
 class ItemToOrder(Db.Base):
     __tablename__ = 'itemsToOrder'
@@ -72,7 +74,7 @@ class ItemToOrder(Db.Base):
     status = Column(String)
     project = relationship("Project", lazy = "joined", viewonly=True)
     distributor = relationship("Distributor", lazy = "joined", viewonly=True)
-    inquiry = relationship("Inquiry", secondary="itemsToOrder_Inquiries", viewonly=True)
+    inquiries = relationship('ItemToOrderInquiry', back_populates="itemToOrder")
 
     def __init__(self, idProject, idDistributor, name, quantity, status):
         self.idProject = idProject
@@ -89,7 +91,7 @@ class Inquiry(Db.Base):
     dateAndTime = Column(String)
 
     distributor = relationship("Distributor", lazy = "joined", viewonly=True)
-    itemToOrder = relationship("ItemToOrder", secondary="itemsToOrder_Inquiries", viewonly=True)
+    itemsToOrder = relationship('ItemToOrderInquiry', back_populates="inquiry")
 
     def __init__(self, idDistributor, dateAndTime):
         self.idDistributor = idDistributor
