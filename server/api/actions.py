@@ -1,6 +1,6 @@
 from fastapi import Depends, APIRouter, Path, Query
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import contains_eager
+from sqlalchemy.orm import contains_eager, joinedload
 from db.general import *
 from db import models
 from api import schemas
@@ -69,10 +69,12 @@ async def delete(id: int):
 
 @router.get("/ItemsToOrder", tags=["Items to order"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, idDistributor: Optional[int] = None) -> List[schemas.Project]:
-        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject, 'idDistributor': idDistributor}
-        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
-        filters = [getattr(models.ItemToOrder, attribute) == value for attribute, value in selectedParameters.items()]
-        ItemsToOrder = Db.session.query(models.ItemToOrder).filter(and_(*filters)).all()
+        # parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject, 'idDistributor': idDistributor}
+        # selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        # filters = [getattr(models.ItemToOrder, attribute) == value for attribute, value in selectedParameters.items()]
+        # ItemsToOrder = Db.session.query(models.ItemToOrder).filter(and_(*filters)).all()
+        # return ItemsToOrder
+        ItemsToOrder = Db.session.query(models.ItemToOrder).join(models.ItemToOrder.inquiry).options(contains_eager(models.ItemToOrder.inquiry)).populate_existing().all()
         return ItemsToOrder
 
 @router.post("/ItemsToOrder", tags=["Items to order"])
@@ -127,11 +129,13 @@ async def delete(id: int):
 
 @router.get("/Inquiries", tags=["Inquiries"])
 async def get(id: Optional[int] = None, idDistributor: Optional[str] = None, dateAndTime: Optional[str] = None) -> List[schemas.Inquiry]:
-        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
-        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
-        filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
-        Inquiries = Db.session.query(models.Inquiry).filter(and_(*filters)).all()
-        return Inquiries
+        # parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
+        # selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        # filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
+        # Inquiries = Db.session.query(models.Inquiry).filter(and_(*filters)).all()
+        # return Inquiries
+        Inquiry = Db.session.query(models.Inquiry).join(models.Inquiry.itemToOrder).options(contains_eager(models.Inquiry.itemToOrder)).populate_existing().all()
+        return Inquiry
 
 @router.post("/Inquiries", tags=["Inquiries"])
 async def post(inquiry: schemas.Inquiry) -> schemas.Inquiry:
@@ -156,7 +160,8 @@ async def delete(id: int):
 
 @router.get("/Books", tags=["Books"])
 async def get():
-        Books = Db.session.query(models.Book).join(models.Book.authors).options(contains_eager(models.Book.authors)).populate_existing().all()
+        # Books = Db.session.query(models.Book).join(models.Book.authors).options(contains_eager(models.Book.authors)).populate_existing().all()
+        Books = Db.session.query(models.Book).options(joinedload(models.Book.authors)).all()
         return Books
 
 @router.get("/Authors", tags=["Authors"])

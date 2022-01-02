@@ -55,6 +55,12 @@ class Distributor(Db.Base):
         self.address = address
         self.phone = phone
 
+class ItemToOrderInquiry(Db.Base):
+    __tablename__ = 'itemsToOrder_Inquiries'
+    itemToOrder_id = Column(ForeignKey('itemsToOrder.id'), primary_key=True)
+    inquiry_id = Column(ForeignKey('inquiries.id'), primary_key=True)
+    price = Column(Integer, nullable=False)
+
 class ItemToOrder(Db.Base):
     __tablename__ = 'itemsToOrder'
     id = Column(Integer, primary_key=True)
@@ -66,6 +72,7 @@ class ItemToOrder(Db.Base):
     status = Column(String)
     project = relationship("Project", lazy = "joined", viewonly=True)
     distributor = relationship("Distributor", lazy = "joined", viewonly=True)
+    inquiry = relationship("Inquiry", secondary="itemsToOrder_Inquiries", viewonly=True)
 
     def __init__(self, idProject, idDistributor, name, quantity, status):
         self.idProject = idProject
@@ -82,6 +89,7 @@ class Inquiry(Db.Base):
     dateAndTime = Column(String)
 
     distributor = relationship("Distributor", lazy = "joined", viewonly=True)
+    itemToOrder = relationship("ItemToOrder", secondary="itemsToOrder_Inquiries", viewonly=True)
 
     def __init__(self, idDistributor, dateAndTime):
         self.idDistributor = idDistributor
@@ -93,15 +101,17 @@ class BookAuthor(Db.Base):
     book_id = Column(ForeignKey('books.id'), primary_key=True)
     author_id = Column(ForeignKey('authors.id'), primary_key=True)
     blurb = Column(String, nullable=False)
+    book = relationship("Book", back_populates="authors")
+    author = relationship("Author", back_populates="books")
 
 class Book(Db.Base):
     __tablename__ = 'books'
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    authors = relationship("Author", secondary="book_authors", viewonly=True)
+    authors = relationship("BookAuthor", back_populates="book")
 
 class Author(Db.Base):
     __tablename__ = 'authors'
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
-    books = relationship("Book", secondary="book_authors", viewonly=True)
+    books = relationship("BookAuthor", back_populates="author")
