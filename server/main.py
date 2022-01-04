@@ -6,32 +6,44 @@ class Main:
     # Call modules
     db = Db()
 
-    book1 = Book(title="Dead People Who'd Be Influencers Today")
-    book2 = Book(title="How To Make Friends In Your 30s")
+    client = [
+        Client(name = "Client 1", address = "Client 1 address")
+    ]
 
-    author1 = Author(name="Blu Renolds")
-    author2 = Author(name="Chip Egan")
-    author3 = Author(name="Alyssa Wyatt")
+    project = [
+        Project(name = "Project 1", idClient = 1)
+    ]
 
-    Db.session.add_all([book1, book2, author1, author2, author3])
+    item = [        
+        Item(name = "Item 1", idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
+        Item(name = "Item 2", idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status")
+    ]
+
+    
+    distributor = [
+        Distributor(name = "Distributor 1", address = "Distributor 1 address", phone = "500 600 700")
+    ]
+
+    inquiry = [
+        Inquiry(idDistributor = 1, dateAndTime = "04.02.2021")
+    ]
+
+    itemInquiry = [
+        ItemInquiry(Item_id = 1, inquiry_id = 1, price = 150),
+        ItemInquiry(Item_id = 2, inquiry_id = 1, price = 150)
+    ]
+
+    Db.session.add_all(client)
+    Db.session.add_all(project)
+    Db.session.add_all(item)
+    Db.session.add_all(distributor)
+    Db.session.add_all(inquiry)
+    Db.session.add_all(itemInquiry)
     Db.session.commit()
 
-    book_author1 = BookAuthor(book_id=book1.id, author_id=author1.id, blurb="Blue wrote chapter 1")
-    book_author2 = BookAuthor(book_id=book1.id, author_id=author2.id, blurb="Chip wrote chapter 2")
-    book_author3 = BookAuthor(book_id=book2.id, author_id=author1.id, blurb="Blue wrote chapters 1-3")
-    book_author4 = BookAuthor(book_id=book2.id, author_id=author3.id, blurb="Alyssa wrote chapter 4")
-
-    Db.session.add_all([book_author1, book_author2, book_author3, book_author4])
-    Db.session.commit()
+     
 
     api = Api()
 
 
 
-
-    # db_book = Db.session.query(Book).\
-    #     options(joinedload(Book.authors)).\
-    #     where(Book.id == 1).one()
-
-    # schema_book = BookSchema.from_orm(db_book)
-    # print(schema_book.json())

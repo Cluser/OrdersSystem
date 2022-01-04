@@ -7,7 +7,7 @@ class Client(Db.Base):
     __tablename__ = 'clients'
     id = Column(Integer, primary_key=True)
 
-    name = Column(String, nullable=False, unique=True)
+    name = Column(String, nullable=False)
     address = Column(String)
     project = relationship("Project")
 
@@ -67,7 +67,7 @@ class Item(Db.Base):
     id = Column(Integer, primary_key=True)
     idProject = Column(Integer, ForeignKey('projects.id'))
 
-    name = Column(String, nullable = False, unique = True)
+    name = Column(String, nullable = False)
     quantity = Column(Integer)
     status = Column(String)
     project = relationship("Project", lazy = "joined", viewonly=True)
