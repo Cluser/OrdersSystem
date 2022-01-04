@@ -67,32 +67,38 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-@router.get("/ItemsToOrder", tags=["Items to order"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, idDistributor: Optional[int] = None, idInquiry: Optional[int] = None) -> List[schemas.Project]:
-        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject, 'idDistributor': idDistributor, 'inquiries.inquiry_id': idInquiry}
+@router.get("/Items", tags=["Items to order"])
+async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None) -> List[schemas.Item]:
+        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
-        filters = [getattr(models.ItemToOrder, attribute) == value for attribute, value in selectedParameters.items()]
-        ItemsToOrder = Db.session.query(models.ItemToOrder).join(models.ItemToOrder.inquiries).options(contains_eager(models.ItemToOrder.inquiries)).populate_existing().filter(and_(*filters)).all()
-        return ItemsToOrder
+        filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
-@router.post("/ItemsToOrder", tags=["Items to order"])
-async def post(ItemToOrder: schemas.ItemToOrder) -> schemas.ItemToOrder:
-    itemToOrder = models.ItemToOrder(**ItemToOrder.dict())
-    Db.session.add(itemToOrder)
+        items = Db.session.query(models.Item).options(joinedload(models.Item.inquiries)).filter(and_(*filters)).all()
+        Items = []
+        for item in items:
+            Items.append(schemas.Item.from_orm(item))
+
+        return Items
+
+
+@router.post("/Items", tags=["Items to order"])
+async def post(Item: schemas.Item) -> schemas.Item:
+    Item = models.Item(**Item.dict())
+    Db.session.add(Item)
     Db.session.commit()
-    return itemToOrder
+    return Item
 
 
-@router.put("/ItemsToOrder/{id}", tags=["Items to order"])
-async def put(id: int, ItemToOrder: schemas.ItemToOrder) -> schemas.ItemToOrder:
-    Db.session.query(models.ItemToOrder).filter(models.ItemToOrder.id == id).update({**ItemToOrder.dict()}, synchronize_session = False)
+@router.put("/Items/{id}", tags=["Items to order"])
+async def put(id: int, Item: schemas.Item) -> schemas.Item:
+    Db.session.query(models.Item).filter(models.Item.id == id).update({**Item.dict()}, synchronize_session = False)
     Db.session.commit()
-    return ItemToOrder
+    return Item
 
 
-@router.delete("/ItemsToOrder/{id}", tags=["Items to order"])
+@router.delete("/Items/{id}", tags=["Items to order"])
 async def delete(id: int):
-    Db.session.query(models.ItemToOrder).filter(models.ItemToOrder.id == id).delete()
+    Db.session.query(models.Item).filter(models.Item.id == id).delete()
     Db.session.commit()
     return {"Deleted id": id}
     
@@ -126,11 +132,16 @@ async def delete(id: int):
     return {"Deleted id": id}
 
 @router.get("/Inquiries", tags=["Inquiries"])
-async def get(id: Optional[int] = None, idDistributor: Optional[str] = None, dateAndTime: Optional[str] = None) -> List[schemas.Inquiry]:
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None) -> List[schemas.Inquiry]:
         parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
-        Inquiries = Db.session.query(models.Inquiry).join(models.Inquiry.itemsToOrder).options(contains_eager(models.Inquiry.itemsToOrder)).populate_existing().filter(and_(*filters)).all()
+
+        inquiries = Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.Items)).filter(and_(*filters)).all()
+        Inquiries = []
+        for inquiry in inquiries:
+            Inquiries.append(schemas.Inquiry.from_orm(inquiry))
+
         return Inquiries
 
 @router.post("/Inquiries", tags=["Inquiries"])
@@ -154,13 +165,17 @@ async def delete(id: int):
     return {"Deleted id": id}
 
 
-@router.get("/Books", tags=["Books"])
-async def get():
-        # Books = Db.session.query(models.Book).join(models.Book.authors).options(contains_eager(models.Book.authors)).populate_existing().all()
-        Books = Db.session.query(models.Book).options(joinedload(models.Book.authors)).all()
-        return Books
+# @router.get("/Books", tags=["Books"])
+# async def get():
+#         db_book = Db.session.query(models.Book).options(joinedload(models.Book.authors)).where(models.Book.id == 1).one()
+#         schema_book = schemas.BookSchema.from_orm(db_book)
+#         print(schema_book.json())
+#         return schema_book
 
-@router.get("/Authors", tags=["Authors"])
-async def get():
-        Authors = Db.session.query(models.Author).join(models.Author.books).options(contains_eager(models.Author.books)).populate_existing().all()
-        return Authors
+# @router.get("/Authors", tags=["Authors"])
+# async def get():
+#         db_author = Db.session.query(models.Author).options(joinedload(models.Author.books)).where(models.Author.id == 1).one()
+
+#         schema_author = schemas.AuthorSchema.from_orm(db_author)
+#         print(schema_author.json())
+#         return schema_author

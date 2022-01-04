@@ -10,7 +10,7 @@ export interface IProject {
     idClient?: number;
 }
 
-export interface IItemToOrder {
+export interface IItem {
     id?: number;
     name?: string;
     quantity?: number;

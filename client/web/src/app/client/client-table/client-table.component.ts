@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../client-shared/api/api.service';
-import { IItemToOrder } from '../client-shared/models/models';
+import { IItem } from '../client-shared/models/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 
@@ -23,7 +23,7 @@ export class ClientTableComponent implements OnInit {
     { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true },
     { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true }
   ];
-  public rowData: IItemToOrder[] = [];
+  public rowData: IItem[] = [];
 
   public filter: string = '';
 
@@ -36,12 +36,12 @@ export class ClientTableComponent implements OnInit {
 
 
   public getItemsData(): void {
-    this.api.getItemsToOrder().subscribe((response) => this.rowData = response);
+    this.api.getItems().subscribe((response) => this.rowData = response);
   }
 
   public search(filter: any): void {
-    if (filter) {this.api.getItemsToOrder({'name': filter}).subscribe((response) => this.rowData = response);} else
-                {this.api.getItemsToOrder().subscribe((response) => this.rowData = response);}
+    if (filter) {this.api.getItems({'name': filter}).subscribe((response) => this.rowData = response);} else
+                {this.api.getItems().subscribe((response) => this.rowData = response);}
   }
 
   openModal() {

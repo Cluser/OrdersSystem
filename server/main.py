@@ -23,6 +23,7 @@ class Main:
 
     Db.session.add_all([book_author1, book_author2, book_author3, book_author4])
     Db.session.commit()
+
     api = Api()
 
 

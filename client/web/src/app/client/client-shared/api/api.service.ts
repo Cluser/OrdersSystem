@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IItemToOrder, IProject } from '../models/models';
+import { IClient, IDistributor, IItem, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ApiService {
   private apiUrl: string = 'http://127.0.0.1:8000'
   private clientsEndpointUrl: string = this.apiUrl + '/Clients'
   private projectsEndpointUrl: string = this.apiUrl + '/Projects'
-  private itemsToOrderEndpointUrl: string = this.apiUrl + '/ItemsToOrder'
+  private ItemsEndpointUrl: string = this.apiUrl + '/Items'
   private distributorsEndpointUrl: string = this.apiUrl + '/Distributors'
 
   constructor(private httpClient: HttpClient) { 
@@ -61,20 +61,20 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // ITEMS TO ORDER
   ////////////////////////////////////////////////////////////
-  public getItemsToOrder(itemToOrder?: IItemToOrder): Observable<IItemToOrder[]> {
+  public getItems(Item?: IItem): Observable<IItem[]> {
     let params: any = {}
 
-    if (itemToOrder) { params = JSON.parse(JSON.stringify(itemToOrder)) }
+    if (Item) { params = JSON.parse(JSON.stringify(Item)) }
 
-    return this.httpClient.get<IItemToOrder[]>(this.itemsToOrderEndpointUrl, {params: params});
+    return this.httpClient.get<IItem[]>(this.ItemsEndpointUrl, {params: params});
   }
 
-  public addItemsToOrder(itemToOrder?: IItemToOrder): Observable<IItemToOrder[]> {
+  public addItems(Item?: IItem): Observable<IItem[]> {
     let params: any = {}
 
-    if (itemToOrder) { params = JSON.parse(JSON.stringify(itemToOrder)) }
+    if (Item) { params = JSON.parse(JSON.stringify(Item)) }
 
-    return this.httpClient.post<IItemToOrder[]>(this.itemsToOrderEndpointUrl, params);
+    return this.httpClient.post<IItem[]>(this.ItemsEndpointUrl, params);
   }
 
 

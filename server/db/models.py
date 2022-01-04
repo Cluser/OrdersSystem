@@ -21,7 +21,7 @@ class Project(Db.Base):
     idClient = Column(Integer, ForeignKey('clients.id'))
 
     name = Column(String)
-    ItemToOrder = relationship("ItemToOrder")
+    Item = relationship("Item")
     client = relationship("Client", viewonly=True)
 
     def __init__(self, idClient, name):
@@ -47,7 +47,6 @@ class Distributor(Db.Base):
     address = Column(String)
     phone = Column(String)
 
-    itemToOrder = relationship('ItemToOrder')
     inquiry = relationship("Inquiry")
 
     def __init__(self, name, address, phone):
@@ -55,26 +54,25 @@ class Distributor(Db.Base):
         self.address = address
         self.phone = phone
 
-class ItemToOrderInquiry(Db.Base):
-    __tablename__ = 'itemsToOrder_inquiries'
-    itemToOrder_id = Column(ForeignKey('itemsToOrder.id'), primary_key=True)
+class ItemInquiry(Db.Base):
+    __tablename__ = 'Items_inquiries'
+    Item_id = Column(ForeignKey('Items.id'), primary_key=True)
     inquiry_id = Column(ForeignKey('inquiries.id'), primary_key=True)
     price = Column(Integer, nullable=False)
-    itemToOrder = relationship('ItemToOrder', back_populates="inquiries")
-    inquiry = relationship('Inquiry', back_populates="itemsToOrder")
+    Item = relationship('Item', back_populates="inquiries")
+    inquiry = relationship('Inquiry', back_populates="Items")
 
-class ItemToOrder(Db.Base):
-    __tablename__ = 'itemsToOrder'
+class Item(Db.Base):
+    __tablename__ = 'Items'
     id = Column(Integer, primary_key=True)
     idProject = Column(Integer, ForeignKey('projects.id'))
-    idDistributor = Column(Integer, ForeignKey('distributors.id'))
 
     name = Column(String, nullable = False, unique = True)
     quantity = Column(Integer)
     status = Column(String)
     project = relationship("Project", lazy = "joined", viewonly=True)
-    distributor = relationship("Distributor", lazy = "joined", viewonly=True)
-    inquiries = relationship('ItemToOrderInquiry', back_populates="itemToOrder")
+
+    inquiries = relationship('ItemInquiry', back_populates="Item")
 
     def __init__(self, idProject, idDistributor, name, quantity, status):
         self.idProject = idProject
@@ -90,13 +88,12 @@ class Inquiry(Db.Base):
 
     dateAndTime = Column(String)
 
-    distributor = relationship("Distributor", lazy = "joined", viewonly=True)
-    itemsToOrder = relationship('ItemToOrderInquiry', back_populates="inquiry")
+    distributor = relationship("Distributor", back_populates="inquiry")
+    Items = relationship('ItemInquiry', back_populates="inquiry")
 
     def __init__(self, idDistributor, dateAndTime):
         self.idDistributor = idDistributor
         self.dateAndTime = dateAndTime
-
 
 class BookAuthor(Db.Base):
     __tablename__ = 'book_authors'
