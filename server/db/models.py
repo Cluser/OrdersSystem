@@ -59,6 +59,7 @@ class ItemInquiry(Db.Base):
     Item_id = Column(ForeignKey('Items.id'), primary_key=True)
     inquiry_id = Column(ForeignKey('inquiries.id'), primary_key=True)
     price = Column(Integer, nullable=False)
+    status = Column(String, nullable=False)
     item = relationship('Item', back_populates="inquiries")
     inquiry = relationship('Inquiry', back_populates="items")
 

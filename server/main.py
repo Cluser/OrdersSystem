@@ -29,8 +29,8 @@ class Main:
     ]
 
     itemInquiry = [
-        ItemInquiry(Item_id = 1, inquiry_id = 1, price = 150),
-        ItemInquiry(Item_id = 2, inquiry_id = 1, price = 150)
+        ItemInquiry(Item_id = 1, inquiry_id = 1, price = 150, status = "Do zamówienia"),
+        ItemInquiry(Item_id = 2, inquiry_id = 1, price = 150, status = "Do zamówienia")
     ]
 
     Db.session.add_all(client)

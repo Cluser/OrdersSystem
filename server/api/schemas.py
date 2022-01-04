@@ -50,6 +50,7 @@ class ItemInquiry(BaseModel):
     distributor: Distributor
     dateAndTime: str
     price: str
+    status: str
 
     class Config:
         orm_mode = True
@@ -80,6 +81,7 @@ class InquiryItem(BaseModel):
     status: str
     project: Project
     price: int
+    status: str
 
     class Config:
         orm_mode = True
