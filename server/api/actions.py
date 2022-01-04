@@ -137,7 +137,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
 
-        inquiries = Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.Items)).filter(and_(*filters)).all()
+        inquiries = Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items)).filter(and_(*filters)).all()
         Inquiries = []
         for inquiry in inquiries:
             Inquiries.append(schemas.Inquiry.from_orm(inquiry))

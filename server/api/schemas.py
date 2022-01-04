@@ -40,12 +40,13 @@ class Distributor(BaseModel):
 
 class ItemInquiryGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'distributor', 'dateAndTime'}:
-            return getattr(self._obj.inquiries, key)
+        if key in {'id', 'distributor', 'dateAndTime'}:
+            return getattr(self._obj.inquiry, key)
         else:
             return super(ItemInquiryGetter, self).get(key, default)
 
 class ItemInquiry(BaseModel):
+    id: int
     distributor: Distributor
     dateAndTime: str
     price: str
@@ -59,7 +60,7 @@ class Item(BaseModel):
     name: str
     quantity: int
     status: str
-    idProject: int
+    project: Project
     inquiries: List[ItemInquiry]
 
     class Config:
@@ -67,16 +68,16 @@ class Item(BaseModel):
 
 class InquiryItemGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'name', 'quantity', 'status', 'idProject', 'project'}:
-            return getattr(self._obj.Item, key)
+        if key in {'id', 'name', 'quantity', 'status', 'project'}:
+            return getattr(self._obj.item, key)
         else:
             return super(InquiryItemGetter, self).get(key, default)
 
 class InquiryItem(BaseModel):
+    id: int
     name: str
     quantity: int
     status: str
-    idProject: int
     project: Project
     price: int
 
@@ -85,9 +86,10 @@ class InquiryItem(BaseModel):
         getter_dict = InquiryItemGetter
 
 class Inquiry(BaseModel):
+    id: int
     distributor: Distributor
     dateAndTime: str
-    Items: List[InquiryItem]
+    items: List[InquiryItem]
 
     class Config:
         orm_mode = True
