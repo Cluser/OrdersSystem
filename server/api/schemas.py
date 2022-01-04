@@ -40,18 +40,19 @@ class Distributor(BaseModel):
 
 class ItemInquiryGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'distributor', 'dateAndTime', 'inquiriedBy'}:
+        if key in {'id', 'user', 'distributor', 'dateAndTime', 'inquiriedBy'}:
             return getattr(self._obj.inquiry, key)
         else:
             return super(ItemInquiryGetter, self).get(key, default)
 
 class ItemInquiry(BaseModel):
     id: int
+    user: User
     distributor: Distributor
     dateAndTime: str
     inquiriedBy: str
     quantity: int
-    price: str
+    price: float
     status: str
 
     class Config:
@@ -60,7 +61,7 @@ class ItemInquiry(BaseModel):
 
 class ItemOrderGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'distributor', 'dateAndTime', 'orderedBy'}:
+        if key in {'id', 'user', 'distributor', 'dateAndTime', 'orderedBy'}:
             return getattr(self._obj.order, key)
         else:
             return super(ItemOrderGetter, self).get(key, default)
@@ -68,11 +69,12 @@ class ItemOrderGetter(GetterDict):
 
 class ItemOrder(BaseModel):
     id: int
+    user: User
     distributor: Distributor
     dateAndTime: str
     orderedBy: str
     quantity: int
-    price: str
+    price: float
     status: str
 
     class Config:
@@ -92,7 +94,7 @@ class OrderItem(BaseModel):
     quantity: int
     status: str
     project: Project
-    price: int
+    price: float
     status: str
 
     class Config:
@@ -124,7 +126,7 @@ class InquiryItem(BaseModel):
     quantity: int
     status: str
     project: Project
-    price: int
+    price: float
     status: str
 
     class Config:
@@ -133,6 +135,7 @@ class InquiryItem(BaseModel):
 
 class Inquiry(BaseModel):
     id: int
+    user: User
     distributor: Distributor
     dateAndTime: str
     inquiriedBy: str
@@ -143,6 +146,7 @@ class Inquiry(BaseModel):
 
 class Order(BaseModel):
     id: int
+    user: User
     distributor: Distributor
     dateAndTime: str
     orderedBy: str

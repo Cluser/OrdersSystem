@@ -15,6 +15,10 @@ class Main:
         Project(name = "Project 2", idClient = 1)
     ]
 
+    user = [
+        User(name = "User 1", surname = "User 1 surname")
+    ]
+
     item = [        
         Item(name = "Item 1", idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
         Item(name = "Item 2", idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status"),
@@ -27,25 +31,26 @@ class Main:
     ]
 
     inquiry = [
-        Inquiry(idDistributor = 1, dateAndTime = "04.02.2021", inquiriedBy = "User 1")
+        Inquiry(idUser = 1, idDistributor = 1, dateAndTime = "04.02.2021", inquiriedBy = "User 1")
     ]
 
     order = [
-        Order(idDistributor = 1, dateAndTime = "04.02.2021", orderedBy = "User 1")
+        Order(idUser = 1, idDistributor = 1, dateAndTime = "04.02.2021", orderedBy = "User 1")
     ]
 
     itemInquiry = [
-        ItemInquiry(Item_id = 1, inquiry_id = 1, quantity= 3, price = 150, status = "Do zamówienia"),
-        ItemInquiry(Item_id = 2, inquiry_id = 1, quantity= 2, price = 150, status = "Do zamówienia")
+        ItemInquiry(Item_id = 1, inquiry_id = 1, quantity= 3, price = 150.99, status = "Do zamówienia"),
+        ItemInquiry(Item_id = 2, inquiry_id = 1, quantity= 2, price = 170.99, status = "Do zamówienia")
     ]
 
     itemOrder = [
-        ItemOrder(Item_id = 1, order_id = 1, quantity= 3, price = 150, status = "Zamówione"),
-        ItemOrder(Item_id = 2, order_id = 1, quantity= 2, price = 170, status = "Zamówione")
+        ItemOrder(Item_id = 1, order_id = 1, quantity= 3, price = 150.99, status = "Zamówione"),
+        ItemOrder(Item_id = 2, order_id = 1, quantity= 2, price = 170.99, status = "Zamówione")
     ]
 
     Db.session.add_all(client)
     Db.session.add_all(project)
+    Db.session.add_all(user)
     Db.session.add_all(item)
     Db.session.add_all(distributor)
     Db.session.add_all(inquiry)
