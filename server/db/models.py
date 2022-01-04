@@ -59,6 +59,7 @@ class ItemInquiry(Db.Base):
     __tablename__ = 'Items_inquiries'
     Item_id = Column(ForeignKey('Items.id'), primary_key=True)
     inquiry_id = Column(ForeignKey('inquiries.id'), primary_key=True)
+    quantity = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
     status = Column(String, nullable=False)
     item = relationship('Item', back_populates="inquiries")
@@ -68,6 +69,7 @@ class ItemOrder(Db.Base):
     __tablename__ = 'Items_orders'
     Item_id = Column(ForeignKey('Items.id'), primary_key=True)
     order_id = Column(ForeignKey('orders.id'), primary_key=True)
+    quantity = Column(Integer, nullable=False)
     price = Column(Integer, nullable=False)
     status = Column(String, nullable=False)
     item = relationship('Item', back_populates="orders")

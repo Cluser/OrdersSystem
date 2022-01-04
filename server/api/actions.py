@@ -132,8 +132,8 @@ async def delete(id: int):
     return {"Deleted id": id}
 
 @router.get("/Inquiries", tags=["Inquiries"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None) -> List[schemas.Inquiry]:
-        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, inquiriedBy: Optional[str] = None) -> List[schemas.Inquiry]:
+        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "inquiriedBy": dateAndTime}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
 
@@ -165,15 +165,15 @@ async def delete(id: int):
     return {"Deleted id": id}
 
 @router.get("/Orders", tags=["Orders"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None) -> List[schemas.Order]:
-        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, orderedBy: Optional[str] = None) -> List[schemas.Order]:
+        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "orderedBy": orderedBy}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
 
         orders = Db.session.query(models.Order).options(joinedload(models.Order.items)).filter(and_(*filters)).all()
         Orders = []
         for order in orders:
-            Orders.append(schemas.Inquiry.from_orm(order))
+            Orders.append(schemas.Order.from_orm(order))
 
         return Orders
 

@@ -50,6 +50,7 @@ class ItemInquiry(BaseModel):
     distributor: Distributor
     dateAndTime: str
     inquiriedBy: str
+    quantity: int
     price: str
     status: str
 
@@ -60,7 +61,7 @@ class ItemInquiry(BaseModel):
 class ItemOrderGetter(GetterDict):
     def get(self, key: str, default = None):
         if key in {'id', 'distributor', 'dateAndTime', 'orderedBy'}:
-            return getattr(self._obj.inquiry, key)
+            return getattr(self._obj.order, key)
         else:
             return super(ItemOrderGetter, self).get(key, default)
 
@@ -70,6 +71,7 @@ class ItemOrder(BaseModel):
     distributor: Distributor
     dateAndTime: str
     orderedBy: str
+    quantity: int
     price: str
     status: str
 
@@ -104,7 +106,7 @@ class Item(BaseModel):
     status: str
     project: Project
     inquiries: List[ItemInquiry]
-    orders: List[OrderItem]
+    orders: List[ItemOrder]
 
     class Config:
         orm_mode = True

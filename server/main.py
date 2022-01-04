@@ -35,13 +35,13 @@ class Main:
     ]
 
     itemInquiry = [
-        ItemInquiry(Item_id = 1, inquiry_id = 1, price = 150, status = "Do zamówienia"),
-        ItemInquiry(Item_id = 2, inquiry_id = 1, price = 150, status = "Do zamówienia")
+        ItemInquiry(Item_id = 1, inquiry_id = 1, quantity= 3, price = 150, status = "Do zamówienia"),
+        ItemInquiry(Item_id = 2, inquiry_id = 1, quantity= 2, price = 150, status = "Do zamówienia")
     ]
 
     itemOrder = [
-        ItemOrder(Item_id = 1, order_id = 1, price = 150, status = "Zamówione"),
-        ItemOrder(Item_id = 2, order_id = 1, price = 170, status = "Zamówione")
+        ItemOrder(Item_id = 1, order_id = 1, quantity= 3, price = 150, status = "Zamówione"),
+        ItemOrder(Item_id = 2, order_id = 1, quantity= 2, price = 170, status = "Zamówione")
     ]
 
     Db.session.add_all(client)
