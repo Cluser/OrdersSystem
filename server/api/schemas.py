@@ -106,6 +106,7 @@ class Item(BaseModel):
     name: str
     quantity: int
     status: str
+    user: User
     project: Project
     inquiries: List[ItemInquiry]
     orders: List[ItemOrder]

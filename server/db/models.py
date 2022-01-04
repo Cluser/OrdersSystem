@@ -36,6 +36,7 @@ class User(Db.Base):
     name = Column(String)
     surname = Column(String)
 
+    item = relationship("Item", back_populates="user")
     inquiry = relationship("Inquiry", back_populates="user")
     order = relationship("Order", back_populates="user")
 
@@ -84,17 +85,20 @@ class ItemOrder(Db.Base):
 class Item(Db.Base):
     __tablename__ = 'Items'
     id = Column(Integer, primary_key=True)
+    idUser = Column(Integer, ForeignKey('users.id'))
     idProject = Column(Integer, ForeignKey('projects.id'))
 
     name = Column(String, nullable = False)
     quantity = Column(Integer)
     status = Column(String)
-    project = relationship("Project", lazy = "joined", viewonly=True)
 
+    user = relationship("User", back_populates="item")
+    project = relationship("Project", lazy = "joined", viewonly=True)
     inquiries = relationship('ItemInquiry', back_populates="item")
     orders = relationship('ItemOrder', back_populates="item")
 
-    def __init__(self, idProject, idDistributor, name, quantity, status):
+    def __init__(self, idUser, idProject, idDistributor, name, quantity, status):
+        self.idUser = idUser
         self.idProject = idProject
         self.idDistributor = idDistributor
         self.name = name

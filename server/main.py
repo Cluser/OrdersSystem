@@ -20,9 +20,9 @@ class Main:
     ]
 
     item = [        
-        Item(name = "Item 1", idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
-        Item(name = "Item 2", idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status"),
-        Item(name = "Item 3", idProject = 1, idDistributor = 1, quantity = 6, status = "Item 3 status")
+        Item(name = "Item 1", idUser = 1, idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
+        Item(name = "Item 2", idUser = 1, idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status"),
+        Item(name = "Item 3", idUser = 1, idProject = 1, idDistributor = 1, quantity = 6, status = "Item 3 status")
     ]
 
     
