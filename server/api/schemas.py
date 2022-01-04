@@ -40,7 +40,7 @@ class Distributor(BaseModel):
 
 class ItemInquiryGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'distributor', 'dateAndTime'}:
+        if key in {'id', 'distributor', 'dateAndTime', 'inquiriedBy'}:
             return getattr(self._obj.inquiry, key)
         else:
             return super(ItemInquiryGetter, self).get(key, default)
@@ -49,6 +49,7 @@ class ItemInquiry(BaseModel):
     id: int
     distributor: Distributor
     dateAndTime: str
+    inquiriedBy: str
     price: str
     status: str
 
@@ -58,7 +59,7 @@ class ItemInquiry(BaseModel):
 
 class ItemOrderGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'distributor', 'dateAndTime'}:
+        if key in {'id', 'distributor', 'dateAndTime', 'orderedBy'}:
             return getattr(self._obj.inquiry, key)
         else:
             return super(ItemOrderGetter, self).get(key, default)
@@ -68,6 +69,7 @@ class ItemOrder(BaseModel):
     id: int
     distributor: Distributor
     dateAndTime: str
+    orderedBy: str
     price: str
     status: str
 
@@ -131,6 +133,7 @@ class Inquiry(BaseModel):
     id: int
     distributor: Distributor
     dateAndTime: str
+    inquiriedBy: str
     items: List[InquiryItem]
 
     class Config:
@@ -140,6 +143,7 @@ class Order(BaseModel):
     id: int
     distributor: Distributor
     dateAndTime: str
+    orderedBy: str
     items: List[OrderItem]
 
     class Config:

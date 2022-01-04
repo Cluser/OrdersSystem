@@ -100,13 +100,15 @@ class Inquiry(Db.Base):
     idDistributor = Column(Integer, ForeignKey('distributors.id'))
 
     dateAndTime = Column(String)
+    inquiriedBy = Column(String)
 
     distributor = relationship("Distributor", back_populates="inquiry")
     items = relationship('ItemInquiry', back_populates="inquiry")
 
-    def __init__(self, idDistributor, dateAndTime):
+    def __init__(self, idDistributor, dateAndTime, inquiriedBy):
         self.idDistributor = idDistributor
         self.dateAndTime = dateAndTime
+        self.inquiriedBy = inquiriedBy
 
 class Order(Db.Base):
     __tablename__ = 'orders'
@@ -114,13 +116,15 @@ class Order(Db.Base):
     idDistributor = Column(Integer, ForeignKey('distributors.id'))
 
     dateAndTime = Column(String)
+    orderedBy = Column(String)
 
     distributor = relationship("Distributor", back_populates="order")
     items = relationship('ItemOrder', back_populates="order")
 
-    def __init__(self, idDistributor, dateAndTime):
+    def __init__(self, idDistributor, dateAndTime, orderedBy):
         self.idDistributor = idDistributor
         self.dateAndTime = dateAndTime
+        self.orderedBy = orderedBy
 
 class BookAuthor(Db.Base):
     __tablename__ = 'book_authors'

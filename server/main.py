@@ -27,11 +27,11 @@ class Main:
     ]
 
     inquiry = [
-        Inquiry(idDistributor = 1, dateAndTime = "04.02.2021")
+        Inquiry(idDistributor = 1, dateAndTime = "04.02.2021", inquiriedBy = "User 1")
     ]
 
     order = [
-        Order(idDistributor = 1, dateAndTime = "04.02.2021")
+        Order(idDistributor = 1, dateAndTime = "04.02.2021", orderedBy = "User 1")
     ]
 
     itemInquiry = [
