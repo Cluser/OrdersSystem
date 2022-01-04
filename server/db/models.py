@@ -48,6 +48,7 @@ class Distributor(Db.Base):
     phone = Column(String)
 
     inquiry = relationship("Inquiry", back_populates="distributor")
+    order = relationship("Order", back_populates="distributor")
 
     def __init__(self, name, address, phone):
         self.name = name
@@ -63,6 +64,16 @@ class ItemInquiry(Db.Base):
     item = relationship('Item', back_populates="inquiries")
     inquiry = relationship('Inquiry', back_populates="items")
 
+class ItemOrder(Db.Base):
+    __tablename__ = 'Items_orders'
+    Item_id = Column(ForeignKey('Items.id'), primary_key=True)
+    order_id = Column(ForeignKey('orders.id'), primary_key=True)
+    price = Column(Integer, nullable=False)
+    status = Column(String, nullable=False)
+    item = relationship('Item', back_populates="orders")
+    order = relationship('Order', back_populates="items")
+
+
 class Item(Db.Base):
     __tablename__ = 'Items'
     id = Column(Integer, primary_key=True)
@@ -74,6 +85,7 @@ class Item(Db.Base):
     project = relationship("Project", lazy = "joined", viewonly=True)
 
     inquiries = relationship('ItemInquiry', back_populates="item")
+    orders = relationship('ItemOrder', back_populates="item")
 
     def __init__(self, idProject, idDistributor, name, quantity, status):
         self.idProject = idProject
@@ -91,6 +103,20 @@ class Inquiry(Db.Base):
 
     distributor = relationship("Distributor", back_populates="inquiry")
     items = relationship('ItemInquiry', back_populates="inquiry")
+
+    def __init__(self, idDistributor, dateAndTime):
+        self.idDistributor = idDistributor
+        self.dateAndTime = dateAndTime
+
+class Order(Db.Base):
+    __tablename__ = 'orders'
+    id = Column(Integer, primary_key=True)
+    idDistributor = Column(Integer, ForeignKey('distributors.id'))
+
+    dateAndTime = Column(String)
+
+    distributor = relationship("Distributor", back_populates="order")
+    items = relationship('ItemOrder', back_populates="order")
 
     def __init__(self, idDistributor, dateAndTime):
         self.idDistributor = idDistributor

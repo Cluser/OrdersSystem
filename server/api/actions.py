@@ -164,6 +164,19 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
+@router.get("/Orders", tags=["Orders"])
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None) -> List[schemas.Order]:
+        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime}
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
+
+        orders = Db.session.query(models.Order).options(joinedload(models.Order.items)).filter(and_(*filters)).all()
+        Orders = []
+        for order in orders:
+            Orders.append(schemas.Inquiry.from_orm(order))
+
+        return Orders
+
 
 # @router.get("/Books", tags=["Books"])
 # async def get():

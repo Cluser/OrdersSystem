@@ -56,6 +56,45 @@ class ItemInquiry(BaseModel):
         orm_mode = True
         getter_dict = ItemInquiryGetter
 
+class ItemOrderGetter(GetterDict):
+    def get(self, key: str, default = None):
+        if key in {'id', 'distributor', 'dateAndTime'}:
+            return getattr(self._obj.inquiry, key)
+        else:
+            return super(ItemOrderGetter, self).get(key, default)
+
+
+class ItemOrder(BaseModel):
+    id: int
+    distributor: Distributor
+    dateAndTime: str
+    price: str
+    status: str
+
+    class Config:
+        orm_mode = True
+        getter_dict = ItemOrderGetter
+
+class OrderItemGetter(GetterDict):
+    def get(self, key: str, default = None):
+        if key in {'id', 'name', 'quantity', 'status', 'project'}:
+            return getattr(self._obj.item, key)
+        else:
+            return super(OrderItemGetter, self).get(key, default)
+
+class OrderItem(BaseModel):
+    id: int
+    name: str
+    quantity: int
+    status: str
+    project: Project
+    price: int
+    status: str
+
+    class Config:
+        orm_mode = True
+        getter_dict = OrderItemGetter
+
 class Item(BaseModel):
     id: int
     name: str
@@ -63,6 +102,7 @@ class Item(BaseModel):
     status: str
     project: Project
     inquiries: List[ItemInquiry]
+    orders: List[OrderItem]
 
     class Config:
         orm_mode = True
@@ -92,6 +132,15 @@ class Inquiry(BaseModel):
     distributor: Distributor
     dateAndTime: str
     items: List[InquiryItem]
+
+    class Config:
+        orm_mode = True
+
+class Order(BaseModel):
+    id: int
+    distributor: Distributor
+    dateAndTime: str
+    items: List[OrderItem]
 
     class Config:
         orm_mode = True
