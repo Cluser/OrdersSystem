@@ -1,11 +1,13 @@
 from fastapi import Depends, APIRouter, Path, Query
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import contains_eager, joinedload
+from fastapi_pagination import Page, paginate
+from sqlalchemy.orm import joinedload
 from db.general import *
 from db import models
 from api import schemas
 from typing import List, Optional
-from sqlalchemy import and_, or_, not_
+from sqlalchemy import and_
+
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -67,7 +69,7 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-@router.get("/Items", tags=["Items to order"])
+@router.get("/Items", tags=["Items to order"], response_model=Page[schemas.Item])
 async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None) -> List[schemas.Item]:
         parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -78,7 +80,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, status: Opti
         for item in items:
             Items.append(schemas.Item.from_orm(item))
 
-        return Items
+        return paginate(Items)
 
 
 @router.post("/Items", tags=["Items to order"])

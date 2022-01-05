@@ -19,11 +19,15 @@ class Main:
         User(name = "User 1", surname = "User 1 surname")
     ]
 
-    item = [        
-        Item(name = "Item 1", idUser = 1, idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
-        Item(name = "Item 2", idUser = 1, idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status"),
-        Item(name = "Item 3", idUser = 1, idProject = 1, idDistributor = 1, quantity = 6, status = "Item 3 status")
-    ]
+    # item = [        
+    #     Item(name = "Item 1", idUser = 1, idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
+    #     Item(name = "Item 2", idUser = 1, idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status"),
+    #     Item(name = "Item 3", idUser = 1, idProject = 1, idDistributor = 1, quantity = 6, status = "Item 3 status")
+    # ]
+
+    item = []
+    for x in range(1, 1000):
+        item.append(Item(name = x, idUser = 1, idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"))
 
     
     distributor = [
@@ -62,6 +66,5 @@ class Main:
      
 
     api = Api()
-
 
 
