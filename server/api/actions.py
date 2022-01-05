@@ -13,13 +13,13 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-@router.get("/Clients", tags=["Clients"])
+@router.get("/Clients", tags=["Clients"], response_model=Page[schemas.Client])
 async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None) -> List[schemas.Client]:
         parameters = {"id": id, "name": name, "address": address}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Client, attribute) == value for attribute, value in selectedParameters.items()]
         Clients = Db.session.query(models.Client).filter(and_(*filters)).all()
-        return Clients
+        return paginate(Clients)
 
 @router.post("/Clients", tags=["Clients"])
 async def post(client: schemas.Client) -> schemas.Client:
@@ -41,13 +41,13 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-@router.get("/Projects", tags=["Projects"])
+@router.get("/Projects", tags=["Projects"], response_model=Page[schemas.Project])
 async def get(id: Optional[int] = None, name: Optional[str] = None, idClient: Optional[int] = None) -> List[schemas.Project]:
         parameters = {"id": id, "name": name, "idClient": idClient}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Project, attribute) == value for attribute, value in selectedParameters.items()]
         Projects = Db.session.query(models.Project).filter(and_(*filters)).all()
-        return Projects
+        return paginate(Projects)
 
 @router.post("/Projects", tags=["Projects"])
 async def post(project: schemas.Project) -> schemas.Project:
@@ -105,13 +105,13 @@ async def delete(id: int):
     return {"Deleted id": id}
     
 
-@router.get("/Distributors", tags=["Distributors"])
+@router.get("/Distributors", tags=["Distributors"], response_model=Page[schemas.Distributor])
 async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, phone: Optional[str] = None) -> List[schemas.Distributor]:
         parameters = {"id": id, "name": name, "address": address, 'phone': phone}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Distributor, attribute) == value for attribute, value in selectedParameters.items()]
         Distributors = Db.session.query(models.Distributor).filter(and_(*filters)).all()
-        return Distributors
+        return paginate(Distributors)
 
 @router.post("/Distributors", tags=["Distributors"])
 async def post(distributor: schemas.Distributor) -> schemas.Distributor:
@@ -133,7 +133,7 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-@router.get("/Inquiries", tags=["Inquiries"])
+@router.get("/Inquiries", tags=["Inquiries"], response_model=Page[schemas.Inquiry])
 async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, inquiriedBy: Optional[str] = None) -> List[schemas.Inquiry]:
         parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "inquiriedBy": dateAndTime}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -144,7 +144,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         for inquiry in inquiries:
             Inquiries.append(schemas.Inquiry.from_orm(inquiry))
 
-        return Inquiries
+        return paginate(Inquiries)
 
 @router.post("/Inquiries", tags=["Inquiries"])
 async def post(inquiry: schemas.Inquiry) -> schemas.Inquiry:
@@ -166,7 +166,7 @@ async def delete(id: int):
     Db.session.commit()
     return {"Deleted id": id}
 
-@router.get("/Orders", tags=["Orders"])
+@router.get("/Orders", tags=["Orders"], response_model=Page[schemas.Order])
 async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, orderedBy: Optional[str] = None) -> List[schemas.Order]:
         parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "orderedBy": orderedBy}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -177,7 +177,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         for order in orders:
             Orders.append(schemas.Order.from_orm(order))
 
-        return Orders
+        return paginate(Orders)
 
 
 # @router.get("/Books", tags=["Books"])
