@@ -63,8 +63,9 @@ class Distributor(Db.Base):
 
 class ItemInquiry(Db.Base):
     __tablename__ = 'Items_inquiries'
-    Item_id = Column(ForeignKey('Items.id'), primary_key=True)
-    inquiry_id = Column(ForeignKey('inquiries.id'), primary_key=True)
+    id = Column(Integer, primary_key=True)
+    Item_id = Column(ForeignKey('Items.id'))
+    inquiry_id = Column(ForeignKey('inquiries.id'))
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     status = Column(String, nullable=False)
@@ -73,8 +74,9 @@ class ItemInquiry(Db.Base):
 
 class ItemOrder(Db.Base):
     __tablename__ = 'Items_orders'
-    Item_id = Column(ForeignKey('Items.id'), primary_key=True)
-    order_id = Column(ForeignKey('orders.id'), primary_key=True)
+    id = Column(Integer, primary_key=True)
+    Item_id = Column(ForeignKey('Items.id'))
+    order_id = Column(ForeignKey('orders.id'))
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
     status = Column(String, nullable=False)

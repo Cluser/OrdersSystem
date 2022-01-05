@@ -66,7 +66,6 @@ class Main:
     Db.session.add_all(itemInquiry)
     Db.session.add_all(itemOrder)
     Db.session.commit()
-
      
 
     api = Api()

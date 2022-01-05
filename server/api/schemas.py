@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 from pydantic import BaseModel
 from pydantic.utils import GetterDict
 from sqlalchemy.sql.expression import null
@@ -95,7 +95,6 @@ class OrderItem(BaseModel):
     status: str
     project: Project
     price: float
-    status: str
 
     class Config:
         orm_mode = True

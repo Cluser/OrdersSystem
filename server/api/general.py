@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi_pagination import add_pagination
 from . import authentication, actions
 import uvicorn
 
@@ -31,7 +30,6 @@ class Api:
 
         api.include_router(authentication.router)
         api.include_router(actions.router)
-        add_pagination(api)
 
         uvicorn.run(api, host="0.0.0.0", port=8000)
 
