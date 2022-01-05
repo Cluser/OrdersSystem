@@ -2,12 +2,16 @@ from db.general import *
 from db.models import *
 from api.general import *
 
+from faker import Faker
+
 class Main:
     # Call modules
     db = Db()
 
+    faker = Faker()
+
     client = [
-        Client(name = "Client 1", address = "Client 1 address")
+        Client(name = faker.name(), address = faker.address())
     ]
 
     project = [
