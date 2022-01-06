@@ -15,13 +15,13 @@ import { ClientModalAddItemComponent } from '../client-shared/modals/client-moda
 export class ClientTableComponent implements OnInit {
 
   public columnDefs: ColDef[] = [
-    { checkboxSelection: true },
-    { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true },
-    { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true },
-    { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true }
+    { checkboxSelection: true, flex: 0.5 },
+    { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+    { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+    { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, editable: true, flex: 1 },
+    { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+    { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+    { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true, flex: 3 }
   ];
   public rowData: IItem[] = [];
   public pageSize: number = 1000
