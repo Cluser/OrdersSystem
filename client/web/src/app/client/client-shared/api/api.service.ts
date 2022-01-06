@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IItem, IProject } from '../models/models';
+import { IClient, IDistributor, IItem, IPItem, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -61,12 +61,16 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // ITEMS TO ORDER
   ////////////////////////////////////////////////////////////
-  public getItems(Item?: IItem): Observable<IItem[]> {
+  public getItems(Item?: IItem, page?: number, size?: number): Observable<IPItem> {
     let params: any = {}
 
-    if (Item) { params = JSON.parse(JSON.stringify(Item)) }
+    // if (Item) { params = JSON.parse(JSON.stringify(Item)) }
+    // if (Item) {
+      
+    // }
+    params = Object.assign(JSON.parse(JSON.stringify(Item)), {'page': page, 'size': size})
 
-    return this.httpClient.get<IItem[]>(this.ItemsEndpointUrl, {params: params});
+    return this.httpClient.get<IPItem>(this.ItemsEndpointUrl, {params: params});
   }
 
   public addItems(Item?: IItem): Observable<IItem[]> {

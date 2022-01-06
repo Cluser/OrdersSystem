@@ -24,8 +24,10 @@ export class ClientTableComponent implements OnInit {
     { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true }
   ];
   public rowData: IItem[] = [];
+  public pageSize: number = 1000
 
   public filter: string = '';
+    
 
 
   constructor(private api: ApiService, private modalService: NgbModal) { }
@@ -36,12 +38,12 @@ export class ClientTableComponent implements OnInit {
 
 
   public getItemsData(): void {
-    this.api.getItems().subscribe((response) => this.rowData = response);
+    this.api.getItems({}, 1, this.pageSize).subscribe((response: any) => this.rowData = response.items);
   }
 
   public search(filter: any): void {
-    if (filter) {this.api.getItems({'name': filter}).subscribe((response) => this.rowData = response);} else
-                {this.api.getItems().subscribe((response) => this.rowData = response);}
+    if (filter) {this.api.getItems({'name': filter}, 1, 1000).subscribe((response) => this.rowData = response.items);} else
+                {this.api.getItems().subscribe((response) => this.rowData = response.items);}
   }
 
   openModal() {
