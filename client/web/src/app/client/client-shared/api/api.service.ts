@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IItem, IPItem, IProject } from '../models/models';
+import { IClient, IDistributor, IItem, IPClient, IPDistributor, IPItem, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,11 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // CLIENTS
   ////////////////////////////////////////////////////////////
-  public getClients(client?: IClient): Observable<IClient[]> {
+  public getClients(client?: IClient, page?: number, size?: number): Observable<IPClient> {
     let params: any = {};
+    params = Object.assign(JSON.parse(JSON.stringify(client)), {'page': page, 'size': size})
 
-    if (client) { params = JSON.parse(JSON.stringify(client)) }
-
-    return this.httpClient.get<IClient[]>(this.clientsEndpointUrl, {params: params});
+    return this.httpClient.get<IPClient>(this.clientsEndpointUrl, {params: params});
   }
 
   public addClients(client?: IClient): Observable<IClient[]> {
@@ -41,12 +40,11 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // PROJECTS
   ////////////////////////////////////////////////////////////
-  public getProjects(project?: IProject): Observable<IProject[]> {
+  public getProjects(project?: IProject, page?: number, size?: number): Observable<IPProject> {
     let params: any = {}
+    params = Object.assign(JSON.parse(JSON.stringify(project)), {'page': page, 'size': size})
 
-    if (project) { params = JSON.parse(JSON.stringify(project)) }
-
-    return this.httpClient.get<IProject[]>(this.projectsEndpointUrl, {params: params});
+    return this.httpClient.get<IPProject>(this.projectsEndpointUrl, {params: params});
   }
 
   public addProjects(project?: IProject): Observable<IProject[]> {
@@ -63,11 +61,6 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   public getItems(Item?: IItem, page?: number, size?: number): Observable<IPItem> {
     let params: any = {}
-
-    // if (Item) { params = JSON.parse(JSON.stringify(Item)) }
-    // if (Item) {
-      
-    // }
     params = Object.assign(JSON.parse(JSON.stringify(Item)), {'page': page, 'size': size})
 
     return this.httpClient.get<IPItem>(this.ItemsEndpointUrl, {params: params});
@@ -85,11 +78,10 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // DISTRIBUTORS
   ////////////////////////////////////////////////////////////
-  public getDistributors(distributor?: IDistributor): Observable<IDistributor[]> {
+  public getDistributors(distributor?: IDistributor, page?: number, size?: number): Observable<IPDistributor> {
     let params: any = {}
+    params = Object.assign(JSON.parse(JSON.stringify(distributor)), {'page': page, 'size': size})
 
-    if (distributor) { params = JSON.parse(JSON.stringify(distributor)) }
-
-    return this.httpClient.get<IDistributor[]>(this.distributorsEndpointUrl, {params: params});
+    return this.httpClient.get<IPDistributor>(this.distributorsEndpointUrl, {params: params});
   }
 }

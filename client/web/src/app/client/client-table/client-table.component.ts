@@ -38,7 +38,7 @@ export class ClientTableComponent implements OnInit {
 
 
   public getItemsData(): void {
-    this.api.getItems({}, 1, this.pageSize).subscribe((response: any) => this.rowData = response.items);
+    this.api.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
   }
 
   public search(filter: any): void {

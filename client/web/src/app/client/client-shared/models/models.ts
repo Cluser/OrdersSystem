@@ -1,7 +1,28 @@
+export interface IPClient {
+    items: IClient[];
+    previous_page: number;
+    next_page: number;
+    has_previous: boolean;
+    has_next: boolean;
+    total: number;
+    pages: number;
+}
+
+
 export interface IClient {
     id?: number;
     name?: string;
     address?: string;
+}
+
+export interface IPProject {
+    items: IProject[];
+    previous_page: number;
+    next_page: number;
+    has_previous: boolean;
+    has_next: boolean;
+    total: number;
+    pages: number;
 }
 
 export interface IProject {
@@ -20,13 +41,6 @@ export interface IPItem {
     pages: number;
 }
 
-export interface IItemReq {
-    Item: IItem;
-    page: number;
-    size: number;
-}
-
-
 export interface IItem {
     id?: number;
     name?: string;
@@ -34,6 +48,16 @@ export interface IItem {
     status?: string;
     idProject?: number;
     idDistributor?: number;
+}
+
+export interface IPDistributor {
+    items: IDistributor[];
+    previous_page: number;
+    next_page: number;
+    has_previous: boolean;
+    has_next: boolean;
+    total: number;
+    pages: number;
 }
 
 export interface IDistributor {
