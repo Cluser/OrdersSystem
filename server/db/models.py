@@ -22,7 +22,7 @@ class Project(Db.Base):
     idClient = Column(Integer, ForeignKey('clients.id'))
 
     name = Column(String)
-    Item = relationship("Item")
+    item = relationship("Item")
     client = relationship("Client", viewonly=True)
 
     def __init__(self, idClient, name):
@@ -95,7 +95,7 @@ class Item(Db.Base):
     status = Column(String)
 
     user = relationship("User", back_populates="item")
-    project = relationship("Project", lazy = "joined", viewonly=True)
+    project = relationship("Project", back_populates="item")
     inquiries = relationship('ItemInquiry', back_populates="item")
     orders = relationship('ItemOrder', back_populates="item")
 

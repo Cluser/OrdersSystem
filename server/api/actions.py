@@ -1,6 +1,6 @@
 from fastapi import Depends, APIRouter, Path, Query
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
@@ -75,13 +75,17 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, status: Opti
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
-        items = paginate(Db.session.query(models.Item).options(joinedload(models.Item.inquiries)).filter(and_(*filters)), page, size)
-        
-        Items = []
-        for item in items.items:
-            Items.append(schemas.Item.from_orm(item))
+        items = paginate(Db.session.query(models.Item).options(joinedload(models.Item.user))
+                                                      .options(joinedload(models.Item.project))
+                                                      .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.user))
+                                                      .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.distributor))                                                   
+                                                      .filter(and_(*filters)), page, size)
 
-        return Items
+        # Items = []
+        # for item in items.items:
+        #     Items.append(schemas.Item.from_orm(item))
+
+        return items
 
 
 @router.post("/Items", tags=["Items to order"])
@@ -145,7 +149,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         for inquiry in inquiries.items:
             Inquiries.append(schemas.Inquiry.from_orm(inquiry))
 
-        return Inquiries
+        return inquiries
 
 @router.post("/Inquiries", tags=["Inquiries"])
 async def post(inquiry: schemas.Inquiry) -> schemas.Inquiry:
@@ -173,13 +177,17 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
 
-        orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items)).filter(and_(*filters)), page, size)
-        # orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items), joinedload(models.Order.user), joinedload(models.Order.distributor)).filter(and_(*filters)), page, size)
-        Orders = []
-        for order in orders.items:
-            Orders.append(schemas.Order.from_orm(order))
+        # orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items)).filter(and_(*filters)), page, size)
+        orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items).joinedload(models.ItemOrder.item))
+                                                        .options(joinedload(models.Order.user))
+                                                        .options(joinedload(models.Order.distributor))
+                                                        .filter(and_(*filters)), page, size)
+        # orders = paginate(Db.session.query(models.Order), page, size)
+        # Orders = []
+        # for order in orders.items:
+        #     Orders.append(schemas.Order.from_orm(order))
 
-        return Orders
+        return orders
 
 @router.post("/OrdersItems", tags=["OrdersItems"])
 async def post(orderItem: schemas.OrderItem):
