@@ -24,11 +24,5 @@
       <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
     </select>
 
-    <label for="distributor">Dystrybutor</label>
-    <select id="distributor" class="form-control" [(ngModel)]="this.item.idDistributor">
-      <option selected>Wybierz dystrybutora</option>
-      <option *ngFor="let distributor of distributors" [value]="distributor.id">{{distributor.name}}</option>
-    </select>
-
     <button (click)="addItem(this.item)" type="submit" class="btn btn-primary w-100">Dodaj przedmiot</button>
 </div>
