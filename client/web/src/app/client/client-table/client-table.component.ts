@@ -19,7 +19,7 @@ export class ClientTableComponent implements OnInit {
   public pageSize: number = 1000
 
   public filter: string = '';
-  public selectedMenu: string = 'items';
+  public selectedMenu: string = 'Items';
     
 
 

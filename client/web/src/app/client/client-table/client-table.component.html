@@ -1,8 +1,8 @@
 <div class="client-table-section">
     <div class="menu">
-        <button class="btn-upper-menu" (click)="selectMenu('Items')">Zapotrzebowanie</button>
-        <button class="btn-upper-menu" (click)="selectMenu('Inquiries')">Zapytania ofertowe</button>
-        <button class="btn-upper-menu" (click)="selectMenu('Orders')">Zamówienia</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Items','btn-upper-menu': selectedMenu!=='Items'}" (click)="selectMenu('Items')">Zapotrzebowanie</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Inquiries','btn-upper-menu': selectedMenu!=='Inquiries'}" (click)="selectMenu('Inquiries')" (click)="selectMenu('Inquiries')">Zapytania ofertowe</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Orders','btn-upper-menu': selectedMenu!=='Orders'}" (click)="selectMenu('Orders')" (click)="selectMenu('Orders')">Zamówienia</button>
         
     </div>
 
