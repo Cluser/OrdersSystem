@@ -52,6 +52,7 @@
 .btn-upper-menu-selected {
    @extend .btn-upper-menu;
    background-color: $secondary;
+   color: #00ADB5;
 }
 
 
@@ -71,3 +72,4 @@
    font-size: 12px;
    border-radius: 28px;
 }
+

@@ -4,6 +4,7 @@ import { ApiService } from '../client-shared/api/api.service';
 import { IItem } from '../client-shared/models/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
+import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 
 
 
@@ -29,6 +30,9 @@ export class ClientTableComponent implements OnInit {
     this.getItemsData();
   }
 
+  public test(event: any) {
+    console.log(event);
+  }
 
   public getItemsData(): void {
     this.api.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
@@ -84,11 +88,20 @@ export class ClientTableComponent implements OnInit {
     }
   }
 
-  openModal() {
+  openAddItemModal() {
     const modalRef = this.modalService.open(ClientModalAddItemComponent);
     modalRef.componentInstance.itemAdded.subscribe(() => {
       this.modalService.dismissAll();
       this.getItemsData();
     })
  }
+
+  openEditItemModal(item: IItem) {
+    const modalRef = this.modalService.open(ClientModalEditItemComponent);
+    modalRef.componentInstance.item = item;
+    modalRef.componentInstance.itemEdited.subscribe(() => {
+      this.modalService.dismissAll();
+      this.getItemsData();
+    })
+  }
 }

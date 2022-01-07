@@ -7,8 +7,7 @@
     </div>
 
     <div class="lower-menu">
-        <button class="btn-lower-menu" (click)="openModal()">Dodaj</button>
-
+        <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj</button>
         <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
     </div>
 
@@ -21,7 +20,8 @@
             [pagination]="false"
             [paginationPageSize]="pageSize"
             [rowSelection]="'multiple'"
-            [suppressRowDeselection]="true">
+            [suppressRowDeselection]="true"
+            (rowDoubleClicked)="openEditItemModal($event.data)">
         </ag-grid-angular>
     </div>
 </div>

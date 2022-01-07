@@ -11,6 +11,7 @@ import { ClientMenuLeftComponent } from './client-menu-left/client-menu-left.com
 import { ClientMenuRightComponent } from './client-menu-right/client-menu-right.component';
 import { ClientMenuLeftDetailsComponent } from './client-menu-left-details/client-menu-left-details.component';
 import { ClientModalAddItemComponent } from './client-shared/modals/client-modal-add-item/client-modal-add-item.component';
+import { ClientModalEditItemComponent } from './client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 
 
 
@@ -21,7 +22,8 @@ import { ClientModalAddItemComponent } from './client-shared/modals/client-modal
     ClientMenuLeftComponent,
     ClientMenuRightComponent,
     ClientMenuLeftDetailsComponent,
-    ClientModalAddItemComponent
+    ClientModalAddItemComponent,
+    ClientModalEditItemComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { ClientModalAddItemComponent } from './client-shared/modals/client-modal
     AgGridModule.withComponents([])
   ],
   entryComponents: [
-    ClientModalAddItemComponent
+    ClientModalAddItemComponent,
+    ClientModalEditItemComponent
   ]
 })
 export class ClientModule { }
