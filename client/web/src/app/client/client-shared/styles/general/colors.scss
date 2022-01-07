@@ -1,0 +1,47 @@
+/*
+***********************************************************************
+*** Colors
+***********************************************************************
+*/
+
+// Neutral colors
+$neutralTheDarkest: #242424;
+$neutralDarkMedium: #838383;
+$neutralDark: #292929;
+$neutralLight: #383838;
+$neutralTheLightest: #e9e9e9;
+
+$neutralDarkMediumHover: #a3a3a3;
+
+// Primmary colors
+$primary: #222831;
+
+// Secondary colors
+$secondary: #393E46;
+
+// Accent colors
+$accentGood: #40c42f;
+$accentGoodHover: #40d82c;
+$accentGoodDisabled: #397731;
+
+$accentAttention: #eeeb29;
+$accentAttentionHover: #fffb2c; 
+$accentAttentionDisabled: #c4c13c; 
+
+$accentCritical:#e02932;
+$accentCriticalHover: #ff2c37;
+$accentCriticalDisabled: #a02d33;
+
+$accentNormal: #1520c4;
+$accentNormalHover: #1926da;
+$accentNormalDisabled: #2e3596;
+
+// Opacity
+$lowOpacity: 0.2;
+$mediumOpacity: 0.5;
+$highOpacity: 0.7;
+
+
+// Menu colors
+$menuUpperBgColor: $primary;
+$menuLowerBgColor: $secondary;
