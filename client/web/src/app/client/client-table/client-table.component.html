@@ -1,8 +1,14 @@
 <div class="client-table-section">
     <div class="menu">
-        <div class="button" (click)="openModal()">
-            Dodaj
-        </div>
+        <button class="button-upper" (click)="openModal()">Do zamówienia</button>
+        <button class="button-upper" (click)="openModal()">Zapytania ofertowe</button>
+        <button class="button-upper" (click)="openModal()">Zamówienia</button>
+        
+    </div>
+
+    <div class="lower-menu">
+        <button class="button" (click)="openModal()">Dodaj</button>
+
         <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
     </div>
 
