@@ -1,13 +1,13 @@
 <div class="client-table-section">
     <div class="menu">
-        <button class="btn-confirmation" (click)="selectMenu('Items')">Do zamówienia</button>
-        <button class="button-upper" (click)="selectMenu('Requests')">Zapytania ofertowe</button>
-        <button class="button-upper" (click)="selectMenu('Orders')">Zamówienia</button>
+        <button class="btn-upper-menu" (click)="selectMenu('Items')">Zapotrzebowanie</button>
+        <button class="btn-upper-menu" (click)="selectMenu('Inquiries')">Zapytania ofertowe</button>
+        <button class="btn-upper-menu" (click)="selectMenu('Orders')">Zamówienia</button>
         
     </div>
 
     <div class="lower-menu">
-        <button class="button" (click)="openModal()">Dodaj</button>
+        <button class="btn-lower-menu" (click)="openModal()">Dodaj</button>
 
         <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
     </div>
@@ -19,7 +19,9 @@
             [rowData]="rowData"
             [columnDefs]="columnDefs"
             [pagination]="false"
-            [paginationPageSize]="pageSize">
+            [paginationPageSize]="pageSize"
+            [rowSelection]="'multiple'"
+            [suppressRowDeselection]="true">
         </ag-grid-angular>
     </div>
 </div>

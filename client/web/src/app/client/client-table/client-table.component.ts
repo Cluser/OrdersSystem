@@ -14,16 +14,8 @@ import { ClientModalAddItemComponent } from '../client-shared/modals/client-moda
 })
 export class ClientTableComponent implements OnInit {
 
-  public columnDefs: ColDef[] = [
-    { checkboxSelection: true, flex: 0.5 },
-    { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
-    { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-    { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, editable: true, flex: 1 },
-    { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-    { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-    { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true, flex: 3 }
-  ];
-  public rowData: IItem[] = [];
+  public columnDefs: ColDef[] = []
+  public rowData: any[] = [];
   public pageSize: number = 1000
 
   public filter: string = '';
@@ -40,6 +32,34 @@ export class ClientTableComponent implements OnInit {
 
   public getItemsData(): void {
     this.api.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.columnDefs = [
+      { checkboxSelection: true, flex: 0.5 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, editable: true, flex: 1 },
+      { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+    ];
+  }
+
+  public getInquiriesData(): void {
+    this.api.getInquiries({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.columnDefs = [
+      { checkboxSelection: true, flex: 0.5 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+    ];
+  }
+
+  public getOrdersData(): void {
+    this.api.getOrders({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.columnDefs = [
+      { checkboxSelection: true, flex: 0.5 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+    ];
   }
 
   public search(filter: any): void {
@@ -49,6 +69,19 @@ export class ClientTableComponent implements OnInit {
 
   public selectMenu(menu: string) {
     this.selectedMenu = menu;
+
+    switch (this.selectedMenu) {
+      case 'Items':
+        this.getItemsData();
+        break;
+      case 'Inquiries':
+        this.getInquiriesData();
+        break;
+      case 'Orders':
+        this.getOrdersData();
+        break;
+
+    }
   }
 
   openModal() {
