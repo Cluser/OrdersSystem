@@ -27,6 +27,7 @@ export class ClientTableComponent implements OnInit {
   public pageSize: number = 1000
 
   public filter: string = '';
+  public selectedMenu: string = 'items';
     
 
 
@@ -44,6 +45,10 @@ export class ClientTableComponent implements OnInit {
   public search(filter: any): void {
     if (filter) {this.api.getItems({'name': filter}, 1, 1000).subscribe((response) => this.rowData = response.items);} else
                 {this.api.getItems().subscribe((response) => this.rowData = response.items);}
+  }
+
+  public selectMenu(menu: string) {
+    this.selectedMenu = menu;
   }
 
   openModal() {
