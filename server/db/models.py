@@ -99,10 +99,9 @@ class Item(Db.Base):
     inquiries = relationship('ItemInquiry', back_populates="item")
     orders = relationship('ItemOrder', back_populates="item")
 
-    def __init__(self, idUser, idProject, idDistributor, name, quantity, status):
+    def __init__(self, idUser, idProject, name, quantity, status):
         self.idUser = idUser
         self.idProject = idProject
-        self.idDistributor = idDistributor
         self.name = name
         self.quantity = quantity
         self.status = status

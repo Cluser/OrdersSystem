@@ -12,21 +12,33 @@ class Client(BaseModel):
     class Config:
         orm_mode = True
 
+class ClientCreate(BaseModel):
+    name: str
+    address: str
+
 class Project(BaseModel):
     id: int
     name: str 
-    # idClient: int
 
     class Config:
         orm_mode = True
 
+class ProjectCreate(BaseModel):
+    name: str 
+    idClient: int
+
 class User(BaseModel):
-    id: str
+    id: int
     name: str
     surname: str
 
     class Config:
         orm_mode = True
+
+class UserCreate(BaseModel):
+    name: str
+    surname: str
+
 
 class Distributor(BaseModel):
     id: str
@@ -36,6 +48,11 @@ class Distributor(BaseModel):
 
     class Config:
         orm_mode = True
+
+class DistributorCreate(BaseModel):
+    name: str
+    address: str
+    phone: str
 
 
 class ItemInquiryGetter(GetterDict):
@@ -100,6 +117,13 @@ class OrderItem(BaseModel):
         orm_mode = True
         getter_dict = OrderItemGetter
 
+class OrderItemCreate(BaseModel):
+    Item_id: int
+    order_id: int
+    quantity: int
+    price: float
+    status: str
+
 class Item(BaseModel):
     id: int
     name: str
@@ -112,6 +136,21 @@ class Item(BaseModel):
 
     class Config:
         orm_mode = True
+
+class ItemCreate(BaseModel):
+    name: str
+    quantity: int
+    status: str
+    idUser: int
+    idProject: int
+
+class ItemEdit(BaseModel):
+    id: int
+    name: str
+    quantity: int
+    status: str
+    idUser: int
+    idProject: int
 
 class InquiryItemGetter(GetterDict):
     def get(self, key: str, default = None):
@@ -144,6 +183,12 @@ class Inquiry(BaseModel):
     class Config:
         orm_mode = True
 
+class InquiryCreate(BaseModel):
+    idUser: int
+    idDistributor: int
+    dateAndTime: str
+    inquiriedBy: str
+
 class Order(BaseModel):
     id: int
     user: User
@@ -155,57 +200,9 @@ class Order(BaseModel):
     class Config:
         orm_mode = True
 
-
-class BookAuthorGetter(GetterDict):
-    def get(self, key: str, default = None):
-        if key in {'id', 'name'}:
-            return getattr(self._obj.author, key)
-        else:
-            return super(BookAuthorGetter, self).get(key, default)
-
-
-class BookAuthorSchema(BaseModel):
-    id: int
-    name: str
-    blurb: str
-
-    class Config:
-        orm_mode = True
-        getter_dict = BookAuthorGetter
-
-
-class BookSchema(BaseModel):
-    id: int
-    title: str
-    authors: List[BookAuthorSchema]
-
-    class Config:
-        orm_mode = True
-
-
-class AuthorBookGetter(GetterDict):
-    def get(self, key: str, default = None):
-        if key in {'id', 'title'}:
-            return getattr(self._obj.book, key)
-        else:
-            return super(AuthorBookGetter, self).get(key, default)
-
-
-class AuthorBookSchema(BaseModel):
-    id: int
-    title: str
-    blurb: str
-
-    class Config:
-        orm_mode = True
-        getter_dict = AuthorBookGetter
-
-
-class AuthorSchema(BaseModel):
-    id: int
-    name: str
-    books: List[AuthorBookSchema]
-
-    class Config:
-        orm_mode = True
+class OrderCreate(BaseModel):
+    idUser: int
+    idDistributor: int
+    dateAndTime: str
+    orderedBy: str
 

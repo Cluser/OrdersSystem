@@ -47,7 +47,30 @@ export interface IItem {
     quantity?: number;
     status?: string;
     idProject?: number;
+    idUser?: number;
+    user?: IUser;
+    project?: IProject;
+    inquiries?: IInquiry[];
+    orders?: IOrder[];
+}
+
+export interface IItemCreate {
+    name?: string;
+    quantity?: number;
+    status?: string;
+    idProject?: number;
     idDistributor?: number;
+    idUser?: number;
+}
+
+export interface IItemEdit {
+    id: number;
+    name?: string;
+    quantity?: number;
+    status?: string;
+    idProject?: number;
+    idDistributor?: number;
+    idUser?: number;
 }
 
 export interface IPDistributor {

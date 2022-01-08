@@ -39,10 +39,10 @@ export class ClientTableComponent implements OnInit {
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, editable: true, flex: 1 },
-      { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
   }
 
@@ -51,8 +51,8 @@ export class ClientTableComponent implements OnInit {
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
   }
 
@@ -61,8 +61,8 @@ export class ClientTableComponent implements OnInit {
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
-      { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, editable: true, flex: 3 },
+      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
   }
 

@@ -22,7 +22,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, address: Opt
         return Clients
 
 @router.post("/Clients", tags=["Clients"])
-async def post(client: schemas.Client) -> schemas.Client:
+async def post(client: schemas.ClientCreate) -> schemas.Client:
     client = models.Client(**client.dict())
     Db.session.add(client)
     Db.session.commit()
@@ -30,7 +30,7 @@ async def post(client: schemas.Client) -> schemas.Client:
     return client
 
 @router.put("/Clients/{id}", tags=["Clients"])
-async def put(id: int, client: schemas.Client) -> schemas.Client:
+async def put(id: int, client: schemas.ClientCreate) -> schemas.Client:
     Db.session.query(models.Client).filter(models.Client.id == id).update({**client.dict()}, synchronize_session = False)
     Db.session.commit()
     return client
@@ -50,7 +50,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, idClient: Op
         return Projects
 
 @router.post("/Projects", tags=["Projects"])
-async def post(project: schemas.Project) -> schemas.Project:
+async def post(project: schemas.ProjectCreate) -> schemas.Project:
     project = models.Project(**project.dict())
     Db.session.add(project)
     Db.session.commit()
@@ -58,7 +58,7 @@ async def post(project: schemas.Project) -> schemas.Project:
     return project
 
 @router.put("/Projects/{id}", tags=["Projects"])
-async def put(id: int, project: schemas.Project) -> schemas.Project:
+async def put(id: int, project: schemas.ProjectCreate) -> schemas.Project:
     Db.session.query(models.Project).filter(models.Project.id == id).update({**project.dict()}, synchronize_session = False)
     Db.session.commit()
     return project
@@ -89,16 +89,22 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, status: Opti
 
 
 @router.post("/Items", tags=["Items to order"])
-async def post(Item: schemas.Item) -> schemas.Item:
+async def post(Item: schemas.ItemCreate) -> schemas.Item:
     Item = models.Item(**Item.dict())
     Db.session.add(Item)
     Db.session.commit()
     return Item
 
 
-@router.put("/Items/{id}", tags=["Items to order"])
-async def put(id: int, Item: schemas.Item) -> schemas.Item:
-    Db.session.query(models.Item).filter(models.Item.id == id).update({**Item.dict()}, synchronize_session = False)
+@router.put("/Items", tags=["Items to order"])
+async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
+    Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
+        'name': Item.name,
+        'quantity': Item.quantity,
+        'status': Item.status,
+        'idUser': Item.idUser,
+        'idProject': Item.idProject
+    }, synchronize_session = False)
     Db.session.commit()
     return Item
 
@@ -119,7 +125,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, address: Opt
         return Distributors
 
 @router.post("/Distributors", tags=["Distributors"])
-async def post(distributor: schemas.Distributor) -> schemas.Distributor:
+async def post(distributor: schemas.DistributorCreate) -> schemas.Distributor:
     distributor = models.Distributor(**distributor.dict())
     Db.session.add(distributor)
     Db.session.commit()
@@ -152,7 +158,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         return inquiries
 
 @router.post("/Inquiries", tags=["Inquiries"])
-async def post(inquiry: schemas.Inquiry) -> schemas.Inquiry:
+async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
     inquiry = models.Inquiry(**inquiry.dict())
     Db.session.add(inquiry)
     Db.session.commit()
@@ -177,40 +183,29 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
 
-        # orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items)).filter(and_(*filters)), page, size)
         orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items).joinedload(models.ItemOrder.item))
                                                         .options(joinedload(models.Order.user))
                                                         .options(joinedload(models.Order.distributor))
                                                         .filter(and_(*filters)), page, size)
-        # orders = paginate(Db.session.query(models.Order), page, size)
-        # Orders = []
-        # for order in orders.items:
-        #     Orders.append(schemas.Order.from_orm(order))
+
 
         return orders
 
+@router.post("/Orders", tags=["Orders"])
+async def post(order: schemas.OrderCreate) -> schemas.Order:
+    order = models.Order(**order.dict())
+    Db.session.add(order)
+    Db.session.commit()
+    Db.session.refresh(order)
+    return order
+
 @router.post("/OrdersItems", tags=["OrdersItems"])
-async def post(orderItem: schemas.OrderItem):
+async def post(orderItem: schemas.OrderItemCreate):
     OrderItem = [
-        # models.ItemOrder(Item_id = orderItem.Item_id, order_id = orderItem.order_id, quantity = orderItem.quantity, price = orderItem.price, status = orderItem.status),
-        models.ItemOrder(Item_id = 1, order_id = 1, quantity = 5, price = 10, status = orderItem.status)
+        models.ItemOrder(Item_id = orderItem.Item_id, order_id = orderItem.order_id, quantity = orderItem.quantity, price = orderItem.price, status = orderItem.status),
+        # models.ItemOrder(Item_id = 1, order_id = 1, quantity = 5, price = 10, status = orderItem.status)
     ]
     Db.session.add_all(OrderItem)
     Db.session.commit()
     return OrderItem
 
-
-# @router.get("/Books", tags=["Books"])
-# async def get():
-#         db_book = Db.session.query(models.Book).options(joinedload(models.Book.authors)).where(models.Book.id == 1).one()
-#         schema_book = schemas.BookSchema.from_orm(db_book)
-#         print(schema_book.json())
-#         return schema_book
-
-# @router.get("/Authors", tags=["Authors"])
-# async def get():
-#         db_author = Db.session.query(models.Author).options(joinedload(models.Author.books)).where(models.Author.id == 1).one()
-
-#         schema_author = schemas.AuthorSchema.from_orm(db_author)
-#         print(schema_author.json())
-#         return schema_author

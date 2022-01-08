@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IItem, IProject } from '../../models/models';
+import { IDistributor, IItem, IItemCreate, IItemEdit, IProject } from '../../models/models';
 
 @Component({
   selector: 'app-client-modal-edit-item',
@@ -32,7 +32,7 @@ export class ClientModalEditItemComponent implements OnInit {
   }
 
   public editItem(item: IItem): void {
-    this.api.addItems(item).subscribe(() => this.close());
+    this.api.editItem(item).subscribe(() => this.close());
   }
 
   public close(): void {

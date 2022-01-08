@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IItem, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IItem, IItemCreate, IItemEdit, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -68,12 +68,29 @@ export class ApiService {
     return this.httpClient.get<IPItem>(this.ItemsEndpointUrl, {params: params});
   }
 
-  public addItems(Item?: IItem): Observable<IItem[]> {
+  public addItems(Item: IItem): Observable<IItem[]> {
     let params: any = {}
 
     if (Item) { params = JSON.parse(JSON.stringify(Item)) }
 
     return this.httpClient.post<IItem[]>(this.ItemsEndpointUrl, params);
+  }
+
+  public editItem(item: IItem): Observable<IItemEdit> {
+    let params: any = {}
+
+    let itemToEdit: IItemEdit = {
+      id: item.id!,
+      name: item.name,
+      quantity: item.quantity,
+      status: item.status,
+      idProject: item.idProject,
+      idUser: item.idUser
+    };
+
+    if (item) { params = JSON.parse(JSON.stringify(itemToEdit)) }
+
+    return this.httpClient.put<IItemEdit>(this.ItemsEndpointUrl, params);
   }
 
 
