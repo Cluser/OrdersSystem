@@ -121,6 +121,53 @@ class OrderItemCreate(BaseModel):
     price: float
     status: str
 
+class ItemOfferGetter(GetterDict):
+    def get(self, key: str, default = None):
+        if key in {'id', 'user', 'distributor', 'dateAndTime'}:
+            return getattr(self._obj.order, key)
+        else:
+            return super(ItemOfferGetter, self).get(key, default)
+
+
+class ItemOffer(BaseModel):
+    id: int
+    user: User
+    distributor: Distributor
+    dateAndTime: str
+    quantity: int
+    price: float
+    status: str
+
+    class Config:
+        orm_mode = True
+        getter_dict = ItemOfferGetter
+
+class OfferItemGetter(GetterDict):
+    def get(self, key: str, default = None):
+        if key in {'id', 'name', 'quantity', 'status', 'project'}:
+            return getattr(self._obj.item, key)
+        else:
+            return super(OfferItemGetter, self).get(key, default)
+
+class OfferItem(BaseModel):
+    id: int
+    name: str
+    quantity: int
+    status: str
+    project: Project
+    price: float
+
+    class Config:
+        orm_mode = True
+        getter_dict = OfferItemGetter
+
+class OfferItemCreate(BaseModel):
+    Item_id: int
+    offer_id: int
+    quantity: int
+    price: float
+    status: str
+
 class Item(BaseModel):
     id: int
     name: str
@@ -129,6 +176,7 @@ class Item(BaseModel):
     user: User
     project: Project
     inquiries: List[ItemInquiry]
+    offers: List[ItemOffer]
     orders: List[ItemOrder]
 
     class Config:
@@ -198,6 +246,20 @@ class Order(BaseModel):
         orm_mode = True
 
 class OrderCreate(BaseModel):
+    idUser: int
+    idDistributor: int
+
+class Offer(BaseModel):
+    id: int
+    user: User
+    distributor: Distributor
+    dateAndTime: str
+    items: List[OfferItem]
+
+    class Config:
+        orm_mode = True
+
+class OfferCreate(BaseModel):
     idUser: int
     idDistributor: int
 

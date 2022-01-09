@@ -38,6 +38,7 @@ class User(Db.Base):
 
     item = relationship("Item", back_populates="user")
     inquiry = relationship("Inquiry", back_populates="user")
+    offer = relationship('Offer', back_populates="user")
     order = relationship("Order", back_populates="user")
 
 
@@ -54,6 +55,7 @@ class Distributor(Db.Base):
     phone = Column(String)
 
     inquiry = relationship("Inquiry", back_populates="distributor")
+    offer = relationship('Offer', back_populates="distributor")
     order = relationship("Order", back_populates="distributor")
 
     def __init__(self, name, address, phone):
@@ -70,6 +72,17 @@ class ItemInquiry(Db.Base):
     status = Column(String, nullable=False)
     item = relationship('Item', back_populates="inquiries")
     inquiry = relationship('Inquiry', back_populates="items")
+
+class ItemOffer(Db.Base):
+    __tablename__ = 'Items_offers'
+    id = Column(Integer, primary_key=True)
+    Item_id = Column(ForeignKey('Items.id'))
+    offer_id = Column(ForeignKey('offers.id'))
+    quantity = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
+    status = Column(String, nullable=False)
+    item = relationship('Item', back_populates="offers")
+    offer = relationship('Offer', back_populates="items")
 
 class ItemOrder(Db.Base):
     __tablename__ = 'Items_orders'
@@ -96,6 +109,7 @@ class Item(Db.Base):
     user = relationship("User", back_populates="item")
     project = relationship("Project", back_populates="item")
     inquiries = relationship('ItemInquiry', back_populates="item")
+    offers = relationship('ItemOffer', back_populates="item")
     orders = relationship('ItemOrder', back_populates="item")
 
     def __init__(self, idUser, idProject, name, quantity, status):
@@ -116,6 +130,22 @@ class Inquiry(Db.Base):
     user = relationship("User", back_populates="inquiry")
     distributor = relationship("Distributor", back_populates="inquiry")
     items = relationship('ItemInquiry', back_populates="inquiry")
+
+    def __init__(self, idUser, idDistributor):
+        self.idUser = idUser
+        self.idDistributor = idDistributor
+
+class Offer(Db.Base):
+    __tablename__ = 'offers'
+    id = Column(Integer, primary_key=True)
+    idUser = Column(Integer, ForeignKey('users.id'))
+    idDistributor = Column(Integer, ForeignKey('distributors.id'))
+
+    dateAndTime = Column(String)
+
+    user = relationship("User", back_populates="offer")
+    distributor = relationship("Distributor", back_populates="offer")
+    items = relationship('ItemOffer', back_populates="offer")
 
     def __init__(self, idUser, idDistributor):
         self.idUser = idUser

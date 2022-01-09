@@ -128,6 +128,10 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, status: Opti
 
         items = paginate(Db.session.query(models.Item).options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.user))
                                                     .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.distributor)) 
+                                                    .options(joinedload(models.Item.offers).joinedload(models.ItemOffer.offer).joinedload(models.Offer.user))
+                                                    .options(joinedload(models.Item.offers).joinedload(models.ItemOffer.offer).joinedload(models.Offer.distributor))
+                                                    .options(joinedload(models.Item.orders).joinedload(models.ItemOrder.order).joinedload(models.Order.user))
+                                                    .options(joinedload(models.Item.orders).joinedload(models.ItemOrder.order).joinedload(models.Order.distributor))
                                                     .options(joinedload(models.Item.user))
                                                     .options(joinedload(models.Item.project))
                                                     .filter(and_(*filters)), page, size)
@@ -326,6 +330,39 @@ async def post(order: schemas.OrderCreate) -> schemas.Order:
     finally:
         Db.session.close()
         return order
+
+@router.get("/Offers", tags=["Offers"])
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Offer]:
+    try:
+        parameters = { "id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime }
+        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+        filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
+
+        offers = paginate(Db.session.query(models.Offer).options(joinedload(models.Offer.items).joinedload(models.ItemOffer.item))
+                                                        .options(joinedload(models.Offer.user))
+                                                        .options(joinedload(models.Offer.distributor))
+                                                        .filter(and_(*filters)), page, size)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return offers
+
+@router.post("/Offers", tags=["Offers"])
+async def post(offer: schemas.OfferCreate) -> schemas.Offer:
+    try:
+        offer = models.Order(**offer.dict())
+        offer.dateAndTime = datetime.now()
+        Db.session.add(offer)
+        Db.session.commit()
+        Db.session.refresh(offer)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return offer
 
 @router.post("/InquiriesItems", tags=["InquiriesItems"])
 async def post(inquiryItems: List[schemas.InquiryItemCreate]) -> schemas.InquiryItem:
