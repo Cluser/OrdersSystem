@@ -10,18 +10,24 @@
     <div class="lower-menu">
         <div *ngIf="selectedMenu=='Items'">
             <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj przedmiot</button>
-            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zapytanie</button>
+            <button class="btn-lower-menu" (click)="openAddInquiryModal()">Dodaj zapytanie</button>
             <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj ofertę</button>
             <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zamówienie</button>
             <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
         </div>
 
         <div *ngIf="selectedMenu=='Inquiries'">
+            <button class="btn-lower-menu" (click)="openAddItemModal()"></button>
+            <button class="btn-lower-menu" (click)="openAddInquiryModal()"></button>
             <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj ofertę</button>
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zamówienie</button>
             <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
         </div>
 
         <div *ngIf="selectedMenu=='Offers'">
+            <button class="btn-lower-menu" (click)="openAddItemModal()"></button>
+            <button class="btn-lower-menu" (click)="openAddInquiryModal()"></button>
+            <button class="btn-lower-menu" (click)="openAddItemModal()"></button>
             <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zamówienie</button>
             <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
         </div>
@@ -41,7 +47,8 @@
             [paginationPageSize]="pageSize"
             [rowSelection]="'multiple'"
             [suppressRowDeselection]="true"
-            (rowDoubleClicked)="openEditItemModal($event.data)">
+            (rowDoubleClicked)="openEditItemModal($event.data)"
+            (selectionChanged) = "onSelectionChanged($event.data)">
         </ag-grid-angular>
     </div>
 </div>
