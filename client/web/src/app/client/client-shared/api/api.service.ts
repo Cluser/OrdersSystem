@@ -120,7 +120,7 @@ export class ApiService {
 
     if (inquiry) { params = JSON.parse(JSON.stringify(inquiry)) }
 
-    return this.httpClient.post<IInquiryCreate[]>(this.ItemsEndpointUrl, params);
+    return this.httpClient.post<IInquiryCreate[]>(this.inquiriesEndpointUrl, params);
   }
 
 

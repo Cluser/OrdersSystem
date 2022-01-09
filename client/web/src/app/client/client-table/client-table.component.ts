@@ -97,7 +97,7 @@ export class ClientTableComponent implements OnInit {
 
   openAddInquiryModal() {
     const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
-    modalRef.componentInstance.item = this.selectedItems;
+    modalRef.componentInstance.items = this.selectedItems;
     modalRef.componentInstance.inquiryAddedEvent.subscribe(() => this.getInquiriesData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
