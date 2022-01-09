@@ -16,177 +16,288 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Clients", tags=["Clients"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Client]:
-        parameters = {"id": id, "name": name, "address": address}
-        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
-        filters = [getattr(models.Client, attribute) == value for attribute, value in selectedParameters.items()]
-        Clients = paginate(Db.session.query(models.Client).filter(and_(*filters)), page, size)
-        return Clients
+        try:
+            parameters = {"id": id, "name": name, "address": address}
+            selectedParameters = {key: value for key, value in parameters.items() if value is not None}
+            filters = [getattr(models.Client, attribute) == value for attribute, value in selectedParameters.items()]
+            Clients = paginate(Db.session.query(models.Client).filter(and_(*filters)), page, size)
+        except:
+            Db.session.rollback()
+            raise
+        finally:
+            Db.session.close()
+            return Clients
 
 @router.post("/Clients", tags=["Clients"])
 async def post(client: schemas.ClientCreate) -> schemas.Client:
-    client = models.Client(**client.dict())
-    Db.session.add(client)
-    Db.session.commit()
-    Db.session.refresh(client)
-    return client
+    try:
+        client = models.Client(**client.dict())
+        Db.session.add(client)
+        Db.session.commit()
+        Db.session.refresh(client)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return client
 
 @router.put("/Clients/{id}", tags=["Clients"])
 async def put(id: int, client: schemas.ClientCreate) -> schemas.Client:
-    Db.session.query(models.Client).filter(models.Client.id == id).update({**client.dict()}, synchronize_session = False)
-    Db.session.commit()
-    return client
+    try:
+        Db.session.query(models.Client).filter(models.Client.id == id).update({**client.dict()}, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return client
 
 @router.delete("/Clients/{id}", tags=["Clients"])
 async def delete(id: int):
-    Db.session.query(models.Client).filter(models.Client.id == id).delete()
-    Db.session.commit()
-    return {"Deleted id": id}
+    try:
+        Db.session.query(models.Client).filter(models.Client.id == id).delete()
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return {"Deleted id": id}
 
 @router.get("/Projects", tags=["Projects"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, idClient: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Project]:
+    try:
         parameters = {"id": id, "name": name, "idClient": idClient}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Project, attribute) == value for attribute, value in selectedParameters.items()]
         Projects = paginate(Db.session.query(models.Project).filter(and_(*filters)), page, size)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
         return Projects
 
 @router.post("/Projects", tags=["Projects"])
 async def post(project: schemas.ProjectCreate) -> schemas.Project:
-    project = models.Project(**project.dict())
-    Db.session.add(project)
-    Db.session.commit()
-    Db.session.refresh(project)
-    return project
+    try:
+        project = models.Project(**project.dict())
+        Db.session.add(project)
+        Db.session.commit()
+        Db.session.refresh(project)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return project
 
 @router.put("/Projects/{id}", tags=["Projects"])
 async def put(id: int, project: schemas.ProjectCreate) -> schemas.Project:
-    Db.session.query(models.Project).filter(models.Project.id == id).update({**project.dict()}, synchronize_session = False)
-    Db.session.commit()
-    return project
+    try:
+        Db.session.query(models.Project).filter(models.Project.id == id).update({**project.dict()}, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return project
 
 @router.delete("/Projects/{id}", tags=["Projects"])
 async def delete(id: int):
-    Db.session.query(models.Project).filter(models.Project.id == id).delete()
-    Db.session.commit()
-    return {"Deleted id": id}
+    try:
+        Db.session.query(models.Project).filter(models.Project.id == id).delete()
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return {"Deleted id": id}
+
 
 @router.get("/Items", tags=["Items to order"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
+    try:
         parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
-        items = paginate(Db.session.query(models.Item).options(joinedload(models.Item.user))
-                                                      .options(joinedload(models.Item.project))
-                                                      .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.user))
-                                                      .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.distributor))                                                   
-                                                      .filter(and_(*filters)), page, size)
-
-        # Items = []
-        # for item in items.items:
-        #     Items.append(schemas.Item.from_orm(item))
-
+        items = paginate(Db.session.query(models.Item).options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.user))
+                                                    .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.distributor)) 
+                                                    .options(joinedload(models.Item.user))
+                                                    .options(joinedload(models.Item.project))
+                                                    .filter(and_(*filters)), page, size)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
         return items
 
 
 @router.post("/Items", tags=["Items to order"])
 async def post(Item: schemas.ItemCreate) -> schemas.Item:
-    Item = models.Item(**Item.dict())
-    Db.session.add(Item)
-    Db.session.commit()
-    return Item
+    try:
+        Item = models.Item(**Item.dict())
+        Db.session.add(Item)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return Item
 
 
 @router.put("/Items", tags=["Items to order"])
 async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
-    Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
-        'name': Item.name,
-        'quantity': Item.quantity,
-        'status': Item.status,
-        'idUser': Item.idUser,
-        'idProject': Item.idProject
-    }, synchronize_session = False)
-    Db.session.commit()
-    return Item
+    try:
+        Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
+            'name': Item.name,
+            'quantity': Item.quantity,
+            'status': Item.status,
+            'idUser': Item.idUser,
+            'idProject': Item.idProject
+        }, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return Item
 
 
 @router.delete("/Items/{id}", tags=["Items to order"])
 async def delete(id: int):
-    Db.session.query(models.Item).filter(models.Item.id == id).delete()
-    Db.session.commit()
-    return {"Deleted id": id}
+    try:
+        Db.session.query(models.Item).filter(models.Item.id == id).delete()
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return {"Deleted id": id}
     
 
 @router.get("/Distributors", tags=["Distributors"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, phone: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Distributor]:
+    try:
         parameters = {"id": id, "name": name, "address": address, 'phone': phone}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Distributor, attribute) == value for attribute, value in selectedParameters.items()]
         Distributors = paginate(Db.session.query(models.Distributor).filter(and_(*filters)), page, size)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
         return Distributors
 
 @router.post("/Distributors", tags=["Distributors"])
 async def post(distributor: schemas.DistributorCreate) -> schemas.Distributor:
-    distributor = models.Distributor(**distributor.dict())
-    Db.session.add(distributor)
-    Db.session.commit()
-    Db.session.refresh(distributor)
-    return distributor
+    try:
+        distributor = models.Distributor(**distributor.dict())
+        Db.session.add(distributor)
+        Db.session.commit()
+        Db.session.refresh(distributor)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return distributor
 
 @router.put("/Distributors/{id}", tags=["Distributors"])
 async def put(id: int, distributor: schemas.Distributor) -> schemas.Distributor:
-    Db.session.query(models.Distributor).filter(models.Distributor.id == id).update({**distributor.dict()}, synchronize_session = False)
-    Db.session.commit()
-    return distributor
+    try:
+        Db.session.query(models.Distributor).filter(models.Distributor.id == id).update({**distributor.dict()}, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return distributor
 
 @router.delete("/Distributors/{id}", tags=["Distributors"])
 async def delete(id: int):
-    Db.session.query(models.Distributor).filter(models.Distributor.id == id).delete()
-    Db.session.commit()
-    return {"Deleted id": id}
+    try:
+        Db.session.query(models.Distributor).filter(models.Distributor.id == id).delete()
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return {"Deleted id": id}
 
 @router.get("/Inquiries", tags=["Inquiries"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, inquiriedBy: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
-        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "inquiriedBy": dateAndTime}
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
+    try:
+        parameters = { "id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
-
-        # inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items)).filter(and_(*filters)), page, size)
-        # Inquiries = []
-        # for inquiry in inquiries.items:
-        #     Inquiries.append(schemas.Inquiry.from_orm(inquiry))
 
         inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item))
                                                 .options(joinedload(models.Inquiry.user))
                                                 .options(joinedload(models.Inquiry.distributor))
                                                 .filter(and_(*filters)), page, size)
-
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
         return inquiries
 
 @router.post("/Inquiries", tags=["Inquiries"])
 async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
-    inquiry.dateAndTime = datetime.now()
-    inquiry = models.Inquiry(**inquiry.dict())
-    Db.session.add(inquiry)
-    Db.session.commit()
-    Db.session.refresh(inquiry)
-    return inquiry
+    try:
+        inquiry = models.Inquiry(**inquiry.dict())
+        inquiry.dateAndTime = datetime.now()
+        Db.session.add(inquiry)
+        Db.session.commit()
+        Db.session.refresh(inquiry)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return inquiry
 
 @router.put("/Inquiries/{id}", tags=["Inquiries"])
 async def put(id: int, inquiry: schemas.Inquiry) -> schemas.Distributor:
-    Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).update({**inquiry.dict()}, synchronize_session = False)
-    Db.session.commit()
-    return inquiry
+    try:
+        Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).update({**inquiry.dict()}, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return inquiry
 
 @router.delete("/Inquiries/{id}", tags=["Inquiries"])
 async def delete(id: int):
-    Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).delete()
-    Db.session.commit()
-    return {"Deleted id": id}
+    try:
+        Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).delete()
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return {"Deleted id": id}
 
 @router.get("/Orders", tags=["Orders"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, orderedBy: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Order]:
-        parameters = {"id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "orderedBy": orderedBy}
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Order]:
+    try:
+        parameters = { "id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
 
@@ -194,26 +305,40 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
                                                         .options(joinedload(models.Order.user))
                                                         .options(joinedload(models.Order.distributor))
                                                         .filter(and_(*filters)), page, size)
-
-
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
         return orders
 
 @router.post("/Orders", tags=["Orders"])
 async def post(order: schemas.OrderCreate) -> schemas.Order:
-    order.dateAndTime = datetime.now()
-    order = models.Order(**order.dict())
-    Db.session.add(order)
-    Db.session.commit()
-    Db.session.refresh(order)
-    return order
+    try:
+        order = models.Order(**order.dict())
+        order.dateAndTime = datetime.now()
+        Db.session.add(order)
+        Db.session.commit()
+        Db.session.refresh(order)
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return order
 
 @router.post("/OrdersItems", tags=["OrdersItems"])
 async def post(orderItem: schemas.OrderItemCreate):
-    OrderItem = [
-        models.ItemOrder(Item_id = orderItem.Item_id, order_id = orderItem.order_id, quantity = orderItem.quantity, price = orderItem.price, status = orderItem.status),
-        # models.ItemOrder(Item_id = 1, order_id = 1, quantity = 5, price = 10, status = orderItem.status)
-    ]
-    Db.session.add_all(OrderItem)
-    Db.session.commit()
-    return OrderItem
+    try:
+        OrderItem = [
+            models.ItemOrder(Item_id = orderItem.Item_id, order_id = orderItem.order_id, quantity = orderItem.quantity, price = orderItem.price, status = orderItem.status)
+        ]
+        Db.session.add_all(OrderItem)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return OrderItem
 

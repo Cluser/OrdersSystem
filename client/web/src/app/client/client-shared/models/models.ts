@@ -105,7 +105,6 @@ export interface IInquiry {
     user?: string;
     distributor?: IDistributor;
     dateAndTime?: string;
-    inquiriedBy?: string;
     items?: IItem[];
 }
 
@@ -113,7 +112,6 @@ export interface IInquiryCreate {
     idUser?: number;
     idDistributor?: number;
     dateAndTime?: string;
-    inquiriedBy?: string;
 }
 
 export interface IPOrder {
@@ -131,7 +129,6 @@ export interface IOrder {
     user?: IUser;
     distributor?: IDistributor;
     dateAndTime?: string;
-    orderedBy?: string;
     items?: IItem[];
 }
 

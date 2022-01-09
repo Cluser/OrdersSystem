@@ -113,17 +113,14 @@ class Inquiry(Db.Base):
     idDistributor = Column(Integer, ForeignKey('distributors.id'))
 
     dateAndTime = Column(String)
-    inquiriedBy = Column(String)
 
     user = relationship("User", back_populates="inquiry")
     distributor = relationship("Distributor", back_populates="inquiry")
     items = relationship('ItemInquiry', back_populates="inquiry")
 
-    def __init__(self, idUser, idDistributor, dateAndTime, inquiriedBy):
+    def __init__(self, idUser, idDistributor):
         self.idUser = idUser
         self.idDistributor = idDistributor
-        self.dateAndTime = dateAndTime
-        self.inquiriedBy = inquiriedBy
 
 class Order(Db.Base):
     __tablename__ = 'orders'
@@ -132,34 +129,11 @@ class Order(Db.Base):
     idDistributor = Column(Integer, ForeignKey('distributors.id'))
 
     dateAndTime = Column(String)
-    orderedBy = Column(String)
 
     user = relationship("User", back_populates="order")
     distributor = relationship("Distributor", back_populates="order")
     items = relationship('ItemOrder', back_populates="order")
 
-    def __init__(self, idUser, idDistributor, dateAndTime, orderedBy):
+    def __init__(self, idUser, idDistributor):
         self.idUser = idUser
         self.idDistributor = idDistributor
-        self.dateAndTime = dateAndTime
-        self.orderedBy = orderedBy
-
-class BookAuthor(Db.Base):
-    __tablename__ = 'book_authors'
-    book_id = Column(ForeignKey('books.id'), primary_key=True)
-    author_id = Column(ForeignKey('authors.id'), primary_key=True)
-    blurb = Column(String, nullable=False)
-    book = relationship("Book", back_populates="authors")
-    author = relationship("Author", back_populates="books")
-
-class Book(Db.Base):
-    __tablename__ = 'books'
-    id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=False)
-    authors = relationship("BookAuthor", back_populates="book")
-
-class Author(Db.Base):
-    __tablename__ = 'authors'
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    books = relationship("BookAuthor", back_populates="author")
