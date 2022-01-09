@@ -352,7 +352,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
 @router.post("/Offers", tags=["Offers"])
 async def post(offer: schemas.OfferCreate) -> schemas.Offer:
     try:
-        offer = models.Order(**offer.dict())
+        offer = models.Offer(**offer.dict())
         offer.dateAndTime = datetime.now()
         Db.session.add(offer)
         Db.session.commit()

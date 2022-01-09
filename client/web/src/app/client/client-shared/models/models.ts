@@ -114,6 +114,25 @@ export interface IInquiryCreate {
     dateAndTime?: string;
 }
 
+export interface IPOffer {
+    items: IOffer[];
+    previous_page: number;
+    next_page: number;
+    has_previous: boolean;
+    has_next: boolean;
+    total: number;
+    pages: number;
+}
+
+export interface IOffer {
+    id?: number;
+    user?: IUser;
+    distributor?: IDistributor;
+    dateAndTime?: string;
+    items?: IItem[];
+}
+
+
 export interface IPOrder {
     items: IOrder[];
     previous_page: number;

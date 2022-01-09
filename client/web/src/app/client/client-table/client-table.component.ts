@@ -41,6 +41,9 @@ export class ClientTableComponent implements OnInit {
       case 'Inquiries':
         this.getInquiriesData();
         break;
+      case 'Offers':
+        this.getOffersData();
+        break;
       case 'Orders':
         this.getOrdersData();
         break;
@@ -73,6 +76,17 @@ export class ClientTableComponent implements OnInit {
     ];
   }
 
+  public getOffersData(): void {
+    this.api.getOffers({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.columnDefs = [
+      { checkboxSelection: true, flex: 0.5 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 },
+    ];
+  }
+
   public getOrdersData(): void {
     this.api.getOrders({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
@@ -98,7 +112,7 @@ export class ClientTableComponent implements OnInit {
   openAddInquiryModal() {
     const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedItems;
-    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => this.getInquiriesData());
+    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

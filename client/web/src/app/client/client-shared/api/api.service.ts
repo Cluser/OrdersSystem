@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOffer, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class ApiService {
   private ItemsEndpointUrl: string = this.apiUrl + '/Items'
   private distributorsEndpointUrl: string = this.apiUrl + '/Distributors'
   private inquiriesEndpointUrl: string = this.apiUrl + '/Inquiries'
+  private offersEndpointUrl: string = this.apiUrl + '/Offers'
   private ordersEndpointUrl: string = this.apiUrl + '/Orders'
   private inquiriesItemsEndpointUrl: string = this.apiUrl + '/InquiriesItems'
 
@@ -146,6 +147,17 @@ export class ApiService {
     if (inquiry) { params = JSON.parse(JSON.stringify(inquiryItems)) }
 
     return this.httpClient.post<IInquiryItemCreate[]>(this.inquiriesItemsEndpointUrl, params);
+  }
+
+
+  ////////////////////////////////////////////////////////////
+  // Orders
+  ////////////////////////////////////////////////////////////
+  public getOffers(offer?: IOffer, page?: number, size?: number): Observable<IPOrder> {
+    let params: any = {}
+    params = Object.assign(JSON.parse(JSON.stringify(offer)), {'page': page, 'size': size})
+
+    return this.httpClient.get<IPOrder>(this.offersEndpointUrl, {params: params});
   }
 
 
