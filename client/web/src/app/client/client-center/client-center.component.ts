@@ -57,6 +57,7 @@ export class ClientCenterComponent implements OnInit {
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'category', headerName: 'Kategoria', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },

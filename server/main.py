@@ -31,7 +31,7 @@ class Main:
 
     item = []
     for x in range(1, 10):
-        item.append(Item(name = x, idUser = 1, idProject = 1, quantity = 3, status = "Do zamówienia"))
+        item.append(Item(name = x, category = "Mechanika", idUser = 1, idProject = 1, quantity = 3, status = "Do zamówienia"))
 
     
     distributor = [

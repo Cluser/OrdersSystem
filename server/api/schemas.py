@@ -171,6 +171,7 @@ class OfferItemCreate(BaseModel):
 class Item(BaseModel):
     id: int
     name: str
+    category: str
     quantity: int
     status: str
     user: User
@@ -184,6 +185,7 @@ class Item(BaseModel):
 
 class ItemCreate(BaseModel):
     name: str
+    category: str
     quantity: int
     status: str
     idUser: int
