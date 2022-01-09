@@ -6,7 +6,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
-import { ClientTableComponent } from './client-table/client-table.component';
+import { ClientCenterComponent } from './client-center/client-center.component';
 import { ClientMenuLeftComponent } from './client-menu-left/client-menu-left.component';
 import { ClientMenuRightComponent } from './client-menu-right/client-menu-right.component';
 import { ClientMenuLeftDetailsComponent } from './client-menu-left-details/client-menu-left-details.component';
@@ -19,7 +19,7 @@ import { ClientModalAddInquiryComponent } from './client-shared/modals/client-mo
 @NgModule({
   declarations: [
     ClientComponent,
-    ClientTableComponent,
+    ClientCenterComponent,
     ClientMenuLeftComponent,
     ClientMenuRightComponent,
     ClientMenuLeftDetailsComponent,

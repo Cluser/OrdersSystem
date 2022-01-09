@@ -10,11 +10,11 @@ import { ClientModalAddInquiryComponent } from '../client-shared/modals/client-m
 
 
 @Component({
-  selector: 'app-client-table',
-  templateUrl: './client-table.component.html',
-  styleUrls: ['./client-table.component.scss']
+  selector: 'app-client-center',
+  templateUrl: './client-center.component.html',
+  styleUrls: ['./client-center.component.scss']
 })
-export class ClientTableComponent implements OnInit {
+export class ClientCenterComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];
