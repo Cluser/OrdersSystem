@@ -9,7 +9,8 @@ import { IDistributor, IItem, IItemCreate, IItemEdit, IProject } from '../../mod
 })
 export class ClientModalEditItemComponent implements OnInit {
 
-  @Output() itemEdited: EventEmitter<any> = new EventEmitter();
+  @Output() itemEditedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public item: IItem = {};
   public projects: IProject[] = [];
@@ -32,11 +33,14 @@ export class ClientModalEditItemComponent implements OnInit {
   }
 
   public editItem(item: IItem): void {
-    this.api.editItem(item).subscribe(() => this.close());
+    this.api.editItem(item).subscribe(() => {
+      this.itemEditedEvent.emit();
+      this.close();
+    });
   }
 
   public close(): void {
-    this.itemEdited.emit();
+    this.closeEvent.emit();
   }
 
 }

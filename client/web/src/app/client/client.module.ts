@@ -12,6 +12,7 @@ import { ClientMenuRightComponent } from './client-menu-right/client-menu-right.
 import { ClientMenuLeftDetailsComponent } from './client-menu-left-details/client-menu-left-details.component';
 import { ClientModalAddItemComponent } from './client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from './client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
+import { ClientModalAddInquiryComponent } from './client-shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
 
 
 
@@ -23,7 +24,8 @@ import { ClientModalEditItemComponent } from './client-shared/modals/client-moda
     ClientMenuRightComponent,
     ClientMenuLeftDetailsComponent,
     ClientModalAddItemComponent,
-    ClientModalEditItemComponent
+    ClientModalEditItemComponent,
+    ClientModalAddInquiryComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { ClientModalEditItemComponent } from './client-shared/modals/client-moda
   ],
   entryComponents: [
     ClientModalAddItemComponent,
-    ClientModalEditItemComponent
+    ClientModalEditItemComponent,
+    ClientModalAddInquiryComponent
   ]
 })
 export class ClientModule { }

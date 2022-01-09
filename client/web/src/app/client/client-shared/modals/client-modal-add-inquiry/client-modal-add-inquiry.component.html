@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodawanie zapytania</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+
+    <div class="table">
+        <ag-grid-angular
+            style="width: 100%; height: 100%;"
+            class="ag-theme-balham"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [pagination]="false"
+            [paginationPageSize]="pageSize"
+            [rowSelection]="'multiple'"
+            [suppressRowDeselection]="true">
+        </ag-grid-angular>
+    </div>
+
+
+    <button (click)="addInquiry(this.inquiry)" type="submit" class="btn btn-primary w-100">Dodaj zapytanie</button>
+</div>

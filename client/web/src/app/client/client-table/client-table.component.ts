@@ -5,6 +5,7 @@ import { IItem } from '../client-shared/models/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
+import { ClientModalAddInquiryComponent } from '../client-shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
 
 
 
@@ -21,6 +22,7 @@ export class ClientTableComponent implements OnInit {
 
   public filter: string = '';
   public selectedMenu: string = 'Items';
+  public selectedItems: IItem[] = [];
 
 
   constructor(private api: ApiService, private modalService: NgbModal) { }
@@ -29,8 +31,21 @@ export class ClientTableComponent implements OnInit {
     this.getItemsData();
   }
 
-  public test(event: any) {
-    console.log(event);
+  public selectMenu(menu: string) {
+    this.selectedMenu = menu;
+
+    switch (this.selectedMenu) {
+      case 'Items':
+        this.getItemsData();
+        break;
+      case 'Inquiries':
+        this.getInquiriesData();
+        break;
+      case 'Orders':
+        this.getOrdersData();
+        break;
+
+    }
   }
 
   public getItemsData(): void {
@@ -74,37 +89,27 @@ export class ClientTableComponent implements OnInit {
                 {this.api.getItems().subscribe((response) => this.rowData = response.items);}
   }
 
-  public selectMenu(menu: string) {
-    this.selectedMenu = menu;
-
-    switch (this.selectedMenu) {
-      case 'Items':
-        this.getItemsData();
-        break;
-      case 'Inquiries':
-        this.getInquiriesData();
-        break;
-      case 'Orders':
-        this.getOrdersData();
-        break;
-
-    }
-  }
-
   openAddItemModal() {
     const modalRef = this.modalService.open(ClientModalAddItemComponent);
-    modalRef.componentInstance.itemAdded.subscribe(() => {
-      this.modalService.dismissAll();
-      this.getItemsData();
-    })
- }
+    modalRef.componentInstance.itemAddedEvent.subscribe(() => this.getItemsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  openAddInquiryModal() {
+    const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
+    modalRef.componentInstance.item = this.selectedItems;
+    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => this.getInquiriesData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
 
   openEditItemModal(item: IItem) {
     const modalRef = this.modalService.open(ClientModalEditItemComponent);
     modalRef.componentInstance.item = item;
-    modalRef.componentInstance.itemEdited.subscribe(() => {
-      this.modalService.dismissAll();
-      this.getItemsData();
-    })
+    modalRef.componentInstance.itemEditedEvent.subscribe(() => this.getItemsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  onSelectionChanged(selection: any) {
+    this.selectedItems = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
 }

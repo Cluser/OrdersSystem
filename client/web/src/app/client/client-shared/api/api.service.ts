@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IItem, IItemCreate, IItemEdit, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IInquiryCreate, IItem, IItemCreate, IItemEdit, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -113,6 +113,14 @@ export class ApiService {
     params = Object.assign(JSON.parse(JSON.stringify(inquiry)), {'page': page, 'size': size})
 
     return this.httpClient.get<IPInquiry>(this.inquiriesEndpointUrl, {params: params});
+  }
+
+  public addInquiry(inquiry: IInquiryCreate): Observable<IInquiryCreate[]> {
+    let params: any = {}
+
+    if (inquiry) { params = JSON.parse(JSON.stringify(inquiry)) }
+
+    return this.httpClient.post<IInquiryCreate[]>(this.ItemsEndpointUrl, params);
   }
 
 

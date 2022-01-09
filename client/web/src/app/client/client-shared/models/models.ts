@@ -109,6 +109,13 @@ export interface IInquiry {
     items?: IItem[];
 }
 
+export interface IInquiryCreate {
+    idUser?: number;
+    idDistributor?: number;
+    dateAndTime?: string;
+    inquiriedBy?: string;
+}
+
 export interface IPOrder {
     items: IOrder[];
     previous_page: number;

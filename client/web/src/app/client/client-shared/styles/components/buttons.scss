@@ -49,6 +49,10 @@
    font-family: Arial;
 }
 
+.btn-upper-menu:hover {
+   color: #00ADB5
+}
+
 .btn-upper-menu-selected {
    @extend .btn-upper-menu;
    background-color: $secondary;
@@ -71,5 +75,9 @@
    display:inline;
    font-size: 12px;
    font-family: Arial;
+}
+
+.btn-lower-menu:hover {
+   color: #00ADB5;
 }
 

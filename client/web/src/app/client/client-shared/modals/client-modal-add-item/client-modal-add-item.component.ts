@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IItem, IItemCreate, IPDistributor, IPProject, IProject } from '../../models/models';
+import { IDistributor, IItem, IItemCreate, IProject } from '../../models/models';
 
 @Component({
   selector: 'app-client-modal-add-item',
@@ -9,7 +9,8 @@ import { IDistributor, IItem, IItemCreate, IPDistributor, IPProject, IProject } 
 })
 export class ClientModalAddItemComponent implements OnInit {
 
-  @Output() itemAdded: EventEmitter<any> = new EventEmitter();
+  @Output() itemAddedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public item: IItem = {};
   public projects: IProject[] = [];
@@ -32,11 +33,14 @@ export class ClientModalAddItemComponent implements OnInit {
 
   public addItem(item: IItemCreate): void {
     item.idUser = 1;
-    this.api.addItems(item).subscribe(() => this.close());
+    this.api.addItems(item).subscribe(() => {
+      this.itemAddedEvent.emit();
+      this.close();
+    });
   }
 
   public close(): void {
-    this.itemAdded.emit();
+    this.closeEvent.emit();
   }
 
 }
