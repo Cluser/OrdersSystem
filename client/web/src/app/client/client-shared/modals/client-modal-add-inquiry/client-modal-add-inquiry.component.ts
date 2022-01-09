@@ -13,27 +13,31 @@ export class ClientModalAddInquiryComponent implements OnInit {
   @Output() inquiryAddedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
+  public columnDefs: ColDef[] = []
+  public rowData: any[] = [];
+  public pageSize: number = 1000
+  
   public inquiry: IInquiryCreate = {};
   public items: any = [];
   public distributors: IDistributor[] = [];
 
 
-  public columnDefs: ColDef[] = [
-    { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
-    { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
-    { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
-    { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
-    { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
-  ];
-  public rowData: any[] = [];
-  public pageSize: number = 1000
-
-
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    this.rowData = this.items;
+    this.prepareGrid();
     this.getDistributors();
+  }
+
+  public prepareGrid(): void {
+    this.columnDefs = [
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
+      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
+    ];
+    this.rowData = this.items;
   }
 
   public getDistributors(): void {
