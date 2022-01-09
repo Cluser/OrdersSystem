@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IItem, IItemCreate, IItemEdit, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IItem, IItemCreate, IItemEdit, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -119,7 +119,7 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // Orders
   ////////////////////////////////////////////////////////////
-  public getOrders(order?: IInquiry, page?: number, size?: number): Observable<IPOrder> {
+  public getOrders(order?: IOrder, page?: number, size?: number): Observable<IPOrder> {
     let params: any = {}
     params = Object.assign(JSON.parse(JSON.stringify(order)), {'page': page, 'size': size})
 

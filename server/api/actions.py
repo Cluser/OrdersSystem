@@ -7,6 +7,7 @@ from api import schemas
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
+from datetime import datetime
 
 
 router = APIRouter()
@@ -150,15 +151,21 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
 
-        inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items)).filter(and_(*filters)), page, size)
-        Inquiries = []
-        for inquiry in inquiries.items:
-            Inquiries.append(schemas.Inquiry.from_orm(inquiry))
+        # inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items)).filter(and_(*filters)), page, size)
+        # Inquiries = []
+        # for inquiry in inquiries.items:
+        #     Inquiries.append(schemas.Inquiry.from_orm(inquiry))
+
+        inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item))
+                                                .options(joinedload(models.Inquiry.user))
+                                                .options(joinedload(models.Inquiry.distributor))
+                                                .filter(and_(*filters)), page, size)
 
         return inquiries
 
 @router.post("/Inquiries", tags=["Inquiries"])
 async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
+    inquiry.dateAndTime = datetime.now()
     inquiry = models.Inquiry(**inquiry.dict())
     Db.session.add(inquiry)
     Db.session.commit()
@@ -193,6 +200,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
 
 @router.post("/Orders", tags=["Orders"])
 async def post(order: schemas.OrderCreate) -> schemas.Order:
+    order.dateAndTime = datetime.now()
     order = models.Order(**order.dict())
     Db.session.add(order)
     Db.session.commit()

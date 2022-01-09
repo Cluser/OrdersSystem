@@ -1,14 +1,34 @@
 <div class="client-table-section">
     <div class="menu">
-        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Items','btn-upper-menu': selectedMenu!=='Items'}" (click)="selectMenu('Items')">Zapotrzebowanie</button>
-        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Inquiries','btn-upper-menu': selectedMenu!=='Inquiries'}" (click)="selectMenu('Inquiries')" (click)="selectMenu('Inquiries')">Zapytania ofertowe</button>
-        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Orders','btn-upper-menu': selectedMenu!=='Orders'}" (click)="selectMenu('Orders')" (click)="selectMenu('Orders')">Zamówienia</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Items','btn-upper-menu': selectedMenu!=='Items'}" (click)="selectMenu('Items')">Przedmioty</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Inquiries','btn-upper-menu': selectedMenu!=='Inquiries'}" (click)="selectMenu('Inquiries')">Zapytania</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Offers','btn-upper-menu': selectedMenu!=='Offers'}" (click)="selectMenu('Offers')">Oferty</button>
+        <button [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Orders','btn-upper-menu': selectedMenu!=='Orders'}" (click)="selectMenu('Orders')">Zamówienia</button>
         
     </div>
 
     <div class="lower-menu">
-        <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj</button>
-        <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
+        <div *ngIf="selectedMenu=='Items'">
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj przedmiot</button>
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zapytanie</button>
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj ofertę</button>
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zamówienie</button>
+            <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
+        </div>
+
+        <div *ngIf="selectedMenu=='Inquiries'">
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj ofertę</button>
+            <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
+        </div>
+
+        <div *ngIf="selectedMenu=='Offers'">
+            <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj zamówienie</button>
+            <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
+        </div>
+
+        <div *ngIf="selectedMenu=='Orders'">
+            <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
+        </div>
     </div>
 
     <div class="table">

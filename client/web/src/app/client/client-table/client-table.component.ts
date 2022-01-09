@@ -21,7 +21,6 @@ export class ClientTableComponent implements OnInit {
 
   public filter: string = '';
   public selectedMenu: string = 'Items';
-    
 
 
   constructor(private api: ApiService, private modalService: NgbModal) { }
@@ -43,6 +42,7 @@ export class ClientTableComponent implements OnInit {
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
   }
 
@@ -51,8 +51,10 @@ export class ClientTableComponent implements OnInit {
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 },
+
     ];
   }
 
@@ -61,8 +63,9 @@ export class ClientTableComponent implements OnInit {
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
-      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
   }
 
