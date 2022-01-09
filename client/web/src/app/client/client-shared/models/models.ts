@@ -91,6 +91,7 @@ export interface IDistributor {
     name?: string;
     address?: string;
     phone?: string;
+    description?: string
 }
 
 export interface IPInquiry {

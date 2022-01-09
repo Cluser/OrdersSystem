@@ -35,7 +35,7 @@ class Main:
 
     
     distributor = [
-        Distributor(name = "Distributor 1", address = "Distributor 1 address", phone = "500 600 700")
+        Distributor(name = "Distributor 1", address = "Distributor 1 address", phone = "500 600 700", description = "Dystrybutor części pneumatycznych")
     ]
 
     inquiry = [
@@ -56,16 +56,16 @@ class Main:
         ItemOrder(Item_id = 2, order_id = 1, quantity= 2, price = 170.99, status = "Zamówione")
     ]
 
-    # Db.session.add_all(client)
-    # Db.session.add_all(project)
-    # Db.session.add_all(user)
-    # Db.session.add_all(item)
-    # Db.session.add_all(distributor)
-    # Db.session.add_all(inquiry)
-    # Db.session.add_all(order)
-    # Db.session.add_all(itemInquiry)
-    # Db.session.add_all(itemOrder)
-    # Db.session.commit()
+    Db.session.add_all(client)
+    Db.session.add_all(project)
+    Db.session.add_all(user)
+    Db.session.add_all(item)
+    Db.session.add_all(distributor)
+    Db.session.add_all(inquiry)
+    Db.session.add_all(order)
+    Db.session.add_all(itemInquiry)
+    Db.session.add_all(itemOrder)
+    Db.session.commit()
      
 
     api = Api()
