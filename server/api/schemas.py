@@ -169,6 +169,13 @@ class InquiryItem(BaseModel):
         orm_mode = True
         getter_dict = InquiryItemGetter
 
+class InquiryItemCreate(BaseModel):
+    Item_id: int
+    inquiry_id: int
+    quantity: int
+    price: float
+    status: str
+
 class Inquiry(BaseModel):
     id: int
     user: User

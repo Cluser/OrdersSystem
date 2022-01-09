@@ -148,3 +148,11 @@ export interface IUser {
     name?: string;
     surname?: string;
 }
+
+export interface IInquiryItemCreate {
+    Item_id?: number;
+    inquiry_id?: number;
+    quantity?: number;
+    price?: number;
+    status?: string;
+}

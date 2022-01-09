@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IInquiryCreate, IItem, IItemCreate, IItemEdit, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ export class ApiService {
   private distributorsEndpointUrl: string = this.apiUrl + '/Distributors'
   private inquiriesEndpointUrl: string = this.apiUrl + '/Inquiries'
   private ordersEndpointUrl: string = this.apiUrl + '/Orders'
+  private inquiriesItemsEndpointUrl: string = this.apiUrl + '/InquiriesItems'
 
   constructor(private httpClient: HttpClient) { 
   }
@@ -121,6 +122,31 @@ export class ApiService {
     if (inquiry) { params = JSON.parse(JSON.stringify(inquiry)) }
 
     return this.httpClient.post<IInquiryCreate[]>(this.inquiriesEndpointUrl, params);
+  }
+
+  ////////////////////////////////////////////////////////////
+  // Inquiries Items
+  ////////////////////////////////////////////////////////////
+  public addInquiryItems(item: IItem[], inquiry: IInquiry, price: number, quantity: number, status: string): Observable<IInquiryItemCreate[]> {
+    let params: any = {}
+
+    let inquiryItems: IInquiryItemCreate[] = []
+
+    item.forEach(item => {
+      let inquiryItem: IInquiryItemCreate = {
+        Item_id: item.id,
+        inquiry_id: inquiry.id,
+        quantity: item.quantity,
+        status: item.status,
+        price: price
+      };
+      inquiryItems.push(inquiryItem)
+    })
+
+
+    if (inquiry) { params = JSON.parse(JSON.stringify(inquiryItems)) }
+
+    return this.httpClient.post<IInquiryItemCreate[]>(this.inquiriesItemsEndpointUrl, params);
   }
 
 

@@ -327,6 +327,28 @@ async def post(order: schemas.OrderCreate) -> schemas.Order:
         Db.session.close()
         return order
 
+@router.post("/InquiriesItems", tags=["InquiriesItems"])
+async def post(inquiryItems: List[schemas.InquiryItemCreate]) -> schemas.InquiryItem:
+    try:
+        InquiryItem = []
+        for inquiryItem in inquiryItems:
+            InquiryItem.append(models.ItemInquiry(Item_id = inquiryItem.Item_id, 
+                                                  inquiry_id = inquiryItem.inquiry_id, 
+                                                  quantity = inquiryItem.quantity, 
+                                                  price = inquiryItem.price, 
+                                                  status = inquiryItem.status))
+        
+        Db.session.add_all(InquiryItem)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return InquiryItem
+
+
+
 @router.post("/OrdersItems", tags=["OrdersItems"])
 async def post(orderItem: schemas.OrderItemCreate):
     try:
