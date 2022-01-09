@@ -127,7 +127,7 @@ export class ApiService {
   ////////////////////////////////////////////////////////////
   // Inquiries Items
   ////////////////////////////////////////////////////////////
-  public addInquiryItems(item: IItem[], inquiry: IInquiry, price: number, quantity: number, status: string): Observable<IInquiryItemCreate[]> {
+  public addInquiryItems(item: IItem[], inquiry: IInquiry, quantity: number, status: string): Observable<IInquiryItemCreate[]> {
     let params: any = {}
 
     let inquiryItems: IInquiryItemCreate[] = []
@@ -138,7 +138,6 @@ export class ApiService {
         inquiry_id: inquiry.id,
         quantity: item.quantity,
         status: item.status,
-        price: price
       };
       inquiryItems.push(inquiryItem)
     })

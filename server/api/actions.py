@@ -335,7 +335,6 @@ async def post(inquiryItems: List[schemas.InquiryItemCreate]) -> schemas.Inquiry
             InquiryItem.append(models.ItemInquiry(Item_id = inquiryItem.Item_id, 
                                                   inquiry_id = inquiryItem.inquiry_id, 
                                                   quantity = inquiryItem.quantity, 
-                                                  price = inquiryItem.price, 
                                                   status = inquiryItem.status))
         
         Db.session.add_all(InquiryItem)

@@ -68,7 +68,6 @@ class ItemInquiry(BaseModel):
     distributor: Distributor
     dateAndTime: str
     quantity: int
-    price: float
     status: str
 
     class Config:
@@ -163,7 +162,6 @@ class InquiryItem(BaseModel):
     quantity: int
     status: str
     project: Project
-    price: float
 
     class Config:
         orm_mode = True
@@ -173,7 +171,6 @@ class InquiryItemCreate(BaseModel):
     Item_id: int
     inquiry_id: int
     quantity: int
-    price: float
     status: str
 
 class Inquiry(BaseModel):

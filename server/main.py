@@ -47,8 +47,8 @@ class Main:
     ]
 
     itemInquiry = [
-        ItemInquiry(Item_id = 1, inquiry_id = 1, quantity= 3, price = 150.99, status = "Do zamówienia"),
-        ItemInquiry(Item_id = 2, inquiry_id = 1, quantity= 2, price = 170.99, status = "Do zamówienia")
+        ItemInquiry(Item_id = 1, inquiry_id = 1, quantity= 3, status = "Do zamówienia"),
+        ItemInquiry(Item_id = 2, inquiry_id = 1, quantity= 2, status = "Do zamówienia")
     ]
 
     itemOrder = [
@@ -56,16 +56,16 @@ class Main:
         ItemOrder(Item_id = 2, order_id = 1, quantity= 2, price = 170.99, status = "Zamówione")
     ]
 
-    # Db.session.add_all(client)
-    # Db.session.add_all(project)
-    # Db.session.add_all(user)
-    # Db.session.add_all(item)
-    # Db.session.add_all(distributor)
-    # Db.session.add_all(inquiry)
-    # Db.session.add_all(order)
-    # Db.session.add_all(itemInquiry)
-    # Db.session.add_all(itemOrder)
-    # Db.session.commit()
+    Db.session.add_all(client)
+    Db.session.add_all(project)
+    Db.session.add_all(user)
+    Db.session.add_all(item)
+    Db.session.add_all(distributor)
+    Db.session.add_all(inquiry)
+    Db.session.add_all(order)
+    Db.session.add_all(itemInquiry)
+    Db.session.add_all(itemOrder)
+    Db.session.commit()
      
 
     api = Api()
