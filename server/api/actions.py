@@ -162,6 +162,7 @@ async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
     try:
         Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
             'name': Item.name,
+            'category': Item.category,
             'quantity': Item.quantity,
             'status': Item.status,
             'idUser': Item.idUser,

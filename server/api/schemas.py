@@ -194,6 +194,7 @@ class ItemCreate(BaseModel):
 class ItemEdit(BaseModel):
     id: int
     name: str
+    category: str
     quantity: int
     status: str
     idUser: int

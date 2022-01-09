@@ -68,6 +68,7 @@ export interface IItemCreate {
 export interface IItemEdit {
     id: number;
     name?: string;
+    category?: string;
     quantity?: number;
     status?: string;
     idProject?: number;

@@ -84,6 +84,7 @@ export class ApiService {
     let itemToEdit: IItemEdit = {
       id: item.id!,
       name: item.name,
+      category: item.category,
       quantity: item.quantity,
       status: item.status,
       idProject: item.idProject,

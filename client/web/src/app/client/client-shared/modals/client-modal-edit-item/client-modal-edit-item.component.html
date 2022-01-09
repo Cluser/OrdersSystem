@@ -7,6 +7,14 @@
     <label for="name">Nazwa</label>
     <input id="name" type="text" class="form-control" [(ngModel)]="this.item.name" type="text">
 
+    <label for="category">Kategoria</label>
+    <select id="category" class="form-control" [(ngModel)]="this.item.category">
+      <option selected>Wybierz kategorie</option>
+      <option>Mechanika</option>
+      <option>Elektryka</option>
+      <option>Software</option>
+    </select>
+
     <label for="quantity">Ilość</label>
     <input id="quantity" type="text" class="form-control" [(ngModel)]="this.item.quantity" type="number">
 
