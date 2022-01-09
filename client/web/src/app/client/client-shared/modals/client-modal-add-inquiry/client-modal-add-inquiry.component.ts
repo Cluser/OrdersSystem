@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate} from '../../models/models';
+import { IDistributor, IInquiryCreate, IItem, IInquiryItemCreate} from '../../models/models';
 
 @Component({
   selector: 'app-client-modal-add-inquiry',
@@ -14,7 +14,7 @@ export class ClientModalAddInquiryComponent implements OnInit {
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public inquiry: IInquiryCreate = {};
-  public items: any;
+  public items: any = [];
   public distributors: IDistributor[] = [];
 
 
@@ -42,9 +42,11 @@ export class ClientModalAddInquiryComponent implements OnInit {
 
   public addInquiry(inquiry: IInquiryCreate): void {
     inquiry.idUser = 1;
-    this.api.addInquiry(inquiry).subscribe(() => {
-      this.inquiryAddedEvent.emit();
-      this.close();
+    this.api.addInquiry(inquiry).subscribe((inquiry: any) => {
+      this.api.addInquiryItems(this.items, inquiry, 10, 5, 'sss').subscribe(() => {
+        this.inquiryAddedEvent.emit();
+        this.close();
+      })
     });
   }
 
