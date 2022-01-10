@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 import { ClientModalAddInquiryComponent } from '../client-shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
+import { ClientModalAddOfferComponent } from '../client-shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 
 
 
@@ -117,6 +118,13 @@ export class ClientCenterComponent implements OnInit {
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
+  openAddOfferModal() {
+    const modalRef = this.modalService.open(ClientModalAddOfferComponent, {size: 'xl'});
+    modalRef.componentInstance.items = this.selectedItems;
+    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
   openEditItemModal(item: IItem) {
     const modalRef = this.modalService.open(ClientModalEditItemComponent);
     modalRef.componentInstance.item = item;
@@ -126,5 +134,6 @@ export class ClientCenterComponent implements OnInit {
 
   onSelectionChanged(selection: any) {
     this.selectedItems = selection.api.getSelectedNodes().map((node: any) => node.data);
+    console.log(this.selectedItems)
   }
 }
