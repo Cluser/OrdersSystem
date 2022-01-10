@@ -17,7 +17,7 @@ export class ClientModalAddOfferComponent implements OnInit {
   public rowData: any[] = [];
   public pageSize: number = 1000
   
-  public inquiry: IInquiryCreate = {};
+  public offer: IOfferCreate = {};
   public items: any = [];
   public distributors: IDistributor[] = [];
 
@@ -44,7 +44,7 @@ export class ClientModalAddOfferComponent implements OnInit {
     this.api.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
-  public addInquiry(offer: IOfferCreate): void {
+  public addOffer(offer: IOfferCreate): void {
     offer.idUser = 1;
     this.api.addOffer(offer).subscribe((offer: any) => {
       this.api.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
