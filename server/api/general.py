@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from . import authentication, actions
+
+from .actions import authentication
+from . import actions
 import uvicorn
 
 
@@ -28,8 +30,17 @@ class Api:
             allow_headers=["*"],
         )
 
-        api.include_router(authentication.router)
-        api.include_router(actions.router)
+        api.include_router(actions.authentication.router)
+        api.include_router(actions.clients.router)
+        api.include_router(actions.projects.router)
+        api.include_router(actions.items.router)
+        api.include_router(actions.distributors.router)
+        api.include_router(actions.inquiries.router)
+        api.include_router(actions.offers.router)
+        api.include_router(actions.orders.router)
+        api.include_router(actions.inquiriesItems.router)
+        api.include_router(actions.offersItems.router)
+        api.include_router(actions.ordersItems.router)
 
         uvicorn.run(api, host="0.0.0.0", port=8000)
 
