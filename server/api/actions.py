@@ -370,10 +370,7 @@ async def post(inquiryItems: List[schemas.InquiryItemCreate]) -> schemas.Inquiry
     try:
         InquiryItem = []
         for inquiryItem in inquiryItems:
-            InquiryItem.append(models.ItemInquiry(Item_id = inquiryItem.Item_id, 
-                                                  inquiry_id = inquiryItem.inquiry_id, 
-                                                  quantity = inquiryItem.quantity, 
-                                                  status = inquiryItem.status))
+            InquiryItem.append(models.ItemInquiry(**inquiryItem.dict()))
         
         Db.session.add_all(InquiryItem)
         Db.session.commit()
@@ -389,10 +386,7 @@ async def post(offerItems: List[schemas.OfferItemCreate]) -> schemas.OfferItem:
     try:
         OfferItems = []
         for offerItem in offerItems:
-            OfferItems.append(models.ItemInquiry(Item_id = offerItem.Item_id, 
-                                                  inquiry_id = offerItem.offer_id, 
-                                                  quantity = offerItem.quantity, 
-                                                  status = offerItem.status))
+            OfferItems.append(models.ItemOffer(**offerItem.dict()))
         
         Db.session.add_all(OfferItems)
         Db.session.commit()
@@ -410,10 +404,7 @@ async def post(orderItems: List[schemas.OrderItemCreate]):
     try:
         OrderItems = []
         for orderItem in orderItems:
-            OrderItems.append(models.ItemInquiry(Item_id = orderItem.Item_id, 
-                                                  inquiry_id = orderItem.offer_id, 
-                                                  quantity = orderItem.quantity, 
-                                                  status = orderItem.status))
+            OrderItems.append(models.ItemOrder(**orderItem.dict()))
         
         Db.session.add_all(OrderItems)
         Db.session.commit()

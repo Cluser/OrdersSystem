@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOffer, IOfferCreate, IOfferItemCreate, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOffer, IOfferCreate, IOfferItemCreate, IOrder, IOrderCreate, IOrderItemCreate, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,7 @@ export class ApiService {
   private ordersEndpointUrl: string = this.apiUrl + '/Orders'
   private inquiriesItemsEndpointUrl: string = this.apiUrl + '/InquiriesItems'
   private offersItemsEndpointUrl: string = this.apiUrl + '/OffersItems'
+  private ordersItemsEndpointUrl: string = this.apiUrl + '/OrdersItems'
 
   constructor(private httpClient: HttpClient) { 
   }
@@ -204,6 +205,39 @@ export class ApiService {
     params = Object.assign(JSON.parse(JSON.stringify(order)), {'page': page, 'size': size})
 
     return this.httpClient.get<IPOrder>(this.ordersEndpointUrl, {params: params});
+  }
+
+  public addOrder(order: IOrderCreate): Observable<IOrderCreate[]> {
+    let params: any = {}
+
+    if (order) { params = JSON.parse(JSON.stringify(order)) }
+
+    return this.httpClient.post<IOrderCreate[]>(this.ordersEndpointUrl, params);
+  }
+
+  ////////////////////////////////////////////////////////////
+  // Orders Items
+  ////////////////////////////////////////////////////////////
+  public addOrderItems(item: IItem[], order: IOrder, quantity: number, price: number, status: string): Observable<IOrderItemCreate[]> {
+    let params: any = {}
+
+    let orderItems: IOrderItemCreate[] = []
+
+    item.forEach(item => {
+      let orderItem: IOrderItemCreate = {
+        Item_id: item.id,
+        order_id: order.id,
+        quantity: quantity,
+        price: price,
+        status: item.status,
+      };
+      orderItems.push(orderItem)
+    })
+
+
+    if (order) { params = JSON.parse(JSON.stringify(orderItems)) }
+
+    return this.httpClient.post<IOrderItemCreate[]>(this.ordersItemsEndpointUrl, params);
   }
 }
 

@@ -161,6 +161,11 @@ export interface IOrder {
     items?: IItem[];
 }
 
+export interface IOrderCreate {
+    idUser?: number;
+    idDistributor?: number;
+    dateAndTime?: string;
+}
 
 export interface IPUser {
     items: IUser[];
@@ -189,6 +194,14 @@ export interface IInquiryItemCreate {
 export interface IOfferItemCreate {
     Item_id?: number;
     offer_id?: number;
+    quantity?: number;
+    price?: number;
+    status?: string;
+}
+
+export interface IOrderItemCreate {
+    Item_id?: number;
+    order_id?: number;
     quantity?: number;
     price?: number;
     status?: string;

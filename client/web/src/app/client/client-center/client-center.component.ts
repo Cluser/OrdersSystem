@@ -7,6 +7,7 @@ import { ClientModalAddItemComponent } from '../client-shared/modals/client-moda
 import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 import { ClientModalAddInquiryComponent } from '../client-shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
 import { ClientModalAddOfferComponent } from '../client-shared/modals/client-modal-add-offer/client-modal-add-offer.component';
+import { ClientModalAddOrderComponent } from '../client-shared/modals/client-modal-add-order/client-modal-add-order.component';
 
 
 
@@ -122,6 +123,13 @@ export class ClientCenterComponent implements OnInit {
     const modalRef = this.modalService.open(ClientModalAddOfferComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows;
     modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  openAddOrderModal() {
+    const modalRef = this.modalService.open(ClientModalAddOrderComponent, {size: 'xl'});
+    modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
