@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate, IItem, IInquiryItemCreate} from '../../models/models';
+import { IDistributor, IInquiryCreate, IItem, IInquiryItemCreate, IOfferCreate} from '../../models/models';
 
 @Component({
   selector: 'app-client-modal-add-offer',
@@ -10,7 +10,7 @@ import { IDistributor, IInquiryCreate, IItem, IInquiryItemCreate} from '../../mo
 })
 export class ClientModalAddOfferComponent implements OnInit {
 
-  @Output() inquiryAddedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() offerAddedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public columnDefs: ColDef[] = []
@@ -44,11 +44,11 @@ export class ClientModalAddOfferComponent implements OnInit {
     this.api.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
-  public addInquiry(inquiry: IInquiryCreate): void {
-    inquiry.idUser = 1;
-    this.api.addInquiry(inquiry).subscribe((inquiry: any) => {
-      this.api.addInquiryItems(this.items, inquiry, 5, 'sss').subscribe(() => {
-        this.inquiryAddedEvent.emit();
+  public addInquiry(offer: IOfferCreate): void {
+    offer.idUser = 1;
+    this.api.addOffer(offer).subscribe((offer: any) => {
+      this.api.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
+        this.offerAddedEvent.emit();
         this.close();
       })
     });

@@ -23,7 +23,7 @@ export class ClientCenterComponent implements OnInit {
 
   public filter: string = '';
   public selectedMenu: string = 'Items';
-  public selectedItems: IItem[] = [];
+  public selectedRows: any[] = [];
 
 
   constructor(private api: ApiService, private modalService: NgbModal) { }
@@ -113,15 +113,15 @@ export class ClientCenterComponent implements OnInit {
 
   openAddInquiryModal() {
     const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedItems;
+    modalRef.componentInstance.items = this.selectedRows;
     modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   openAddOfferModal() {
     const modalRef = this.modalService.open(ClientModalAddOfferComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedItems;
-    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
+    modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -133,7 +133,7 @@ export class ClientCenterComponent implements OnInit {
   }
 
   onSelectionChanged(selection: any) {
-    this.selectedItems = selection.api.getSelectedNodes().map((node: any) => node.data);
-    console.log(this.selectedItems)
+    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
+    console.log(this.selectedRows)
   }
 }

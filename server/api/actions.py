@@ -384,20 +384,43 @@ async def post(inquiryItems: List[schemas.InquiryItemCreate]) -> schemas.Inquiry
         Db.session.close()
         return InquiryItem
 
-
-
-@router.post("/OrdersItems", tags=["OrdersItems"])
-async def post(orderItem: schemas.OrderItemCreate):
+@router.post("/OffersItems", tags=["OffersItems"])
+async def post(offerItems: List[schemas.OfferItemCreate]) -> schemas.OfferItem:
     try:
-        OrderItem = [
-            models.ItemOrder(Item_id = orderItem.Item_id, order_id = orderItem.order_id, quantity = orderItem.quantity, price = orderItem.price, status = orderItem.status)
-        ]
-        Db.session.add_all(OrderItem)
+        OfferItems = []
+        for offerItem in offerItems:
+            OfferItems.append(models.ItemInquiry(Item_id = offerItem.Item_id, 
+                                                  inquiry_id = offerItem.offer_id, 
+                                                  quantity = offerItem.quantity, 
+                                                  status = offerItem.status))
+        
+        Db.session.add_all(OfferItems)
         Db.session.commit()
     except:
         Db.session.rollback()
         raise
     finally:
         Db.session.close()
-        return OrderItem
+        return OfferItems
+
+
+
+@router.post("/OrdersItems", tags=["OrdersItems"])
+async def post(orderItems: List[schemas.OrderItemCreate]):
+    try:
+        OrderItems = []
+        for orderItem in orderItems:
+            OrderItems.append(models.ItemInquiry(Item_id = orderItem.Item_id, 
+                                                  inquiry_id = orderItem.offer_id, 
+                                                  quantity = orderItem.quantity, 
+                                                  status = orderItem.status))
+        
+        Db.session.add_all(OrderItems)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return OrderItems
 

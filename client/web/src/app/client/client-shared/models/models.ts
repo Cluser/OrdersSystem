@@ -136,6 +136,12 @@ export interface IOffer {
     items?: IItem[];
 }
 
+export interface IOfferCreate {
+    idUser?: number;
+    idDistributor?: number;
+    dateAndTime?: string;
+}
+
 
 export interface IPOrder {
     items: IOrder[];
@@ -179,3 +185,12 @@ export interface IInquiryItemCreate {
     price?: number;
     status?: string;
 }
+
+export interface IOfferItemCreate {
+    Item_id?: number;
+    offer_id?: number;
+    quantity?: number;
+    price?: number;
+    status?: string;
+}
+

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOffer, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
+import { IClient, IDistributor, IInquiry, IInquiryCreate, IInquiryItemCreate, IItem, IItemCreate, IItemEdit, IOffer, IOfferCreate, IOfferItemCreate, IOrder, IPClient, IPDistributor, IPInquiry, IPItem, IPOrder, IPProject, IProject } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class ApiService {
   private offersEndpointUrl: string = this.apiUrl + '/Offers'
   private ordersEndpointUrl: string = this.apiUrl + '/Orders'
   private inquiriesItemsEndpointUrl: string = this.apiUrl + '/InquiriesItems'
+  private offersItemsEndpointUrl: string = this.apiUrl + '/OffersItems'
 
   constructor(private httpClient: HttpClient) { 
   }
@@ -152,13 +153,46 @@ export class ApiService {
 
 
   ////////////////////////////////////////////////////////////
-  // Orders
+  // Offers
   ////////////////////////////////////////////////////////////
   public getOffers(offer?: IOffer, page?: number, size?: number): Observable<IPOrder> {
     let params: any = {}
     params = Object.assign(JSON.parse(JSON.stringify(offer)), {'page': page, 'size': size})
 
     return this.httpClient.get<IPOrder>(this.offersEndpointUrl, {params: params});
+  }
+
+  public addOffer(offer: IOfferCreate): Observable<IOfferCreate[]> {
+    let params: any = {}
+
+    if (offer) { params = JSON.parse(JSON.stringify(offer)) }
+
+    return this.httpClient.post<IOfferCreate[]>(this.offersEndpointUrl, params);
+  }
+
+  ////////////////////////////////////////////////////////////
+  // Offers Items
+  ////////////////////////////////////////////////////////////
+  public addOfferItems(item: IItem[], offer: IOffer, quantity: number, price: number, status: string): Observable<IOfferItemCreate[]> {
+    let params: any = {}
+
+    let offerItems: IOfferItemCreate[] = []
+
+    item.forEach(item => {
+      let offerItem: IOfferItemCreate = {
+        Item_id: item.id,
+        offer_id: offer.id,
+        quantity: quantity,
+        price: price,
+        status: item.status,
+      };
+      offerItems.push(offerItem)
+    })
+
+
+    if (offer) { params = JSON.parse(JSON.stringify(offerItems)) }
+
+    return this.httpClient.post<IOfferItemCreate[]>(this.offersItemsEndpointUrl, params);
   }
 
 
