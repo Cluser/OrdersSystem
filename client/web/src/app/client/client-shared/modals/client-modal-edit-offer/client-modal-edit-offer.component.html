@@ -1,22 +1,19 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Dodawanie zapytania</h4>
+    <h4 class="modal-title" id="modal-basic-title">Edytowanie oferty</h4>
     <button type="button" class="close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span></button>
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col">
+        <div class="col-4">
             <label for="distributr">Dystrybutor</label>
-            <select id="distributr" class="form-control" [(ngModel)]="this.inquiry.idDistributor">
+            <select id="distributr" class="form-control" [(ngModel)]="this.offer.distributor.id">
               <option selected>Wybierz dystrybutora</option>
               <option *ngFor="let distributor of this.distributors" [value]="distributor.id">{{distributor.name}}</option>
             </select>
         </div>
-        <div class="col"></div>
-    </div>
-
-    <div class="row">
-        <div class="col">
+        
+        <div class="col">            
             <div class="table">
                 <ag-grid-angular
                     style="width: 100%; height: 60vh;"
@@ -32,9 +29,15 @@
         </div>
     </div>
 
+    <!-- <div class="row">
+        <div class="col">
+
+        </div>
+    </div> -->
+
     <div class="row">
         <div class="col">
-            <button (click)="addInquiry(this.inquiry)" type="submit" class="btn btn-primary w-100">Dodaj zapytanie</button>
+            <button (click)="addOffer(this.offer)" type="submit" class="btn btn-primary w-100">Edytuj ofertę</button>
         </div>
     </div>
 </div>

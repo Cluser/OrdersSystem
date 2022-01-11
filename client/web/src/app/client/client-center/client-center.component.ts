@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../client-shared/api/api.service';
-import { IItem } from '../client-shared/models';
+import { IItem, IOffer } from '../client-shared/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 import { ClientModalAddInquiryComponent } from '../client-shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
 import { ClientModalAddOfferComponent } from '../client-shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 import { ClientModalAddOrderComponent } from '../client-shared/modals/client-modal-add-order/client-modal-add-order.component';
+import { ClientModalEditOfferComponent } from '../client-shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
 
 
 
@@ -140,8 +141,17 @@ export class ClientCenterComponent implements OnInit {
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
+  openEditOfferModal(offer: IOffer) {
+    const modalRef = this.modalService.open(ClientModalEditOfferComponent, {size: 'xl'});
+    modalRef.componentInstance.offer = offer;
+    modalRef.componentInstance.offerEdditedEvent.subscribe(() => this.getItemsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+
   onSelectionChanged(selection: any) {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
-    console.log(this.selectedRows)
+    // console.log(this.selectedRows)
   }
+
 }

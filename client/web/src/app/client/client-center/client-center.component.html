@@ -38,7 +38,46 @@
     </div>
 
     <div class="table">
-        <ag-grid-angular
+        <ag-grid-angular *ngIf="selectedMenu=='Items'"
+            style="width: 100%; height: 100%;"
+            class="ag-theme-balham"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [pagination]="false"
+            [paginationPageSize]="pageSize"
+            [rowSelection]="'multiple'"
+            [suppressRowDeselection]="true"
+            (rowDoubleClicked)="openEditItemModal($event.data)"
+            (selectionChanged) = "onSelectionChanged($event)">
+        </ag-grid-angular>
+
+        <ag-grid-angular *ngIf="selectedMenu=='Inquiries'"
+            style="width: 100%; height: 100%;"
+            class="ag-theme-balham"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [pagination]="false"
+            [paginationPageSize]="pageSize"
+            [rowSelection]="'multiple'"
+            [suppressRowDeselection]="true"
+            (rowDoubleClicked)="openEditItemModal($event.data)"
+            (selectionChanged) = "onSelectionChanged($event)">
+        </ag-grid-angular>
+
+        <ag-grid-angular *ngIf="selectedMenu=='Offers'"
+            style="width: 100%; height: 100%;"
+            class="ag-theme-balham"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [pagination]="false"
+            [paginationPageSize]="pageSize"
+            [rowSelection]="'multiple'"
+            [suppressRowDeselection]="true"
+            (rowDoubleClicked)="openEditOfferModal($event.data)"
+            (selectionChanged) = "onSelectionChanged($event)">
+        </ag-grid-angular>
+
+        <ag-grid-angular *ngIf="selectedMenu=='Orders'"
             style="width: 100%; height: 100%;"
             class="ag-theme-balham"
             [rowData]="rowData"
