@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IItem, IOffer, IOfferItemCreate } from '../../models/models';
+import { IItem, IOffer, IOfferItemCreate } from '../../models';
 import { environment } from 'src/environments/environment';
 
 

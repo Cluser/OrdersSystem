@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IItem, IItemCreate, IItemEdit, IProject } from '../../models/models';
+import { IDistributor, IItem, IProject } from '../../models';
 
 @Component({
   selector: 'app-client-modal-edit-item',

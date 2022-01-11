@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate, IItem, IInquiryItemCreate, IOfferCreate, IOrderCreate} from '../../models/models';
+import { IDistributor, IInquiryCreate, IOrderCreate} from '../../models';
 
 
 @Component({

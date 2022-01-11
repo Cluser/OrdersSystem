@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate, IItem, IInquiryItemCreate} from '../../models/models';
+import { IDistributor, IInquiryCreate } from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-inquiry',
