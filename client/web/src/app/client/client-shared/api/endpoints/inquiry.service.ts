@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IInquiry, IInquiryCreate, IPInquiry } from '../../models/models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Inquiry {
 
-  private apiUrl: string = 'http://127.0.0.1:8000'
+  private apiUrl: string = environment.apiUrl;
   private inquiriesEndpointUrl: string = this.apiUrl + '/Inquiries'
 
 
