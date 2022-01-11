@@ -65,6 +65,7 @@ export class ClientCenterComponent implements OnInit {
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' }
     ];
   }
 

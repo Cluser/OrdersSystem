@@ -17,6 +17,7 @@ export interface IItem {
     category?: string;
     quantity?: number;
     status?: string;
+    dateAndTime?: string;
     idProject?: number;
     idUser?: number;
     user?: IUser;

@@ -13,6 +13,7 @@ class Item(Db.Base):
     category = Column(String)
     quantity = Column(Integer)
     status = Column(String)
+    dateAndTime = Column(String)
 
     user = relationship("User", back_populates="item")
     project = relationship("Project", back_populates="item")

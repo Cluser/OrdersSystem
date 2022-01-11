@@ -14,9 +14,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Items", tags=["Items to order"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
     try:
-        parameters = {"id": id, "name": name, "status": status, 'quantity': quantity, 'idProject': idProject}
+        parameters = {"id": id, "name": name, "status": status, 'dateAndTime': dateAndTime, 'quantity': quantity, 'idProject': idProject}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
@@ -41,6 +41,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, status: Opti
 async def post(Item: schemas.ItemCreate) -> schemas.Item:
     try:
         Item = models.Item(**Item.dict())
+        Item.dateAndTime = datetime.now()
         Db.session.add(Item)
         Db.session.commit()
     except:

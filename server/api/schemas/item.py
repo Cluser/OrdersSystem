@@ -75,6 +75,7 @@ class Item(BaseModel):
     category: str
     quantity: int
     status: str
+    dateAndTime: str
     user: User
     project: Project
     inquiries: List[ItemInquiry]
