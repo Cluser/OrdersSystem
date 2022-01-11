@@ -42,13 +42,13 @@ export class ClientModalAddOrderComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
   public addInquiry(order: IOrderCreate): void {
     order.idUser = 1;
-    this.api.addOrder(order).subscribe((order: any) => {
-      this.api.addOrderItems(this.items, order, 5, 5, 'sss').subscribe(() => {
+    this.api.order.addOrder(order).subscribe((order: any) => {
+      this.api.orderItem.addOrderItems(this.items, order, 5, 5, 'sss').subscribe(() => {
         this.orderAddedEvent.emit();
         this.close();
       })

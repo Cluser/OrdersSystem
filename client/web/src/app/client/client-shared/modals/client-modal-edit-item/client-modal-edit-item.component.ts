@@ -25,15 +25,15 @@ export class ClientModalEditItemComponent implements OnInit {
   }
 
   public getProjects(): void {
-    this.api.getProjects({}, 1, 1000).subscribe((projects) => this.projects = projects.items);
+    this.api.project.getProjects({}, 1, 1000).subscribe((projects) => this.projects = projects.items);
   }
 
   public getDistributors(): void {
-    this.api.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
   public editItem(item: IItem): void {
-    this.api.editItem(item).subscribe(() => {
+    this.api.item.editItem(item).subscribe(() => {
       this.itemEditedEvent.emit();
       this.close();
     });

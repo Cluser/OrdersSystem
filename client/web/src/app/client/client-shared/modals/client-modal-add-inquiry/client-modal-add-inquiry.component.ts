@@ -41,13 +41,13 @@ export class ClientModalAddInquiryComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
   public addInquiry(inquiry: IInquiryCreate): void {
     inquiry.idUser = 1;
-    this.api.addInquiry(inquiry).subscribe((inquiry: any) => {
-      this.api.addInquiryItems(this.items, inquiry, 5, 'sss').subscribe(() => {
+    this.api.inquiry.addInquiry(inquiry).subscribe((inquiry: any) => {
+      this.api.inquiryItem.addInquiryItems(this.items, inquiry, 5, 'sss').subscribe(() => {
         this.inquiryAddedEvent.emit();
         this.close();
       })

@@ -41,13 +41,13 @@ export class ClientModalAddOfferComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
   public addOffer(offer: IOfferCreate): void {
     offer.idUser = 1;
-    this.api.addOffer(offer).subscribe((offer: any) => {
-      this.api.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
+    this.api.offer.addOffer(offer).subscribe((offer: any) => {
+      this.api.offerItem.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
         this.offerAddedEvent.emit();
         this.close();
       })

@@ -54,7 +54,7 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public getItemsData(): void {
-    this.api.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.item.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
@@ -68,7 +68,7 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public getInquiriesData(): void {
-    this.api.getInquiries({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.inquiry.getInquiries({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
@@ -80,7 +80,7 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public getOffersData(): void {
-    this.api.getOffers({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.offer.getOffers({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
@@ -91,7 +91,7 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public getOrdersData(): void {
-    this.api.getOrders({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.order.getOrders({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
@@ -102,8 +102,8 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public search(filter: any): void {
-    if (filter) {this.api.getItems({'name': filter}, 1, 1000).subscribe((response) => this.rowData = response.items);} else
-                {this.api.getItems().subscribe((response) => this.rowData = response.items);}
+    if (filter) {this.api.item.getItems({'name': filter}, 1, 1000).subscribe((response) => this.rowData = response.items);} else
+                {this.api.item.getItems().subscribe((response) => this.rowData = response.items);}
   }
 
   openAddItemModal() {
