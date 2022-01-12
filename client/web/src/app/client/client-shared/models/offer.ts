@@ -15,6 +15,7 @@ export interface IOffer {
     user?: IUser;
     distributor?: IDistributor;
     dateAndTime?: string;
+    totalPrice?: number;
     items?: IItem[];
 }
 

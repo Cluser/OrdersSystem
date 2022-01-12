@@ -42,6 +42,10 @@ export class ClientModalEditOfferComponent implements OnInit {
 
   public getDistributors(): void {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+
+    this.offer._totalPrice = this.offer.items.reduce((x: any, y: any) => { return x + y.price }, 0);
+
+    console.log('Total Messages:', this.offer._totalPrice); 
   }
 
   public addOffer(offer: IOfferCreate): void {

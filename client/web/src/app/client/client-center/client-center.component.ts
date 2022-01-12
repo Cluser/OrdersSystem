@@ -82,13 +82,17 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public getOffersData(): void {
-    this.api.offer.getOffers({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.offer.getOffers({}, 1, this.pageSize).subscribe((response) => {
+      this.rowData = response.items
+      this.calculateOffersPrices(this.rowData)
+    });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5 },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' },
+      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' },
     ];
   }
 
@@ -101,6 +105,11 @@ export class ClientCenterComponent implements OnInit {
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' },
     ];
+  }
+
+
+  private calculateOffersPrices(offers: any): void {
+    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any)=>acc+cur.quantity,0) + ' zł')
   }
 
   public search(filter: any): void {
@@ -152,7 +161,6 @@ export class ClientCenterComponent implements OnInit {
 
   onSelectionChanged(selection: any) {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
-    // console.log(this.selectedRows)
   }
 
 }

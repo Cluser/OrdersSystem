@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IOffer, IOfferCreate, IPOrder } from '../../models';
+import { IOffer, IOfferCreate, IPOffer } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -16,11 +16,11 @@ export class Offer {
   constructor(private httpClient: HttpClient) { 
   }
 
-  public getOffers(offer?: IOffer, page?: number, size?: number): Observable<IPOrder> {
+  public getOffers(offer?: IOffer, page?: number, size?: number): Observable<IPOffer> {
     let params: any = {}
     params = Object.assign(JSON.parse(JSON.stringify(offer)), {'page': page, 'size': size})
 
-    return this.httpClient.get<IPOrder>(this.offersEndpointUrl, {params: params});
+    return this.httpClient.get<IPOffer>(this.offersEndpointUrl, {params: params});
   }
 
   public addOffer(offer: IOfferCreate): Observable<IOfferCreate[]> {
