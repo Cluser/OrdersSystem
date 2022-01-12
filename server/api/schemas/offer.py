@@ -9,7 +9,7 @@ from .distributor import Distributor
 
 class OfferItemGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'name', 'quantity', 'status', 'project'}:
+        if key in {'id', 'name', 'quantity', 'status', 'comment', 'project'}:
             return getattr(self._obj.item, key)
         else:
             return super(OfferItemGetter, self).get(key, default)
@@ -19,6 +19,7 @@ class OfferItem(BaseModel):
     name: str
     quantity: int
     status: str
+    comment: str
     project: Project
     price: float
 

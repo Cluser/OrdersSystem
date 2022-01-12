@@ -32,5 +32,8 @@
       <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
     </select>
 
+    <label for="comment">Komentarz</label>
+    <input id="comment" type="text" class="form-control" [(ngModel)]="this.item.comment" type="text">
+
     <button (click)="addItem(this.item)" type="submit" class="btn btn-primary w-100">Dodaj przedmiot</button>
 </div>

@@ -76,6 +76,7 @@ class Item(BaseModel):
     quantity: int
     status: str
     dateAndTime: str
+    comment: str
     user: User
     project: Project
     inquiries: List[ItemInquiry]
@@ -90,6 +91,7 @@ class ItemCreate(BaseModel):
     category: str
     quantity: int
     status: str
+    comment: str
     idUser: int
     idProject: int
 
@@ -99,6 +101,7 @@ class ItemEdit(BaseModel):
     category: str
     quantity: int
     status: str
+    comment: str
     idUser: int
     idProject: int
 

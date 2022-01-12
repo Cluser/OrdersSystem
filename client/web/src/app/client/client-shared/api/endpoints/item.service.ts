@@ -40,6 +40,7 @@ export class Item {
       name: item.name,
       category: item.category,
       quantity: item.quantity,
+      comment: item.comment,
       status: item.status,
       idProject: item.idProject,
       idUser: item.idUser

@@ -8,7 +8,7 @@ from .distributor import Distributor
 
 class OrderItemGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'name', 'quantity', 'status', 'project'}:
+        if key in {'id', 'name', 'quantity', 'status', 'comment', 'project'}:
             return getattr(self._obj.item, key)
         else:
             return super(OrderItemGetter, self).get(key, default)
@@ -18,6 +18,7 @@ class OrderItem(BaseModel):
     name: str
     quantity: int
     status: str
+    comment: str
     project: Project
     price: float
 
