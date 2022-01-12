@@ -33,7 +33,7 @@
     </select>
 
     <label for="comment">Komentarz</label>
-    <input id="comment" type="text" class="form-control" [(ngModel)]="this.item.comment" type="text">
+    <textarea id="comment" type="text" cols="40" rows="5" class="form-control" [(ngModel)]="this.item.comment" type="text"></textarea>
 
     <button (click)="addItem(this.item)" type="submit" class="btn btn-primary w-100">Dodaj przedmiot</button>
 </div>

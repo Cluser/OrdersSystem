@@ -24,7 +24,6 @@ export class ClientModalEditOfferComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit() {
-    console.log(this.offer)
     this.prepareGrid();
     this.getDistributors();
   }
@@ -33,7 +32,7 @@ export class ClientModalEditOfferComponent implements OnInit {
     this.columnDefs = [
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
@@ -56,6 +55,7 @@ export class ClientModalEditOfferComponent implements OnInit {
   }
 
   public close(): void {
+    console.log(this.rowData)
     this.closeEvent.emit();
   }
 
