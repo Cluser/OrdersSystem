@@ -13,9 +13,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Distributors", tags=["Distributors"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, phone: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Distributor]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, phone: Optional[str] = None, email: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Distributor]:
     try:
-        parameters = {"id": id, "name": name, "address": address, 'phone': phone}
+        parameters = {"id": id, "name": name, "address": address, 'phone': phone, 'email': email}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Distributor, attribute) == value for attribute, value in selectedParameters.items()]
         Distributors = paginate(Db.session.query(models.Distributor).filter(and_(*filters)), page, size)

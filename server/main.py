@@ -35,7 +35,7 @@ class Main:
 
     
     distributor = [
-        Distributor(name = "Distributor 1", address = "Distributor 1 address", phone = "500 600 700", description = "Dystrybutor części pneumatycznych")
+        Distributor(name = "Distributor 1", address = "Distributor 1 address", phone = "500 600 700", email = "distributor@email.com", description = "Dystrybutor części pneumatycznych")
     ]
 
     inquiry = [
