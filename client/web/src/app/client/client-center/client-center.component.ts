@@ -57,7 +57,7 @@ export class ClientCenterComponent implements OnInit {
   public getItemsData(): void {
     this.api.item.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
-      { checkboxSelection: true, flex: 0.5 },
+      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'category', headerName: 'Kategoria', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -72,7 +72,7 @@ export class ClientCenterComponent implements OnInit {
   public getInquiriesData(): void {
     this.api.inquiry.getInquiries({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
-      { checkboxSelection: true, flex: 0.5 },
+      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -87,7 +87,7 @@ export class ClientCenterComponent implements OnInit {
       this.calculateOffersPrices(this.rowData)
     });
     this.columnDefs = [
-      { checkboxSelection: true, flex: 0.5 },
+      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -99,7 +99,7 @@ export class ClientCenterComponent implements OnInit {
   public getOrdersData(): void {
     this.api.order.getOrders({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
-      { checkboxSelection: true, flex: 0.5 },
+      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -109,7 +109,7 @@ export class ClientCenterComponent implements OnInit {
 
 
   private calculateOffersPrices(offers: any): void {
-    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any)=>acc+cur.quantity,0) + ' zł')
+    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) + ' zł')
   }
 
   public search(filter: any): void {

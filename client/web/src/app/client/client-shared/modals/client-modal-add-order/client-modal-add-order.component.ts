@@ -32,6 +32,7 @@ export class ClientModalAddOrderComponent implements OnInit {
 
   public prepareGrid(): void {
     this.columnDefs = [
+      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
