@@ -41,6 +41,7 @@ class Api:
         api.include_router(actions.inquiriesItems.router)
         api.include_router(actions.offersItems.router)
         api.include_router(actions.ordersItems.router)
+        api.include_router(actions.contactPerson.router)
 
         uvicorn.run(api, host="0.0.0.0", port=8000)
 

@@ -12,6 +12,7 @@ class Distributor(Db.Base):
     email = Column(String)
     description = Column(String)
 
+    contactPerson = relationship("ContactPerson", back_populates="distributor")
     inquiry = relationship("Inquiry", back_populates="distributor")
     offer = relationship('Offer', back_populates="distributor")
     order = relationship("Order", back_populates="distributor")

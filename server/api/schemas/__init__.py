@@ -6,3 +6,4 @@ from .offer import *
 from .order import *
 from .project import *
 from .user import *
+from .contactPerson import *
