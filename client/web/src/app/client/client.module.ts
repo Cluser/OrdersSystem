@@ -15,6 +15,7 @@ import { ClientModalAddOfferComponent } from './client-shared/modals/client-moda
 import { ClientModalAddOrderComponent } from './client-shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { ClientModalEditOfferComponent } from './client-shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
 import { ClientModalEditOrderComponent } from './client-shared/modals/client-modal-edit-order/client-modal-edit-order.component';
+import { ClientModalEditInquiryComponent } from './client-shared/modals/client-modal-edit-inquiry/client-modal-edit-inquiry.component';
 
 
 
@@ -29,7 +30,8 @@ import { ClientModalEditOrderComponent } from './client-shared/modals/client-mod
     ClientModalAddOfferComponent,
     ClientModalAddOrderComponent,
     ClientModalEditOfferComponent,
-    ClientModalEditOrderComponent
+    ClientModalEditOrderComponent,
+    ClientModalEditInquiryComponent
   ],
   imports: [
     CommonModule,

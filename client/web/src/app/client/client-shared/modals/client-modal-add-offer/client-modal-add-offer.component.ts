@@ -30,6 +30,7 @@ export class ClientModalAddOfferComponent implements OnInit {
   }
 
   public prepareGrid(): void {
+    console.log(this.items)
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },

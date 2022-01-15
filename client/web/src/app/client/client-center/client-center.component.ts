@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../client-shared/api/api.service';
-import { IItem, IOffer, IOrder } from '../client-shared/models';
+import { IInquiry, IItem, IOffer, IOrder } from '../client-shared/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
@@ -10,6 +10,7 @@ import { ClientModalAddOfferComponent } from '../client-shared/modals/client-mod
 import { ClientModalAddOrderComponent } from '../client-shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { ClientModalEditOfferComponent } from '../client-shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
 import { ClientModalEditOrderComponent } from '../client-shared/modals/client-modal-edit-order/client-modal-edit-order.component';
+import { ClientModalEditInquiryComponent } from '../client-shared/modals/client-modal-edit-inquiry/client-modal-edit-inquiry.component';
 
 
 
@@ -126,14 +127,16 @@ export class ClientCenterComponent implements OnInit {
 
   openAddInquiryModal() {
     const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows;
+    // modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
     modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   openAddOfferModal() {
     const modalRef = this.modalService.open(ClientModalAddOfferComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows;
+    // modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
     modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
@@ -152,6 +155,13 @@ export class ClientCenterComponent implements OnInit {
     const modalRef = this.modalService.open(ClientModalEditItemComponent);
     modalRef.componentInstance.item = item;
     modalRef.componentInstance.itemEditedEvent.subscribe(() => this.getItemsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  openEditInquiryModal(order: IInquiry) {
+    const modalRef = this.modalService.open(ClientModalEditInquiryComponent, {size: 'xl'});
+    modalRef.componentInstance.order = order;
+    modalRef.componentInstance.orderEdditedEvent.subscribe(() => this.getOrdersData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

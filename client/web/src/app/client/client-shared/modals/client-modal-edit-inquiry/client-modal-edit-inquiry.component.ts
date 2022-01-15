@@ -1,26 +1,24 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate, IOrderCreate} from '../../models';
-
+import { IDistributor, IOfferCreate, IOrderCreate } from '../../models';
 
 @Component({
-  selector: 'app-client-modal-add-order',
-  templateUrl: './client-modal-add-order.component.html',
-  styleUrls: ['./client-modal-add-order.component.scss']
+  selector: 'app-client-modal-edit-inquiry',
+  templateUrl: './client-modal-edit-inquiry.component.html',
+  styleUrls: ['./client-modal-edit-inquiry.component.scss']
 })
-export class ClientModalAddOrderComponent implements OnInit {
+export class ClientModalEditInquiryComponent implements OnInit {
 
-  @Output() orderAddedEvent: EventEmitter<any> = new EventEmitter();
+  
+  @Output() orderEdditedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];
   public pageSize: number = 1000
-  public selectedRows: any[] = []
   
-  public inquiry: IInquiryCreate = {};
-  public items: any = [];
+  public order: any = {};
   public distributors: IDistributor[] = [];
 
 
@@ -36,32 +34,34 @@ export class ClientModalAddOrderComponent implements OnInit {
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'item.id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
-      { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
-    this.rowData = this.items;
+    this.rowData = this.order.items;
+    console.log(this.rowData)
   }
 
   public getDistributors(): void {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+
+    this.order._totalPrice = this.order.items.reduce((x: any, y: any) => { return x + y.price }, 0);
+
+    console.log('Total Messages:', this.order._totalPrice); 
   }
 
-  public addInquiry(order: IOrderCreate): void {
-    order.idUser = 1;
-    this.api.order.addOrder(order).subscribe((order: any) => {
-      this.api.orderItem.addOrderItems(this.selectedRows, order, 5, 5, 'sss').subscribe(() => {
-        this.orderAddedEvent.emit();
-        this.close();
-      })
-    });
-  }
-
-  public onSelectionChanged(selection: any) {
-    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
+  public addOrder(order: IOrderCreate): void {
+    // offer.idUser = 1;
+    // this.api.offer.addOffer(offer).subscribe((offer: any) => {
+    //   this.api.offerItem.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
+    //     this.offerEdditedEvent.emit();
+    //     this.close();
+    //   })
+    // });
   }
 
   public close(): void {
+    console.log(this.rowData)
     this.closeEvent.emit();
   }
 }
