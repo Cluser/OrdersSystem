@@ -41,7 +41,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, status: Opti
 async def post(Item: schemas.ItemCreate) -> schemas.Item:
     try:
         Item = models.Item(**Item.dict())
-        Item.dateAndTime = datetime.now()
+        Item.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
         Db.session.add(Item)
         Db.session.commit()
     except:
