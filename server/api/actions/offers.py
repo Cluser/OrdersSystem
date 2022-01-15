@@ -35,7 +35,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
 async def post(offer: schemas.OfferCreate) -> schemas.Offer:
     try:
         offer = models.Offer(**offer.dict())
-        offer.dateAndTime = datetime.now()
+        offer.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
         Db.session.add(offer)
         Db.session.commit()
         Db.session.refresh(offer)

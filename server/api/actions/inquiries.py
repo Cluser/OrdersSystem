@@ -35,7 +35,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
 async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
     try:
         inquiry = models.Inquiry(**inquiry.dict())
-        inquiry.dateAndTime = datetime.now()
+        inquiry.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
         Db.session.add(inquiry)
         Db.session.commit()
         Db.session.refresh(inquiry)

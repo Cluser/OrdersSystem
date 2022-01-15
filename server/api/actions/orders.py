@@ -35,7 +35,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
 async def post(order: schemas.OrderCreate) -> schemas.Order:
     try:
         order = models.Order(**order.dict())
-        order.dateAndTime = datetime.now()
+        order.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
         Db.session.add(order)
         Db.session.commit()
         Db.session.refresh(order)
