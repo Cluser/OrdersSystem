@@ -72,6 +72,7 @@ class ItemOffer(BaseModel):
 class Item(BaseModel):
     id: int
     name: str
+    model: str
     category: str
     quantity: int
     status: str
@@ -88,6 +89,7 @@ class Item(BaseModel):
 
 class ItemCreate(BaseModel):
     name: str
+    model: str
     category: str
     quantity: int
     status: str
@@ -98,6 +100,7 @@ class ItemCreate(BaseModel):
 class ItemEdit(BaseModel):
     id: int
     name: str
+    model: str
     category: str
     quantity: int
     status: str

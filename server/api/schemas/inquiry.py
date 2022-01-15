@@ -9,7 +9,7 @@ from .project import Project
 
 class InquiryItemGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'name', 'quantity', 'status', 'comment', 'project'}:
+        if key in {'id', 'name', 'model', 'category', 'quantity', 'status', 'comment', 'project'}:
             return getattr(self._obj.item, key)
         else:
             return super(InquiryItemGetter, self).get(key, default)
@@ -17,6 +17,8 @@ class InquiryItemGetter(GetterDict):
 class InquiryItem(BaseModel):
     id: int
     name: str
+    model: str
+    category: str
     quantity: int
     status: str
     comment: str

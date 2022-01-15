@@ -38,6 +38,7 @@ export class Item {
     let itemToEdit: IItemEdit = {
       id: item.id!,
       name: item.name,
+      model: item.model,
       category: item.category,
       quantity: item.quantity,
       comment: item.comment,

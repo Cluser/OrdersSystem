@@ -33,7 +33,7 @@ export class ClientCenterComponent implements OnInit {
   constructor(private api: ApiService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.getItemsData();
+    this.selectMenu('Items');
   }
 
   public selectMenu(menu: string) {
@@ -62,6 +62,7 @@ export class ClientCenterComponent implements OnInit {
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'category', headerName: 'Kategoria', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -99,19 +100,27 @@ export class ClientCenterComponent implements OnInit {
   }
 
   public getOrdersData(): void {
-    this.api.order.getOrders({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.order.getOrders({}, 1, this.pageSize).subscribe((response) => {
+      this.rowData = response.items
+      this.calculateOrdersPrices(this.rowData)
+    });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' },
+      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' },
     ];
   }
 
 
   private calculateOffersPrices(offers: any): void {
     offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) + ' zł')
+  }
+
+  private calculateOrdersPrices(orders: any): void {
+    orders.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) + ' zł')
   }
 
   public search(filter: any): void {

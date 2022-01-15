@@ -14,9 +14,11 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Items", tags=["Items to order"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, status: Optional[str] = None, comment: Optional[str] = None,dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, category: Optional[str] = None, status: Optional[str] = None, 
+                comment: Optional[str] = None, dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, 
+                page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
     try:
-        parameters = {"id": id, "name": name, "status": status, "comment": comment,'dateAndTime': dateAndTime, 'quantity': quantity, 'idProject': idProject}
+        parameters = {"id": id, "name": name, "model": model, "category": category, "status": status, "comment": comment,'dateAndTime': dateAndTime, 'quantity': quantity, 'idProject': idProject}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
@@ -57,6 +59,7 @@ async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
     try:
         Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
             'name': Item.name,
+            'model': Item.model,
             'category': Item.category,
             'quantity': Item.quantity,
             'status': Item.status,

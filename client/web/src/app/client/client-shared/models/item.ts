@@ -14,6 +14,7 @@ export interface IPItem {
 export interface IItem {
     id?: number;
     name?: string;
+    model?: string;
     category?: string;
     quantity?: number;
     status?: string;
@@ -29,6 +30,7 @@ export interface IItem {
 
 export interface IItemCreate {
     name?: string;
+    model?: string;
     category?: string;
     quantity?: number;
     status?: string;
@@ -41,6 +43,7 @@ export interface IItemCreate {
 export interface IItemEdit {
     id: number;
     name?: string;
+    model?: string;
     category?: string;
     quantity?: number;
     status?: string;
