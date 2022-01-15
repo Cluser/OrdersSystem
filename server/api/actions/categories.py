@@ -37,3 +37,27 @@ async def post(category: schemas.CategoryCreate) -> schemas.CategoryCreate:
     finally:
         Db.session.close()
         return category
+
+@router.put("/Categories/{id}", tags=["Categories"])
+async def put(id: int, category: schemas.CategoryCreate) -> schemas.Category:
+    try:
+        Db.session.query(models.Category).filter(models.Category.id == id).update({**category.dict()}, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return category
+
+@router.delete("/Categories/{id}", tags=["Categories"])
+async def delete(id: int):
+    try:
+        Db.session.query(models.Category).filter(models.Category.id == id).delete()
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return {"Deleted id": id}
