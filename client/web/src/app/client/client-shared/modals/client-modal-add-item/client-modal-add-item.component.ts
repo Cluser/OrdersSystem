@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IItem, IItemCreate, IProject } from '../../models';
+import { ICategory, IDistributor, IItem, IItemCreate, IProject } from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-item',
@@ -13,15 +13,22 @@ export class ClientModalAddItemComponent implements OnInit {
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public item: IItem = {};
+  public categories: ICategory[] = [];
   public projects: IProject[] = [];
   public distributors: IDistributor[] = [];
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
+    this.getCategories();
     this.getProjects();
     this.getDistributors();
   }
+
+  public getCategories(): void {
+    this.api.category.getCategories({}, 1, 1000).subscribe((categories) => this.categories = categories.items);
+  }
+
 
   public getProjects(): void {
     this.api.project.getProjects({}, 1, 1000).subscribe((projects) => this.projects = projects.items);
