@@ -17,6 +17,7 @@ export class ClientModalAddOrderComponent implements OnInit {
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];
   public pageSize: number = 1000
+  public selectedRows: any[] = []
   
   public inquiry: IInquiryCreate = {};
   public items: any = [];
@@ -49,11 +50,15 @@ export class ClientModalAddOrderComponent implements OnInit {
   public addInquiry(order: IOrderCreate): void {
     order.idUser = 1;
     this.api.order.addOrder(order).subscribe((order: any) => {
-      this.api.orderItem.addOrderItems(this.items, order, 5, 5, 'sss').subscribe(() => {
+      this.api.orderItem.addOrderItems(this.selectedRows, order, 5, 5, 'sss').subscribe(() => {
         this.orderAddedEvent.emit();
         this.close();
       })
     });
+  }
+
+  public onSelectionChanged(selection: any) {
+    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
 
   public close(): void {

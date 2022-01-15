@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../client-shared/api/api.service';
-import { IItem, IOffer } from '../client-shared/models';
+import { IItem, IOffer, IOrder } from '../client-shared/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientModalAddItemComponent } from '../client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from '../client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
@@ -9,6 +9,7 @@ import { ClientModalAddInquiryComponent } from '../client-shared/modals/client-m
 import { ClientModalAddOfferComponent } from '../client-shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 import { ClientModalAddOrderComponent } from '../client-shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { ClientModalEditOfferComponent } from '../client-shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
+import { ClientModalEditOrderComponent } from '../client-shared/modals/client-modal-edit-order/client-modal-edit-order.component';
 
 
 
@@ -157,7 +158,14 @@ export class ClientCenterComponent implements OnInit {
   openEditOfferModal(offer: IOffer) {
     const modalRef = this.modalService.open(ClientModalEditOfferComponent, {size: 'xl'});
     modalRef.componentInstance.offer = offer;
-    modalRef.componentInstance.offerEdditedEvent.subscribe(() => this.getItemsData());
+    modalRef.componentInstance.offerEdditedEvent.subscribe(() => this.getOffersData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  openEditOrderModal(order: IOrder) {
+    const modalRef = this.modalService.open(ClientModalEditOrderComponent, {size: 'xl'});
+    modalRef.componentInstance.order = order;
+    modalRef.componentInstance.orderEdditedEvent.subscribe(() => this.getOrdersData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
