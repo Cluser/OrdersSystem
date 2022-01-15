@@ -33,6 +33,7 @@ export class ClientModalEditOrderComponent implements OnInit {
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'item.id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },

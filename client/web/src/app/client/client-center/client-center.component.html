@@ -10,9 +10,9 @@
     <div class="lower-menu">
         <div *ngIf="selectedMenu=='Items'">
             <button class="btn-lower-menu" (click)="openAddItemModal()">Dodaj przedmiot</button>
-            <button class="btn-lower-menu" (click)="openAddInquiryModal()">Dodaj zapytanie</button>
-            <button class="btn-lower-menu" (click)="openAddOfferModal()">Dodaj ofertę</button>
-            <button class="btn-lower-menu" (click)="openAddOrderModal()">Dodaj zamówienie</button>
+            <button class="btn-lower-menu" (click)="openAddInquiryItemModal()">Dodaj zapytanie</button>
+            <button class="btn-lower-menu" (click)="openAddOfferItemModal()">Dodaj ofertę</button>
+            <button class="btn-lower-menu" (click)="openAddOrderItemModal()">Dodaj zamówienie</button>
             <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
         </div>
 

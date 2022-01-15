@@ -134,9 +134,29 @@ export class ClientCenterComponent implements OnInit {
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
+  openAddInquiryItemModal() {
+    const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
+    modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  openAddOfferItemModal() {
+    const modalRef = this.modalService.open(ClientModalAddOfferComponent, {size: 'xl'});
+    modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  openAddOrderItemModal() {
+    const modalRef = this.modalService.open(ClientModalAddOrderComponent, {size: 'xl'});
+    modalRef.componentInstance.items = this.selectedRows;
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
   openAddInquiryModal() {
     const modalRef = this.modalService.open(ClientModalAddInquiryComponent, {size: 'xl'});
-    // modalRef.componentInstance.items = this.selectedRows;
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
     modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
@@ -144,7 +164,6 @@ export class ClientCenterComponent implements OnInit {
 
   openAddOfferModal() {
     const modalRef = this.modalService.open(ClientModalAddOfferComponent, {size: 'xl'});
-    // modalRef.componentInstance.items = this.selectedRows;
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
     modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
@@ -152,10 +171,7 @@ export class ClientCenterComponent implements OnInit {
 
   openAddOrderModal() {
     const modalRef = this.modalService.open(ClientModalAddOrderComponent, {size: 'xl'});
-    // modalRef.componentInstance.items = this.selectedRows;
-    
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    console.log(modalRef.componentInstance.items)
     modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
