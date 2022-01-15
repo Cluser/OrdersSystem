@@ -139,7 +139,10 @@ export class ClientCenterComponent implements OnInit {
 
   openAddOrderModal() {
     const modalRef = this.modalService.open(ClientModalAddOrderComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows;
+    // modalRef.componentInstance.items = this.selectedRows;
+    
+    modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
+    console.log(modalRef.componentInstance.items)
     modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
