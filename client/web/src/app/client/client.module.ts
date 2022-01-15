@@ -8,8 +8,6 @@ import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
 import { ClientCenterComponent } from './client-center/client-center.component';
 import { ClientMenuLeftComponent } from './client-menu-left/client-menu-left.component';
-import { ClientMenuRightComponent } from './client-menu-right/client-menu-right.component';
-import { ClientMenuLeftDetailsComponent } from './client-menu-left-details/client-menu-left-details.component';
 import { ClientModalAddItemComponent } from './client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from './client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 import { ClientModalAddInquiryComponent } from './client-shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
@@ -25,8 +23,6 @@ import { ClientModalEditOrderComponent } from './client-shared/modals/client-mod
     ClientComponent,
     ClientCenterComponent,
     ClientMenuLeftComponent,
-    ClientMenuRightComponent,
-    ClientMenuLeftDetailsComponent,
     ClientModalAddItemComponent,
     ClientModalEditItemComponent,
     ClientModalAddInquiryComponent,
