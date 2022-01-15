@@ -10,3 +10,4 @@ from .inquiriesItems import *
 from .offersItems import *
 from .ordersItems import *
 from .contactPerson import *
+from .categories import *
