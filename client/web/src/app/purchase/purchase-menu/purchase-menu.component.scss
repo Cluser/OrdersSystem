@@ -1,0 +1,10 @@
+@import "../../shared/styles/global.scss";
+
+.menu {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 2%;
+    background-color: $menuUpperBgColor;
+}

@@ -11,14 +11,14 @@ import { IDistributor, IOfferCreate, IOrderCreate } from '../../models';
 export class PurchaseModalEditInquiryComponent implements OnInit {
 
   
-  @Output() orderEdditedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() inquiryEdditedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];
   public pageSize: number = 1000
   
-  public order: any = {};
+  public inquiry: any = {};
   public distributors: IDistributor[] = [];
 
 
@@ -39,19 +39,19 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
-    this.rowData = this.order.items;
+    this.rowData = this.inquiry.items;
     console.log(this.rowData)
   }
 
   public getDistributors(): void {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
 
-    this.order._totalPrice = this.order.items.reduce((x: any, y: any) => { return x + y.price }, 0);
+    this.inquiry._totalPrice = this.inquiry.items.reduce((x: any, y: any) => { return x + y.price }, 0);
 
-    console.log('Total Messages:', this.order._totalPrice); 
+    console.log('Total Messages:', this.inquiry._totalPrice); 
   }
 
-  public addOrder(order: IOrderCreate): void {
+  public addInquiry(order: IOrderCreate): void {
     // offer.idUser = 1;
     // this.api.offer.addOffer(offer).subscribe((offer: any) => {
     //   this.api.offerItem.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {

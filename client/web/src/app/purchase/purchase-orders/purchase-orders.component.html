@@ -1,0 +1,23 @@
+<div class="purchase-orders-section">
+    <div class="lower-menu">
+        <button class="btn-lower-menu"></button>
+        <button class="btn-lower-menu"></button>
+        <button class="btn-lower-menu"></button>
+        <button class="btn-lower-menu"></button>
+        <input class="search-input" type="text">
+    </div>
+    
+    <div class="grid">
+        <ag-grid-angular
+            style="width: 100%; height: 100%;"
+            class="ag-theme-balham"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [pagination]="false"
+            [paginationPageSize]="pageSize"
+            [rowSelection]="'multiple'"
+            [suppressRowDeselection]="true"
+            (rowDoubleClicked)="openEditOrderModal($event.data)">
+        </ag-grid-angular>
+    </div>
+</div>

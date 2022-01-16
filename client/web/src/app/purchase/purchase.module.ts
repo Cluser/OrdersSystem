@@ -14,6 +14,11 @@ import { PurchaseModalAddOrderComponent } from '../shared/modals/client-modal-ad
 import { PurchaseModalEditOfferComponent } from '../shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
 import { PurchaseModalEditOrderComponent } from '../shared/modals/client-modal-edit-order/client-modal-edit-order.component';
 import { PurchaseModalEditInquiryComponent } from '../shared/modals/client-modal-edit-inquiry/client-modal-edit-inquiry.component';
+import { PurchaseInquiriesComponent } from './purchase-inquiries/purchase-inquiries.component';
+import { PurchaseMenuComponent } from './purchase-menu/purchase-menu.component';
+import { PurchaseOrdersComponent } from './purchase-orders/purchase-orders.component';
+import { PurchaseOffersComponent } from './purchase-offers/purchase-offers.component';
+import { PurchaseItemsComponent } from './purchase-items/purchase-items.component';
 
 
 
@@ -27,7 +32,12 @@ import { PurchaseModalEditInquiryComponent } from '../shared/modals/client-modal
     PurchaseModalAddOrderComponent,
     PurchaseModalEditOfferComponent,
     PurchaseModalEditOrderComponent,
-    PurchaseModalEditInquiryComponent
+    PurchaseModalEditInquiryComponent,
+    PurchaseInquiriesComponent,
+    PurchaseMenuComponent,
+    PurchaseOrdersComponent,
+    PurchaseOffersComponent,
+    PurchaseItemsComponent
   ],
   imports: [
     CommonModule,

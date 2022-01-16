@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-4">
             <label for="distributr">Dystrybutor</label>
-            <select id="distributr" class="form-control" [(ngModel)]="this.order.distributor.id">
+            <select id="distributr" class="form-control" [(ngModel)]="this.inquiry.distributor.id">
               <option selected>Wybierz dystrybutora</option>
               <option *ngFor="let distributor of this.distributors" [value]="distributor.id">{{distributor.name}}</option>
             </select>
@@ -37,7 +37,7 @@
 
     <div class="row">
         <div class="col">
-            <button (click)="addOrder(this.order)" type="submit" class="btn btn-primary w-100">Edytuj zapytanie</button>
+            <button (click)="addInquiry(this.inquiry)" type="submit" class="btn btn-primary w-100">Edytuj zapytanie</button>
         </div>
     </div>
 </div>

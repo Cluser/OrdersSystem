@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientMenuLeftComponent } from './client-menu-left.component';
+import { PurchaseOffersComponent } from './purchase-offers.component';
 
-describe('ClientMenuLeftComponent', () => {
-  let component: ClientMenuLeftComponent;
-  let fixture: ComponentFixture<ClientMenuLeftComponent>;
+describe('PurchaseOffersComponent', () => {
+  let component: PurchaseOffersComponent;
+  let fixture: ComponentFixture<PurchaseOffersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClientMenuLeftComponent ]
+      declarations: [ PurchaseOffersComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientMenuLeftComponent);
+    fixture = TestBed.createComponent(PurchaseOffersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
