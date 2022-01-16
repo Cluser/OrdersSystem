@@ -1,6 +1,6 @@
 from fastapi import Depends, APIRouter, Path, Query
 from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.orm import joinedload, joinedload_all
+from sqlalchemy.orm import joinedload
 from db.general import *
 from db import models
 from api import schemas
@@ -8,7 +8,6 @@ from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
 from datetime import datetime
-
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -87,3 +86,4 @@ async def delete(id: int):
     finally:
         Db.session.close()
         return {"Deleted id": id}
+

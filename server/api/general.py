@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .actions import authentication
 from . import actions
 import uvicorn
 
@@ -43,6 +42,7 @@ class Api:
         api.include_router(actions.ordersItems.router)
         api.include_router(actions.contactPerson.router)
         api.include_router(actions.categories.router)
+        api.include_router(actions.files.router)
 
         uvicorn.run(api, host="0.0.0.0", port=8000)
 
