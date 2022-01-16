@@ -15,11 +15,11 @@ import { ClientModalEditInquiryComponent } from '../client-shared/modals/client-
 
 
 @Component({
-  selector: 'app-client-center',
-  templateUrl: './client-center.component.html',
-  styleUrls: ['./client-center.component.scss']
+  selector: 'app-client-purchase',
+  templateUrl: './client-purchase.component.html',
+  styleUrls: ['./client-purchase.component.scss']
 })
-export class ClientCenterComponent implements OnInit {
+export class ClientPurchaseComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];

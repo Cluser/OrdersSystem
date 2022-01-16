@@ -6,7 +6,7 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { ClientComponent } from './client.component';
 import { ClientRoutingModule } from './client-routing.module';
-import { ClientCenterComponent } from './client-center/client-center.component';
+import { ClientPurchaseComponent } from './client-purchase/client-purchase.component';
 import { ClientMenuLeftComponent } from './client-menu-left/client-menu-left.component';
 import { ClientModalAddItemComponent } from './client-shared/modals/client-modal-add-item/client-modal-add-item.component';
 import { ClientModalEditItemComponent } from './client-shared/modals/client-modal-edit-item/client-modal-edit-item.component';
@@ -22,7 +22,7 @@ import { ClientModalEditInquiryComponent } from './client-shared/modals/client-m
 @NgModule({
   declarations: [
     ClientComponent,
-    ClientCenterComponent,
+    ClientPurchaseComponent,
     ClientMenuLeftComponent,
     ClientModalAddItemComponent,
     ClientModalEditItemComponent,
