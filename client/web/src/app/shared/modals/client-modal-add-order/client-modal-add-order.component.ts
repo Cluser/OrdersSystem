@@ -19,8 +19,8 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public pageSize: number = 1000
   public selectedRows: any[] = []
   
-  public inquiry: IInquiryCreate = {};
-  public items: any = [];
+  public order: IInquiryCreate = {};
+  public items: any[] = [];
   public distributors: IDistributor[] = [];
 
 
@@ -29,6 +29,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   ngOnInit() {
     this.prepareGrid();
     this.getDistributors();
+    console.log(this.items)
   }
 
   public prepareGrid(): void {
@@ -48,10 +49,11 @@ export class PurchaseModalAddOrderComponent implements OnInit {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
-  public addInquiry(order: IOrderCreate): void {
+  public addOrder(order: IOrderCreate): void {
     order.idUser = 1;
     this.api.order.addOrder(order).subscribe((order: any) => {
-      this.api.orderItem.addOrderItems(this.selectedRows, order, 5, 5, 'sss').subscribe(() => {
+      let items = this.items.flatMap((items) => items.item)
+      this.api.orderItem.addOrderItems(items, order, 5, 5, 'sss').subscribe(() => {
         this.orderAddedEvent.emit();
         this.close();
       })

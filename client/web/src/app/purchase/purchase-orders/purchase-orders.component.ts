@@ -52,4 +52,7 @@ export class PurchaseOrdersComponent implements OnInit {
     orders.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) + ' zł')
   }
 
+  public onSelectionChanged(selection: any): void {
+    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
+  }
 }

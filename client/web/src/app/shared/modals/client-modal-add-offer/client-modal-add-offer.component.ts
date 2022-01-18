@@ -18,7 +18,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public pageSize: number = 1000
   
   public offer: IOfferCreate = {};
-  public items: any = [];
+  public items: any[] = [];
   public distributors: IDistributor[] = [];
 
 
@@ -50,7 +50,8 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public addOffer(offer: IOfferCreate): void {
     offer.idUser = 1;
     this.api.offer.addOffer(offer).subscribe((offer: any) => {
-      this.api.offerItem.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
+      let items = this.items.flatMap((items) => items.item)
+      this.api.offerItem.addOfferItems(items, offer, 5, 5, 'sss').subscribe(() => {
         this.offerAddedEvent.emit();
         this.close();
       })

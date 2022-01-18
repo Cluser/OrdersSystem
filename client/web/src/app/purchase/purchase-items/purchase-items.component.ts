@@ -54,21 +54,23 @@ export class PurchaseItemsComponent implements OnInit {
 
   public openAddInquiryModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddInquiryComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
+    console.log(this.selectedRows)
+    modalRef.componentInstance.items = this.selectedRows;
+    console.log(modalRef.componentInstance.items)
     // modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   public openAddOfferModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOfferComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
+    modalRef.componentInstance.items = this.selectedRows;
     // modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   public openAddOrderModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOrderComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
+    modalRef.componentInstance.items = this.selectedRows;
     // modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
@@ -83,6 +85,10 @@ export class PurchaseItemsComponent implements OnInit {
   public search(filter: any): void {
     if (filter) {this.api.item.getItems({'name': filter}, 1, 1000).subscribe((response) => this.rowData = response.items);} else
                 {this.api.item.getItems().subscribe((response) => this.rowData = response.items);}
+  }
+
+  public onSelectionChanged(selection: any): void {
+    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
   
 }

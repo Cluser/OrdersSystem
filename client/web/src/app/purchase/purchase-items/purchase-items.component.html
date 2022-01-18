@@ -17,7 +17,8 @@
             [paginationPageSize]="pageSize"
             [rowSelection]="'multiple'"
             [suppressRowDeselection]="true"
-            (rowDoubleClicked)="openEditItemModal($event.data)">
+            (rowDoubleClicked)="openEditItemModal($event.data)"
+            (selectionChanged) = "onSelectionChanged($event)">
         </ag-grid-angular>
     </div>
 </div>
