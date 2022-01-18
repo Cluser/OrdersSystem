@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { AdminModalAddProjectComponent } from '../admin-modals/admin-modal-add-project/admin-modal-add-project.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -29,6 +30,12 @@ export class AdminProjectsComponent implements OnInit {
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'client.name', headerName: 'Klient', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
+  }
+
+  public openAddProjectModal(): void {
+    const modalRef = this.modalService.open(AdminModalAddProjectComponent);
+    modalRef.componentInstance.projectAddedEvent.subscribe(() => this.getProjectsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
 }

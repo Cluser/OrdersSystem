@@ -1,3 +1,5 @@
+import { IClient } from ".";
+
 export interface IPProject {
     items: IProject[];
     previous_page: number;
@@ -9,6 +11,13 @@ export interface IPProject {
 }
 
 export interface IProject {
+    id?: number;
+    name?: string;
+    idClient?: number;
+    Client?: IClient;
+}
+
+export interface IProjectCreate {
     id?: number;
     name?: string;
     idClient?: number;

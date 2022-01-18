@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { AdminModalAddClientComponent } from '../admin-modals/admin-modal-add-client/admin-modal-add-client.component';
 
 @Component({
   selector: 'app-admin-clients',
@@ -31,6 +32,12 @@ export class AdminClientsComponent implements OnInit {
       { field: 'address', headerName: 'Adres', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'description', headerName: 'Opis', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
+  }
+
+  public openAddClientModal(): void {
+    const modalRef = this.modalService.open(AdminModalAddClientComponent);
+    modalRef.componentInstance.clientAddedEvent.subscribe(() => this.getClientsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
 }

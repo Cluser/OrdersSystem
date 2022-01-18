@@ -9,6 +9,8 @@ import { AdminDistributorsComponent } from './admin-distributors/admin-distribut
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminClientsComponent } from './admin-clients/admin-clients.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { AdminModalAddProjectComponent } from './admin-modals/admin-modal-add-project/admin-modal-add-project.component';
+import { AdminModalAddClientComponent } from './admin-modals/admin-modal-add-client/admin-modal-add-client.component';
 
 
 
@@ -19,13 +21,19 @@ import { AgGridModule } from 'ag-grid-angular';
     AdminProjectsComponent,
     AdminDistributorsComponent,
     AdminUsersComponent,
-    AdminClientsComponent
+    AdminClientsComponent,
+    AdminModalAddProjectComponent,
+    AdminModalAddClientComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     AdminRoutingModule,
     AgGridModule.withComponents([])
+  ],
+  entryComponents: [
+    AdminModalAddProjectComponent,
+    AdminModalAddClientComponent
   ]
 })
 export class AdminModule { }

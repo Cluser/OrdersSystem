@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPProject, IProject } from '../../models';
+import { IPProject, IProject, IProjectCreate } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,11 +24,11 @@ export class Project {
     return this.httpClient.get<IPProject>(this.projectsEndpointUrl, {params: params});
   }
 
-  public addProjects(project?: IProject): Observable<IProject[]> {
+  public addProjects(project?: IProjectCreate): Observable<IProjectCreate[]> {
     let params: any = {}
 
     if (project) { params = JSON.parse(JSON.stringify(project)) }
 
-    return this.httpClient.post<IProject[]>(this.projectsEndpointUrl, params);
+    return this.httpClient.post<IProjectCreate[]>(this.projectsEndpointUrl, params);
   }
 }
