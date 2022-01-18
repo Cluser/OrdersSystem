@@ -40,10 +40,13 @@ async def post(project: schemas.ProjectCreate) -> schemas.Project:
         Db.session.close()
         return project
 
-@router.put("/Projects/{id}", tags=["Projects"])
-async def put(id: int, project: schemas.ProjectCreate) -> schemas.Project:
+@router.put("/Projects", tags=["Projects"])
+async def put(project: schemas.ProjectEdit) -> schemas.ProjectEdit:
     try:
-        Db.session.query(models.Project).filter(models.Project.id == id).update({**project.dict()}, synchronize_session = False)
+        Db.session.query(models.Project).filter(models.Project.id == project.id).update({
+            'name': project.name,
+            'idClient': project.idClient
+        }, synchronize_session = False)
         Db.session.commit()
     except:
         Db.session.rollback()

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { IProjectCreate } from 'src/app/shared/models';
 import { AdminModalAddProjectComponent } from '../admin-modals/admin-modal-add-project/admin-modal-add-project.component';
+import { AdminModalEditProjectComponent } from '../admin-modals/admin-modal-edit-project/admin-modal-edit-project.component';
 
 @Component({
   selector: 'app-admin-projects',
@@ -35,6 +37,13 @@ export class AdminProjectsComponent implements OnInit {
   public openAddProjectModal(): void {
     const modalRef = this.modalService.open(AdminModalAddProjectComponent);
     modalRef.componentInstance.projectAddedEvent.subscribe(() => this.getProjectsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  public openEditProjectModal(project: IProjectCreate): void {
+    const modalRef = this.modalService.open(AdminModalEditProjectComponent);
+    modalRef.componentInstance.project = project;
+    modalRef.componentInstance.projectEditedEvent.subscribe(() => this.getProjectsData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

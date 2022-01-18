@@ -21,3 +21,9 @@ export interface IProjectCreate {
     name?: string;
     idClient?: number;
 }
+
+export interface IProjectEdit {
+    id?: number;
+    name?: string;
+    idClient?: number;
+}
