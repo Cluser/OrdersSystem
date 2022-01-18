@@ -40,10 +40,16 @@ async def post(distributor: schemas.DistributorCreate) -> schemas.Distributor:
         Db.session.close()
         return distributor
 
-@router.put("/Distributors/{id}", tags=["Distributors"])
-async def put(id: int, distributor: schemas.Distributor) -> schemas.Distributor:
+@router.put("/Distributors", tags=["Distributors"])
+async def put(distributor: schemas.Distributor) -> schemas.Distributor:
     try:
-        Db.session.query(models.Distributor).filter(models.Distributor.id == id).update({**distributor.dict()}, synchronize_session = False)
+        Db.session.query(models.Distributor).filter(models.Distributor.id == distributor.id).update({
+            'name': distributor.name,
+            'address': distributor.address,
+            'phone': distributor.phone,
+            'email': distributor.email,
+            'description': distributor.description
+        }, synchronize_session = False)
         Db.session.commit()
     except:
         Db.session.rollback()

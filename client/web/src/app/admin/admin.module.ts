@@ -13,6 +13,7 @@ import { AdminModalAddProjectComponent } from './admin-modals/admin-modal-add-pr
 import { AdminModalAddClientComponent } from './admin-modals/admin-modal-add-client/admin-modal-add-client.component';
 import { AdminModalAddDistributorComponent } from './admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component';
 import { AdminModalEditProjectComponent } from './admin-modals/admin-modal-edit-project/admin-modal-edit-project.component';
+import { AdminModalEditDistributorComponent } from './admin-modals/admin-modal-edit-distributor/admin-modal-edit-distributor.component';
 
 
 
@@ -27,7 +28,8 @@ import { AdminModalEditProjectComponent } from './admin-modals/admin-modal-edit-
     AdminModalAddProjectComponent,
     AdminModalAddClientComponent,
     AdminModalAddDistributorComponent,
-    AdminModalEditProjectComponent
+    AdminModalEditProjectComponent,
+    AdminModalEditDistributorComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { AdminModalEditProjectComponent } from './admin-modals/admin-modal-edit-
     AdminModalAddProjectComponent,
     AdminModalAddClientComponent,
     AdminModalAddDistributorComponent,
-    AdminModalEditProjectComponent
+    AdminModalEditProjectComponent,
+    AdminModalEditDistributorComponent
   ]
 })
 export class AdminModule { }

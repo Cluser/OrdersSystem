@@ -24,3 +24,12 @@ export interface IDistributorCreate {
     email?: string
     description?: string
 }
+
+export interface IDistributorEdit {
+    id?: number;
+    name?: string;
+    address?: string;
+    phone?: string;
+    email?: string
+    description?: string
+}

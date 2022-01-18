@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { IDistributor } from 'src/app/shared/models';
 import { AdminModalAddDistributorComponent } from '../admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component';
+import { AdminModalEditDistributorComponent } from '../admin-modals/admin-modal-edit-distributor/admin-modal-edit-distributor.component';
 
 @Component({
   selector: 'app-admin-distributors',
@@ -37,6 +39,13 @@ export class AdminDistributorsComponent implements OnInit {
   public openAddDistributorModal(): void {
     const modalRef = this.modalService.open(AdminModalAddDistributorComponent);
     modalRef.componentInstance.distributorAddedEvent.subscribe(() => this.getDistributorsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  public openEditDistributorModal(distributor: IDistributor): void {
+    const modalRef = this.modalService.open(AdminModalEditDistributorComponent);
+    modalRef.componentInstance.distributor = distributor;
+    modalRef.componentInstance.distributorEditedEvent.subscribe(() => this.getDistributorsData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IDistributor, IDistributorCreate, IPDistributor } from '../../models';
+import { IDistributor, IDistributorCreate, IDistributorEdit, IPDistributor } from '../../models';
 import { environment } from 'src/environments/environment';
 
 
@@ -30,6 +30,23 @@ export class Distributor {
     if (distributor) { params = JSON.parse(JSON.stringify(distributor)) }
 
     return this.httpClient.post<IDistributorCreate[]>(this.distributorsEndpointUrl, params);
+  }
+
+  public editDistributor(distributor: IDistributor): Observable<IDistributorEdit> {
+    let params: any = {}
+
+    let distributorToEdit: IDistributorEdit = {
+      id: distributor.id!,
+      name: distributor.name,
+      address: distributor.address,
+      phone: distributor.phone,
+      email: distributor.email,
+      description: distributor.description
+    };
+
+    if (distributor) { params = JSON.parse(JSON.stringify(distributorToEdit)) }
+
+    return this.httpClient.put<IDistributorEdit>(this.distributorsEndpointUrl, params);
   }
 
 }
