@@ -1,0 +1,6 @@
+<div class="menu">
+    <button [routerLink]="'/admin/projects'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Projects','btn-upper-menu': selectedMenu!=='Projects'}" (click)="selectMenu('Projects')">Projekty</button>
+    <button [routerLink]="'/admin/users'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Users','btn-upper-menu': selectedMenu!=='Users'}" (click)="selectMenu('Users')">Użytkownicy</button>
+    <button [routerLink]="'/admin/clients'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Clients','btn-upper-menu': selectedMenu!=='Clients'}" (click)="selectMenu('Clients')">Klienci</button>
+    <button [routerLink]="'/admin/distributors'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='Distributors','btn-upper-menu': selectedMenu!=='Distributors'}" (click)="selectMenu('Distributors')">Dystrybutorzy</button>
+</div>
