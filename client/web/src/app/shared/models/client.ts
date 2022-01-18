@@ -13,3 +13,9 @@ export interface IClient {
     name?: string;
     address?: string;
 }
+
+export interface IClientEdit {
+    id?: number;
+    name?: string;
+    address?: string;
+}

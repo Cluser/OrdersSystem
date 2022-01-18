@@ -11,3 +11,8 @@ class Client(BaseModel):
 class ClientCreate(BaseModel):
     name: str
     address: str
+
+class ClientEdit(BaseModel):
+    id: int
+    name: str
+    address: str

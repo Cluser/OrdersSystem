@@ -40,10 +40,13 @@ async def post(client: schemas.ClientCreate) -> schemas.Client:
         Db.session.close()
         return client
 
-@router.put("/Clients/{id}", tags=["Clients"])
-async def put(id: int, client: schemas.ClientCreate) -> schemas.Client:
+@router.put("/Clients", tags=["Clients"])
+async def put(client: schemas.ClientEdit) -> schemas.ClientEdit:
     try:
-        Db.session.query(models.Client).filter(models.Client.id == id).update({**client.dict()}, synchronize_session = False)
+        Db.session.query(models.Client).filter(models.Client.id == client.id).update({
+            'name': client.name,
+            'address': client.address
+        }, synchronize_session = False)
         Db.session.commit()
     except:
         Db.session.rollback()
@@ -52,7 +55,7 @@ async def put(id: int, client: schemas.ClientCreate) -> schemas.Client:
         Db.session.close()
         return client
 
-@router.delete("/Clients/{id}", tags=["Clients"])
+@router.delete("/Clients", tags=["Clients"])
 async def delete(id: int):
     try:
         Db.session.query(models.Client).filter(models.Client.id == id).delete()

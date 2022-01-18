@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IPClient } from '../../models';
+import { IClient, IClientEdit, IPClient } from '../../models';
 import { environment } from 'src/environments/environment';
 
 
@@ -33,5 +33,19 @@ export class Client {
     if (client) { params = JSON.parse(JSON.stringify(client)) }
 
     return this.httpClient.post<IClient[]>(this.clientsEndpointUrl, params);
+  }
+
+  public editClient(client: IClient): Observable<IClientEdit> {
+    let params: any = {}
+
+    let clientToEdit: IClientEdit = {
+      id: client.id!,
+      name: client.name,
+      address: client.address,
+    };
+
+    if (client) { params = JSON.parse(JSON.stringify(clientToEdit)) }
+
+    return this.httpClient.put<IClientEdit>(this.clientsEndpointUrl, params);
   }
 }

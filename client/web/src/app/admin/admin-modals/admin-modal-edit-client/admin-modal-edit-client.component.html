@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edytowanie klienta</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+    <label for="name">Nazwa</label>
+    <input id="name" type="text" class="form-control" [(ngModel)]="this.client.name" type="text">
+
+    <!-- <label for="email">E-mail</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.client.email" type="text"> -->
+
+    <label for="email">Adres</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.client.address" type="text">
+
+    <button (click)="editClient(this.client)" type="submit" class="btn btn-primary w-100">Edytuj klienta</button>
+</div>
