@@ -18,7 +18,6 @@ export interface IProject {
 }
 
 export interface IProjectCreate {
-    id?: number;
     name?: string;
     idClient?: number;
 }

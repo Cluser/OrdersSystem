@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { AdminModalAddDistributorComponent } from '../admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component';
 
 @Component({
   selector: 'app-admin-distributors',
@@ -31,6 +32,12 @@ export class AdminDistributorsComponent implements OnInit {
       { field: 'address', headerName: 'Adres', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'description', headerName: 'Opis', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
+  }
+
+  public openAddDistributorModal(): void {
+    const modalRef = this.modalService.open(AdminModalAddDistributorComponent);
+    modalRef.componentInstance.distributorAddedEvent.subscribe(() => this.getDistributorsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
 }

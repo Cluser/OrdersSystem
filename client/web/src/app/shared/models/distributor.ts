@@ -16,3 +16,11 @@ export interface IDistributor {
     email?: string
     description?: string
 }
+
+export interface IDistributorCreate {
+    name?: string;
+    address?: string;
+    phone?: string;
+    email?: string
+    description?: string
+}

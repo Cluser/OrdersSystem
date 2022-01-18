@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodawanie dystrybutora</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+    <label for="name">Nazwa</label>
+    <input id="name" type="text" class="form-control" [(ngModel)]="this.distributor.name" type="text">
+
+    <label for="email">E-mail</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.distributor.email" type="text">
+
+    <label for="phone">Telefon</label>
+    <input id="phone" type="text" class="form-control" [(ngModel)]="this.distributor.phone" type="text">
+
+    <label for="email">Adres</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.distributor.address" type="text">
+
+    <label for="description">Opis</label>
+    <input id="description" type="text" class="form-control" [(ngModel)]="this.distributor.description" type="text">
+
+    <button (click)="addDistributor(this.distributor)" type="submit" class="btn btn-primary w-100">Dodaj dystrybutora</button>
+</div>

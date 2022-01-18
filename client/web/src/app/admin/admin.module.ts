@@ -11,6 +11,7 @@ import { AdminClientsComponent } from './admin-clients/admin-clients.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { AdminModalAddProjectComponent } from './admin-modals/admin-modal-add-project/admin-modal-add-project.component';
 import { AdminModalAddClientComponent } from './admin-modals/admin-modal-add-client/admin-modal-add-client.component';
+import { AdminModalAddDistributorComponent } from './admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component';
 
 
 
@@ -23,7 +24,8 @@ import { AdminModalAddClientComponent } from './admin-modals/admin-modal-add-cli
     AdminUsersComponent,
     AdminClientsComponent,
     AdminModalAddProjectComponent,
-    AdminModalAddClientComponent
+    AdminModalAddClientComponent,
+    AdminModalAddDistributorComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { AdminModalAddClientComponent } from './admin-modals/admin-modal-add-cli
   ],
   entryComponents: [
     AdminModalAddProjectComponent,
-    AdminModalAddClientComponent
+    AdminModalAddClientComponent,
+    AdminModalAddDistributorComponent
   ]
 })
 export class AdminModule { }
