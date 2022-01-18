@@ -18,7 +18,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, idClient: Op
         parameters = {"id": id, "name": name, "idClient": idClient}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Project, attribute) == value for attribute, value in selectedParameters.items()]
-        Projects = paginate(Db.session.query(models.Project).filter(and_(*filters)), page, size)
+        Projects = paginate(Db.session.query(models.Project).options(joinedload(models.Project.client)).filter(and_(*filters)), page, size)
     except:
         Db.session.rollback()
         raise
