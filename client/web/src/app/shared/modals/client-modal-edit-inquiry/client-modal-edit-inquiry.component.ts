@@ -35,12 +35,10 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
       { field: 'item.id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
     this.rowData = this.inquiry.items;
-    console.log(this.rowData)
   }
 
   public getDistributors(): void {
@@ -48,7 +46,6 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
 
     this.inquiry._totalPrice = this.inquiry.items.reduce((x: any, y: any) => { return x + y.price }, 0);
 
-    console.log('Total Messages:', this.inquiry._totalPrice); 
   }
 
   public addInquiry(order: IOrderCreate): void {
@@ -62,7 +59,6 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
   }
 
   public close(): void {
-    console.log(this.rowData)
     this.closeEvent.emit();
   }
 }

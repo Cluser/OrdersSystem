@@ -39,15 +39,12 @@ export class PurchaseModalEditOrderComponent implements OnInit {
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
     this.rowData = this.order.items;
-    console.log(this.rowData)
   }
 
   public getDistributors(): void {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
 
     this.order._totalPrice = this.order.items.reduce((x: any, y: any) => { return x + y.price }, 0);
-
-    console.log('Total Messages:', this.order._totalPrice); 
   }
 
   public addOrder(order: IOrderCreate): void {
@@ -61,7 +58,6 @@ export class PurchaseModalEditOrderComponent implements OnInit {
   }
 
   public close(): void {
-    console.log(this.rowData)
     this.closeEvent.emit();
   }
 

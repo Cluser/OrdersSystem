@@ -27,7 +27,9 @@
                     [pagination]="false"
                     [paginationPageSize]="pageSize"
                     [rowSelection]="'multiple'"
-                    [suppressRowDeselection]="true">
+                    [suppressRowDeselection]="true"
+                    (cellEditingStopped)="onCellEditingStopped($event)"
+                    (selectionChanged) = "onSelectionChanged($event)">
                 </ag-grid-angular>
             </div>
         </div>

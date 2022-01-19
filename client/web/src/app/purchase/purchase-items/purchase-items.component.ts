@@ -54,7 +54,6 @@ export class PurchaseItemsComponent implements OnInit {
 
   public openAddInquiryModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddInquiryComponent, {size: 'xl'});
-    console.log(this.selectedRows)
     modalRef.componentInstance.items = this.selectedRows;
     console.log(modalRef.componentInstance.items)
     // modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
@@ -63,14 +62,22 @@ export class PurchaseItemsComponent implements OnInit {
 
   public openAddOfferModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOfferComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows;
+    let items: any[] = []
+
+    this.selectedRows.forEach((row) => items.push({item: row}))
+
+    modalRef.componentInstance.items = items;
     // modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   public openAddOrderModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOrderComponent, {size: 'xl'});
-    modalRef.componentInstance.items = this.selectedRows;
+    let items: any[] = []
+
+    this.selectedRows.forEach((row) => items.push({item: row}))
+
+    modalRef.componentInstance.items = items;
     // modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }

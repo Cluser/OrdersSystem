@@ -36,7 +36,6 @@ export class PurchaseInquiriesComponent implements OnInit {
       { field: 'distributor.name', headerName: 'Dystrybutor', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' },
-
     ];
   }
   
@@ -57,7 +56,7 @@ export class PurchaseInquiriesComponent implements OnInit {
   public openEditInquiryModal(inquiry: IInquiry): void {
     const modalRef = this.modalService.open(PurchaseModalEditInquiryComponent, {size: 'xl'});
     modalRef.componentInstance.inquiry = inquiry;
-    modalRef.componentInstance.orderEdditedEvent.subscribe(() => this.getInquiriesData());
+    modalRef.componentInstance.inquiryEdditedEvent.subscribe(() => this.getInquiriesData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

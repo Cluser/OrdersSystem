@@ -42,7 +42,9 @@ export class PurchaseModalAddOrderComponent implements OnInit {
       { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
-    this.rowData = this.items;
+
+    // Deep copy of items - without reference
+    this.rowData = JSON.parse(JSON.stringify(this.items));
   }
 
   public getDistributors(): void {

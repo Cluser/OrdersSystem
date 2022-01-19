@@ -17,24 +17,24 @@ export class OfferItem {
   constructor(private httpClient: HttpClient) { 
   }
 
-  public addOfferItems(item: IItem[], offer: IOffer, quantity: number, price: number, status: string): Observable<IOfferItemCreate[]> {
+  public addOfferItems(item: IOfferItemCreate[]): Observable<IOfferItemCreate[]> {
     let params: any = {}
 
     let offerItems: IOfferItemCreate[] = []
 
     item.forEach(item => {
       let offerItem: IOfferItemCreate = {
-        Item_id: item.id,
-        offer_id: offer.id,
-        quantity: quantity,
-        price: price,
-        status: status,
+        Item_id: item.Item_id,
+        offer_id: item.offer_id,
+        quantity: item.quantity,
+        price: item.price,
+        status: item.status,
       };
       offerItems.push(offerItem)
     })
 
 
-    if (offer) { params = JSON.parse(JSON.stringify(offerItems)) }
+    if (item) { params = JSON.parse(JSON.stringify(offerItems)) }
 
     return this.httpClient.post<IOfferItemCreate[]>(this.offersItemsEndpointUrl, params);
   }
