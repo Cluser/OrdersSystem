@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate, IOrderCreate} from '../../models';
+import { IDistributor, IInquiryCreate, IOrderCreate, IOrderItemCreate} from '../../models';
 
 
 @Component({
@@ -20,6 +20,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public selectedRows: any[] = []
   
   public order: IInquiryCreate = {};
+  public orderItems: IOrderItemCreate[] = [];
   public items: any[] = [];
   public distributors: IDistributor[] = [];
 
@@ -55,8 +56,14 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public addOrder(order: IOrderCreate): void {
     order.idUser = 1;
     this.api.order.addOrder(order).subscribe((order: any) => {
-      let items = this.items.flatMap((items) => items.item)
-      this.api.orderItem.addOrderItems(items, order, 5, 5, 'sss').subscribe(() => {
+
+      this.selectedRows.forEach((row) => {
+        let obj: IOrderItemCreate = { Item_id: row.item.id, order_id: order.id, price: Number(row.price), quantity: Number(row.quantity), status: row.status }
+        this.orderItems.push(obj)
+      })
+
+
+      this.api.orderItem.addOrderItems(this.orderItems).subscribe(() => {
         this.orderAddedEvent.emit();
         this.close();
       })

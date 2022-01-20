@@ -16,24 +16,24 @@ export class OrderItem {
   constructor(private httpClient: HttpClient) { 
   }
 
-  public addOrderItems(item: IItem[], order: IOrder, quantity: number, price: number, status: string): Observable<IOrderItemCreate[]> {
+  public addOrderItems(item: IOrderItemCreate[]): Observable<IOrderItemCreate[]> {
     let params: any = {}
 
     let orderItems: IOrderItemCreate[] = []
 
     item.forEach(item => {
       let orderItem: IOrderItemCreate = {
-        Item_id: item.id,
-        order_id: order.id,
-        quantity: quantity,
-        price: price,
-        status: status,
+        Item_id: item.Item_id,
+        order_id: item.order_id,
+        quantity: item.quantity,
+        price: item.price,
+        status: item.status
       };
       orderItems.push(orderItem)
     })
 
 
-    if (order) { params = JSON.parse(JSON.stringify(orderItems)) }
+    if (item) { params = JSON.parse(JSON.stringify(orderItems)) }
 
     return this.httpClient.post<IOrderItemCreate[]>(this.ordersItemsEndpointUrl, params);
   }
