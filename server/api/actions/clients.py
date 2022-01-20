@@ -13,9 +13,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Clients", tags=["Clients"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Client]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, email: Optional[str] = None, phone: Optional[str] = None, description: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Client]:
         try:
-            parameters = {"id": id, "name": name, "address": address}
+            parameters = {"id": id, "name": name, "address": address, "email": email, "phone": phone, "description": description}
             selectedParameters = {key: value for key, value in parameters.items() if value is not None}
             filters = [getattr(models.Client, attribute) == value for attribute, value in selectedParameters.items()]
             Clients = paginate(Db.session.query(models.Client).filter(and_(*filters)), page, size)
@@ -45,7 +45,10 @@ async def put(client: schemas.ClientEdit) -> schemas.ClientEdit:
     try:
         Db.session.query(models.Client).filter(models.Client.id == client.id).update({
             'name': client.name,
-            'address': client.address
+            'address': client.address,
+            'email': client.email,
+            'phone': client.phone,
+            'description': client.description
         }, synchronize_session = False)
         Db.session.commit()
     except:

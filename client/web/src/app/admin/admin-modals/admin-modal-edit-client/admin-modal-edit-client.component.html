@@ -7,11 +7,17 @@
     <label for="name">Nazwa</label>
     <input id="name" type="text" class="form-control" [(ngModel)]="this.client.name" type="text">
 
-    <!-- <label for="email">E-mail</label>
-    <input id="email" type="text" class="form-control" [(ngModel)]="this.client.email" type="text"> -->
+    <label for="address">Adres</label>
+    <input id="address" type="text" class="form-control" [(ngModel)]="this.client.address" type="text">
 
-    <label for="email">Adres</label>
-    <input id="email" type="text" class="form-control" [(ngModel)]="this.client.address" type="text">
+    <label for="email">E-mail</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.client.email" type="text">
+
+    <label for="phone">Telefon</label>
+    <input id="phone" type="text" class="form-control" [(ngModel)]="this.client.phone" type="text">
+
+    <label for="description">Opis</label>
+    <input id="description" type="text" class="form-control" [(ngModel)]="this.client.description" type="text">
 
     <button (click)="editClient(this.client)" type="submit" class="btn btn-primary w-100">Edytuj klienta</button>
 </div>

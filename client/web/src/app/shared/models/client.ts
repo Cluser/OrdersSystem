@@ -12,10 +12,16 @@ export interface IClient {
     id?: number;
     name?: string;
     address?: string;
+    email?: string;
+    phone?: string;
+    description?: string;
 }
 
 export interface IClientEdit {
     id?: number;
     name?: string;
     address?: string;
+    email?: string;
+    phone?: string;
+    description?: string;
 }

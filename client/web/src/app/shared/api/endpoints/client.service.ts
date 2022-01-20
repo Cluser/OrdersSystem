@@ -42,6 +42,9 @@ export class Client {
       id: client.id!,
       name: client.name,
       address: client.address,
+      email: client.email,
+      phone: client.phone,
+      description: client.description
     };
 
     if (client) { params = JSON.parse(JSON.stringify(clientToEdit)) }

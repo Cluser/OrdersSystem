@@ -11,7 +11,7 @@ class Main:
     faker = Faker()
 
     client = [
-        Client(name = faker.name(), address = faker.address())
+        # Client(name = faker.name(), address = faker.address(), email = 'dsad', phone = '9999999', description = 'Description')
     ]
 
     project = [
