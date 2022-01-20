@@ -9,10 +9,8 @@
 
     <label for="category">Kategoria</label>
     <select id="category" class="form-control" [(ngModel)]="this.item.category">
-      <option selected>Wybierz kategorie</option>
-      <option>Mechanika</option>
-      <option>Elektryka</option>
-      <option>Software</option>
+      <option selected>Wybierz kategorię</option>
+      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
     </select>
 
     <label for="quantity">Ilość</label>

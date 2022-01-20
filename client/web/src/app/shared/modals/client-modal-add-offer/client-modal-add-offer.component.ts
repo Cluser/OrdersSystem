@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IOfferCreate, IOfferItem} from '../../models';
+import { IContactPerson, IDistributor, IOfferCreate, IOfferItem} from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-offer',
@@ -23,7 +23,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public items: any[] = [];
   public offerItems: IOfferItem[] = [];
   public distributors: IDistributor[] = [];
-
+  public contactPersons: IContactPerson[] = [];
 
   constructor(private api: ApiService) { }
 
@@ -63,7 +63,14 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   
 
   public getDistributors(): void {
-    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
+      this.distributors = distributors.items
+
+    });
+  }
+
+  public getContactPersons(idDistributor: number): void {
+    this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
   public addOffer(offer: IOfferCreate): void {

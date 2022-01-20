@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IOffer, IOfferCreate } from '../../models';
+import { IContactPerson, IDistributor, IOfferCreate } from '../../models';
 
 @Component({
   selector: 'app-client-modal-edit-offer',
@@ -19,6 +19,7 @@ export class PurchaseModalEditOfferComponent implements OnInit {
   
   public offer: any = {};
   public distributors: IDistributor[] = [];
+  public contactPersons: IContactPerson[] = [];
 
 
   constructor(private api: ApiService) { }
@@ -45,6 +46,10 @@ export class PurchaseModalEditOfferComponent implements OnInit {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
 
     this.offer._totalPrice = this.offer.items.reduce((x: any, y: any) => { return x + y.price }, 0);
+  }
+
+  public getContactPersons(idDistributor: number): void {
+    this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
   public addOffer(offer: IOfferCreate): void {

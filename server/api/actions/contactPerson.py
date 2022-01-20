@@ -13,9 +13,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/ContactPerson", tags=["ContactPerson"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, phone: Optional[str] = None, email: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.ContactPerson]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, phone: Optional[str] = None, email: Optional[str] = None, idDistributor: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.ContactPerson]:
     try:
-        parameters = {"id": id, "name": name, 'phone': phone, 'email': email}
+        parameters = {"id": id, "name": name, 'phone': phone, 'email': email, 'idDistributor': idDistributor}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.ContactPerson, attribute) == value for attribute, value in selectedParameters.items()]
         ContactPerson = paginate(Db.session.query(models.ContactPerson).options(joinedload(models.ContactPerson.distributor)).filter(and_(*filters)), page, size)
