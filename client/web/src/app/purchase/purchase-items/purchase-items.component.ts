@@ -36,7 +36,7 @@ export class PurchaseItemsComponent implements OnInit {
     this.api.item.getItems({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
-      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'category', headerName: 'Kategoria', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -44,7 +44,7 @@ export class PurchaseItemsComponent implements OnInit {
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3, sort: 'desc' }
+      { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 }
     ];
   }
 
