@@ -51,9 +51,9 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public cellFormating(params: any) {
     // smthg wrong with re render
     switch(params.value){
-      case 1: return { backgroundColor: 'green' };
+      case null: return { backgroundColor: 'green' };
       case 2: return { backgroundColor: 'yellow' };
-      default: return { backgroundColor: 'blue' };
+      default: return { backgroundColor: 'yellow' };
     }
   }
 
