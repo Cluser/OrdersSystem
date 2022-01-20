@@ -4,6 +4,7 @@ import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { ICategory } from 'src/app/shared/models';
 import { AdminModalAddCategoryComponent } from '../admin-modals/admin-modal-add-category/admin-modal-add-category.component';
+import { AdminModalEditCategoryComponent } from '../admin-modals/admin-modal-edit-category/admin-modal-edit-category.component';
 
 @Component({
   selector: 'app-admin-categories',
@@ -39,10 +40,10 @@ export class AdminCategoriesComponent implements OnInit {
 
   
   public openEditCategoryModal(category: ICategory): void {
-    // const modalRef = this.modalService.open(AdminModalEditClientComponent);
-    // modalRef.componentInstance.client = client;
-    // modalRef.componentInstance.clientEditedEvent.subscribe(() => this.getClientsData());
-    // modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+    const modalRef = this.modalService.open(AdminModalEditCategoryComponent);
+    modalRef.componentInstance.category = category;
+    modalRef.componentInstance.categoryEditedEvent.subscribe(() => this.getCategoriesData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
 }

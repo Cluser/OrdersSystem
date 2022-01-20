@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICategory, IPCategory } from '../../models';
+import { ICategory, ICategoryEdit, IPCategory } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -30,5 +30,18 @@ export class Category {
     if (category) { params = JSON.parse(JSON.stringify(category)) }
 
     return this.httpClient.post<ICategory[]>(this.categoriesEndpointUrl, params);
+  }
+
+  public editCategory(category: ICategory): Observable<ICategoryEdit> {
+    let params: any = {}
+
+    let categoryToEdit: ICategoryEdit = {
+      id: category.id!,
+      name: category.name
+    };
+
+    if (category) { params = JSON.parse(JSON.stringify(categoryToEdit)) }
+
+    return this.httpClient.put<ICategoryEdit>(this.categoriesEndpointUrl, params);
   }
 }

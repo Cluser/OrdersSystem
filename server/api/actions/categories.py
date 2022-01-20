@@ -38,10 +38,12 @@ async def post(category: schemas.CategoryCreate) -> schemas.CategoryCreate:
         Db.session.close()
         return category
 
-@router.put("/Categories/{id}", tags=["Categories"])
-async def put(id: int, category: schemas.CategoryCreate) -> schemas.Category:
+@router.put("/Categories", tags=["Categories"])
+async def put(category: schemas.CategoryEdit) -> schemas.CategoryEdit:
     try:
-        Db.session.query(models.Category).filter(models.Category.id == id).update({**category.dict()}, synchronize_session = False)
+        Db.session.query(models.Category).filter(models.Category.id == category.id).update({
+            'name': category.name
+        }, synchronize_session = False)
         Db.session.commit()
     except:
         Db.session.rollback()

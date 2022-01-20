@@ -12,3 +12,8 @@ export interface ICategory {
     id?: number;
     name?: string;
 }
+
+export interface ICategoryEdit {
+    id?: number;
+    name?: string;
+}

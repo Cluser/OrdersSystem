@@ -3,13 +3,13 @@ import { ApiService } from '../../../shared/api/api.service'
 import { ICategory } from '../../../shared/models';
 
 @Component({
-  selector: 'app-admin-modal-add-category',
-  templateUrl: './admin-modal-add-category.component.html',
-  styleUrls: ['./admin-modal-add-category.component.scss']
+  selector: 'app-admin-modal-edit-category',
+  templateUrl: './admin-modal-edit-category.component.html',
+  styleUrls: ['./admin-modal-edit-category.component.scss']
 })
-export class AdminModalAddCategoryComponent implements OnInit {
+export class AdminModalEditCategoryComponent implements OnInit {
 
-  @Output() categoryAddedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() categoryEditedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public category: ICategory = {};
@@ -19,9 +19,9 @@ export class AdminModalAddCategoryComponent implements OnInit {
   ngOnInit() {
   }
 
-  public addCategory(category: ICategory): void {
-    this.api.category.addCategory(category).subscribe(() => {
-      this.categoryAddedEvent.emit();
+  public editCategory(category: ICategory): void {
+    this.api.category.editCategory(category).subscribe(() => {
+      this.categoryEditedEvent.emit();
       this.close();
     });
   }
