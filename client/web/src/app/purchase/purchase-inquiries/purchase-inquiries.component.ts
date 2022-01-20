@@ -23,7 +23,7 @@ export class PurchaseInquiriesComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
     this.getInquiriesData()
@@ -43,14 +43,14 @@ export class PurchaseInquiriesComponent implements OnInit {
   public openAddOfferModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOfferComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    // modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/purchase/offers']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   public openAddOrderModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOrderComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    // modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/purchase/orders']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

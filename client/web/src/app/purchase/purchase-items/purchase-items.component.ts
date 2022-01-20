@@ -25,7 +25,7 @@ export class PurchaseItemsComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal) { 
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -57,8 +57,7 @@ export class PurchaseItemsComponent implements OnInit {
   public openAddInquiryModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddInquiryComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows;
-    console.log(modalRef.componentInstance.items)
-    // modalRef.componentInstance.inquiryAddedEvent.subscribe(() => { this.getInquiriesData(); this.selectMenu("Inquiries") });
+    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => this.router.navigate(['/purchase/inquiries']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -69,7 +68,7 @@ export class PurchaseItemsComponent implements OnInit {
     this.selectedRows.forEach((row) => items.push({item: row}))
 
     modalRef.componentInstance.items = items;
-    // modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/purchase/offers']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -80,7 +79,7 @@ export class PurchaseItemsComponent implements OnInit {
     this.selectedRows.forEach((row) => items.push({item: row}))
 
     modalRef.componentInstance.items = items;
-    // modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/purchase/orders']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

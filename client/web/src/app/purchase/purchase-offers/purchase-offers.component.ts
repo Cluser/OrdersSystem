@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from 'src/app/shared/api/api.service';
@@ -22,7 +23,7 @@ export class PurchaseOffersComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit(): void {
     this.getOffersData()
@@ -50,14 +51,14 @@ export class PurchaseOffersComponent implements OnInit {
   public openAddOfferModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOfferComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    // modalRef.componentInstance.offerAddedEvent.subscribe(() => { this.getOffersData(); this.selectMenu("Offers") });
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/purchase/offers']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
   public openAddOrderModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOrderComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    // modalRef.componentInstance.orderAddedEvent.subscribe(() => { this.getOrdersData(); this.selectMenu("Orders") });
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/purchase/orders']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
