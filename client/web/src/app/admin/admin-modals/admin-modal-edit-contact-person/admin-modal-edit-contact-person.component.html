@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edytowanie sprzedawcy</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+    <label for="name">Nazwa</label>
+    <input id="name" type="text" class="form-control" [(ngModel)]="this.contactPerson.name" type="text">
+
+    <label for="distributor">Dystrybutor</label>
+    <select id="distributor" class="form-control" [(ngModel)]="this.contactPerson.idDistributor">
+      <option selected>Wybierz dystrybutora</option>
+      <option *ngFor="let distributor of distributors" [value]="distributor.id">{{distributor.name}}</option>
+    </select>
+
+    <label for="email">E-mail</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.contactPerson.email" type="text">
+
+    <label for="phone">Telefon</label>
+    <input id="phone" type="text" class="form-control" [(ngModel)]="this.contactPerson.phone" type="text">
+
+    <label for="description">Opis</label>
+    <input id="description" type="text" class="form-control" [(ngModel)]="this.contactPerson.description" type="text">
+
+    <button (click)="editContactPerson(this.contactPerson)" type="submit" class="btn btn-primary w-100">Edytuj sprzedawcę</button>
+</div>

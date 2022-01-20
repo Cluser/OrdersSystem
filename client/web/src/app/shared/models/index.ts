@@ -7,3 +7,4 @@ export * from './order';
 export * from './project';
 export * from './user';
 export * from './category';
+export * from './contactPerson';

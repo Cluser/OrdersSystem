@@ -9,3 +9,4 @@ export * from './inquiryItem.service';
 export * from './offerItem.service';
 export * from './orderItem.service';
 export * from './category.service';
+export * from './contactPerson.service';

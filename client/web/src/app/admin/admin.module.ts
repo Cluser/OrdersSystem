@@ -18,6 +18,9 @@ import { AdminModalEditClientComponent } from './admin-modals/admin-modal-edit-c
 import { AdminCategoriesComponent } from './admin-categories/admin-categories.component';
 import { AdminModalAddCategoryComponent } from './admin-modals/admin-modal-add-category/admin-modal-add-category.component';
 import { AdminModalEditCategoryComponent } from './admin-modals/admin-modal-edit-category/admin-modal-edit-category.component';
+import { AdminContactPersonsComponent } from './admin-contact-persons/admin-contact-persons.component';
+import { AdminModalAddContactPersonComponent } from './admin-modals/admin-modal-add-contact-person/admin-modal-add-contact-person.component';
+import { AdminModalEditContactPersonComponent } from './admin-modals/admin-modal-edit-contact-person/admin-modal-edit-contact-person.component';
 
 
 
@@ -30,6 +33,7 @@ import { AdminModalEditCategoryComponent } from './admin-modals/admin-modal-edit
     AdminUsersComponent,
     AdminClientsComponent,
     AdminCategoriesComponent,
+    AdminContactPersonsComponent,
     AdminModalAddProjectComponent,
     AdminModalAddClientComponent,
     AdminModalAddDistributorComponent,
@@ -37,7 +41,9 @@ import { AdminModalEditCategoryComponent } from './admin-modals/admin-modal-edit
     AdminModalEditDistributorComponent,
     AdminModalEditClientComponent,
     AdminModalAddCategoryComponent,
-    AdminModalEditCategoryComponent
+    AdminModalEditCategoryComponent,
+    AdminModalAddContactPersonComponent,
+    AdminModalEditContactPersonComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +59,9 @@ import { AdminModalEditCategoryComponent } from './admin-modals/admin-modal-edit
     AdminModalEditDistributorComponent,
     AdminModalEditClientComponent,
     AdminModalAddCategoryComponent,
-    AdminModalEditCategoryComponent
+    AdminModalEditCategoryComponent,
+    AdminModalAddContactPersonComponent,
+    AdminModalEditContactPersonComponent
   ]
 })
 export class AdminModule { }
