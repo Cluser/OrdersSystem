@@ -5,6 +5,7 @@ import { AdminProjectsComponent } from './admin-projects/admin-projects.componen
 import { AdminClientsComponent } from './admin-clients/admin-clients.component';
 import { AdminDistributorsComponent } from './admin-distributors/admin-distributors.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { AdminCategoriesComponent } from './admin-categories/admin-categories.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'clients', component: AdminClientsComponent },
       { path: 'distributors', component: AdminDistributorsComponent },
       { path: 'users', component: AdminUsersComponent },
+      { path: 'categories', component: AdminCategoriesComponent}
     ]
   }
 ];
