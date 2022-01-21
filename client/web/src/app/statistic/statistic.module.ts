@@ -5,6 +5,8 @@ import { StatisticMenuComponent } from './statistic-menu/statistic-menu.componen
 import { FormsModule } from '@angular/forms';
 import { StatisticRoutingModule } from './statistic-routing.module';
 import { StatisticDistributorsComponent } from './statistic-distributors/statistic-distributors.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -17,7 +19,8 @@ import { StatisticDistributorsComponent } from './statistic-distributors/statist
   imports: [
     CommonModule,
     FormsModule,
-    StatisticRoutingModule,
+    NgxChartsModule,
+    StatisticRoutingModule
   ]
 })
 export class StatisticModule { }

@@ -13,6 +13,7 @@ export interface IPOrder {
 export interface IOrder {
     id?: number;
     user?: IUser;
+    idDistributor?: number;
     distributor?: IDistributor;
     dateAndTime?: string;
     items?: IItem[];
