@@ -1,4 +1,4 @@
-import { IInquiry, IOrder, IProject, IUser } from ".";
+import { ICategory, IInquiry, IOrder, IProject, IUser } from ".";
 
 
 export interface IPItem {
@@ -15,13 +15,14 @@ export interface IItem {
     id?: number;
     name?: string;
     model?: string;
-    category?: string;
     quantity?: number;
     status?: string;
     comment?: string;
     dateAndTime?: string;
+    idCategory?: number;
     idProject?: number;
     idUser?: number;
+    category?: ICategory;
     user?: IUser;
     project?: IProject;
     inquiries?: IInquiry[];
@@ -31,10 +32,10 @@ export interface IItem {
 export interface IItemCreate {
     name?: string;
     model?: string;
-    category?: string;
     quantity?: number;
     status?: string;
     comment?: string;
+    idCategory?: number;
     idProject?: number;
     idDistributor?: number;
     idUser?: number;
@@ -44,10 +45,10 @@ export interface IItemEdit {
     id: number;
     name?: string;
     model?: string;
-    category?: string;
     quantity?: number;
     status?: string;
     comment?: string;
+    idCategory?: number;
     idProject?: number;
     idDistributor?: number;
     idUser?: number;

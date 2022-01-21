@@ -39,10 +39,10 @@ export class Item {
       id: item.id!,
       name: item.name,
       model: item.model,
-      category: item.category,
       quantity: item.quantity,
       comment: item.comment,
       status: item.status,
+      idCategory: item.idCategory,
       idProject: item.idProject,
       idUser: item.idUser
     };

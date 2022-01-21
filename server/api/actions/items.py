@@ -13,11 +13,11 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Items", tags=["Items to order"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, category: Optional[str] = None, status: Optional[str] = None, 
-                comment: Optional[str] = None, dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idProject: Optional[int] = None, 
+async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, status: Optional[str] = None, comment: Optional[str] = None, 
+                dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idCategory: Optional[int] = None, idProject: Optional[int] = None, 
                 page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
     try:
-        parameters = {"id": id, "name": name, "model": model, "category": category, "status": status, "comment": comment,'dateAndTime': dateAndTime, 'quantity': quantity, 'idProject': idProject}
+        parameters = {"id": id, "name": name, "model": model, "status": status, "comment": comment,'dateAndTime': dateAndTime, 'quantity': quantity, "idCategory": idCategory, 'idProject': idProject}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
@@ -27,6 +27,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
                                                     .options(joinedload(models.Item.offers).joinedload(models.ItemOffer.offer).joinedload(models.Offer.distributor))
                                                     .options(joinedload(models.Item.orders).joinedload(models.ItemOrder.order).joinedload(models.Order.user))
                                                     .options(joinedload(models.Item.orders).joinedload(models.ItemOrder.order).joinedload(models.Order.distributor))
+                                                    .options(joinedload(models.Item.category))
                                                     .options(joinedload(models.Item.user))
                                                     .options(joinedload(models.Item.project))
                                                     .filter(and_(*filters)), page, size)
@@ -59,10 +60,10 @@ async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
         Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
             'name': Item.name,
             'model': Item.model,
-            'category': Item.category,
             'quantity': Item.quantity,
             'status': Item.status,
             'comment': Item.comment,
+            'idCategory': Item.idCategory,
             'idUser': Item.idUser,
             'idProject': Item.idProject
         }, synchronize_session = False)

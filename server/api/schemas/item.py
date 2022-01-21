@@ -5,6 +5,7 @@ from typing import List
 from .user import User
 from .distributor import Distributor
 from .project import Project
+from .category import Category
 
 
 class ItemInquiryGetter(GetterDict):
@@ -73,11 +74,11 @@ class Item(BaseModel):
     id: int
     name: str
     model: str
-    category: str
     quantity: int
     status: str
     dateAndTime: str
     comment: str
+    category: Category
     user: User
     project: Project
     inquiries: List[ItemInquiry]
@@ -90,10 +91,10 @@ class Item(BaseModel):
 class ItemCreate(BaseModel):
     name: str
     model: str
-    category: str
     quantity: int
     status: str
     comment: str
+    idCategory: int
     idUser: int
     idProject: int
 
@@ -101,10 +102,10 @@ class ItemEdit(BaseModel):
     id: int
     name: str
     model: str
-    category: str
     quantity: int
     status: str
     comment: str
+    idCategory: int
     idUser: int
     idProject: int
 
