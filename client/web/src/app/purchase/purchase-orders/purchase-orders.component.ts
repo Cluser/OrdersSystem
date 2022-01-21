@@ -27,7 +27,7 @@ export class PurchaseOrdersComponent implements OnInit {
   }
 
   public getOrdersData(): void {
-    this.api.order.getOrders({}, 1, this.pageSize).subscribe((response) => {
+    this.api.order.getOrders({}, '', '', 1, this.pageSize).subscribe((response) => {
       this.rowData = response.items
       this.calculateOrdersPrices(this.rowData)
     });

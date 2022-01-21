@@ -16,9 +16,9 @@ export class Order {
   constructor(private httpClient: HttpClient) { 
   }
 
-  public getOrders(order?: IOrder, page?: number, size?: number): Observable<IPOrder> {
+  public getOrders(order?: IOrder, dateAndTimeStart?: string, dateAndTimeEnd?: string, page?: number, size?: number): Observable<IPOrder> {
     let params: any = {}
-    params = Object.assign(JSON.parse(JSON.stringify(order)), {'page': page, 'size': size})
+    params = Object.assign(JSON.parse(JSON.stringify(order)), {'dateAndTimeStart': dateAndTimeStart, 'dateAndTimeEnd': dateAndTimeEnd, 'page': page, 'size': size})
 
     return this.httpClient.get<IPOrder>(this.ordersEndpointUrl, {params: params});
   }

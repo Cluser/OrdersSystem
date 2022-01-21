@@ -9,12 +9,8 @@ import { IOrder } from 'src/app/shared/models';
 })
 export class StatisticDistributorsComponent implements OnInit {
 
-// public saleData = [
-//     { name: "", value: 105000 },
-//   ];
 
-  public chartData = []
-
+  public chartData: any[] = [ ];
   public orders: IOrder[] = [];
 
   constructor(private api: ApiService) {}
@@ -23,26 +19,21 @@ export class StatisticDistributorsComponent implements OnInit {
     this.getOrders();
   }
 
-  // private getOrders() {
-  //   this.api.order.getOrders({}, 1, 1000).subscribe((orders) => {
-  //     console.log(orders)
-  //     orders.items.forEach((order: any) => {
-  //       let price = 0;
-  //       order.items.forEach((item: any) => {
-  //         price = price + item.price;
-  //         console.log(this.saleData)
-  //       })
-  //       this.saleData.push({name: order.distributor.name, value: price} )
-  //       this.saleData = [...this.saleData]
-  //     })
-
-  //   });
-  // }
-
-  private getOrders() {
-    this.api.order.getOrders({}, 1, 1000).subscribe((orders) => {
-      orders.items
-    });
+  private getOrders(): any {
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
+      distributors.items.forEach((distributor) => {
+        let price = 0;
+        this.api.order.getOrders({idDistributor: distributor.id}, '', '', 1, 1000).subscribe((orders) => {
+          orders.items.forEach((order) => {
+            order.items!.forEach((item) => {
+              price = price + item.price!
+            });
+          });
+          this.chartData.push({ name: distributor.name!, value: price })
+          this.chartData = [...this.chartData]
+        });
+      });
+    })
   }
   
 }
