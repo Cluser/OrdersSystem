@@ -15,10 +15,12 @@ export class StatisticDistributorsComponent implements OnInit {
   public chartData: any[] = [ ];
   public chartDataCategory: any[] = [ ];
   public chartDataMonths: any[] = [ ];
+  public chartDataItems: any[] = [ ];
   public model: any = null;
 
   public myDpOptions: IAngularMyDpOptions = {
     dateRange: true,
+    showWeekNumbers: true,
     dateFormat: 'yyyy.mm.dd',
     // other options are here...
   };
@@ -32,7 +34,6 @@ export class StatisticDistributorsComponent implements OnInit {
   ngOnInit(): void {
     this.getOrders();
     this.getCostByCategory();
-    // this.getCostByMonth();
   }
 
   private getOrders(): any {
@@ -108,9 +109,31 @@ export class StatisticDistributorsComponent implements OnInit {
   }
   
   public onDateChanged(event: IMyDateModel): void {
-    let dateStart = event.dateRange?.beginDate?.year + ' - ' + event.dateRange?.beginDate?.month
-    let dateEnd = event.dateRange?.endDate?.year + ' - ' + event.dateRange?.endDate?.month
-    this.getCostByMonth(dateStart, dateEnd)
-    console.log(event)
+    let dateStart = event.dateRange?.formatted?.slice(0, 10).replace('.', '-').replace('.', '-')
+    let dateEnd = event.dateRange?.formatted?.slice(13, 23).replace('.', '-').replace('.', '-')
+
+    this.getCostByMonth(dateStart!, dateEnd!)
+    this.getItemsPerMonth(dateStart!, dateEnd!)
+  }
+
+  private getItemsPerMonth(start: string, end: string): void {
+    let months = this.getMonthsBetweenDates(start, end);
+    this.chartDataItems = []
+    this.api.item.getItems({}, start, end, 1, 1000).subscribe((item) => {
+      months.forEach((month) => {
+        let count = 0;
+        item.items.forEach((item) => {
+
+          if (item.dateAndTime?.slice(0,7) === month.slice(0,7)) {
+            count = count + 1
+          }
+
+        })
+        this.chartDataItems.push({ name: month, value: count })
+        this.chartDataItems = [...this.chartDataItems]
+      })
+    })
   }
 }
+
+

@@ -17,7 +17,6 @@
                     [xAxisLabel]="'Dystrybutor'"
                     [legendTitle]="'Legenda'"
                     [yAxisLabel]="'Kwota'"
-
                     [showXAxisLabel]="true"
                     [showYAxisLabel]="true"
                     [xAxis]="true"
@@ -33,7 +32,6 @@
                     [xAxisLabel]="'Kategoria'"
                     [legendTitle]="'Legenda'"
                     [yAxisLabel]="'Kwota'"
- 
                     [showXAxisLabel]="true"
                     [showYAxisLabel]="true"
                     [xAxis]="true"
@@ -51,7 +49,6 @@
                     [xAxisLabel]="'Miesiąc'"
                     [legendTitle]="'Legenda'"
                     [yAxisLabel]="'Kwota'"
-
                     [showXAxisLabel]="true"
                     [showYAxisLabel]="true"
                     [xAxis]="true"
@@ -61,7 +58,18 @@
             </div>
 
             <div class="col">
-                
+                <ngx-charts-bar-vertical 
+                    [view]="[800,400]"
+                    [results]="chartDataItems"
+                    [xAxisLabel]="'Miesiąc'"
+                    [legendTitle]="'Legenda'"
+                    [yAxisLabel]="'Ilość'"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="true">
+                </ngx-charts-bar-vertical>
             </div>
         </div>
 

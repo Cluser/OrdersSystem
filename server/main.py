@@ -30,7 +30,7 @@ class Main:
     # ]
 
     item = []
-    for x in range(1, 10):
+    for x in range(1, 10000):
         item.append(Item(name = x, model = "211-093", idCategory = 1, idUser = 1, idProject = 1, quantity = 3, status = "Do zamówienia", comment = "Komentarz przedmiotu"))
 
     

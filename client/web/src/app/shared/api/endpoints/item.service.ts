@@ -17,9 +17,9 @@ export class Item {
   }
 
   
-  public getItems(Item?: IItem, page?: number, size?: number): Observable<IPItem> {
+  public getItems(Item?: IItem, dateAndTimeStart?: string, dateAndTimeEnd?: string, page?: number, size?: number): Observable<IPItem> {
     let params: any = {}
-    params = Object.assign(JSON.parse(JSON.stringify(Item)), {'page': page, 'size': size})
+    params = Object.assign(JSON.parse(JSON.stringify(Item)), {'dateAndTimeStart': dateAndTimeStart, 'dateAndTimeEnd': dateAndTimeEnd, 'page': page, 'size': size})
 
     return this.httpClient.get<IPItem>(this.ItemsEndpointUrl, {params: params});
   }
