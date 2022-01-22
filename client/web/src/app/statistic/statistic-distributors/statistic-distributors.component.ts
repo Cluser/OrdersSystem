@@ -54,10 +54,10 @@ export class StatisticDistributorsComponent implements OnInit {
   }
 
   private getCostByCategory(): any {
-    this.api.category.getCategories({}, 1, 1000).subscribe((categories) => {
-      categories.items.forEach((category) => {
-        let price = 0;
-        this.api.order.getOrders({}, '', '', 1, 1000).subscribe((orders) => {
+    this.api.order.getOrders({}, '', '', 1, 1000).subscribe((orders) => {
+      this.api.category.getCategories({}, 1, 1000).subscribe((categories) => {
+        categories.items.forEach((category) => {
+          let price = 0;
           orders.items.forEach((order) => {
             order.items?.forEach((orderItem: any) => {
                 if (orderItem.item.idCategory === category.id) {

@@ -3,6 +3,8 @@ from db.models import *
 from api.general import *
 
 from faker import Faker
+from faker.providers import DynamicProvider
+from random import randrange
 
 class Main:
     # Call modules
@@ -10,63 +12,107 @@ class Main:
 
     faker = Faker()
 
-    # client = [
-    #     # Client(name = faker.name(), address = faker.address(), email = 'dsad', phone = '9999999', description = 'Description')
-    # ]
+    clientsProvider = DynamicProvider(
+        provider_name  ="client",
+        elements = ['Bosch', 'Mahle', 'Tesla', 'Dana']
+    )
 
-    # project = [
-    #     Project(name = "Project 1", idClient = 1),
-    #     Project(name = "Project 2", idClient = 1)
-    # ]
+    projectsProvider = DynamicProvider(
+        provider_name  ="project",
+        elements = ['22-001', '22-002', '22-003', '22-004', '22-005']
+    )
 
-    # user = [
-    #     User(name = "User 1", surname = "User 1 surname")
-    # ]
-
-    # item = [        
-    #     Item(name = "Item 1", idUser = 1, idProject = 1, idDistributor = 1, quantity = 3, status = "Item 1 status"),
-    #     Item(name = "Item 2", idUser = 1, idProject = 1, idDistributor = 1, quantity = 2, status = "Item 2 status"),
-    #     Item(name = "Item 3", idUser = 1, idProject = 1, idDistributor = 1, quantity = 6, status = "Item 3 status")
-    # ]
-
-    item = []
-    for x in range(1, 10000):
-        item.append(Item(name = x, model = "211-093", idCategory = 1, idUser = 1, idProject = 1, quantity = 3, status = "Do zamówienia", comment = "Komentarz przedmiotu"))
+    distributorsProvider = DynamicProvider(
+        provider_name  ="distributor",
+        elements = ['RA Controls', 'Siemens', 'Sick', 'Schneider', 'Elkan', 'Festo', 'SMC']
+    )
 
     
-    # distributor = [
-    #     Distributor(name = "Distributor 1", address = "Distributor 1 address", phone = "500 600 700", email = "distributor@email.com", description = "Dystrybutor części pneumatycznych")
-    # ]
+    categoriesProvider = DynamicProvider(
+        provider_name  ="category",
+        elements = ['Mechanika', 'Elektryka', 'Pneumatyka', 'Software', 'Inne']
+    )
 
-    # inquiry = [
-    #     Inquiry(idUser = 1, idDistributor = 1)
-    # ]
 
-    # order = [
-    #     Order(idUser = 1, idDistributor = 1)
-    # ]
+    faker.add_provider(clientsProvider)
+    faker.add_provider(projectsProvider)
+    faker.add_provider(distributorsProvider)
+    faker.add_provider(categoriesProvider)
 
-    # itemInquiry = [
-    #     ItemInquiry(Item_id = 1, inquiry_id = 1, quantity= 3, status = "Do zamówienia"),
-    #     ItemInquiry(Item_id = 2, inquiry_id = 1, quantity= 2, status = "Do zamówienia")
-    # ]
 
-    # itemOrder = [
-    #     ItemOrder(Item_id = 1, order_id = 1, quantity= 3, price = 150.99, status = "Zamówione"),
-    #     ItemOrder(Item_id = 2, order_id = 1, quantity= 2, price = 170.99, status = "Zamówione")
-    # ]
+    client = []
+    for clientName in clientsProvider.elements:
+        client.append(Client(name = clientName,  address = faker.address(), email = clientName + '@mail.com', phone = '9999999', description = 'Description'))
 
-    # Db.session.add_all(client)
-    # Db.session.add_all(project)
-    # Db.session.add_all(user)
+    project = []
+    for projectName in projectsProvider.elements:
+        project.append(Project(name = projectName, idClient = 1))
+
+    item = []
+    for x in range(1, 500):
+        item.append(Item(name = x, model = randrange(1, 10000), idCategory = randrange(1, 5), idUser = randrange(1, 5), idProject = randrange(1, 5), quantity = randrange(1, 50), status = "Do zamówienia", comment = "Komentarz przedmiotu"))
+
+
+    user = []
+    for x in range(1, 5):
+        user.append(User(name = faker.name(), surname = faker.name()))
+
+
+
+    distributor = []
+    for distributorName in distributorsProvider.elements:
+        distributor.append(Distributor(name = distributorName, address = faker.address(), phone = '899 777 444', email = distributorName + '@mail.com', description = "Dystrybutor części"))
+
+    contactPerson = []
+    for x in range(1, 30):
+        contactPerson.append(ContactPerson(idDistributor = randrange(1, 7), name = faker.name(), phone = '899 777 444', email = 'email@email.com', description = "Sprzedawca"))
+
+
+    category = []
+    for categoryName in categoriesProvider.elements:
+        category.append(Category(name = categoryName))
+
+    inquiry = []
+    for x in range(1, 10):
+       inquiry.append(Inquiry(idUser = randrange(1, 5), idDistributor = randrange(1, 7)))
+
+    offer = []
+    for x in range(1, 10):
+       offer.append(Offer(idUser = randrange(1, 5), idDistributor = randrange(1, 7)))
+
+    order = []
+    for x in range(1, 10):
+       order.append(Order(idUser = randrange(1, 5), idDistributor = randrange(1, 7)))
+
+    itemInquiry = []
+    for x in range(1, 10):
+       itemInquiry.append(ItemInquiry(Item_id = randrange(1, 500), inquiry_id = randrange(1, 50), quantity= randrange(1, 10), status = "Do zamówienia"))
+
+    itemOffer = []
+    for x in range(1, 500):
+       itemOffer.append(ItemOffer(Item_id = randrange(1, 500), offer_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), status = "Do zamówienia"))
+
+
+    itemOrder = []
+    for x in range(1, 500):
+       itemOrder.append(ItemOrder(Item_id = randrange(1, 500), order_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), status = "Do zamówienia"))
+
+
+    Db.session.add_all(client)
+    Db.session.add_all(project)
+    Db.session.add_all(user)
     Db.session.add_all(item)
-    # Db.session.add_all(distributor)
-    # Db.session.add_all(inquiry)
-    # Db.session.add_all(order)
-    # Db.session.add_all(itemInquiry)
-    # Db.session.add_all(itemOrder)
-    # Db.session.commit()
-     
+    Db.session.add_all(distributor)
+    Db.session.add_all(contactPerson)
+    Db.session.add_all(category)
+    Db.session.add_all(inquiry)
+    Db.session.add_all(offer)
+    Db.session.add_all(order)
+    Db.session.add_all(itemInquiry)
+    Db.session.add_all(itemOffer)
+    Db.session.add_all(itemOrder)
+
+    Db.session.commit()     
 
     api = Api()
 
