@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { IOrder } from 'src/app/shared/models';
 import * as moment from 'moment';
+import {IAngularMyDpOptions, IMyRangeDateSelection, IMyDateModel} from 'angular-mydatepicker';
 
 @Component({
   selector: 'app-statistic-distributors',
@@ -14,6 +15,15 @@ export class StatisticDistributorsComponent implements OnInit {
   public chartData: any[] = [ ];
   public chartDataCategory: any[] = [ ];
   public chartDataMonths: any[] = [ ];
+  public model: any = null;
+
+  public myDpOptions: IAngularMyDpOptions = {
+    dateRange: true,
+    dateFormat: 'yyyy.mm.dd',
+    // other options are here...
+  };
+
+  public locale: string = 'pl';
 
   public orders: IOrder[] = [];
 
@@ -22,7 +32,7 @@ export class StatisticDistributorsComponent implements OnInit {
   ngOnInit(): void {
     this.getOrders();
     this.getCostByCategory();
-    this.getCostByMonth();
+    // this.getCostByMonth();
   }
 
   private getOrders(): any {
@@ -61,12 +71,12 @@ export class StatisticDistributorsComponent implements OnInit {
     })
   }
 
-  private getCostByMonth(): any {
-    let months = this.getMonthsBetweenDates('2021-03-20', '2023-06-11')
+  private getCostByMonth(start: string, end: string): any {
+    let months = this.getMonthsBetweenDates(start, end)
 
     months.forEach((month) => {
       let price = 0;
-      this.api.order.getOrders({}, '', '', 1, 1000).subscribe((orders) => {
+      this.api.order.getOrders({}, start, end, 1, 1000).subscribe((orders) => {
         orders.items.forEach((order) => {
           if (order.dateAndTime?.startsWith(month)) {
             order.items?.forEach((item) => {
@@ -97,4 +107,10 @@ export class StatisticDistributorsComponent implements OnInit {
     return timeValues;
   }
   
+  public onDateChanged(event: IMyDateModel): void {
+    let dateStart = event.dateRange?.beginDate?.year + ' - ' + event.dateRange?.beginDate?.month
+    let dateEnd = event.dateRange?.endDate?.year + ' - ' + event.dateRange?.endDate?.month
+    this.getCostByMonth(dateStart, dateEnd)
+    console.log(event)
+  }
 }

@@ -1,6 +1,11 @@
 <div class="statistic-categories-section">
     <div class="lower-menu">
-
+        <div class="input-box-container">
+            <input class="input-box" placeholder="Click to select a date" 
+              angular-mydatepicker name="mydate" (click)="dp.toggleCalendar()" 
+              [(ngModel)]="model" [options]="myDpOptions" 
+              #dp="angular-mydatepicker" (dateChanged)="onDateChanged($event)" [locale]="locale"/>
+        </div>
     </div>
     
     <div class="statistics">
