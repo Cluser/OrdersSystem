@@ -7,6 +7,7 @@ import { StatisticRoutingModule } from './statistic-routing.module';
 import { StatisticDistributorsComponent } from './statistic-distributors/statistic-distributors.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AngularMyDatePickerModule } from 'angular-mydatepicker';
+import { StatisticProjectsComponent } from './statistic-projects/statistic-projects.component';
 
 
 
@@ -14,7 +15,8 @@ import { AngularMyDatePickerModule } from 'angular-mydatepicker';
   declarations: [
     StatisticComponent,
     StatisticMenuComponent,
-    StatisticDistributorsComponent
+    StatisticDistributorsComponent,
+    StatisticProjectsComponent
   ],
   imports: [
     CommonModule,
