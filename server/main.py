@@ -29,9 +29,9 @@ class Main:
     #     Item(name = "Item 3", idUser = 1, idProject = 1, idDistributor = 1, quantity = 6, status = "Item 3 status")
     # ]
 
-    # item = []
-    # for x in range(1, 10):
-    #     item.append(Item(name = x, model = "211-093", category = "Mechanika", idUser = 1, idProject = 1, quantity = 3, status = "Do zamówienia", comment = "Komentarz przedmiotu"))
+    item = []
+    for x in range(1, 10):
+        item.append(Item(name = x, model = "211-093", idCategory = 1, idUser = 1, idProject = 1, quantity = 3, status = "Do zamówienia", comment = "Komentarz przedmiotu"))
 
     
     # distributor = [
@@ -59,7 +59,7 @@ class Main:
     # Db.session.add_all(client)
     # Db.session.add_all(project)
     # Db.session.add_all(user)
-    # Db.session.add_all(item)
+    Db.session.add_all(item)
     # Db.session.add_all(distributor)
     # Db.session.add_all(inquiry)
     # Db.session.add_all(order)

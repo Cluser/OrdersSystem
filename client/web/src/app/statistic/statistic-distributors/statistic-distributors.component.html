@@ -4,19 +4,62 @@
     </div>
     
     <div class="statistics">
-        <ngx-charts-bar-vertical 
-            [view]="[1000,400]"
-            [results]="chartData"
-            [xAxisLabel]="'Dystrybutor'"
-            [legendTitle]="'Legenda'"
-            [yAxisLabel]="'Kwota'"
-            [legend]="true"
-            [showXAxisLabel]="true"
-            [showYAxisLabel]="true"
-            [xAxis]="true"
-            [yAxis]="true"
-            [gradient]="true">
-        </ngx-charts-bar-vertical>
+        <div class="row">
+            <div class="col">
+                <ngx-charts-bar-vertical 
+                    [view]="[800,400]"
+                    [results]="chartData"
+                    [xAxisLabel]="'Dystrybutor'"
+                    [legendTitle]="'Legenda'"
+                    [yAxisLabel]="'Kwota'"
+
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="true">
+                </ngx-charts-bar-vertical>
+            </div>
+
+            <div class="col">
+                <ngx-charts-bar-vertical 
+                    [view]="[800,400]"
+                    [results]="chartDataCategory"
+                    [xAxisLabel]="'Kategoria'"
+                    [legendTitle]="'Legenda'"
+                    [yAxisLabel]="'Kwota'"
+ 
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="true">
+                </ngx-charts-bar-vertical>
+            </div>
+        </div>
+
+        <div clasc="row">
+            <div class="col">
+                <ngx-charts-bar-vertical 
+                    [view]="[800,400]"
+                    [results]="chartDataMonths"
+                    [xAxisLabel]="'Miesiąc'"
+                    [legendTitle]="'Legenda'"
+                    [yAxisLabel]="'Kwota'"
+
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="true">
+                </ngx-charts-bar-vertical>
+            </div>
+
+            <div class="col">
+                
+            </div>
+        </div>
+
     </div>
 </div>
 

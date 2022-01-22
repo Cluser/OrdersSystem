@@ -19,7 +19,9 @@ async def get(Item_id: Optional[int] = None, order_id: Optional[int] = None, qua
         parameters = {"Item_id": Item_id, "order_id": order_id, 'quantity': quantity, 'price': price, 'status': status}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.ItemOrder, attribute) == value for attribute, value in selectedParameters.items()]
-        OrdersItems = paginate(Db.session.query(models.ItemOrder).options(joinedload(models.ItemOrder.order)).filter(and_(*filters)), page, size)
+        OrdersItems = paginate(Db.session.query(models.ItemOrder).options(joinedload(models.ItemOrder.order))
+                                                                 .options(joinedload(models.ItemOrder.item))
+                                                                 .filter(and_(*filters)), page, size)
     except:
         Db.session.rollback()
         raise
