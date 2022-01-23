@@ -21,4 +21,8 @@ export class Statistic {
         return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl);
     }
 
+    public getCostByProjectCategory(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + 'ByProjectCategory');
+    }
+
 }
