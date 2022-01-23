@@ -12,3 +12,4 @@ from .ordersItems import *
 from .contactPerson import *
 from .categories import *
 from .files import *
+from .statistic import *
