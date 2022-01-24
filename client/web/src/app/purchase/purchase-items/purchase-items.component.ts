@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalAddInquiryComponent } from 'src/app/shared/modals/client-modal-add-inquiry/client-modal-add-inquiry.component';
 import { PurchaseModalAddItemComponent } from 'src/app/shared/modals/client-modal-add-item/client-modal-add-item.component';
@@ -25,7 +26,7 @@ export class PurchaseItemsComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal, private router: Router) { 
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { 
   }
 
   ngOnInit(): void {
@@ -33,7 +34,8 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   public getItemsData(): void {
-    this.api.item.getItems({}, '', '', 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.spinner.show();
+    this.api.item.getItems({}, '', '', 1, this.pageSize).subscribe((response) => { this.rowData = response.items, this.spinner.hide();});
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
@@ -46,6 +48,7 @@ export class PurchaseItemsComponent implements OnInit {
       { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 }
     ];
+
   }
 
   public openAddItemModal(): void {

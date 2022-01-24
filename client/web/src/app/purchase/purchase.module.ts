@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AgGridModule } from 'ag-grid-angular';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { PurchaseRoutingModule } from './purchase-routing.module';
 import { PurchaseComponent } from '../purchase/purchase.component';
@@ -43,7 +44,8 @@ import { PurchaseItemsComponent } from './purchase-items/purchase-items.componen
     CommonModule,
     FormsModule,
     PurchaseRoutingModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    NgxSpinnerModule
   ],
   entryComponents: [
     PurchaseModalAddItemComponent,
