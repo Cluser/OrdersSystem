@@ -9,3 +9,17 @@
     position: relative;
     max-height: 90%;
 }
+
+.modal-title {
+    font-size: 1rem;
+}
+
+.close {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+.close:hover {
+    color: rgb(189, 189, 189);
+}
