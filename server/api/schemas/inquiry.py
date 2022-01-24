@@ -42,6 +42,7 @@ class Inquiry(BaseModel):
     distributor: Distributor
     contactPerson: ContactPerson
     dateAndTime: str
+    archived: bool
     items: List[InquiryItem]
 
     class Config:
@@ -51,5 +52,6 @@ class InquiryCreate(BaseModel):
     idUser: int
     idDistributor: int
     idContactPerson: int
+    archived: bool
 
 

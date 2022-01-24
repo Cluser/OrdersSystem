@@ -30,7 +30,7 @@ export class PurchaseInquiriesComponent implements OnInit {
   }
 
   public getInquiriesData(): void {
-    this.api.inquiry.getInquiries({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.api.inquiry.getInquiries({archived: false}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },

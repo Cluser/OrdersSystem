@@ -30,7 +30,7 @@ export class PurchaseOffersComponent implements OnInit {
   }
 
   public getOffersData(): void {
-    this.api.offer.getOffers({}, 1, this.pageSize).subscribe((response) => {
+    this.api.offer.getOffers({archived: false}, 1, this.pageSize).subscribe((response) => {
       this.rowData = response.items
       this.calculateOffersPrices(this.rowData)
     });

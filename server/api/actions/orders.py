@@ -14,9 +14,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Orders", tags=["Orders"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Order]:
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[bool] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Order]:
     try:
-        parameters = { "id": id, "idDistributor": idDistributor }
+        parameters = { "id": id, "idDistributor": idDistributor, "archived": archived }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Order, attribute) == value for attribute, value in selectedParameters.items()]
 

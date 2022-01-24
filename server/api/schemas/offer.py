@@ -43,6 +43,7 @@ class Offer(BaseModel):
     distributor: Distributor
     contactPerson: ContactPerson
     dateAndTime: str
+    archived: bool
     items: List[OfferItem]
 
     class Config:
@@ -52,5 +53,6 @@ class OfferCreate(BaseModel):
     idUser: int
     idDistributor: int
     idContactPerson: int
+    archived: bool
 
 

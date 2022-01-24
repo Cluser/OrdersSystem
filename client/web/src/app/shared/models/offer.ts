@@ -16,6 +16,7 @@ export interface IOffer {
     distributor?: IDistributor;
     contactPerson?: IContactPerson;
     dateAndTime?: string;
+    archived?: boolean;
     totalPrice?: number;
     items?: IOfferItem[];
 }
@@ -25,6 +26,7 @@ export interface IOfferCreate {
     idDistributor?: number;
     idContactPerson?: number;
     dateAndTime?: string;
+    archived?: boolean;
 }
 
 export interface IOfferItem {

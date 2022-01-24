@@ -16,6 +16,7 @@ export interface IOrder {
     idDistributor?: number;
     distributor?: IDistributor;
     dateAndTime?: string;
+    archived?: boolean;
     items?: IOrderItem[];
 }
 
@@ -23,6 +24,7 @@ export interface IOrderCreate {
     idUser?: number;
     idDistributor?: number;
     dateAndTime?: string;
+    archived?: boolean;
 }
 
 export interface IOrderItem {

@@ -14,9 +14,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Inquiries", tags=["Inquiries"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, idContactPerson: Optional[int] = None, dateAndTime: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, idContactPerson: Optional[int] = None, dateAndTime: Optional[str] = None, archived: Optional[bool] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
     try:
-        parameters = { "id": id, "idDistributor": idDistributor, "idContactPerson": idContactPerson, "dateAndTime": dateAndTime }
+        parameters = { "id": id, "idDistributor": idDistributor, "idContactPerson": idContactPerson, "dateAndTime": dateAndTime, "archived": archived }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
 

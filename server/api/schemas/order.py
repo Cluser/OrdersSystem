@@ -42,6 +42,7 @@ class Order(BaseModel):
     distributor: Distributor
     contactPerson: ContactPerson
     dateAndTime: str
+    archived: bool
     items: List[OrderItem]
 
     class Config:
@@ -51,3 +52,4 @@ class OrderCreate(BaseModel):
     idUser: int
     idDistributor: int
     idContactPerson: int
+    archived: bool

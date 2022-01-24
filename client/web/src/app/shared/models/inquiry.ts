@@ -16,6 +16,7 @@ export interface IInquiry {
     distributor?: IDistributor;
     contactPerson?: IContactPerson;
     dateAndTime?: string;
+    archived?: boolean;
     items?: IItem[];
 }
 
@@ -24,6 +25,7 @@ export interface IInquiryCreate {
     idDistributor?: number;
     idContactPerson?: number;
     dateAndTime?: string;
+    archived?: boolean;
 }
 
 export interface IInquiryItem {

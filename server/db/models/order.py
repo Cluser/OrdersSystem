@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from db.general import Db
 
@@ -10,13 +10,15 @@ class Order(Db.Base):
     idContactPerson = Column(Integer, ForeignKey('contactPersons.id'))
 
     dateAndTime = Column(String)
+    archived = Column(Boolean)
 
     user = relationship("User", back_populates="order")
     distributor = relationship("Distributor", back_populates="order")
     contactPerson = relationship("ContactPerson", back_populates="order")
     items = relationship('ItemOrder', back_populates="order")
 
-    def __init__(self, idUser, idDistributor, idContactPerson):
+    def __init__(self, idUser, idDistributor, idContactPerson, archived):
         self.idUser = idUser
         self.idDistributor = idDistributor
         self.idContactPerson = idContactPerson
+        self.archived = archived
