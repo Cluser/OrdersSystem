@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from db.general import Db
 
@@ -16,6 +16,7 @@ class Item(Db.Base):
     status = Column(String)
     dateAndTime = Column(String)
     comment = Column(String)
+    archived = Column(Boolean, nullable = True)
 
     category = relationship("Category", back_populates="item")
     user = relationship("User", back_populates="item")
@@ -24,7 +25,7 @@ class Item(Db.Base):
     offers = relationship('ItemOffer', back_populates="item")
     orders = relationship('ItemOrder', back_populates="item")
 
-    def __init__(self, idCategory, idUser, idProject, name, model, quantity, status, comment):
+    def __init__(self, idCategory, idUser, idProject, name, model, quantity, status, comment, archived):
         self.idCategory = idCategory
         self.idUser = idUser
         self.idProject = idProject
@@ -33,3 +34,4 @@ class Item(Db.Base):
         self.quantity = quantity
         self.status = status
         self.comment = comment
+        self.archived = archived

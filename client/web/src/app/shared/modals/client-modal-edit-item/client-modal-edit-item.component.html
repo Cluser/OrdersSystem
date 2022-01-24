@@ -30,6 +30,13 @@
       <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
     </select>
 
+    <label for="status">Zarchiwizowany</label>
+    <select id="status" class="form-control" [(ngModel)]="this.item.archived">
+      <option selected>Wybierz status</option>
+      <option [value]="true">Tak</option>
+      <option [value]="false">Nie</option>
+    </select>
+
     <label for="comment">Komentarz</label>
     <textarea id="comment" type="text" cols="40" rows="5" class="form-control" [(ngModel)]="this.item.comment" type="text"></textarea>
 

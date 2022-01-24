@@ -78,6 +78,7 @@ class Item(BaseModel):
     status: str
     dateAndTime: str
     comment: str
+    archived: bool
     category: Category
     user: User
     project: Project
@@ -94,6 +95,7 @@ class ItemCreate(BaseModel):
     quantity: int
     status: str
     comment: str
+    archived: bool
     idCategory: int
     idUser: int
     idProject: int
@@ -105,6 +107,7 @@ class ItemEdit(BaseModel):
     quantity: int
     status: str
     comment: str
+    archived: bool
     idCategory: int
     idUser: int
     idProject: int

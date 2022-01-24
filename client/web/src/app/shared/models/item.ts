@@ -18,6 +18,7 @@ export interface IItem {
     quantity?: number;
     status?: string;
     comment?: string;
+    archived?: boolean;
     dateAndTime?: string;
     idCategory?: number;
     idProject?: number;
@@ -35,6 +36,7 @@ export interface IItemCreate {
     quantity?: number;
     status?: string;
     comment?: string;
+    archived?: boolean;
     idCategory?: number;
     idProject?: number;
     idDistributor?: number;
@@ -48,6 +50,7 @@ export interface IItemEdit {
     quantity?: number;
     status?: string;
     comment?: string;
+    archived?: boolean;
     idCategory?: number;
     idProject?: number;
     idDistributor?: number;

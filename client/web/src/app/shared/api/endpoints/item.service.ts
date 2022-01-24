@@ -41,6 +41,7 @@ export class Item {
       model: item.model,
       quantity: item.quantity,
       comment: item.comment,
+      archived: item.archived,
       status: item.status,
       idCategory: item.idCategory,
       idProject: item.idProject,

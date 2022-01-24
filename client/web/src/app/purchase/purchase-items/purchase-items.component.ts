@@ -35,7 +35,7 @@ export class PurchaseItemsComponent implements OnInit {
 
   public getItemsData(): void {
     this.spinner.show();
-    this.api.item.getItems({}, '', '', 1, this.pageSize).subscribe((response) => { this.rowData = response.items, this.spinner.hide();});
+    this.api.item.getItems({archived: false}, '', '', 1, this.pageSize).subscribe((response) => { this.rowData = response.items, this.spinner.hide();});
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
@@ -100,6 +100,15 @@ export class PurchaseItemsComponent implements OnInit {
 
   public onSelectionChanged(selection: any): void {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
+  }
+
+  public archiveSelected(): void {
+    this.selectedRows.forEach((item) => {
+      item.archived = true;
+      this.api.item.editItem(item).subscribe();
+    })
+    this.selectedRows = [];
+    this.getItemsData();
   }
   
 }
