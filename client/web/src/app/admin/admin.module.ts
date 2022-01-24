@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AgGridModule } from 'ag-grid-angular';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { AdminComponent } from './admin.component';
@@ -8,7 +11,6 @@ import { AdminProjectsComponent } from './admin-projects/admin-projects.componen
 import { AdminDistributorsComponent } from './admin-distributors/admin-distributors.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminClientsComponent } from './admin-clients/admin-clients.component';
-import { AgGridModule } from 'ag-grid-angular';
 import { AdminModalAddProjectComponent } from './admin-modals/admin-modal-add-project/admin-modal-add-project.component';
 import { AdminModalAddClientComponent } from './admin-modals/admin-modal-add-client/admin-modal-add-client.component';
 import { AdminModalAddDistributorComponent } from './admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component';
@@ -49,7 +51,8 @@ import { AdminModalEditContactPersonComponent } from './admin-modals/admin-modal
     CommonModule,
     FormsModule,
     AdminRoutingModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    NgxSpinnerModule
   ],
   entryComponents: [
     AdminModalAddProjectComponent,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class AdminUsersComponent implements OnInit {
   public rowData: any[] = [];
   public pageSize: number = 1000
 
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getUsersData();

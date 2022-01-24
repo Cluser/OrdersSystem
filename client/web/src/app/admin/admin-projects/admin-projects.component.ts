@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { IProjectCreate } from 'src/app/shared/models';
 import { AdminModalAddProjectComponent } from '../admin-modals/admin-modal-add-project/admin-modal-add-project.component';
@@ -18,14 +19,15 @@ export class AdminProjectsComponent implements OnInit {
   public pageSize: number = 1000
 
 
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getProjectsData();
   }
 
   public getProjectsData(): void {
-    this.api.project.getProjects({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.spinner.show();
+    this.api.project.getProjects({}, 1, this.pageSize).subscribe((response) => { this.rowData = response.items; this.spinner.hide() });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },

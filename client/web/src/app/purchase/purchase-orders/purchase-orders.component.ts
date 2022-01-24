@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalEditOrderComponent } from 'src/app/shared/modals/client-modal-edit-order/client-modal-edit-order.component';
 import { IOrder } from 'src/app/shared/models';
@@ -20,16 +21,18 @@ export class PurchaseOrdersComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getOrdersData()
   }
 
   public getOrdersData(): void {
+    this.spinner.show();
     this.api.order.getOrders({archived: false}, '', '', 1, this.pageSize).subscribe((response) => {
       this.rowData = response.items
       this.calculateOrdersPrices(this.rowData)
+      this.spinner.hide()
     });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },

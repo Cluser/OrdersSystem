@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
@@ -23,16 +24,18 @@ export class PurchaseOffersComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal, private router: Router) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getOffersData()
   }
 
   public getOffersData(): void {
+    this.spinner.show();
     this.api.offer.getOffers({archived: false}, 1, this.pageSize).subscribe((response) => {
       this.rowData = response.items
       this.calculateOffersPrices(this.rowData)
+      this.spinner.hide()
     });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },

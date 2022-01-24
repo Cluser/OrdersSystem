@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { IClient } from 'src/app/shared/models';
 import { AdminModalAddClientComponent } from '../admin-modals/admin-modal-add-client/admin-modal-add-client.component';
@@ -17,14 +18,15 @@ export class AdminClientsComponent implements OnInit {
   public rowData: any[] = [];
   public pageSize: number = 1000
 
-  constructor(private api: ApiService, private modalService: NgbModal) { }
+  constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.getClientsData();
   }
 
   public getClientsData(): void {
-    this.api.client.getClients({}, 1, this.pageSize).subscribe((response) => this.rowData = response.items);
+    this.spinner.show();
+    this.api.client.getClients({}, 1, this.pageSize).subscribe((response) => { this.rowData = response.items; this.spinner.hide() });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
