@@ -4,37 +4,71 @@
     <span aria-hidden="true">&times;</span></button>
 </div>
 <div class="modal-body">
-    <label for="name">Nazwa</label>
-    <input id="name" type="text" class="form-control" [(ngModel)]="this.item.name" type="text">
+    <form (ngSubmit)="addItem(this.item)" #addItemForm="ngForm">
+      <label for="name">Nazwa</label>
+      <input id="name" type="text" name="name" #name="ngModel" required class="form-control" [(ngModel)]="this.item.name" type="text">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors?.['required']">
+          Nazwa jest wymagana
+        </div>
+      </div>
 
-    <label for="name">Model</label>
-    <input id="name" type="text" class="form-control" [(ngModel)]="this.item.model" type="text">
+      <label for="model">Model</label>
+      <input id="model" type="text" name="model" #model="ngModel" required class="form-control" [(ngModel)]="this.item.model" type="text">
+      <div *ngIf="model.invalid && (model.dirty || model.touched)" class="alert alert-danger">
+        <div *ngIf="model.errors?.['required']">
+          Model jest wymagany
+        </div>
+      </div>
 
-    <label for="category">Kategoria</label>
-    <select id="category" class="form-control" [(ngModel)]="this.item.idCategory">
-      <option selected>Wybierz kategorię</option>
-      <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-    </select>
+      <label for="category">Kategoria</label>
+      <select id="category" name="category" #category="ngModel" required class="form-control" [(ngModel)]="this.item.idCategory">
+        <option selected>Wybierz kategorię</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+      </select>
+      <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+        <div *ngIf="category.errors?.['required']">
+          Kategoria jest wymagana
+        </div>
+      </div>
 
-    <label for="quantity">Ilość</label>
-    <input id="quantity" type="text" class="form-control" [(ngModel)]="this.item.quantity" type="number">
+      <label for="quantity">Ilość</label>
+      <input id="quantity" type="text" name="quantity" #quantity="ngModel" required class="form-control" [(ngModel)]="this.item.quantity" type="number">
+      <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)" class="alert alert-danger">
+        <div *ngIf="quantity.errors?.['required']">
+          Ilość jest wymagana
+        </div>
+      </div>
 
-    <label for="status">Status</label>
-    <select id="status" class="form-control" [(ngModel)]="this.item.status">
-      <option selected>Wybierz status</option>
-      <option>Do zamówienia</option>
-      <option>Zamówiony</option>
-      <option>Odebrany</option>
-    </select>
 
-    <label for="project">Projekt</label>
-    <select id="project" class="form-control" [(ngModel)]="this.item.idProject">
-      <option selected>Wybierz projekt</option>
-      <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
-    </select>
+      <label for="status">Status</label>
+      <select id="status" name="status" #status="ngModel" required class="form-control" [(ngModel)]="this.item.status">
+        <option selected>Wybierz status</option>
+        <option>Do zamówienia</option>
+        <option>Zamówiony</option>
+        <option>Odebrany</option>
+      </select>
+      <div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+        <div *ngIf="status.errors?.['required']">
+          Status jest wymagany
+        </div>
+      </div>
 
-    <label for="comment">Komentarz</label>
-    <textarea id="comment" type="text" cols="40" rows="5" class="form-control" [(ngModel)]="this.item.comment" type="text"></textarea>
+      <label for="project">Projekt</label>
+      <select id="project" name="project" #project="ngModel" required class="form-control" [(ngModel)]="this.item.idProject">
+        <option selected>Wybierz projekt</option>
+        <option *ngFor="let project of projects" [value]="project.id">{{project.name}}</option>
+      </select>
+      <div *ngIf="project.invalid && (project.dirty || project.touched)" class="alert alert-danger">
+        <div *ngIf="project.errors?.['required']">
+          Projekt jest wymagany
+        </div>
+      </div>
+      
 
-    <button (click)="addItem(this.item)" type="submit" class="btn btn-primary w-100">Dodaj przedmiot</button>
+      <label for="comment">Komentarz</label>
+      <textarea id="comment" name="comment" #comment="ngModel" type="text" cols="40" rows="5" class="form-control" [(ngModel)]="this.item.comment" type="text"></textarea>
+
+      <button type="submit" [disabled]="!addItemForm.valid" class="btn btn-primary w-100">Dodaj przedmiot</button>
+    </form>
 </div>
