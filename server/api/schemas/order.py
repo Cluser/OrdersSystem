@@ -5,6 +5,7 @@ from typing import List
 from .project import Project
 from .user import User
 from .distributor import Distributor
+from .contactPerson import ContactPerson
 
 class OrderItemGetter(GetterDict):
     def get(self, key: str, default = None):
@@ -39,6 +40,7 @@ class Order(BaseModel):
     id: int
     user: User
     distributor: Distributor
+    contactPerson: ContactPerson
     dateAndTime: str
     items: List[OrderItem]
 
@@ -48,3 +50,4 @@ class Order(BaseModel):
 class OrderCreate(BaseModel):
     idUser: int
     idDistributor: int
+    idContactPerson: int

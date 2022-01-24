@@ -1,4 +1,4 @@
-import { IDistributor, IItem, IUser } from ".";
+import { IContactPerson, IDistributor, IItem, IUser } from ".";
 
 export interface IPOffer {
     items: IOffer[];
@@ -14,6 +14,7 @@ export interface IOffer {
     id?: number;
     user?: IUser;
     distributor?: IDistributor;
+    contactPerson?: IContactPerson;
     dateAndTime?: string;
     totalPrice?: number;
     items?: IOfferItem[];
@@ -22,6 +23,7 @@ export interface IOffer {
 export interface IOfferCreate {
     idUser?: number;
     idDistributor?: number;
+    idContactPerson?: number;
     dateAndTime?: string;
 }
 

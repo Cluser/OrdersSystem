@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IDistributor, IInquiryCreate } from '../../models';
+import { IContactPerson, IDistributor, IInquiryCreate, IInquiryItem } from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-inquiry',
@@ -16,10 +16,13 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];
   public pageSize: number = 1000
+  public selectedRows: any[] = [];
   
   public inquiry: IInquiryCreate = {};
   public items: any = [];
+  public inquiryItems: IInquiryItem[] = [];
   public distributors: IDistributor[] = [];
+  public contactPersons: IContactPerson[] = [];
 
 
   constructor(private api: ApiService) { }
@@ -48,18 +51,38 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
+  public getContactPersons(idDistributor: number): void {
+    this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
+  }
+
   public addInquiry(inquiry: IInquiryCreate): void {
     inquiry.idUser = 1;
     this.api.inquiry.addInquiry(inquiry).subscribe((inquiry: any) => {
-      this.api.inquiryItem.addInquiryItems(this.items, inquiry, 5, 'sss').subscribe(() => {
+
+
+      this.selectedRows.forEach((row) => {
+        console.log(row)
+        let obj: IInquiryItem = { Item_id: row.id, inquiry_id: inquiry.id, quantity: Number(row.quantity), status: row.status }
+        this.inquiryItems.push(obj)
+      })
+
+      this.api.inquiryItem.addInquiryItems(this.inquiryItems).subscribe(() => {
         this.inquiryAddedEvent.emit();
         this.close();
       })
+    //   this.api.inquiryItem.addInquiryItems(this.items, inquiry, 5, 'sss').subscribe(() => {
+    //     this.inquiryAddedEvent.emit();
+    //     this.close();
+    //   })
     });
   }
 
   public close(): void {
     this.closeEvent.emit();
+  }
+
+  public onSelectionChanged(selection: any): void {
+    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
 
 }

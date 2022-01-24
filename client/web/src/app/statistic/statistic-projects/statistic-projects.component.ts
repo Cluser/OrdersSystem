@@ -20,7 +20,7 @@ export class StatisticProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCostByProjects();
-    this.getCostByProjectCategory();
+    this.getCostByProjectCategory(2);
   }
 
 
@@ -28,7 +28,11 @@ export class StatisticProjectsComponent implements OnInit {
     this.api.statistic.getCostByProject().subscribe((statistic) => this.chartData = statistic);
   }
 
-  private getCostByProjectCategory(): any {
-    this.api.statistic.getCostByProjectCategory().subscribe((statistic) => this.chartData2 = statistic);
+  private getCostByProjectCategory(idProject: number): any {
+    this.api.statistic.getCostByProjectCategory(idProject).subscribe((statistic) => this.chartData2 = statistic);
+  }
+
+  public onSelect(event: any) {
+    this.api.project.getProjects({name: event.name}, 1, 1000).subscribe((project) => this.getCostByProjectCategory(project.items[0].id!));
   }
 }

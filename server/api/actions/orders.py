@@ -26,6 +26,7 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items).joinedload(models.ItemOrder.item))
                                                         .options(joinedload(models.Order.user))
                                                         .options(joinedload(models.Order.distributor))
+                                                        .options(joinedload(models.Order.contactPerson))
                                                         .filter(and_(*filters)), page, size)
     except:
         Db.session.rollback()

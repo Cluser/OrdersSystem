@@ -13,6 +13,9 @@ class ContactPerson(Db.Base):
     description = Column(String)
 
     distributor = relationship("Distributor", back_populates="contactPerson")
+    inquiry = relationship("Inquiry", back_populates="contactPerson")
+    offer = relationship("Offer", back_populates="contactPerson")
+    order = relationship("Order", back_populates="contactPerson")
     
     def __init__(self, name, phone, email, description, idDistributor):
         self.name = name

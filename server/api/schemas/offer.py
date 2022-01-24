@@ -5,6 +5,7 @@ from typing import List
 from .project import Project
 from .user import User
 from .distributor import Distributor
+from .contactPerson import ContactPerson
 
 
 class OfferItemGetter(GetterDict):
@@ -40,6 +41,7 @@ class Offer(BaseModel):
     id: int
     user: User
     distributor: Distributor
+    contactPerson: ContactPerson
     dateAndTime: str
     items: List[OfferItem]
 
@@ -49,5 +51,6 @@ class Offer(BaseModel):
 class OfferCreate(BaseModel):
     idUser: int
     idDistributor: int
+    idContactPerson: int
 
 

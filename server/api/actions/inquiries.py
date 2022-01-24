@@ -14,15 +14,16 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Inquiries", tags=["Inquiries"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
+async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, idContactPerson: Optional[int] = None, dateAndTime: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
     try:
-        parameters = { "id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime }
+        parameters = { "id": id, "idDistributor": idDistributor, "idContactPerson": idContactPerson, "dateAndTime": dateAndTime }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
 
         inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item))
                                                 .options(joinedload(models.Inquiry.user))
                                                 .options(joinedload(models.Inquiry.distributor))
+                                                .options(joinedload(models.Inquiry.contactPerson))
                                                 .filter(and_(*filters)), page, size)
     except:
         Db.session.rollback()

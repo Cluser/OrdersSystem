@@ -17,23 +17,23 @@ export class InquiryItem {
   }
 
 
-  public addInquiryItems(item: IItem[], inquiry: IInquiry, quantity: number, status: string): Observable<IInquiryItemCreate[]> {
+  public addInquiryItems(item: IInquiryItemCreate[]): Observable<IInquiryItemCreate[]> {
     let params: any = {}
 
     let inquiryItems: IInquiryItemCreate[] = []
 
     item.forEach(item => {
       let inquiryItem: IInquiryItemCreate = {
-        Item_id: item.id,
-        inquiry_id: inquiry.id,
-        quantity: quantity,
-        status: status,
+        Item_id: item.Item_id,
+        inquiry_id: item.inquiry_id,
+        quantity: item.quantity,
+        status: item.status,
       };
       inquiryItems.push(inquiryItem)
     })
 
 
-    if (inquiry) { params = JSON.parse(JSON.stringify(inquiryItems)) }
+    if (item) { params = JSON.parse(JSON.stringify(inquiryItems)) }
 
     return this.httpClient.post<IInquiryItemCreate[]>(this.inquiriesItemsEndpointUrl, params);
   }

@@ -74,15 +74,15 @@ class Main:
 
     inquiry = []
     for x in range(1, 10):
-       inquiry.append(Inquiry(idUser = randrange(1, 5), idDistributor = randrange(1, 7)))
+       inquiry.append(Inquiry(idUser = randrange(1, 5), idDistributor = randrange(1, 7), idContactPerson = randrange(1, 30)))
 
     offer = []
     for x in range(1, 10):
-       offer.append(Offer(idUser = randrange(1, 5), idDistributor = randrange(1, 7)))
+       offer.append(Offer(idUser = randrange(1, 5), idDistributor = randrange(1, 7), idContactPerson = randrange(1, 30)))
 
     order = []
     for x in range(1, 10):
-       order.append(Order(idUser = randrange(1, 5), idDistributor = randrange(1, 7)))
+       order.append(Order(idUser = randrange(1, 5), idDistributor = randrange(1, 7), idContactPerson = randrange(1, 30)))
 
     itemInquiry = []
     for x in range(1, 10):

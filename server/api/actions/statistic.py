@@ -92,7 +92,7 @@ async def getCostByProject():
 
 
 @router.get("/StatisticsByProjectCategory", tags=["Statistics"])
-async def getCostByProjectCategory():
+async def getCostByProjectCategory(idProject: Optional[int] = None):
        statistic = []
 
        categories = Db.session.query(models.Category)
@@ -100,7 +100,7 @@ async def getCostByProjectCategory():
        for category in categories:
               price = 0
 
-              orderItems = Db.session.query(models.ItemOrder).filter(and_(models.ItemOrder.item.has(models.Item.idProject == 1), 
+              orderItems = Db.session.query(models.ItemOrder).filter(and_(models.ItemOrder.item.has(models.Item.idProject == idProject), 
                                                                          (models.ItemOrder.item.has(models.Item.idCategory == category.id))))
               
               for orderItem in orderItems:

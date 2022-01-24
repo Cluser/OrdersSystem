@@ -27,6 +27,7 @@ export class PurchaseModalEditOrderComponent implements OnInit {
   ngOnInit() {
     this.prepareGrid();
     this.getDistributors();
+    this.getContactPersons(this.order.idDistributor)
   }
 
   public prepareGrid(): void {

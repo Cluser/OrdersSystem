@@ -4,6 +4,7 @@ from typing import List
 
 from .user import User
 from .distributor import Distributor
+from .contactPerson import ContactPerson
 from .project import Project
 
 
@@ -39,6 +40,7 @@ class Inquiry(BaseModel):
     id: int
     user: User
     distributor: Distributor
+    contactPerson: ContactPerson
     dateAndTime: str
     items: List[InquiryItem]
 
@@ -48,5 +50,6 @@ class Inquiry(BaseModel):
 class InquiryCreate(BaseModel):
     idUser: int
     idDistributor: int
+    idContactPerson: int
 
 

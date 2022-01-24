@@ -15,7 +15,7 @@
         
         <div class="col">            
             <label for="contact-person">Sprzedawca</label>
-            <select id="contact-person" class="form-control">
+            <select id="contact-person" class="form-control" [(ngModel)]="this.offer.idContactPerson">
               <option selected>Wybierz sprzedawcę</option>
               <option *ngFor="let contactPerson of this.contactPersons" [value]="contactPerson.id">{{contactPerson.name}}</option>
             </select>
