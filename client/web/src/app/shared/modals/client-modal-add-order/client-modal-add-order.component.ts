@@ -59,6 +59,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
 
   public addOrder(order: IOrderCreate): void {
     order.idUser = 1;
+    order.archived = false;
     this.api.order.addOrder(order).subscribe((order: any) => {
 
       this.selectedRows.forEach((row) => {

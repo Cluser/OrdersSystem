@@ -75,6 +75,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
 
   public addOffer(offer: IOfferCreate): void {
     offer.idUser = 1;
+    offer.archived = false;
     this.api.offer.addOffer(offer).subscribe((offer: any) => {
 
       this.selectedRows.forEach((row) => {

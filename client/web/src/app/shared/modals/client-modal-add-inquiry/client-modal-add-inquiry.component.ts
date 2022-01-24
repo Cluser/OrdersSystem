@@ -57,6 +57,7 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
 
   public addInquiry(inquiry: IInquiryCreate): void {
     inquiry.idUser = 1;
+    inquiry.archived = false;
     this.api.inquiry.addInquiry(inquiry).subscribe((inquiry: any) => {
 
 
