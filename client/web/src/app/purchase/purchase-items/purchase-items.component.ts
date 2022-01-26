@@ -9,7 +9,7 @@ import { PurchaseModalAddItemComponent } from 'src/app/shared/modals/client-moda
 import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { PurchaseModalEditItemComponent } from 'src/app/shared/modals/client-modal-edit-item/client-modal-edit-item.component';
-import { IItem } from 'src/app/shared/models';
+import { IItem, IPItem } from 'src/app/shared/models';
 import { PurchaseItemsSearchComponent } from './purchase-items-search/purchase-items-search.component';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,10 +22,10 @@ export class PurchaseItemsComponent implements OnInit {
   public faSearch = faSearch
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: IPItem = {};
   public pageSize: number = 1000
 
-  public filter: string = '';
+  public filter: any = {};
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
@@ -36,12 +36,13 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getItemsData({archived: false})
+    this.changeFilter({archived: false});
+    this.getItemsData()
   }
 
-  public getItemsData(filters: any = {}): void {
+  public getItemsData(): void {
     this.spinner.show();
-    this.api.item.getItems(filters, '', '', 1, this.pageSize).subscribe((response) => { this.rowData = response.items, this.spinner.hide();});
+    this.api.item.getItems(this.filter, '', '', 1, this.pageSize).subscribe((response) => { this.grid = response, this.spinner.hide();});
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
@@ -100,8 +101,8 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   public search(filter: any): void {
-    if (filter) {this.api.item.getItems({'name': filter}, '', '', 1, 1000).subscribe((response) => this.rowData = response.items);} else
-                {this.api.item.getItems().subscribe((response) => this.rowData = response.items);}
+    if (filter) {this.api.item.getItems({'name': filter}, '', '', 1, 1000).subscribe((response) => this.grid = response);} else
+                {this.api.item.getItems().subscribe((response) => this.grid = response);}
   }
 
   public onSelectionChanged(selection: any): void {
@@ -114,6 +115,11 @@ export class PurchaseItemsComponent implements OnInit {
       this.api.item.editItem(item).subscribe();
     })
     this.selectedRows = [];
+    this.getItemsData();
+  }
+
+  public changeFilter(filter: any) {
+    this.filter = filter;
     this.getItemsData();
   }
   

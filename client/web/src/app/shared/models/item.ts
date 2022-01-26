@@ -2,13 +2,13 @@ import { ICategory, IInquiry, IOrder, IProject, IUser } from ".";
 
 
 export interface IPItem {
-    items: IItem[];
-    previous_page: number;
-    next_page: number;
-    has_previous: boolean;
-    has_next: boolean;
-    total: number;
-    pages: number;
+    items?: IItem[];
+    previous_page?: number;
+    next_page?: number;
+    has_previous?: boolean;
+    has_next?: boolean;
+    total?: number;
+    pages?: number;
 }
 
 export interface IItem {

@@ -7,7 +7,7 @@
         <button class="btn-lower-menu" (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</button>
 
         <button class="btn-search" (click)="searchPopup = !searchPopup"><fa-icon [icon]="faSearch"></fa-icon></button>
-        <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
+        <input class="search-input" type="text" (input)="search(filter)">
     </div>
 
     <div class="grid">
@@ -15,7 +15,7 @@
         <ag-grid-angular
             style="width: 100%; height: 100%;"
             class="ag-theme-balham"
-            [rowData]="rowData"
+            [rowData]="grid.items"
             [columnDefs]="columnDefs"
             [pagination]="false"
             [paginationPageSize]="pageSize"
@@ -24,10 +24,14 @@
             (rowDoubleClicked)="openEditItemModal($event.data)"
             (selectionChanged) = "onSelectionChanged($event)">
         </ag-grid-angular>
+
+        <div class="grid-pagination">
+            Strona: {{grid.pages}} Liczba przedmiotów: {{grid.total}}
+        </div>
     </div>
 
     <div class="search-popup" *ngIf="searchPopup">
-        <app-purchase-items-search (filtersChanged)="getItemsData($event)"></app-purchase-items-search>
+        <app-purchase-items-search (filtersChanged)="changeFilter($event)"></app-purchase-items-search>
     </div>
 </div>
 

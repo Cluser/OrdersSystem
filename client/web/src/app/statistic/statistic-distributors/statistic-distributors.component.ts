@@ -122,7 +122,7 @@ export class StatisticDistributorsComponent implements OnInit {
     this.api.item.getItems({}, start, end, 1, 1000).subscribe((item) => {
       months.forEach((month) => {
         let count = 0;
-        item.items.forEach((item) => {
+        item.items?.forEach((item) => {
 
           if (item.dateAndTime?.slice(0,7) === month.slice(0,7)) {
             count = count + 1
