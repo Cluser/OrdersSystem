@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
@@ -31,6 +31,7 @@ export class PurchaseItemsComponent implements OnInit {
 
   public searchPopup: boolean = false;
   @ViewChild(PurchaseItemsSearchComponent) private purchaseItemsSearchComponent = {} as PurchaseItemsSearchComponent;
+
 
   constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { 
   }
@@ -121,6 +122,13 @@ export class PurchaseItemsComponent implements OnInit {
   public changeFilter(filter: any) {
     this.filter = filter;
     this.getItemsData();
+  }
+
+  @HostListener('document:keyup', ['$event'])
+  private handleKeyboardEvent(event: KeyboardEvent) {
+    switch(event.key) {
+      case 'f': this.searchPopup = !this.searchPopup
+    }
   }
   
 }
