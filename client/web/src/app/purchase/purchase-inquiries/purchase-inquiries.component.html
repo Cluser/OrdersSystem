@@ -2,8 +2,8 @@
     <div class="lower-menu">
         <button class="btn-lower-menu"></button>
         <button class="btn-lower-menu"></button>
-        <button class="btn-lower-menu" (click)="openAddOfferModal()">Dodaj ofertę</button>
-        <button class="btn-lower-menu" (click)="openAddOrderModal()">Dodaj zamówienie</button>
+        <button class="btn-lower-menu" (click)="openAddOfferModal()" *ngIf="selectedRows.length > 0">Dodaj ofertę</button>
+        <button class="btn-lower-menu" (click)="openAddOrderModal()" *ngIf="selectedRows.length > 0">Dodaj zamówienie</button>
         <input class="search-input" type="text">
     </div>
     
