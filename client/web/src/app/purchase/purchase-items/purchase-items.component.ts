@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,6 +10,8 @@ import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-mod
 import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { PurchaseModalEditItemComponent } from 'src/app/shared/modals/client-modal-edit-item/client-modal-edit-item.component';
 import { IItem } from 'src/app/shared/models';
+import { PurchaseItemsSearchComponent } from './purchase-items-search/purchase-items-search.component';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-purchase-items',
@@ -17,7 +19,8 @@ import { IItem } from 'src/app/shared/models';
   styleUrls: ['./purchase-items.component.scss']
 })
 export class PurchaseItemsComponent implements OnInit {
-  
+  public faSearch = faSearch
+
   public columnDefs: ColDef[] = []
   public rowData: any[] = [];
   public pageSize: number = 1000
@@ -26,16 +29,19 @@ export class PurchaseItemsComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
+  public searchPopup: boolean = false;
+  @ViewChild(PurchaseItemsSearchComponent) private purchaseItemsSearchComponent = {} as PurchaseItemsSearchComponent;
+
   constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { 
   }
 
   ngOnInit(): void {
-    this.getItemsData()
+    this.getItemsData({archived: false})
   }
 
-  public getItemsData(): void {
+  public getItemsData(filters: any = {}): void {
     this.spinner.show();
-    this.api.item.getItems({archived: false}, '', '', 1, this.pageSize).subscribe((response) => { this.rowData = response.items, this.spinner.hide();});
+    this.api.item.getItems(filters, '', '', 1, this.pageSize).subscribe((response) => { this.rowData = response.items, this.spinner.hide();});
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },

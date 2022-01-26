@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { PurchaseRoutingModule } from './purchase-routing.module';
 import { PurchaseComponent } from '../purchase/purchase.component';
@@ -20,6 +21,7 @@ import { PurchaseMenuComponent } from './purchase-menu/purchase-menu.component';
 import { PurchaseOrdersComponent } from './purchase-orders/purchase-orders.component';
 import { PurchaseOffersComponent } from './purchase-offers/purchase-offers.component';
 import { PurchaseItemsComponent } from './purchase-items/purchase-items.component';
+import { PurchaseItemsSearchComponent } from './purchase-items/purchase-items-search/purchase-items-search.component';
 
 
 
@@ -38,14 +40,16 @@ import { PurchaseItemsComponent } from './purchase-items/purchase-items.componen
     PurchaseMenuComponent,
     PurchaseOrdersComponent,
     PurchaseOffersComponent,
-    PurchaseItemsComponent
+    PurchaseItemsComponent,
+    PurchaseItemsSearchComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     PurchaseRoutingModule,
     AgGridModule.withComponents([]),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FontAwesomeModule
   ],
   entryComponents: [
     PurchaseModalAddItemComponent,

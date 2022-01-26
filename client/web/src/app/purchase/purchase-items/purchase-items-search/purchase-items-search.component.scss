@@ -1,0 +1,45 @@
+@import "../../../shared/styles/global.scss";
+
+.purchase-items-search {
+    width: 100%;
+    height: 100%;
+    background-color: $menuLowerBgColor;
+    color: white;
+    opacity: 0.85;
+}
+
+.filter-section {
+    position: relative;
+    width: 94%;
+    height: 20%;
+    left: 3%;
+    top: 3%;
+}
+
+.filter-section-name {
+    text-align: center;
+}
+
+.filter-section-elements {
+    width: 100%;
+}
+
+.element {
+    background-color: #c5c5c5;;
+    height: 5%;
+    border: none;
+    margin-right: 1%;
+    margin-top: 1%;
+    border-radius: 5px;
+}
+
+.element-selected {
+    @extend .element;
+    background-color: #00ADB5;;
+}
+
+.btn-filter {
+    width: 94%;
+    left: 3%;
+    height: 6%;
+}

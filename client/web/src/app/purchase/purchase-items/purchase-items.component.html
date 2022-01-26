@@ -5,9 +5,11 @@
         <button class="btn-lower-menu" (click)="openAddOfferModal()" *ngIf="selectedRows.length > 0">Dodaj ofertę</button>
         <button class="btn-lower-menu" (click)="openAddOrderModal()" *ngIf="selectedRows.length > 0">Dodaj zamówienie</button>
         <button class="btn-lower-menu" (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</button>
+
+        <button class="btn-search" (click)="searchPopup = !searchPopup"><fa-icon [icon]="faSearch"></fa-icon></button>
         <input class="search-input" type="text"  [(ngModel)]="filter" (input)="search(filter)">
     </div>
-    
+
     <div class="grid">
         <ngx-spinner bdColor = "rgba(69,69,69,0.8)" size = "large" color = "#00ADB5" type = "ball-clip-rotate-pulse" [fullScreen] = "false"></ngx-spinner>
         <ag-grid-angular
@@ -22,6 +24,10 @@
             (rowDoubleClicked)="openEditItemModal($event.data)"
             (selectionChanged) = "onSelectionChanged($event)">
         </ag-grid-angular>
+    </div>
+
+    <div class="search-popup" *ngIf="searchPopup">
+        <app-purchase-items-search (filtersChanged)="getItemsData($event)"></app-purchase-items-search>
     </div>
 </div>
 
