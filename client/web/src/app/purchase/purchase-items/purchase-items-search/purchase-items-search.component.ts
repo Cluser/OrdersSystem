@@ -14,6 +14,11 @@ export class PurchaseItemsSearchComponent implements OnInit {
   public projects: any[] = [];
   public categories: any[] = [];
 
+  public selectedArchiveStatus: any;
+  public selectedProject: IProject = {};
+  public selectedCategory: ICategory = {};
+  
+
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
@@ -22,25 +27,9 @@ export class PurchaseItemsSearchComponent implements OnInit {
   }
 
   public changeFilters(): void {
-    this.filtersChanged.emit({archived: true});
-  }
-
-  public changeFilters2(): void {
-    this.filtersChanged.emit({archived: false});
-  }
-
-  public changeFilters3(): void {
-    this.filtersChanged.emit({});
-  }
-
-  public changeFilters4(): void {
-    this.projects.forEach((project) => {
-      if (project.selected) {
-        this.filtersChanged.emit({idProject: project.id, idCategory: this.categories[0].id});
-      }
-
-    })
-
+      this.filtersChanged.emit({archived: this.selectedArchiveStatus, 
+                                idProject: this.selectedProject.id,
+                                idCategory: this.selectedCategory.id});
   }
 
 }

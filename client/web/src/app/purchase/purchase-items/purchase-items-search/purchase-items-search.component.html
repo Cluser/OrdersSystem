@@ -2,28 +2,28 @@
     <div class="filter-section">
         <div class="filter-section-name">Archwizacja</div>
         <div class="filter-section-elements">
-            <button class="element" (click)="changeFilters()">Zarchiwzowane</button>
-            <button class="element" (click)="changeFilters2()">Niezarchiwzowane</button>
-            <button class="element" (click)="changeFilters3()">Wszystkie</button>
+            <button class="element" (click)="selectedArchiveStatus = true">Zarchiwzowane</button>
+            <button class="element" (click)="selectedArchiveStatus = false">Niezarchiwzowane</button>
+            <button class="element" (click)="selectedArchiveStatus = null">Wszystkie</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Projekt</div>
         <div class="filter-section-elements">
-            <button class="element" *ngFor="let project of projects" (click)="project.selected = !project.selected"
-                    [ngClass]="{'element-selected': project.selected==true,'element': project.selected!==true}">{{project.name}}</button>
+            <button class="element" *ngFor="let project of projects" (click)="selectedProject = project"
+                    [ngClass]="{'element-selected': selectedProject == project,'element': selectedProject == project!}">{{project.name}}</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Kategoria</div>
         <div class="filter-section-elements">
-            <button *ngFor="let category of categories" (click)="category.selected = !category.selected" 
-                    [ngClass]="{'element-selected': category.selected==true,'element': category.selected!==true}">{{category.name}}</button>
+            <button *ngFor="let category of categories" (click)="selectedCategory = category" 
+                    [ngClass]="{'element-selected': selectedCategory == category,'element': selectedCategory == category!}">{{category.name}}</button>
         </div>
     </div>
 
-    <div class="btn btn-primary w-100" (click)="changeFilters4()">Filtruj</div>
+    <div class="btn btn-primary w-100" (click)="changeFilters()">Filtruj</div>
 </div>
 
