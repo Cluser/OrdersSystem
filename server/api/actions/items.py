@@ -8,22 +8,26 @@ from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
 from datetime import datetime
+from sqlalchemy.dialects.postgresql import Any
 
 router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Items", tags=["Items to order"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, status: Optional[str] = None, comment: Optional[str] = None, 
-                archived: Optional[bool] = None, dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idCategory: Optional[int] = None, idProject: Optional[int] = None, 
+                archived: Optional[List[bool]] = Query(None), dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idCategory: Optional[List[int]] = Query(None), idProject: Optional[List[int]] = Query(None), 
                 dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None,
                 page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
     try:
-        parameters = {"id": id, "name": name, "model": model, "status": status, "comment": comment, "archived": archived, 'dateAndTime': dateAndTime, 'quantity': quantity, "idCategory": idCategory, 'idProject': idProject}
+        parameters = {"id": id, "name": name, "model": model, "status": status, "comment": comment, 'dateAndTime': dateAndTime, 'quantity': quantity }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
-        if (dateAndTimeStart): filters.append(models.Order.dateAndTime >= dateAndTimeStart)
-        if (dateAndTimeEnd): filters.append(models.Order.dateAndTime <= dateAndTimeEnd)
+        if (dateAndTimeStart): filters.append(models.Item.dateAndTime >= dateAndTimeStart)
+        if (dateAndTimeEnd): filters.append(models.Item.dateAndTime <= dateAndTimeEnd)
+        if (idProject): filters.append(models.Item.idProject.in_(idProject))
+        if (idCategory): filters.append(models.Item.idCategory.in_(idCategory))
+        if (archived): filters.append(models.Item.archived.in_(archived))
 
         items = paginate(Db.session.query(models.Item).options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.user))
                                                     .options(joinedload(models.Item.inquiries).joinedload(models.ItemInquiry.inquiry).joinedload(models.Inquiry.distributor)) 

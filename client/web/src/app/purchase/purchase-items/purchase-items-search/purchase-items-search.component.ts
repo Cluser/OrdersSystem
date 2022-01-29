@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from 'src/app/shared/api/api.service';
-import { ICategory, IProject } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-purchase-items-search',
@@ -13,10 +12,7 @@ export class PurchaseItemsSearchComponent implements OnInit {
 
   public projects: any[] = [];
   public categories: any[] = [];
-
-  public selectedArchiveStatus: any;
-  public selectedProject: IProject = {};
-  public selectedCategory: ICategory = {};
+  public archiveStatus: any[] = [];
   
 
   constructor(private api: ApiService) { }
@@ -27,9 +23,19 @@ export class PurchaseItemsSearchComponent implements OnInit {
   }
 
   public changeFilters(): void {
-      this.filtersChanged.emit({archived: this.selectedArchiveStatus, 
-                                idProject: this.selectedProject.id,
-                                idCategory: this.selectedCategory.id});
+
+      let selectedProjects: any[] = [];
+      let selectedCategories: any[] = [];
+      let selectedArchiveStatus: any[] = [];
+
+      this.projects.forEach((project) => { if (project.selected) selectedProjects.push(project.id) })
+      this.categories.forEach((category) => { if (category.selected) selectedCategories.push(category.id) })
+      this.archiveStatus.forEach((archiveStatus) => { selectedArchiveStatus.push(archiveStatus) })
+
+      console.log(selectedArchiveStatus)
+      this.filtersChanged.emit({archived: selectedArchiveStatus, 
+                                idProject: selectedProjects,
+                                idCategory: selectedCategories});
   }
 
 }

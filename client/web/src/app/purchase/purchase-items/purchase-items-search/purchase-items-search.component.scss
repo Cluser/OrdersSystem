@@ -10,18 +10,19 @@
 
 .filter-section {
     position: relative;
-    width: 94%;
-    height: 20%;
-    left: 3%;
-    top: 3%;
+    width: 100%;
+    margin-bottom: 10%;
 }
 
 .filter-section-name {
     text-align: center;
+    background-color: $menuUpperBgColor
 }
 
 .filter-section-elements {
-    width: 100%;
+    position: relative;
+    left: 3%;
+    width: 94%;
 }
 
 .element {
@@ -35,11 +36,13 @@
 
 .element-selected {
     @extend .element;
-    background-color: #00ADB5;;
+    background-color: #007bff;
+    color: white;
 }
 
 .btn-filter {
+    position: absolute;
     width: 94%;
+    top: 90%;
     left: 3%;
-    height: 6%;
 }
