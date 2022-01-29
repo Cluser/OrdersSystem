@@ -29,7 +29,7 @@ export class AdminDistributorsComponent implements OnInit {
     this.api.distributor.getDistributors({}, 1, this.pageSize).subscribe((response) => { this.rowData = response.items; this.spinner.hide() });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
-      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'email', headerName: 'E-mail', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'phone', headerName: 'Telefon', sortable: true, filter: true, resizable: true, flex: 3 },
