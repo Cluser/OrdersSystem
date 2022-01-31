@@ -1,4 +1,4 @@
-import { IContactPerson, IDistributor, IItem } from ".";
+import { IContactPerson, IDistributor, IItem, IUser } from ".";
 
 export interface IPInquiry {
     items: IInquiry[];
@@ -12,7 +12,7 @@ export interface IPInquiry {
 
 export interface IInquiry {
     id?: number;
-    user?: string;
+    user?: IUser;
     distributor?: IDistributor;
     contactPerson?: IContactPerson;
     dateAndTime?: string;
@@ -21,6 +21,15 @@ export interface IInquiry {
 }
 
 export interface IInquiryCreate {
+    idUser?: number;
+    idDistributor?: number;
+    idContactPerson?: number;
+    dateAndTime?: string;
+    archived?: boolean;
+}
+
+export interface IInquiryEdit {
+    id?: number;
     idUser?: number;
     idDistributor?: number;
     idContactPerson?: number;

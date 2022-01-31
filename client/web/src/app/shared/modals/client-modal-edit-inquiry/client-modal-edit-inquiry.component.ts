@@ -48,14 +48,11 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
 
   }
 
-  public addInquiry(order: IOrderCreate): void {
-    // offer.idUser = 1;
-    // this.api.offer.addOffer(offer).subscribe((offer: any) => {
-    //   this.api.offerItem.addOfferItems(this.items, offer, 5, 5, 'sss').subscribe(() => {
-    //     this.offerEdditedEvent.emit();
-    //     this.close();
-    //   })
-    // });
+  public editInquiry(inquiry: IOrderCreate): void {
+    this.api.inquiry.editInquiry(inquiry).subscribe(() => {
+      this.inquiryEdditedEvent.emit();
+      this.close();
+    })
   }
 
   public close(): void {

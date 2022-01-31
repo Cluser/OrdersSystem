@@ -48,10 +48,15 @@ async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
         Db.session.close()
         return inquiry
 
-@router.put("/Inquiries/{id}", tags=["Inquiries"])
-async def put(id: int, inquiry: schemas.Inquiry) -> schemas.Distributor:
+@router.put("/Inquiries", tags=["Inquiries"])
+async def put(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
     try:
-        Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).update({**inquiry.dict()}, synchronize_session = False)
+        Db.session.query(models.Inquiry).filter(models.Inquiry.id == inquiry.id).update({
+            'idUser': inquiry.idUser,
+            'idDistributor': inquiry.idDistributor,
+            'idContactPerson': inquiry.idContactPerson,
+            'archived': inquiry.archived,
+        }, synchronize_session = False)
         Db.session.commit()
     except:
         Db.session.rollback()

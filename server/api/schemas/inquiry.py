@@ -54,4 +54,11 @@ class InquiryCreate(BaseModel):
     idContactPerson: int
     archived: bool
 
+class InquiryCreate(BaseModel):
+    id: int
+    idUser: int
+    idDistributor: int
+    idContactPerson: int
+    archived: bool
+
 
