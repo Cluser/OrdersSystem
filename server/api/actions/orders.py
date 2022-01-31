@@ -23,7 +23,8 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dat
         if (dateAndTimeStart): filters.append(models.Order.dateAndTime >= dateAndTimeStart)
         if (dateAndTimeEnd): filters.append(models.Order.dateAndTime <= dateAndTimeEnd)
 
-        orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items).joinedload(models.ItemOrder.item))
+        orders = paginate(Db.session.query(models.Order).options(joinedload(models.Order.items).joinedload(models.ItemOrder.item).joinedload(models.Item.project))
+                                                        .options(joinedload(models.Order.items).joinedload(models.ItemOrder.item).joinedload(models.Item.user))
                                                         .options(joinedload(models.Order.user))
                                                         .options(joinedload(models.Order.distributor))
                                                         .options(joinedload(models.Order.contactPerson))

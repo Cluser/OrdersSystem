@@ -20,7 +20,8 @@ async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, idC
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Inquiry, attribute) == value for attribute, value in selectedParameters.items()]
 
-        inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item))
+        inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item).joinedload(models.Item.project))
+                                                .options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item).joinedload(models.Item.user))
                                                 .options(joinedload(models.Inquiry.user))
                                                 .options(joinedload(models.Inquiry.distributor))
                                                 .options(joinedload(models.Inquiry.contactPerson))
