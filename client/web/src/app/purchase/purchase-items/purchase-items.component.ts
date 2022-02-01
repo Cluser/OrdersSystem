@@ -126,8 +126,14 @@ export class PurchaseItemsComponent implements OnInit {
 
   @HostListener('document:keyup', ['$event'])
   private handleKeyboardEvent(event: KeyboardEvent) {
-    switch(event.key) {
-      case 'f': this.searchPopup = !this.searchPopup
+    if (event.ctrlKey) {
+      switch(event.key) {
+        case 'a': this.searchPopup = !this.searchPopup
+      }
+    } else {
+      switch(event.key) {
+        case 'f': this.searchPopup = !this.searchPopup
+      }
     }
   }
   
