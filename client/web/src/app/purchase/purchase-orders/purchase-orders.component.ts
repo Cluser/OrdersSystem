@@ -59,4 +59,13 @@ export class PurchaseOrdersComponent implements OnInit {
   public onSelectionChanged(selection: any): void {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
+
+  public archiveSelected(): void {
+    this.selectedRows.forEach((order) => {
+      order.archived = true;
+      this.api.order.editOrder(order).subscribe();
+    })
+    this.selectedRows = [];
+    this.getOrdersData();
+  }
 }

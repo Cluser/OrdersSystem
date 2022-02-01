@@ -4,6 +4,8 @@
         <button class="btn-lower-menu"></button>
         <button class="btn-lower-menu"></button>
         <button class="btn-lower-menu"></button>
+        <button class="btn-lower-menu" (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</button>
+        
         <input class="search-input" type="text">
     </div>
     

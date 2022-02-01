@@ -68,4 +68,13 @@ export class PurchaseInquiriesComponent implements OnInit {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
 
+  public archiveSelected(): void {
+    this.selectedRows.forEach((inquiry) => {
+      inquiry.archived = true;
+      this.api.inquiry.editInquiry(inquiry).subscribe();
+    })
+    this.selectedRows = [];
+    this.getInquiriesData();
+  }
+
 }

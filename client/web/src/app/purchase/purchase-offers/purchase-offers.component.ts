@@ -76,4 +76,13 @@ export class PurchaseOffersComponent implements OnInit {
   public onSelectionChanged(selection: any): void {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
+
+  public archiveSelected(): void {
+    this.selectedRows.forEach((offer) => {
+      offer.archived = true;
+      this.api.offer.editOffer(offer).subscribe();
+    })
+    this.selectedRows = [];
+    this.getOffersData();
+  }
 }
