@@ -53,3 +53,10 @@ class OrderCreate(BaseModel):
     idDistributor: int
     idContactPerson: int
     archived: bool
+
+class OrderEdit(BaseModel):
+    id: int
+    idUser: int
+    idDistributor: int
+    idContactPerson: int
+    archived: bool

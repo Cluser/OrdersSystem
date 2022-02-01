@@ -1,4 +1,4 @@
-import { IDistributor, IUser } from ".";
+import { IContactPerson, IDistributor, IUser } from ".";
 
 export interface IPOrder {
     items: IOrder[];
@@ -15,6 +15,7 @@ export interface IOrder {
     user?: IUser;
     idDistributor?: number;
     distributor?: IDistributor;
+    contactPerson?: IContactPerson;
     dateAndTime?: string;
     archived?: boolean;
     items?: IOrderItem[];
@@ -23,6 +24,15 @@ export interface IOrder {
 export interface IOrderCreate {
     idUser?: number;
     idDistributor?: number;
+    dateAndTime?: string;
+    archived?: boolean;
+}
+
+export interface IOrderEdit {
+    id?: number;
+    idUser?: number;
+    idDistributor?: number;
+    idContactPerson?: number;
     dateAndTime?: string;
     archived?: boolean;
 }

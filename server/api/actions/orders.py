@@ -50,3 +50,20 @@ async def post(order: schemas.OrderCreate) -> schemas.Order:
     finally:
         Db.session.close()
         return order
+
+@router.put("/Orders", tags=["Orders"])
+async def put(order: schemas.OrderEdit) -> schemas.OrderEdit:
+    try:
+        Db.session.query(models.Order).filter(models.Order.id == order.id).update({
+            'idUser': order.idUser,
+            'idDistributor': order.idDistributor,
+            'idContactPerson': order.idContactPerson,
+            'archived': order.archived,
+        }, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return order

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IOrder, IOrderCreate, IPOrder } from '../../models';
+import { IOrder, IOrderCreate, IOrderEdit, IPOrder } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,6 +29,23 @@ export class Order {
     if (order) { params = JSON.parse(JSON.stringify(order)) }
 
     return this.httpClient.post<IOrderCreate[]>(this.ordersEndpointUrl, params);
+  }
+
+  public editOrder(order: IOrderEdit): Observable<IOrderEdit> {
+    let params: any = {}
+
+    let orderToEdit: IOrderEdit = {
+      id: order.id!,
+      idUser: order.idUser,
+      idDistributor: order.idDistributor,
+      idContactPerson: order.idContactPerson,
+      dateAndTime: order.dateAndTime,
+      archived: order.archived
+    };
+
+    if (orderToEdit) { params = JSON.parse(JSON.stringify(orderToEdit)) }
+
+    return this.httpClient.put<IOrderEdit>(this.ordersEndpointUrl, params);
   }
 
 }
