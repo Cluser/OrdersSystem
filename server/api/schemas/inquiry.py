@@ -54,7 +54,7 @@ class InquiryCreate(BaseModel):
     idContactPerson: int
     archived: bool
 
-class InquiryCreate(BaseModel):
+class InquiryEdit(BaseModel):
     id: int
     idUser: int
     idDistributor: int

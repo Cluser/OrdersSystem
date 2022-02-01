@@ -31,14 +31,14 @@ export class Inquiry {
     return this.httpClient.post<IInquiryCreate[]>(this.inquiriesEndpointUrl, params);
   }
 
-  public editInquiry(inquiry: IInquiry): Observable<IInquiryEdit> {
+  public editInquiry(inquiry: IInquiryEdit): Observable<IInquiryEdit> {
     let params: any = {}
 
     let inquiryToEdit: IInquiryEdit = {
       id: inquiry.id!,
-      idUser: inquiry.user!.id,
-      idDistributor: inquiry.distributor!.id,
-      idContactPerson: inquiry.contactPerson!.id,
+      idUser: inquiry.idUser,
+      idDistributor: inquiry.idDistributor,
+      idContactPerson: inquiry.idContactPerson,
       dateAndTime: inquiry.dateAndTime,
       archived: inquiry.archived
     };

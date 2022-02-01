@@ -49,7 +49,7 @@ async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
         return inquiry
 
 @router.put("/Inquiries", tags=["Inquiries"])
-async def put(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
+async def put(inquiry: schemas.InquiryEdit) -> schemas.InquiryEdit:
     try:
         Db.session.query(models.Inquiry).filter(models.Inquiry.id == inquiry.id).update({
             'idUser': inquiry.idUser,
