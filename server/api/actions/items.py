@@ -39,6 +39,25 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
                                                     .options(joinedload(models.Item.user))
                                                     .options(joinedload(models.Item.project))
                                                     .filter(and_(*filters)), page, size)
+                                                    
+        for item in items.items:
+            statusWaitingForOffer = len(item.inquiries) > 0
+            statusWaitingForOrder = len(item.offers) > 0
+            statusNew = not statusWaitingForOffer and not statusWaitingForOrder
+
+            quantity = 0
+            for order in item.orders:
+                quantity = quantity + order.quantity
+
+            statusPartialOrder = item.quantity > quantity > 0 
+            statusFullOrder = quantity >= item.quantity
+
+            if statusNew: item.status = "Nowy"
+            if statusWaitingForOffer: item.status = "Czekanie za ofertą"
+            if statusWaitingForOrder: item.status = "Czekanie za zamówieniem"
+            if statusPartialOrder: item.status = "Częściowo zamówione"
+            if statusFullOrder: item.status = "Zamówione"
+
     except:
         Db.session.rollback()
         raise
