@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IOffer, IOfferCreate, IPOffer } from '../../models';
+import { IOffer, IOfferCreate, IOfferEdit, IPOffer } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -29,5 +29,22 @@ export class Offer {
     if (offer) { params = JSON.parse(JSON.stringify(offer)) }
 
     return this.httpClient.post<IOfferCreate[]>(this.offersEndpointUrl, params);
+  }
+
+  public editOffer(offer: IOfferEdit): Observable<IOfferEdit> {
+    let params: any = {}
+
+    let offerToEdit: IOfferEdit = {
+      id: offer.id!,
+      idUser: offer.idUser,
+      idDistributor: offer.idDistributor,
+      idContactPerson: offer.idContactPerson,
+      dateAndTime: offer.dateAndTime,
+      archived: offer.archived
+    };
+
+    if (offerToEdit) { params = JSON.parse(JSON.stringify(offerToEdit)) }
+
+    return this.httpClient.put<IOfferEdit>(this.offersEndpointUrl, params);
   }
 }

@@ -29,6 +29,15 @@ export interface IOfferCreate {
     archived?: boolean;
 }
 
+export interface IOfferEdit {
+    id?: number;
+    idUser?: number;
+    idDistributor?: number;
+    idContactPerson?: number;
+    dateAndTime?: string;
+    archived?: boolean;
+}
+
 export interface IOfferItem {
     Item_id?: number;
     offer_id?: number;

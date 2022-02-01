@@ -47,3 +47,20 @@ async def post(offer: schemas.OfferCreate) -> schemas.Offer:
     finally:
         Db.session.close()
         return offer
+
+@router.put("/Offers", tags=["Offers"])
+async def put(offer: schemas.OfferEdit) -> schemas.OfferEdit:
+    try:
+        Db.session.query(models.Offer).filter(models.Offer.id == offer.id).update({
+            'idUser': offer.idUser,
+            'idDistributor': offer.idDistributor,
+            'idContactPerson': offer.idContactPerson,
+            'archived': offer.archived,
+        }, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return offer

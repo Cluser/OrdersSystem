@@ -55,4 +55,11 @@ class OfferCreate(BaseModel):
     idContactPerson: int
     archived: bool
 
+class OfferEdit(BaseModel):
+    id: int
+    idUser: int
+    idDistributor: int
+    idContactPerson: int
+    archived: bool
+
 
