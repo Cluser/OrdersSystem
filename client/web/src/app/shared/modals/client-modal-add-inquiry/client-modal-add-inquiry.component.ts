@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IContactPerson, IDistributor, IInquiryCreate, IInquiryItem } from '../../models';
+import { IContactPerson, IDistributor, IInquiry, IInquiryItem } from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-inquiry',
@@ -18,7 +18,7 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
   public pageSize: number = 1000
   public selectedRows: any[] = [];
   
-  public inquiry: IInquiryCreate = {};
+  public inquiry: IInquiry = {};
   public items: any = [];
   public inquiryItems: IInquiryItem[] = [];
   public distributors: IDistributor[] = [];
@@ -55,7 +55,7 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
-  public addInquiry(inquiry: IInquiryCreate): void {
+  public addInquiry(inquiry: IInquiry): void {
     inquiry.idUser = 1;
     inquiry.archived = false;
     this.api.inquiry.addInquiry(inquiry).subscribe((inquiry: any) => {

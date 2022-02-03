@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IContactPerson, IDistributor, IInquiryCreate, IOrderCreate, IOrderItemCreate} from '../../models';
+import { IContactPerson, IDistributor, IInquiry, IOrder, IOrderItem } from '../../models';
 
 
 @Component({
@@ -19,8 +19,8 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public pageSize: number = 1000
   public selectedRows: any[] = []
   
-  public order: IInquiryCreate = {};
-  public orderItems: IOrderItemCreate[] = [];
+  public order: IInquiry = {};
+  public orderItems: IOrderItem[] = [];
   public items: any[] = [];
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
@@ -57,13 +57,13 @@ export class PurchaseModalAddOrderComponent implements OnInit {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
-  public addOrder(order: IOrderCreate): void {
+  public addOrder(order: IOrder): void {
     order.idUser = 1;
     order.archived = false;
     this.api.order.addOrder(order).subscribe((order: any) => {
 
       this.selectedRows.forEach((row) => {
-        let obj: IOrderItemCreate = { Item_id: row.item.id, order_id: order.id, price: Number(row.price), quantity: Number(row.quantity), status: row.status }
+        let obj: IOrderItem = { Item_id: row.item.id, order_id: order.id, price: Number(row.price), quantity: Number(row.quantity), status: row.status }
         this.orderItems.push(obj)
       })
 

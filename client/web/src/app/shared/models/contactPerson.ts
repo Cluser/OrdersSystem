@@ -20,20 +20,3 @@ export interface IContactPerson {
     distributor?: IDistributor;
 }
 
-export interface IContactPersonCreate {
-    name?: string;
-    phone?: string;
-    email?: string;
-    description?: string;
-    idDistributor?: number;
-}
-
-export interface IContactPersonEdit {
-    id?: number;
-    name?: string;
-    phone?: string;
-    email?: string;
-    description?: string;
-    idDistributor?: number;
-}
-

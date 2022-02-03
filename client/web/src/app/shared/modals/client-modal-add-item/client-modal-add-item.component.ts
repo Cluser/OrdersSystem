@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../api/api.service';
-import { ICategory, IDistributor, IItem, IItemCreate, IProject } from '../../models';
+import { ICategory, IDistributor, IItem, IProject } from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-item',
@@ -38,7 +38,7 @@ export class PurchaseModalAddItemComponent implements OnInit {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
 
-  public addItem(item: IItemCreate): void {
+  public addItem(item: IItem): void {
     item.idUser = 1;
     item.archived = false;
     this.api.item.addItems(item).subscribe(() => {

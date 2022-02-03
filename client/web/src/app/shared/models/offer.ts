@@ -12,8 +12,11 @@ export interface IPOffer {
 
 export interface IOffer {
     id?: number;
+    idUser?: number;
     user?: IUser;
+    idDistributor?: number;
     distributor?: IDistributor;
+    idContactPerson?: number;
     contactPerson?: IContactPerson;
     dateAndTime?: string;
     archived?: boolean;
@@ -21,33 +24,7 @@ export interface IOffer {
     items?: IOfferItem[];
 }
 
-export interface IOfferCreate {
-    idUser?: number;
-    idDistributor?: number;
-    idContactPerson?: number;
-    dateAndTime?: string;
-    archived?: boolean;
-}
-
-export interface IOfferEdit {
-    id?: number;
-    idUser?: number;
-    idDistributor?: number;
-    idContactPerson?: number;
-    dateAndTime?: string;
-    archived?: boolean;
-}
-
 export interface IOfferItem {
-    Item_id?: number;
-    offer_id?: number;
-    quantity?: number;
-    price?: number;
-    status?: string;
-}
-
-
-export interface IOfferItemCreate {
     Item_id?: number;
     offer_id?: number;
     quantity?: number;

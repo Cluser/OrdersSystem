@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IItem, IItemEdit, IPItem } from '../../models';
+import { IItem, IPItem } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,7 +24,7 @@ export class Item {
     return this.httpClient.get<IPItem>(this.ItemsEndpointUrl, {params: params});
   }
 
-  public addItems(Item: IItem): Observable<IItem[]> {
+  public addItems(Item: Partial<IItem>): Observable<IItem[]> {
     let params: any = {}
 
     if (Item) { params = JSON.parse(JSON.stringify(Item)) }
@@ -32,23 +32,11 @@ export class Item {
     return this.httpClient.post<IItem[]>(this.ItemsEndpointUrl, params);
   }
 
-  public editItem(item: IItem): Observable<IItemEdit> {
+  public editItem(item: Partial<IItem>): Observable<IItem> {
     let params: any = {}
 
-    let itemToEdit: IItemEdit = {
-      id: item.id!,
-      name: item.name,
-      model: item.model,
-      quantity: item.quantity,
-      comment: item.comment,
-      archived: item.archived,
-      idCategory: item.idCategory,
-      idProject: item.idProject,
-      idUser: item.idUser
-    };
+    if (item) { params = JSON.parse(JSON.stringify(item)) }
 
-    if (item) { params = JSON.parse(JSON.stringify(itemToEdit)) }
-
-    return this.httpClient.put<IItemEdit>(this.ItemsEndpointUrl, params);
+    return this.httpClient.put<IItem>(this.ItemsEndpointUrl, params);
   }
 }

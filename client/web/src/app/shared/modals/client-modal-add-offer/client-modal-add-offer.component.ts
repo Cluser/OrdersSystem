@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IContactPerson, IDistributor, IOfferCreate, IOfferItem} from '../../models';
+import { IContactPerson, IDistributor, IOffer, IOfferItem} from '../../models';
 
 @Component({
   selector: 'app-client-modal-add-offer',
@@ -19,7 +19,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public pageSize: number = 1000
   public selectedRows: any[] = [];
   
-  public offer: IOfferCreate = {};
+  public offer: IOffer = {};
   public items: any[] = [];
   public offerItems: IOfferItem[] = [];
   public distributors: IDistributor[] = [];
@@ -73,7 +73,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
-  public addOffer(offer: IOfferCreate): void {
+  public addOffer(offer: IOffer): void {
     offer.idUser = 1;
     offer.archived = false;
     this.api.offer.addOffer(offer).subscribe((offer: any) => {

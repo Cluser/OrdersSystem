@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IContactPerson, IDistributor, IOrderCreate } from '../../models';
+import { IContactPerson, IDistributor, IInquiry } from '../../models';
 
 @Component({
   selector: 'app-client-modal-edit-inquiry',
@@ -54,7 +54,7 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
-  public editInquiry(inquiry: IOrderCreate): void {
+  public editInquiry(inquiry: IInquiry): void {
     this.api.inquiry.editInquiry(inquiry).subscribe(() => {
       this.inquiryEdditedEvent.emit();
       this.close();

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../../shared/api/api.service'
-import { IClient, IProject, IProjectCreate } from '../../../shared/models';
+import { IClient, IProject } from '../../../shared/models';
 
 @Component({
   selector: 'app-admin-modal-add-project',
@@ -12,7 +12,7 @@ export class AdminModalAddProjectComponent implements OnInit {
   @Output() projectAddedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
-  public project: IProjectCreate = {};
+  public project: IProject = {};
   public clients: IClient[] = [];
 
   constructor(private api: ApiService) { }

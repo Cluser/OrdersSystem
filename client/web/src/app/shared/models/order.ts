@@ -12,29 +12,15 @@ export interface IPOrder {
 
 export interface IOrder {
     id?: number;
+    idUser?: number;
     user?: IUser;
     idDistributor?: number;
     distributor?: IDistributor;
+    idContactPerson?: number;
     contactPerson?: IContactPerson;
     dateAndTime?: string;
     archived?: boolean;
     items?: IOrderItem[];
-}
-
-export interface IOrderCreate {
-    idUser?: number;
-    idDistributor?: number;
-    dateAndTime?: string;
-    archived?: boolean;
-}
-
-export interface IOrderEdit {
-    id?: number;
-    idUser?: number;
-    idDistributor?: number;
-    idContactPerson?: number;
-    dateAndTime?: string;
-    archived?: boolean;
 }
 
 export interface IOrderItem {
@@ -45,11 +31,4 @@ export interface IOrderItem {
     status?: string;
 }
 
-export interface IOrderItemCreate {
-    Item_id?: number;
-    order_id?: number;
-    quantity?: number;
-    price?: number;
-    status?: string;
-}
 

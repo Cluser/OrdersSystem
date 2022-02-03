@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IOrder, IOrderCreate, IOrderEdit, IPOrder } from '../../models';
+import { IOrder, IPOrder } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,29 +23,20 @@ export class Order {
     return this.httpClient.get<IPOrder>(this.ordersEndpointUrl, {params: params});
   }
 
-  public addOrder(order: IOrderCreate): Observable<IOrderCreate[]> {
+  public addOrder(order: Partial<IOrder>): Observable<IOrder[]> {
     let params: any = {}
 
     if (order) { params = JSON.parse(JSON.stringify(order)) }
 
-    return this.httpClient.post<IOrderCreate[]>(this.ordersEndpointUrl, params);
+    return this.httpClient.post<IOrder[]>(this.ordersEndpointUrl, params);
   }
 
-  public editOrder(order: IOrderEdit): Observable<IOrderEdit> {
+  public editOrder(order: Partial<IOrder>): Observable<IOrder> {
     let params: any = {}
 
-    let orderToEdit: IOrderEdit = {
-      id: order.id!,
-      idUser: order.idUser,
-      idDistributor: order.idDistributor,
-      idContactPerson: order.idContactPerson,
-      dateAndTime: order.dateAndTime,
-      archived: order.archived
-    };
+    if (order) { params = JSON.parse(JSON.stringify(order)) }
 
-    if (orderToEdit) { params = JSON.parse(JSON.stringify(orderToEdit)) }
-
-    return this.httpClient.put<IOrderEdit>(this.ordersEndpointUrl, params);
+    return this.httpClient.put<IOrder>(this.ordersEndpointUrl, params);
   }
 
 }

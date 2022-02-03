@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IInquiry, IInquiryItemCreate, IItem } from '../../models';
+import { IInquiryItem } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -17,25 +17,12 @@ export class InquiryItem {
   }
 
 
-  public addInquiryItems(item: IInquiryItemCreate[]): Observable<IInquiryItemCreate[]> {
+  public addInquiryItems(item: IInquiryItem[]): Observable<IInquiryItem[]> {
     let params: any = {}
 
-    let inquiryItems: IInquiryItemCreate[] = []
+    if (item) { params = JSON.parse(JSON.stringify(item)) }
 
-    item.forEach(item => {
-      let inquiryItem: IInquiryItemCreate = {
-        Item_id: item.Item_id,
-        inquiry_id: item.inquiry_id,
-        quantity: item.quantity,
-        status: item.status,
-      };
-      inquiryItems.push(inquiryItem)
-    })
-
-
-    if (item) { params = JSON.parse(JSON.stringify(inquiryItems)) }
-
-    return this.httpClient.post<IInquiryItemCreate[]>(this.inquiriesItemsEndpointUrl, params);
+    return this.httpClient.post<IInquiryItem[]>(this.inquiriesItemsEndpointUrl, params);
   }
 
 }

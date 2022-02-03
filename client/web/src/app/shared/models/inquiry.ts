@@ -12,40 +12,18 @@ export interface IPInquiry {
 
 export interface IInquiry {
     id?: number;
+    idUser?: number;
     user?: IUser;
+    idDistributor?: number;
     distributor?: IDistributor;
+    idContactPerson?: number;
     contactPerson?: IContactPerson;
     dateAndTime?: string;
     archived?: boolean;
     items?: IItem[];
 }
 
-export interface IInquiryCreate {
-    idUser?: number;
-    idDistributor?: number;
-    idContactPerson?: number;
-    dateAndTime?: string;
-    archived?: boolean;
-}
-
-export interface IInquiryEdit {
-    id?: number;
-    idUser?: number;
-    idDistributor?: number;
-    idContactPerson?: number;
-    dateAndTime?: string;
-    archived?: boolean;
-}
-
 export interface IInquiryItem {
-    Item_id?: number;
-    inquiry_id?: number;
-    quantity?: number;
-    price?: number;
-    status?: string;
-}
-
-export interface IInquiryItemCreate {
     Item_id?: number;
     inquiry_id?: number;
     quantity?: number;

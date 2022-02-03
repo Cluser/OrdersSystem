@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../../shared/api/api.service'
-import { IDistributorCreate } from '../../../shared/models';
+import { IDistributor } from '../../../shared/models';
 
 @Component({
   selector: 'app-admin-modal-edit-distributor',
@@ -12,14 +12,14 @@ export class AdminModalEditDistributorComponent implements OnInit {
   @Output() distributorEditedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
-  public distributor: IDistributorCreate = {};
+  public distributor: IDistributor = {};
 
   constructor(private api: ApiService) { }
 
   ngOnInit() {
   }
 
-  public editDistributor(distributor: IDistributorCreate): void {
+  public editDistributor(distributor: IDistributor): void {
     this.api.distributor.editDistributor(distributor).subscribe(() => {
       this.distributorEditedEvent.emit();
       this.close();

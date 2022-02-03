@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
-import { IProjectCreate } from 'src/app/shared/models';
+import { IProject } from 'src/app/shared/models';
 import { AdminModalAddProjectComponent } from '../admin-modals/admin-modal-add-project/admin-modal-add-project.component';
 import { AdminModalEditProjectComponent } from '../admin-modals/admin-modal-edit-project/admin-modal-edit-project.component';
 
@@ -42,7 +42,7 @@ export class AdminProjectsComponent implements OnInit {
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
-  public openEditProjectModal(project: IProjectCreate): void {
+  public openEditProjectModal(project: IProject): void {
     const modalRef = this.modalService.open(AdminModalEditProjectComponent);
     modalRef.componentInstance.project = project;
     modalRef.componentInstance.projectEditedEvent.subscribe(() => this.getProjectsData());

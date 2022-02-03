@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IPProject, IProject, IProjectCreate, IProjectEdit } from '../../models';
+import { IPProject, IProject } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,25 +24,19 @@ export class Project {
     return this.httpClient.get<IPProject>(this.projectsEndpointUrl, {params: params});
   }
 
-  public addProjects(project?: IProjectCreate): Observable<IProjectCreate[]> {
+  public addProjects(project?: Partial<IProject>): Observable<IProject[]> {
     let params: any = {}
 
     if (project) { params = JSON.parse(JSON.stringify(project)) }
 
-    return this.httpClient.post<IProjectCreate[]>(this.projectsEndpointUrl, params);
+    return this.httpClient.post<IProject[]>(this.projectsEndpointUrl, params);
   }
 
-  public editProject(project: IProject): Observable<IProjectEdit> {
+  public editProject(project: Partial<IProject>): Observable<IProject> {
     let params: any = {}
 
-    let projectToEdit: IProjectEdit = {
-      id: project.id!,
-      name: project.name,
-      idClient: project.idClient
-    };
+    if (project) { params = JSON.parse(JSON.stringify(project)) }
 
-    if (project) { params = JSON.parse(JSON.stringify(projectToEdit)) }
-
-    return this.httpClient.put<IProjectEdit>(this.projectsEndpointUrl, params);
+    return this.httpClient.put<IProject>(this.projectsEndpointUrl, params);
   }
 }

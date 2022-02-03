@@ -29,28 +29,3 @@ export interface IItem {
     inquiries?: IInquiry[];
     orders?: IOrder[];
 }
-
-export interface IItemCreate {
-    name?: string;
-    model?: string;
-    quantity?: number;
-    comment?: string;
-    archived?: boolean;
-    idCategory?: number;
-    idProject?: number;
-    idDistributor?: number;
-    idUser?: number;
-}
-
-export interface IItemEdit {
-    id: number;
-    name?: string;
-    model?: string;
-    quantity?: number;
-    comment?: string;
-    archived?: boolean;
-    idCategory?: number;
-    idProject?: number;
-    idDistributor?: number;
-    idUser?: number;
-}

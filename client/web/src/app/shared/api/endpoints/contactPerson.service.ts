@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IContactPerson, IContactPersonCreate, IContactPersonEdit, IPContactPerson } from '../../models';
+import { IContactPerson, IPContactPerson } from '../../models';
 import { environment } from 'src/environments/environment';
 // import {  } from '../../models/contactPerson';
 
@@ -28,27 +28,19 @@ export class ContactPerson {
     return this.httpClient.get<IPContactPerson>(this.contactPersonsEndpointUrl, {params: params});
   }
 
-  public addContactPersons(contactPerson?: IContactPerson): Observable<IContactPerson[]> {
+  public addContactPersons(contactPerson?: Partial<IContactPerson>): Observable<IContactPerson[]> {
     let params: any = {};
 
     if (contactPerson) { params = JSON.parse(JSON.stringify(contactPerson)) }
 
-    return this.httpClient.post<IContactPersonCreate[]>(this.contactPersonsEndpointUrl, params);
+    return this.httpClient.post<IContactPerson[]>(this.contactPersonsEndpointUrl, params);
   }
 
-  public editContactPerson(contactPerson: IContactPerson): Observable<IContactPersonEdit> {
+  public editContactPerson(contactPerson: Partial<IContactPerson>): Observable<IContactPerson> {
     let params: any = {}
 
-    let contactPersonToEdit: IContactPersonEdit = {
-      id: contactPerson.id!,
-      name: contactPerson.name,
-      phone: contactPerson.phone,
-      email: contactPerson.email,
-      description: contactPerson.description
-    };
+    if (contactPerson) { params = JSON.parse(JSON.stringify(contactPerson)) }
 
-    if (contactPerson) { params = JSON.parse(JSON.stringify(contactPersonToEdit)) }
-
-    return this.httpClient.put<IContactPersonEdit>(this.contactPersonsEndpointUrl, params);
+    return this.httpClient.put<IContactPerson>(this.contactPersonsEndpointUrl, params);
   }
 }

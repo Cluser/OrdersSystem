@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ApiService } from '../../../shared/api/api.service'
-import { IClient, IProject, IProjectCreate } from '../../../shared/models';
+import { IClient } from '../../../shared/models';
 
 @Component({
   selector: 'app-admin-modal-add-client',

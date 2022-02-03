@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IClient, IClientEdit, IPClient } from '../../models';
+import { IClient, IPClient } from '../../models';
 import { environment } from 'src/environments/environment';
 
 
@@ -27,7 +27,7 @@ export class Client {
     return this.httpClient.get<IPClient>(this.clientsEndpointUrl, {params: params});
   }
 
-  public addClients(client?: IClient): Observable<IClient[]> {
+  public addClients(client?: Partial<IClient>): Observable<IClient[]> {
     let params: any = {};
 
     if (client) { params = JSON.parse(JSON.stringify(client)) }
@@ -35,20 +35,11 @@ export class Client {
     return this.httpClient.post<IClient[]>(this.clientsEndpointUrl, params);
   }
 
-  public editClient(client: IClient): Observable<IClientEdit> {
+  public editClient(client: Partial<IClient>): Observable<IClient> {
     let params: any = {}
 
-    let clientToEdit: IClientEdit = {
-      id: client.id!,
-      name: client.name,
-      address: client.address,
-      email: client.email,
-      phone: client.phone,
-      description: client.description
-    };
+    if (client) { params = JSON.parse(JSON.stringify(client)) }
 
-    if (client) { params = JSON.parse(JSON.stringify(clientToEdit)) }
-
-    return this.httpClient.put<IClientEdit>(this.clientsEndpointUrl, params);
+    return this.httpClient.put<IClient>(this.clientsEndpointUrl, params);
   }
 }

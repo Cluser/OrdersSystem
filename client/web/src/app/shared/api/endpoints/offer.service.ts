@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IOffer, IOfferCreate, IOfferEdit, IPOffer } from '../../models';
+import { IOffer, IPOffer } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,28 +23,19 @@ export class Offer {
     return this.httpClient.get<IPOffer>(this.offersEndpointUrl, {params: params});
   }
 
-  public addOffer(offer: IOfferCreate): Observable<IOfferCreate[]> {
+  public addOffer(offer: Partial<IOffer>): Observable<IOffer[]> {
     let params: any = {}
 
     if (offer) { params = JSON.parse(JSON.stringify(offer)) }
 
-    return this.httpClient.post<IOfferCreate[]>(this.offersEndpointUrl, params);
+    return this.httpClient.post<IOffer[]>(this.offersEndpointUrl, params);
   }
 
-  public editOffer(offer: IOfferEdit): Observable<IOfferEdit> {
+  public editOffer(offer: Partial<IOffer>): Observable<IOffer> {
     let params: any = {}
 
-    let offerToEdit: IOfferEdit = {
-      id: offer.id!,
-      idUser: offer.idUser,
-      idDistributor: offer.idDistributor,
-      idContactPerson: offer.idContactPerson,
-      dateAndTime: offer.dateAndTime,
-      archived: offer.archived
-    };
+    if (offer) { params = JSON.parse(JSON.stringify(offer)) }
 
-    if (offerToEdit) { params = JSON.parse(JSON.stringify(offerToEdit)) }
-
-    return this.httpClient.put<IOfferEdit>(this.offersEndpointUrl, params);
+    return this.httpClient.put<IOffer>(this.offersEndpointUrl, params);
   }
 }

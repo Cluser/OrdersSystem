@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IInquiry, IInquiryCreate, IInquiryEdit, IPInquiry } from '../../models';
+import { IInquiry, IPInquiry } from '../../models';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,29 +23,20 @@ export class Inquiry {
     return this.httpClient.get<IPInquiry>(this.inquiriesEndpointUrl, {params: params});
   }
 
-  public addInquiry(inquiry: IInquiryCreate): Observable<IInquiryCreate[]> {
+  public addInquiry(inquiry: Partial<IInquiry>): Observable<IInquiry[]> {
     let params: any = {}
 
     if (inquiry) { params = JSON.parse(JSON.stringify(inquiry)) }
 
-    return this.httpClient.post<IInquiryCreate[]>(this.inquiriesEndpointUrl, params);
+    return this.httpClient.post<IInquiry[]>(this.inquiriesEndpointUrl, params);
   }
 
-  public editInquiry(inquiry: IInquiryEdit): Observable<IInquiryEdit> {
+  public editInquiry(inquiry: Partial<IInquiry>): Observable<IInquiry> {
     let params: any = {}
 
-    let inquiryToEdit: IInquiryEdit = {
-      id: inquiry.id!,
-      idUser: inquiry.idUser,
-      idDistributor: inquiry.idDistributor,
-      idContactPerson: inquiry.idContactPerson,
-      dateAndTime: inquiry.dateAndTime,
-      archived: inquiry.archived
-    };
+    if (inquiry) { params = JSON.parse(JSON.stringify(inquiry)) }
 
-    if (inquiryToEdit) { params = JSON.parse(JSON.stringify(inquiryToEdit)) }
-
-    return this.httpClient.put<IInquiryEdit>(this.inquiriesEndpointUrl, params);
+    return this.httpClient.put<IInquiry>(this.inquiriesEndpointUrl, params);
   }
 
 }
