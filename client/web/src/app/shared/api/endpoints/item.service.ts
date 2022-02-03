@@ -42,7 +42,6 @@ export class Item {
       quantity: item.quantity,
       comment: item.comment,
       archived: item.archived,
-      status: item.status,
       idCategory: item.idCategory,
       idProject: item.idProject,
       idUser: item.idUser

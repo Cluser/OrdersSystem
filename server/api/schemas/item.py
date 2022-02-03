@@ -93,7 +93,6 @@ class ItemCreate(BaseModel):
     name: str
     model: str
     quantity: int
-    status: str
     comment: str
     archived: bool
     idCategory: int
@@ -105,7 +104,6 @@ class ItemEdit(BaseModel):
     name: str
     model: str
     quantity: int
-    status: str
     comment: str
     archived: bool
     idCategory: int

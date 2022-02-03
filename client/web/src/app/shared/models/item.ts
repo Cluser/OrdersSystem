@@ -34,7 +34,6 @@ export interface IItemCreate {
     name?: string;
     model?: string;
     quantity?: number;
-    status?: string;
     comment?: string;
     archived?: boolean;
     idCategory?: number;
@@ -48,7 +47,6 @@ export interface IItemEdit {
     name?: string;
     model?: string;
     quantity?: number;
-    status?: string;
     comment?: string;
     archived?: boolean;
     idCategory?: number;

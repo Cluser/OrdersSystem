@@ -50,7 +50,7 @@ class Main:
 
     item = []
     for x in range(1, 500):
-        item.append(Item(name = x, model = randrange(1, 10000), idCategory = randrange(1, 5), idUser = randrange(1, 5), idProject = randrange(1, 5), quantity = randrange(1, 50), status = "Do zamówienia", comment = "Komentarz przedmiotu", archived = False))
+        item.append(Item(name = x, model = randrange(1, 10000), idCategory = randrange(1, 5), idUser = randrange(1, 5), idProject = randrange(1, 5), quantity = randrange(1, 50), comment = "Komentarz przedmiotu", archived = False))
 
 
     user = []
@@ -98,21 +98,21 @@ class Main:
        itemOrder.append(ItemOrder(Item_id = randrange(1, 500), order_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), status = "Do zamówienia"))
 
 
-    # Db.session.add_all(client)
-    # Db.session.add_all(project)
-    # Db.session.add_all(user)
-    # Db.session.add_all(item)
-    # Db.session.add_all(distributor)
-    # Db.session.add_all(contactPerson)
-    # Db.session.add_all(category)
-    # Db.session.add_all(inquiry)
-    # Db.session.add_all(offer)
-    # Db.session.add_all(order)
-    # Db.session.add_all(itemInquiry)
-    # Db.session.add_all(itemOffer)
-    # Db.session.add_all(itemOrder)
+    Db.session.add_all(client)
+    Db.session.add_all(project)
+    Db.session.add_all(user)
+    Db.session.add_all(item)
+    Db.session.add_all(distributor)
+    Db.session.add_all(contactPerson)
+    Db.session.add_all(category)
+    Db.session.add_all(inquiry)
+    Db.session.add_all(offer)
+    Db.session.add_all(order)
+    Db.session.add_all(itemInquiry)
+    Db.session.add_all(itemOffer)
+    Db.session.add_all(itemOrder)
 
-    # Db.session.commit()     
+    Db.session.commit()     
 
     api = Api()
 

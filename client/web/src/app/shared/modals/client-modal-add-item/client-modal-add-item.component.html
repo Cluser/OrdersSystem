@@ -40,20 +40,6 @@
         </div>
       </div>
 
-
-      <label for="status">Status</label>
-      <select id="status" name="status" #status="ngModel" required class="form-control" [(ngModel)]="this.item.status">
-        <option selected>Wybierz status</option>
-        <option>Do zamówienia</option>
-        <option>Zamówiony</option>
-        <option>Odebrany</option>
-      </select>
-      <div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
-        <div *ngIf="status.errors?.['required']">
-          Status jest wymagany
-        </div>
-      </div>
-
       <label for="project">Projekt</label>
       <select id="project" name="project" #project="ngModel" required class="form-control" [(ngModel)]="this.item.idProject">
         <option selected>Wybierz projekt</option>

@@ -16,14 +16,6 @@
     <label for="quantity">Ilość</label>
     <input id="quantity" type="text" class="form-control" [(ngModel)]="this.item.quantity" type="number">
 
-    <label for="status">Status</label>
-    <select id="status" class="form-control" [(ngModel)]="this.item.status">
-      <option selected>Wybierz status</option>
-      <option>Do zamówienia</option>
-      <option>Zamówiony</option>
-      <option>Odebrany</option>
-    </select>
-
     <label for="project">Projekt</label>
     <select id="project" class="form-control" [(ngModel)]="this.item.idProject">
       <option selected>Wybierz projekt</option>

@@ -40,6 +40,7 @@ export class PurchaseModalAddItemComponent implements OnInit {
 
   public addItem(item: IItemCreate): void {
     item.idUser = 1;
+    item.archived = false;
     this.api.item.addItems(item).subscribe(() => {
       this.itemAddedEvent.emit();
       this.close();

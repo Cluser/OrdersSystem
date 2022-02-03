@@ -13,7 +13,6 @@ class Item(Db.Base):
     name = Column(String, nullable = False)
     model = Column(String)
     quantity = Column(Integer)
-    status = Column(String)
     dateAndTime = Column(String)
     comment = Column(String)
     archived = Column(Boolean, nullable = True)
@@ -25,13 +24,12 @@ class Item(Db.Base):
     offers = relationship('ItemOffer', back_populates="item")
     orders = relationship('ItemOrder', back_populates="item")
 
-    def __init__(self, idCategory, idUser, idProject, name, model, quantity, status, comment, archived):
+    def __init__(self, idCategory, idUser, idProject, name, model, quantity, comment, archived):
         self.idCategory = idCategory
         self.idUser = idUser
         self.idProject = idProject
         self.name = name
         self.model = model
         self.quantity = quantity
-        self.status = status
         self.comment = comment
         self.archived = archived

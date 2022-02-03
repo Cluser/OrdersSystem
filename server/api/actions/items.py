@@ -88,7 +88,6 @@ async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
             'name': Item.name,
             'model': Item.model,
             'quantity': Item.quantity,
-            'status': Item.status,
             'comment': Item.comment,
             'archived': Item.archived,
             'idCategory': Item.idCategory,
