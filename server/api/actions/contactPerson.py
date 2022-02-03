@@ -42,3 +42,22 @@ async def post(contactPerson: schemas.ContactPersonCreate) -> schemas.ContactPer
         Db.session.close()
         return contactPerson
 
+
+@router.put("/ContactPerson", tags=["ContactPerson"])
+async def put(contactPerson: schemas.ContactPersonEdit) -> schemas.ContactPersonEdit:
+    try:
+        Db.session.query(models.ContactPerson).filter(models.ContactPerson.id == contactPerson.id).update({
+            'name': contactPerson.name,
+            'phone': contactPerson.phone,
+            'email': contactPerson.email,
+            'description': contactPerson.description,
+            'idDistributor': contactPerson.idDistributor
+        }, synchronize_session = False)
+        Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return contactPerson
+

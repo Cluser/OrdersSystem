@@ -9,7 +9,7 @@ import { IContactPerson, IDistributor } from '../../../shared/models';
 })
 export class AdminModalEditContactPersonComponent implements OnInit {
 
-  @Output() clientEditedEvent: EventEmitter<any> = new EventEmitter();
+  @Output() contactPersonEditedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
   public contactPerson: IContactPerson = {};
@@ -27,7 +27,7 @@ export class AdminModalEditContactPersonComponent implements OnInit {
 
   public editContactPerson(contactPerson: IContactPerson): void {
     this.api.contactPerson.editContactPerson(contactPerson).subscribe(() => {
-      this.clientEditedEvent.emit();
+      this.contactPersonEditedEvent.emit();
       this.close();
     });
   }

@@ -20,3 +20,12 @@ class ContactPersonCreate(BaseModel):
     description: str
     idDistributor: int
 
+class ContactPersonEdit(BaseModel):
+    id: str
+    name: str
+    phone: str
+    email: str
+    description: str
+    idDistributor: int
+
+
