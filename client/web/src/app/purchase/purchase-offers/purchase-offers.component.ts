@@ -8,6 +8,7 @@ import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-mod
 import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { PurchaseModalEditOfferComponent } from 'src/app/shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
 import { IOffer } from 'src/app/shared/models';
+import { currencyFormatter } from '../../shared/functions/formatters'
 
 @Component({
   selector: 'app-purchase-offers',
@@ -46,12 +47,12 @@ export class PurchaseOffersComponent implements OnInit {
       { field: 'contactPerson.name', headerName: 'Sprzedawca', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3, valueFormatter: params => currencyFormatter(params), type: 'rightAligned' },
     ];
   }
 
   private calculateOffersPrices(offers: any): void {
-    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) + ' zł')
+    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) )
   }
 
   public openAddOfferModal(): void {

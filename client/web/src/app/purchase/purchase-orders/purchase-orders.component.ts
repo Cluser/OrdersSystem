@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalEditOrderComponent } from 'src/app/shared/modals/client-modal-edit-order/client-modal-edit-order.component';
 import { IOrder } from 'src/app/shared/models';
+import { currencyFormatter } from '../../shared/functions/formatters'
 
 @Component({
   selector: 'app-purchase-orders',
@@ -41,7 +42,7 @@ export class PurchaseOrdersComponent implements OnInit {
       { field: 'contactPerson.name', headerName: 'Sprzedawca', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3, valueFormatter: params => currencyFormatter(params), type: 'rightAligned' },
     ];
   }
 
@@ -53,7 +54,7 @@ export class PurchaseOrdersComponent implements OnInit {
   }
 
   private calculateOrdersPrices(orders: any): void {
-    orders.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) + ' zł')
+    orders.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0))
   }
 
   public onSelectionChanged(selection: any): void {
