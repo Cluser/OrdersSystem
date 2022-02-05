@@ -57,6 +57,9 @@ export class PurchaseOffersComponent implements OnInit {
 
   public openAddOfferModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOfferComponent, {size: 'xl'});
+
+    modalRef.componentInstance.offer.idDistributor = this.selectedRows[0].idDistributor
+    modalRef.componentInstance.offer.idContactPerson = this.selectedRows[0].idContactPerson
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
     modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/purchase/offers']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
@@ -64,6 +67,9 @@ export class PurchaseOffersComponent implements OnInit {
 
   public openAddOrderModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddOrderComponent, {size: 'xl'});
+
+    modalRef.componentInstance.order.idDistributor = this.selectedRows[0].idDistributor
+    modalRef.componentInstance.order.idContactPerson = this.selectedRows[0].idContactPerson
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
     modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/purchase/orders']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
@@ -71,6 +77,7 @@ export class PurchaseOffersComponent implements OnInit {
 
   public openEditOfferModal(offer: IOffer): void {
     const modalRef = this.modalService.open(PurchaseModalEditOfferComponent, {size: 'xl'});
+    
     modalRef.componentInstance.offer = offer;
     modalRef.componentInstance.offerEdditedEvent.subscribe(() => this.getOffersData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());

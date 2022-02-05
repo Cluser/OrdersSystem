@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
-import { IContactPerson, IDistributor, IInquiry, IOrder, IOrderItem } from '../../models';
+import { IContactPerson, IDistributor, IOrder, IOrderItem } from '../../models';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public pageSize: number = 1000
   public selectedRows: any[] = []
   
-  public order: IInquiry = {};
+  public order: IOrder = {};
   public orderItems: IOrderItem[] = [];
   public items: any[] = [];
   public distributors: IDistributor[] = [];
@@ -50,10 +50,13 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
+      this.distributors = distributors.items
+      this.getContactPersons(this.order.idDistributor)
+    });
   }
 
-  public getContactPersons(idDistributor: number): void {
+  public getContactPersons(idDistributor?: number): void {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 

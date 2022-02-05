@@ -52,7 +52,7 @@ export class PurchaseModalEditOfferComponent implements OnInit {
     this.offer._totalPrice = this.offer.items.reduce((x: any, y: any) => { return x + y.price }, 0);
   }
 
-  public getContactPersons(idDistributor: number): void {
+  public getContactPersons(idDistributor?: number): void {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 

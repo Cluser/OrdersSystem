@@ -66,10 +66,11 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public getDistributors(): void {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
       this.distributors = distributors.items
+      this.getContactPersons(this.offer.idDistributor)
     });
   }
 
-  public getContactPersons(idDistributor: number): void {
+  public getContactPersons(idDistributor?: number): void {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 

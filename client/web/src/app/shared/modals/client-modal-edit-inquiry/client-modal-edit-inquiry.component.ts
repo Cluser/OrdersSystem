@@ -18,7 +18,7 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
   public rowData: any[] = [];
   public pageSize: number = 1000
   
-  public inquiry: any = {};
+  public inquiry: IInquiry = {};
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
 
@@ -28,7 +28,6 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
   ngOnInit() {
     this.prepareGrid();
     this.getDistributors();
-    this.getContactPersons(this.inquiry.idDistributor);
   }
 
   public prepareGrid(): void {
@@ -40,7 +39,8 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
-    this.rowData = this.inquiry.items;
+    // Deep copy of items - without reference
+    this.rowData = JSON.parse(JSON.stringify(this.inquiry.items));
   }
 
   public getDistributors(): void {
@@ -48,12 +48,9 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
       this.distributors = distributors.items
       this.getContactPersons(this.inquiry.idDistributor)
     });
-
-    this.inquiry._totalPrice = this.inquiry.items.reduce((x: any, y: any) => { return x + y.price }, 0);
-
   }
 
-  public getContactPersons(idDistributor: number): void {
+  public getContactPersons(idDistributor?: number): void {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
