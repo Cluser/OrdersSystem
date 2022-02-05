@@ -9,7 +9,7 @@ from .contactPerson import ContactPerson
 
 class OrderItemGetter(GetterDict):
     def get(self, key: str, default = None):
-        if key in {'id', 'name', 'model', 'category', 'quantity', 'status', 'comment', 'project'}:
+        if key in {'id', 'name', 'model', 'category', 'quantity', 'comment', 'project'}:
             return getattr(self._obj.item, key)
         else:
             return super(OrderItemGetter, self).get(key, default)
@@ -20,7 +20,6 @@ class OrderItem(BaseModel):
     model: str
     category: str
     quantity: int
-    status: str
     comment: str
     project: Project
     price: float
@@ -34,7 +33,6 @@ class OrderItemCreate(BaseModel):
     order_id: int
     quantity: int
     price: float
-    status: str
 
 class Order(BaseModel):
     id: int

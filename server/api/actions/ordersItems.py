@@ -14,9 +14,9 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/OrdersItems", tags=["OrdersItems"])
-async def get(Item_id: Optional[int] = None, order_id: Optional[int] = None, quantity: Optional[int] = None, price: Optional[int] = None, status: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.ItemOrder]:
+async def get(Item_id: Optional[int] = None, order_id: Optional[int] = None, quantity: Optional[int] = None, price: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.ItemOrder]:
     try:
-        parameters = {"Item_id": Item_id, "order_id": order_id, 'quantity': quantity, 'price': price, 'status': status}
+        parameters = {"Item_id": Item_id, "order_id": order_id, 'quantity': quantity, 'price': price}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.ItemOrder, attribute) == value for attribute, value in selectedParameters.items()]
         OrdersItems = paginate(Db.session.query(models.ItemOrder).options(joinedload(models.ItemOrder.order))

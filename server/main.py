@@ -86,16 +86,16 @@ class Main:
 
     itemInquiry = []
     for x in range(1, 10):
-       itemInquiry.append(ItemInquiry(Item_id = randrange(1, 500), inquiry_id = randrange(1, 50), quantity= randrange(1, 10), status = "Do zamówienia"))
+       itemInquiry.append(ItemInquiry(Item_id = randrange(1, 500), inquiry_id = randrange(1, 50), quantity= randrange(1, 10)))
 
     itemOffer = []
     for x in range(1, 500):
-       itemOffer.append(ItemOffer(Item_id = randrange(1, 500), offer_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), status = "Do zamówienia"))
+       itemOffer.append(ItemOffer(Item_id = randrange(1, 500), offer_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999)))
 
 
     itemOrder = []
     for x in range(1, 500):
-       itemOrder.append(ItemOrder(Item_id = randrange(1, 500), order_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), status = "Do zamówienia"))
+       itemOrder.append(ItemOrder(Item_id = randrange(1, 500), order_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999)))
 
 
     # Db.session.add_all(client)

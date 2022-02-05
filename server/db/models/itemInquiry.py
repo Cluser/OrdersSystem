@@ -8,6 +8,5 @@ class ItemInquiry(Db.Base):
     Item_id = Column(ForeignKey('Items.id'))
     inquiry_id = Column(ForeignKey('inquiries.id'))
     quantity = Column(Integer, nullable=False)
-    status = Column(String, nullable=False)
     item = relationship('Item', back_populates="inquiries")
     inquiry = relationship('Inquiry', back_populates="items")

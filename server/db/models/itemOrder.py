@@ -11,6 +11,5 @@ class ItemOrder(Db.Base):
     order_id = Column(ForeignKey('orders.id'))
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
-    status = Column(String, nullable=False)
     item = relationship('Item', back_populates="orders")
     order = relationship('Order', back_populates="items")

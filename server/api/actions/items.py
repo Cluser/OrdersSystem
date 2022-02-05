@@ -58,8 +58,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
             if statusPartialOrder: item.status = "Częściowo zamówione"
             if statusFullOrder: item.status = "Zamówione"
 
-        
-        items.items = [item for item in items.items if item.status == status]
+        # items.items = [item for item in items.items if item.status == status]
     except:
         Db.session.rollback()
         raise
