@@ -2,24 +2,32 @@
     <div class="filter-section">
         <div class="filter-section-name">Archwizacja</div>
         <div class="filter-section-elements">
-            <button (click)="archiveStatus[0] = !archiveStatus[0]" [ngClass]="{'element-selected': archiveStatus[0] == true,'element': archiveStatus[0] !== true}">Zarchiwzowane</button>
-            <button (click)="archiveStatus[1] = !archiveStatus[1]" [ngClass]="{'element-selected': archiveStatus[1] == false,'element': archiveStatus[1] !== false}">Niezarchiwzowane</button>
+            <button (click)="selectFilter(archiveStatus, true)" [ngClass]="checkFilter(archiveStatus, true) ? 'btn btn-primary element' : 'btn btn-light element'">Zarchiwzowane</button>
+            <button (click)="selectFilter(archiveStatus, false)" [ngClass]="checkFilter(archiveStatus, false) ? 'btn btn-primary element' : 'btn btn-light element'">Niezarchiwzowane</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Projekt</div>
         <div class="filter-section-elements">
-            <button class="element" *ngFor="let project of projects" (click)="project.selected = !project.selected"
-                    [ngClass]="{'element-selected': project.selected == true,'element': project.selected !== true}">{{project.name}}</button>
+            <button *ngFor="let project of projects" (click)="selectFilter(selectedProjects, project)"
+                    [ngClass]="checkFilter(selectedProjects, project) ? 'btn btn-primary element' : 'btn btn-light element'">{{project.name}}</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Kategoria</div>
         <div class="filter-section-elements">
-            <button *ngFor="let category of categories" (click)="category.selected = !category.selected" 
-                    [ngClass]="{'element-selected': category.selected == true,'element': category.selected !== true!}">{{category.name}}</button>
+            <button *ngFor="let category of categories" (click)="selectFilter(selectedCategories, category)"
+                    [ngClass]="checkFilter(selectedCategories, category) ? 'btn btn-primary element' : 'btn btn-light element'">{{category.name}}</button>
+        </div>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-section-name">Status</div>
+        <div class="filter-section-elements">
+            <button (click)="selectFilter(selectedStatuses, 'Nowy')" [ngClass]="checkFilter(selectedStatuses, 'Nowy') ? 'btn btn-primary element' : 'btn btn-light element'">Nowy</button>
+            <button (click)="selectFilter(selectedStatuses, 'Czekanie na zamówienie')" [ngClass]="checkFilter(selectedStatuses, 'Czekanie na zamówienie') ? 'btn btn-primary element' : 'btn btn-light element'">Czekanie za zamówieniem</button>
         </div>
     </div>
 

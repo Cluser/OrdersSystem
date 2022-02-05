@@ -45,8 +45,11 @@ export class PurchaseModalEditOrderComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
-
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
+      this.distributors = distributors.items
+      this.getContactPersons(this.order.idDistributor)
+    });
+    
     this.order._totalPrice = this.order.items.reduce((x: any, y: any) => { return x + y.price }, 0);
   }
 

@@ -13,6 +13,13 @@ export class PurchaseItemsSearchComponent implements OnInit {
   public projects: any[] = [];
   public categories: any[] = [];
   public archiveStatus: any[] = [];
+  public statuses: any[] = []
+
+
+  public filters: any;
+  public selectedProjects: any[] = [];
+  public selectedCategories: any[] = [];
+  public selectedStatuses: any[] = [];
   
 
   constructor(private api: ApiService) { }
@@ -28,14 +35,26 @@ export class PurchaseItemsSearchComponent implements OnInit {
       let selectedCategories: any[] = [];
       let selectedArchiveStatus: any[] = [];
 
-      this.projects.forEach((project) => { if (project.selected) selectedProjects.push(project.id) })
-      this.categories.forEach((category) => { if (category.selected) selectedCategories.push(category.id) })
+      this.selectedProjects.forEach((project) => { selectedProjects.push(project.id) })
+      this.selectedCategories.forEach((category) => { selectedCategories.push(category.id) })
       this.archiveStatus.forEach((archiveStatus) => { selectedArchiveStatus.push(archiveStatus) })
 
       console.log(selectedArchiveStatus)
       this.filtersChanged.emit({archived: selectedArchiveStatus, 
                                 idProject: selectedProjects,
                                 idCategory: selectedCategories});
+  }
+
+  public selectFilter(array: any[], value: any) {
+    var index = array.indexOf(value);
+    if (index === -1) { array.push(value); } else { array.splice(index, 1); }
+  }
+
+  public checkFilter(array: any[], value: any): boolean {
+    let exist = false;
+    array.forEach((element) => { if (element == value) { exist = true} })
+
+    if (exist) { return true } else { return false};
   }
 
 }
