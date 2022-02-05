@@ -50,7 +50,7 @@ export class PurchaseItemsComponent implements OnInit {
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'category.name', headerName: 'Kategoria', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, },
       { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
