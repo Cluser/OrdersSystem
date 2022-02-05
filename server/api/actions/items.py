@@ -19,7 +19,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
                 dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None,
                 page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
     try:
-        parameters = {"id": id, "name": name, "model": model, "status": status, "comment": comment, 'dateAndTime': dateAndTime, 'quantity': quantity }
+        parameters = {"id": id, "name": name, "model": model, "comment": comment, 'dateAndTime': dateAndTime, 'quantity': quantity }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Item, attribute) == value for attribute, value in selectedParameters.items()]
 
@@ -58,6 +58,8 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
             if statusPartialOrder: item.status = "Częściowo zamówione"
             if statusFullOrder: item.status = "Zamówione"
 
+        
+        items.items = [item for item in items.items if item.status == status]
     except:
         Db.session.rollback()
         raise
