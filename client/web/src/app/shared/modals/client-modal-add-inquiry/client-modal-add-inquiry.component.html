@@ -4,44 +4,60 @@
     <span aria-hidden="true">&times;</span></button>
 </div>
 <div class="modal-body">
-    <div class="row">
-        <div class="col">
-            <label for="distributr">Dystrybutor</label>
-            <select id="distributr" class="form-control" [(ngModel)]="this.inquiry.idDistributor" (ngModelChange)="this.getContactPersons($event)">
-              <option selected>Wybierz dystrybutora</option>
-              <option *ngFor="let distributor of this.distributors" [value]="distributor.id">{{distributor.name}}</option>
-            </select>
-        </div>
-        <div class="col">
-            <label for="contact-person">Sprzedawca</label>
-            <select id="contact-person" class="form-control" [(ngModel)]="this.inquiry.idContactPerson">
-              <option selected>Wybierz sprzedawcę</option>
-              <option *ngFor="let contactPerson of this.contactPersons" [value]="contactPerson.id">{{contactPerson.name}}</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col">
-            <div class="table">
-                <ag-grid-angular
-                    style="width: 100%; height: 60vh;"
-                    class="ag-theme-balham"
-                    [rowData]="rowData"
-                    [columnDefs]="columnDefs"
-                    [pagination]="false"
-                    [paginationPageSize]="pageSize"
-                    [rowSelection]="'multiple'"
-                    [suppressRowDeselection]="true"
-                    (selectionChanged) = "onSelectionChanged($event)">
-                </ag-grid-angular>
+    <form (ngSubmit)="addInquiry(this.inquiry)" #addInquiryForm="ngForm">
+        <div class="row">
+            <div class="col">
+                <label for="distributor">Dystrybutor</label>
+                <select id="distributor" class="form-control" name="category" #distributor="ngModel" required [(ngModel)]="this.inquiry.idDistributor" (ngModelChange)="this.getContactPersons($event)">
+                    <option selected [value]=""></option>
+                    <option *ngFor="let distributor of this.distributors" [value]="distributor.id">{{distributor.name}}</option>
+                </select>
+                <div *ngIf="distributor.invalid && (distributor.dirty || distributor.touched)" class="alert alert-danger">
+                    <div *ngIf="distributor.errors?.['required']">
+                        Dystrybutor jest wymagany
+                    </div>
+                </div>
+            </div>  
+            
+            <div class="col">
+                <label for="contact-person">Sprzedawca</label>
+                <select id="contact-person" class="form-control" name="contactPerson" #contactPerson="ngModel" required [(ngModel)]="this.inquiry.idContactPerson">
+                    <option selected [value]=""></option>
+                    <option *ngFor="let contactPerson of this.contactPersons" [value]="contactPerson.id">{{contactPerson.name}}</option>
+                </select>
+                <div *ngIf="contactPerson.invalid && (contactPerson.dirty || contactPerson.touched)" class="alert alert-danger">
+                    <div *ngIf="contactPerson.errors?.['required']">
+                        Sprzedawca jest wymagany
+                    </div>
+                </div>
+                
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col">
-            <button (click)="addInquiry(this.inquiry)" type="submit" class="btn btn-primary w-100">Dodaj zapytanie</button>
+        <div class="row">
+            <div class="col">
+                <div class="table">
+                    <ag-grid-angular
+                        style="width: 100%; height: 60vh;"
+                        class="ag-theme-balham"
+                        [rowData]="rowData"
+                        [columnDefs]="columnDefs"
+                        [pagination]="false"
+                        [paginationPageSize]="pageSize"
+                        [rowSelection]="'multiple'"
+                        [suppressRowDeselection]="true"
+                        (cellKeyPress)="onCellEditingStopped($event)"
+                        (selectionChanged) = "onSelectionChanged($event)">
+                    </ag-grid-angular>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div class="row">
+            <div class="col">
+                <button type="submit" [disabled]="!addInquiryForm.valid" class="btn btn-primary w-100">Dodaj zapytanie</button>
+            </div>
+        </div>
+    
+    </form>
 </div>

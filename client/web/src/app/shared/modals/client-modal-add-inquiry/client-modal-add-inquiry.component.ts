@@ -47,6 +47,10 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
     this.rowData = JSON.parse(JSON.stringify(this.items));
   }
 
+  public onCellEditingStopped(e: any): void {
+    this.rowData[e.rowIndex] = e.data;
+  }
+
   public getDistributors(): void {
     this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
   }
