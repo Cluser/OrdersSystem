@@ -2,9 +2,9 @@
     <div class="lower-menu">
         <button class="btn-lower-menu"></button>
         <button class="btn-lower-menu"></button>
-        <button class="btn-lower-menu" (click)="openAddOfferModal()" *ngIf="selectedRows.length > 0">Dodaj ofertę</button>
-        <button class="btn-lower-menu" (click)="openAddOrderModal()" *ngIf="this.orderPossible">Dodaj zamówienie</button>
-        <button class="btn-lower-menu" (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</button>
+        <button class="btn-lower-menu"><span (click)="openAddOfferModal()" *ngIf="selectedRows.length > 0">Dodaj ofertę</span></button>
+        <button class="btn-lower-menu"><span (click)="openAddOrderModal()" *ngIf="this.orderPossible && selectedRows.length > 0">Dodaj zamówienie</span></button>
+        <button class="btn-lower-menu"><span (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</span></button>
         
         <input class="search-input" type="text">
     </div>

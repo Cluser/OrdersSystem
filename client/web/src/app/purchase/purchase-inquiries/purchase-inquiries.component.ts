@@ -24,6 +24,8 @@ export class PurchaseInquiriesComponent implements OnInit {
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
+  public offerAndOrderPossible: boolean = false;
+
   constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -73,6 +75,7 @@ export class PurchaseInquiriesComponent implements OnInit {
 
   public onSelectionChanged(selection: any): void {
     this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
+    this.checkIfOfferAndOrderPosible();
   }
 
   public archiveSelected(): void {
@@ -84,4 +87,14 @@ export class PurchaseInquiriesComponent implements OnInit {
     this.getInquiriesData();
   }
 
+  private checkIfOfferAndOrderPosible(): void {
+    this.offerAndOrderPossible = true;
+    let firtSelectedInquiryDistributor = this.selectedRows[0].distributor.id
+
+    this.selectedRows.forEach((inquiry) => {
+      if (inquiry.distributor.id !== firtSelectedInquiryDistributor) {
+        this.offerAndOrderPossible = false;
+      }
+    })
+  }
 }
