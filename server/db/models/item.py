@@ -14,7 +14,7 @@ class Item(Db.Base):
     model = Column(String)
     quantity = Column(Integer)
     dateAndTime = Column(String)
-    comment = Column(String)
+    comment = Column(String, nullable = True)
     archived = Column(Boolean, nullable = True)
 
     category = relationship("Category", back_populates="item")

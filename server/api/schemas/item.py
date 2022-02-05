@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from pydantic.utils import GetterDict
-from typing import List
+from typing import Optional, List
 
 from .user import User
 from .distributor import Distributor
@@ -93,7 +93,7 @@ class ItemCreate(BaseModel):
     name: str
     model: str
     quantity: int
-    comment: str
+    comment: Optional[str]
     archived: bool
     idCategory: int
     idUser: int
@@ -104,7 +104,7 @@ class ItemEdit(BaseModel):
     name: str
     model: str
     quantity: int
-    comment: str
+    comment: Optional[str]
     archived: bool
     idCategory: int
     idUser: int
