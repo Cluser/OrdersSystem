@@ -14,7 +14,7 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Items", tags=["Items to order"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, status: Optional[str] = None, comment: Optional[str] = None, 
+async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, status: Optional[List[str]] = Query(None), comment: Optional[str] = None, 
                 archived: Optional[List[bool]] = Query(None), dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idCategory: Optional[List[int]] = Query(None), idProject: Optional[List[int]] = Query(None), 
                 dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None,
                 page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
@@ -58,7 +58,8 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
             if statusPartialOrder: item.status = "Częściowo zamówione"
             if statusFullOrder: item.status = "Zamówione"
 
-        # items.items = [item for item in items.items if item.status == status]
+        if (status): items.items = [item for item in items.items if item.status in status]
+        items.total = len(items.items)
     except:
         Db.session.rollback()
         raise

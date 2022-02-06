@@ -42,7 +42,8 @@ export class PurchaseItemsSearchComponent implements OnInit {
       console.log(selectedArchiveStatus)
       this.filtersChanged.emit({archived: selectedArchiveStatus, 
                                 idProject: selectedProjects,
-                                idCategory: selectedCategories});
+                                idCategory: selectedCategories,
+                                status: this.selectedStatuses});
   }
 
   public selectFilter(array: any[], value: any) {

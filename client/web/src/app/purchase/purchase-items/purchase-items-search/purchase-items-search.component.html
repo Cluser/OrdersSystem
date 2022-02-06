@@ -27,7 +27,9 @@
         <div class="filter-section-name">Status</div>
         <div class="filter-section-elements">
             <button (click)="selectFilter(selectedStatuses, 'Nowy')" [ngClass]="checkFilter(selectedStatuses, 'Nowy') ? 'btn btn-primary element' : 'btn btn-light element'">Nowy</button>
-            <button (click)="selectFilter(selectedStatuses, 'Czekanie na zamówienie')" [ngClass]="checkFilter(selectedStatuses, 'Czekanie na zamówienie') ? 'btn btn-primary element' : 'btn btn-light element'">Czekanie za zamówieniem</button>
+            <button (click)="selectFilter(selectedStatuses, 'Czekanie za zamówieniem')" [ngClass]="checkFilter(selectedStatuses, 'Czekanie za zamówieniem') ? 'btn btn-primary element' : 'btn btn-light element'">Czekanie za zamówieniem</button>
+            <button (click)="selectFilter(selectedStatuses, 'Zamówione')" [ngClass]="checkFilter(selectedStatuses, 'Zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Zamówione</button>
+            <button (click)="selectFilter(selectedStatuses, 'Częściowo zamówione')" [ngClass]="checkFilter(selectedStatuses, 'Częściowo zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Częściowo zamówione</button>
         </div>
     </div>
 
