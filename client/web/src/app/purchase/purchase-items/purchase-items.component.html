@@ -31,7 +31,7 @@
     </div>
 
     <div class="search-popup" *ngIf="searchPopup">
-        <app-purchase-items-search (filtersChanged)="changeFilter($event)"></app-purchase-items-search>
+        <app-purchase-items-search [filters]="filter" (filtersChanged)="changeFilter($event)"></app-purchase-items-search>
     </div>
 </div>
 

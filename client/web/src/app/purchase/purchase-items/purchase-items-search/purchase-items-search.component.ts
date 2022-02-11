@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { ICategory, IProject } from 'src/app/shared/models';
 
 @Component({
   selector: 'app-purchase-items-search',
@@ -8,21 +10,15 @@ import { ApiService } from 'src/app/shared/api/api.service';
 })
 export class PurchaseItemsSearchComponent implements OnInit {
 
+  @Input() filters: any = {};
   @Output() filtersChanged: EventEmitter<any> = new EventEmitter();
 
-  public projects: any[] = [];
-  public categories: any[] = [];
-  public archiveStatus: any[] = [];
-  public statuses: any[] = []
+  public projects: IProject[] = [];
+  public categories: ICategory[] = [];
+  public archiveStatus: Boolean[] = [];
+  public statuses: String[] = []
 
-
-  public filters: any;
-  public selectedProjects: any[] = [];
-  public selectedCategories: any[] = [];
-  public selectedStatuses: any[] = [];
-  
-
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.api.project.getProjects({}, 1, 1000).subscribe((projects) => this.projects = projects.items);
@@ -30,20 +26,7 @@ export class PurchaseItemsSearchComponent implements OnInit {
   }
 
   public changeFilters(): void {
-
-      let selectedProjects: any[] = [];
-      let selectedCategories: any[] = [];
-      let selectedArchiveStatus: any[] = [];
-
-      this.selectedProjects.forEach((project) => { selectedProjects.push(project.id) })
-      this.selectedCategories.forEach((category) => { selectedCategories.push(category.id) })
-      this.archiveStatus.forEach((archiveStatus) => { selectedArchiveStatus.push(archiveStatus) })
-
-      console.log(selectedArchiveStatus)
-      this.filtersChanged.emit({archived: selectedArchiveStatus, 
-                                idProject: selectedProjects,
-                                idCategory: selectedCategories,
-                                status: this.selectedStatuses});
+      this.filtersChanged.emit(this.filters);
   }
 
   public selectFilter(array: any[], value: any) {

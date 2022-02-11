@@ -2,34 +2,34 @@
     <div class="filter-section">
         <div class="filter-section-name">Archwizacja</div>
         <div class="filter-section-elements">
-            <button (click)="selectFilter(archiveStatus, true)" [ngClass]="checkFilter(archiveStatus, true) ? 'btn btn-primary element' : 'btn btn-light element'">Zarchiwzowane</button>
-            <button (click)="selectFilter(archiveStatus, false)" [ngClass]="checkFilter(archiveStatus, false) ? 'btn btn-primary element' : 'btn btn-light element'">Niezarchiwzowane</button>
+            <button (click)="selectFilter(filters.archived, true)" [ngClass]="checkFilter(filters.archived, true) ? 'btn btn-primary element' : 'btn btn-light element'">Zarchiwzowane</button>
+            <button (click)="selectFilter(filters.archived, false)" [ngClass]="checkFilter(filters.archived, false) ? 'btn btn-primary element' : 'btn btn-light element'">Niezarchiwzowane</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Projekt</div>
         <div class="filter-section-elements">
-            <button *ngFor="let project of projects" (click)="selectFilter(selectedProjects, project)"
-                    [ngClass]="checkFilter(selectedProjects, project) ? 'btn btn-primary element' : 'btn btn-light element'">{{project.name}}</button>
+            <button *ngFor="let project of projects" (click)="selectFilter(filters.idProject, project.id)"
+                    [ngClass]="checkFilter(filters.idProject, project.id) ? 'btn btn-primary element' : 'btn btn-light element'">{{project.name}}</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Kategoria</div>
         <div class="filter-section-elements">
-            <button *ngFor="let category of categories" (click)="selectFilter(selectedCategories, category)"
-                    [ngClass]="checkFilter(selectedCategories, category) ? 'btn btn-primary element' : 'btn btn-light element'">{{category.name}}</button>
+            <button *ngFor="let category of categories" (click)="selectFilter(filters.idCategory, category.id)"
+                    [ngClass]="checkFilter(filters.idCategory, category.id) ? 'btn btn-primary element' : 'btn btn-light element'">{{category.name}}</button>
         </div>
     </div>
 
     <div class="filter-section">
         <div class="filter-section-name">Status</div>
         <div class="filter-section-elements">
-            <button (click)="selectFilter(selectedStatuses, 'Nowy')" [ngClass]="checkFilter(selectedStatuses, 'Nowy') ? 'btn btn-primary element' : 'btn btn-light element'">Nowy</button>
-            <button (click)="selectFilter(selectedStatuses, 'Czekanie za zamówieniem')" [ngClass]="checkFilter(selectedStatuses, 'Czekanie za zamówieniem') ? 'btn btn-primary element' : 'btn btn-light element'">Czekanie za zamówieniem</button>
-            <button (click)="selectFilter(selectedStatuses, 'Zamówione')" [ngClass]="checkFilter(selectedStatuses, 'Zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Zamówione</button>
-            <button (click)="selectFilter(selectedStatuses, 'Częściowo zamówione')" [ngClass]="checkFilter(selectedStatuses, 'Częściowo zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Częściowo zamówione</button>
+            <button (click)="selectFilter(filters.status, 'Nowy')" [ngClass]="checkFilter(filters.status, 'Nowy') ? 'btn btn-primary element' : 'btn btn-light element'">Nowy</button>
+            <button (click)="selectFilter(filters.status, 'Czekanie za zamówieniem')" [ngClass]="checkFilter(filters.status, 'Czekanie za zamówieniem') ? 'btn btn-primary element' : 'btn btn-light element'">Czekanie za zamówieniem</button>
+            <button (click)="selectFilter(filters.status, 'Zamówione')" [ngClass]="checkFilter(filters.status, 'Zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Zamówione</button>
+            <button (click)="selectFilter(filters.status, 'Częściowo zamówione')" [ngClass]="checkFilter(filters.status, 'Częściowo zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Częściowo zamówione</button>
         </div>
     </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -33,12 +33,20 @@ export class PurchaseItemsComponent implements OnInit {
   @ViewChild(PurchaseItemsSearchComponent) private purchaseItemsSearchComponent = {} as PurchaseItemsSearchComponent;
 
 
-  constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { 
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private route: ActivatedRoute, private spinner: NgxSpinnerService, ) { 
   }
 
   ngOnInit(): void {
     this.changeFilter({archived: false});
-    this.getItemsData()
+    this.setFilterFromUrl();
+    this.getItemsData();
+  }
+
+  public setFilterFromUrl(): void {
+    this.filter.idProject = this.route.snapshot.queryParamMap.getAll('idProject').map(Number);
+    this.filter.idCategory = this.route.snapshot.queryParamMap.getAll('idCategory').map(Number);
+    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archiveStatus').map(String);
+    this.filter.status = this.route.snapshot.queryParamMap.getAll('status').map(String);
   }
 
   public getItemsData(): void {
@@ -120,7 +128,7 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   public changeFilter(filter: any) {
-    this.filter = filter;
+    this.router.navigate(['/purchase/items'], { queryParams: filter});
     this.getItemsData();
   }
 
