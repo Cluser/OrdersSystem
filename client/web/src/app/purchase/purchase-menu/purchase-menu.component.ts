@@ -26,7 +26,7 @@ export class PurchaseMenuComponent implements OnInit {
 
   private checkRoutingChange() {
     return this.routing$ = this.router.events.subscribe((route) => {
-      if (route instanceof NavigationEnd) this.selectMenu(route.url.replace('/purchase/',''))
+      if (route instanceof NavigationEnd) this.selectMenu(route.url.replace('/purchase/','').split("?")[0])
     });
   }
 

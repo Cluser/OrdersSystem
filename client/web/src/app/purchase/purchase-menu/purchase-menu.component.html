@@ -1,6 +1,6 @@
     <div class="menu">
-        <button [routerLink]="'/purchase/items'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='items','btn-upper-menu': selectedMenu!=='items'}" (click)="selectMenu('items')">Przedmioty</button>
-        <button [routerLink]="'/purchase/inquiries'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='inquiries','btn-upper-menu': selectedMenu!=='inquiries'}" (click)="selectMenu('inquiries')">Zapytania</button>
-        <button [routerLink]="'/purchase/offers'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='offers','btn-upper-menu': selectedMenu!=='offers'}" (click)="selectMenu('offers')">Oferty</button>
-        <button [routerLink]="'/purchase/orders'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='orders','btn-upper-menu': selectedMenu!=='orders'}" (click)="selectMenu('orders')">Zamówienia</button>
+        <button [routerLink]="'/purchase/items'" [queryParams]="{archived: 'false'}" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='items','btn-upper-menu': selectedMenu!=='items'}" (click)="selectMenu('items')">Przedmioty</button>
+        <button [routerLink]="'/purchase/inquiries'" [queryParams]="{archived: 'false'}" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='inquiries','btn-upper-menu': selectedMenu!=='inquiries'}" (click)="selectMenu('inquiries')">Zapytania</button>
+        <button [routerLink]="'/purchase/offers'" [queryParams]="{archived: 'false'}" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='offers','btn-upper-menu': selectedMenu!=='offers'}" (click)="selectMenu('offers')">Oferty</button>
+        <button [routerLink]="'/purchase/orders'" [queryParams]="{archived: 'false'}" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='orders','btn-upper-menu': selectedMenu!=='orders'}" (click)="selectMenu('orders')">Zamówienia</button>
     </div>

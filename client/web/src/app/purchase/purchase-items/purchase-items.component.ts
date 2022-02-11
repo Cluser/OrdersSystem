@@ -48,11 +48,12 @@ export class PurchaseItemsComponent implements OnInit {
     this.filter.quantity = this.route.snapshot.queryParamMap.getAll('quantity').map(Number);
     this.filter.idProject = this.route.snapshot.queryParamMap.getAll('idProject').map(Number);
     this.filter.idCategory = this.route.snapshot.queryParamMap.getAll('idCategory').map(Number);
-    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(String);
+    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(x => x === 'true');
     this.filter.status = this.route.snapshot.queryParamMap.getAll('status').map(String);
   }
 
   public getItemsData(): void {
+    console.log(this.filter)
     this.spinner.show();
     this.api.item.getItems(this.filter, '', '', 1, this.pageSize).subscribe((response) => { this.grid = response, this.spinner.hide(); });
     this.columnDefs = [

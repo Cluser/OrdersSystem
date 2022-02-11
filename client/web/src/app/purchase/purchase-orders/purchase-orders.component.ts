@@ -41,7 +41,7 @@ export class PurchaseOrdersComponent implements OnInit {
     this.filter.idDistributor = this.route.snapshot.queryParamMap.getAll('idDistributor').map(Number);
     this.filter.idContactPerson = this.route.snapshot.queryParamMap.getAll('idContactPerson').map(Number);
     this.filter.idUser = this.route.snapshot.queryParamMap.getAll('idUser').map(Number);
-    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(String);
+    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(x => x === 'true');
   }
 
   public getOrdersData(): void {
