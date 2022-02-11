@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -9,6 +9,8 @@ import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-mod
 import { PurchaseModalEditOfferComponent } from 'src/app/shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
 import { IOffer } from 'src/app/shared/models';
 import { currencyFormatter } from '../../shared/functions/formatters'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { PurchaseOffersSearchComponent } from './purchase-offers-search/purchase-offers-search.component';
 
 @Component({
   selector: 'app-purchase-offers',
@@ -21,21 +23,34 @@ export class PurchaseOffersComponent implements OnInit {
   public rowData: any[] = [];
   public pageSize: number = 1000
 
-  public filter: string = '';
+  public filter: any = {};
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
   public orderPossible: boolean = false;
 
-  constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService) { }
+  public faSearch = faSearch
+  public searchPopup: boolean = false;
+  @ViewChild(PurchaseOffersSearchComponent) private purchaseOffersSearchComponent = {} as PurchaseOffersSearchComponent;
+
+  constructor(private api: ApiService, private modalService: NgbModal, private router: Router, private spinner: NgxSpinnerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.setFilterFromUrl();
     this.getOffersData()
+  }
+
+  public setFilterFromUrl(): void {
+    this.filter.id = this.route.snapshot.queryParamMap.getAll('id').map(Number);
+    this.filter.idDistributor = this.route.snapshot.queryParamMap.getAll('idDistributor').map(Number);
+    this.filter.idContactPerson = this.route.snapshot.queryParamMap.getAll('idContactPerson').map(Number);
+    this.filter.idUser = this.route.snapshot.queryParamMap.getAll('idUser').map(Number);
+    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(String);
   }
 
   public getOffersData(): void {
     this.spinner.show();
-    this.api.offer.getOffers({archived: false}, 1, this.pageSize).subscribe((response) => {
+    this.api.offer.getOffers(this.filter, 1, this.pageSize).subscribe((response) => {
       this.rowData = response.items
       this.calculateOffersPrices(this.rowData)
       this.spinner.hide()
@@ -105,6 +120,11 @@ export class PurchaseOffersComponent implements OnInit {
       this.api.offer.editOffer(offer).subscribe();
     })
     this.selectedRows = [];
+    this.getOffersData();
+  }
+
+  public changeFilter(filter: any) {
+    this.router.navigate(['/purchase/offers'], { queryParams: filter});
     this.getOffersData();
   }
 }

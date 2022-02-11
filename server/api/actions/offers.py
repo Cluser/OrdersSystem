@@ -14,11 +14,17 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Offers", tags=["Offers"])
-async def get(id: Optional[int] = None, idDistributor: Optional[int] = None, dateAndTime: Optional[str] = None, archived: Optional[bool] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Offer]:
+async def get(id: Optional[int] = None, idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Offer]:
     try:
-        parameters = { "id": id, "idDistributor": idDistributor, "dateAndTime": dateAndTime, "archived": archived }
+        parameters = { "id": id }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
         filters = [getattr(models.Offer, attribute) == value for attribute, value in selectedParameters.items()]
+
+        if (dateAndTimeStart): filters.append(models.Offer.dateAndTime >= dateAndTimeStart)
+        if (dateAndTimeEnd): filters.append(models.Offer.dateAndTime <= dateAndTimeEnd)
+        if (idDistributor): filters.append(models.Offer.idDistributor.in_(idDistributor))
+        if (idContactPerson): filters.append(models.Offer.idContactPerson.in_(idContactPerson))
+        if (archived): filters.append(models.Offer.archived.in_(archived))
 
         offers = paginate(Db.session.query(models.Offer).options(joinedload(models.Offer.items).joinedload(models.ItemOffer.item).joinedload(models.Item.project))
                                                         .options(joinedload(models.Offer.items).joinedload(models.ItemOffer.item).joinedload(models.Item.user))

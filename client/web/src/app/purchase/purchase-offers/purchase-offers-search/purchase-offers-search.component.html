@@ -1,0 +1,38 @@
+<div class="purchase-orders-search">
+    <div class="filter-section">
+        <div class="filter-section-name">Archwizacja</div>
+        <div class="filter-section-elements">
+            <button (click)="selectFilter(filters.archived, true)" [ngClass]="checkFilter(filters.archived, true) ? 'btn btn-primary element' : 'btn btn-light element'">Zarchiwzowane</button>
+            <button (click)="selectFilter(filters.archived, false)" [ngClass]="checkFilter(filters.archived, false) ? 'btn btn-primary element' : 'btn btn-light element'">Niezarchiwzowane</button>
+        </div>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-section-name">Dystrybutor</div>
+        <div class="filter-section-elements">
+            <button *ngFor="let distributor of distributors" (click)="selectFilter(filters.idDistributor, distributor.id)"
+                    [ngClass]="checkFilter(filters.idDistributor, distributor.id) ? 'btn btn-primary element' : 'btn btn-light element'">{{distributor.name}}</button>
+        </div>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-section-name">Osoby kontaktowe</div>
+        <div class="filter-section-elements">
+            <button *ngFor="let contactPerson of contactPersons" (click)="selectFilter(filters.idContactPerson, contactPerson.id)"
+                    [ngClass]="checkFilter(filters.idContactPerson, contactPerson.id) ? 'btn btn-primary element' : 'btn btn-light element'">{{contactPerson.name}}</button>
+        </div>
+    </div>
+
+    <!-- <div class="filter-section">
+        <div class="filter-section-name">Status</div>
+        <div class="filter-section-elements">
+            <button (click)="selectFilter(filters.status, 'Nowy')" [ngClass]="checkFilter(filters.status, 'Nowy') ? 'btn btn-primary element' : 'btn btn-light element'">Nowy</button>
+            <button (click)="selectFilter(filters.status, 'Czekanie za zamówieniem')" [ngClass]="checkFilter(filters.status, 'Czekanie za zamówieniem') ? 'btn btn-primary element' : 'btn btn-light element'">Czekanie za zamówieniem</button>
+            <button (click)="selectFilter(filters.status, 'Zamówione')" [ngClass]="checkFilter(filters.status, 'Zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Zamówione</button>
+            <button (click)="selectFilter(filters.status, 'Częściowo zamówione')" [ngClass]="checkFilter(filters.status, 'Częściowo zamówione') ? 'btn btn-primary element' : 'btn btn-light element'">Częściowo zamówione</button>
+        </div>
+    </div> -->
+
+    <div class="btn btn-primary btn-filter" (click)="changeFilters()">Filtruj</div>
+</div>
+

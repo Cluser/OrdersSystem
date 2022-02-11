@@ -6,6 +6,7 @@
         <button class="btn-lower-menu"><span (click)="openAddOrderModal()" *ngIf="this.orderPossible && selectedRows.length > 0">Dodaj zamówienie</span></button>
         <button class="btn-lower-menu"><span (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</span></button>
         
+        <button class="btn-search" (click)="searchPopup = !searchPopup"><fa-icon [icon]="faSearch"></fa-icon></button>
         <input class="search-input" type="text">
     </div>
     
@@ -23,6 +24,10 @@
             (rowDoubleClicked)="openEditOfferModal($event.data)"
             (selectionChanged) = "onSelectionChanged($event)">
         </ag-grid-angular>
+
+        <div class="search-popup" *ngIf="searchPopup">
+            <app-purchase-offers-search [filters]="filter" (filtersChanged)="changeFilter($event)"></app-purchase-offers-search>
+        </div>
     </div>
 </div>
 
