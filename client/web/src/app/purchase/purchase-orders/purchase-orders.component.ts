@@ -70,7 +70,7 @@ export class PurchaseOrdersComponent implements OnInit {
   }
 
   private calculateOrdersPrices(orders: any): void {
-    orders.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0))
+    orders.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price * cur.quantity, 0))
   }
 
   public onSelectionChanged(selection: any): void {

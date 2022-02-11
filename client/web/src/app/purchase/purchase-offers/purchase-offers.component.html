@@ -26,9 +26,8 @@
         </ag-grid-angular>
 
         <div class="grid-pagination">
-            Strona: {{grid.pages}} Liczba przedmiotów: {{grid.total}}
+            Strona: {{grid.pages}} | Liczba ofert: {{grid.total}} | Zaznaczone oferty: {{selectedRows.length}}
         </div>
-
         <div class="search-popup" *ngIf="searchPopup">
             <app-purchase-offers-search [filters]="filter" (filtersChanged)="changeFilter($event)"></app-purchase-offers-search>
         </div>

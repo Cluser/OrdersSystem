@@ -19,7 +19,7 @@ async def getAllCosts():
 
        price = 0
        for orderItem in orderItems:
-              price = price + orderItem.price
+              price = price + orderItem.price * orderItem.quantity
 
        return {'name': 'total', 'value': price}
 
@@ -45,7 +45,7 @@ async def getCostByDistributor():
               orderItems = Db.session.query(models.ItemOrder).filter(models.ItemOrder.item.has(models.Item.idUser == user.id))
               price = 0
               for orderItem in orderItems:
-                     price = price + orderItem.price
+                     price = price + orderItem.price * orderItem.quantity
               statistic.append({'name': user.name, 'value': price})
        return statistic
 
@@ -58,7 +58,7 @@ async def getCostByDistributor():
               orderItems = Db.session.query(models.ItemOrder).filter(models.ItemOrder.order.has(models.Order.idUser == user.id))
               price = 0
               for orderItem in orderItems:
-                     price = price + orderItem.price
+                     price = price + orderItem.price * orderItem.quantity
               statistic.append({'name': user.name, 'value': price})
        return statistic
 
@@ -72,7 +72,7 @@ async def getCostByDistributor():
               orderItems = Db.session.query(models.ItemOrder).filter(models.ItemOrder.order.has(models.Order.idDistributor == distributor.id))
               price = 0
               for orderItem in orderItems:
-                     price = price + orderItem.price
+                     price = price + orderItem.price * orderItem.quantity
               statistic.append({'name': distributor.name, 'value': price})
        return statistic
 
@@ -86,7 +86,7 @@ async def getCostByProject():
               orderItems = Db.session.query(models.ItemOrder).filter(models.ItemOrder.item.has(models.Item.idProject == project.id))
               price = 0
               for orderItem in orderItems:
-                     price = price + orderItem.price
+                     price = price + orderItem.price * orderItem.quantity
               statistic.append({'name': project.name, 'value': price})
        return statistic
 
@@ -104,7 +104,7 @@ async def getCostByProjectCategory(idProject: Optional[int] = None):
                                                                          (models.ItemOrder.item.has(models.Item.idCategory == category.id))))
               
               for orderItem in orderItems:
-                     price = price + orderItem.price
+                     price = price + orderItem.price * orderItem.quantity
 
               statistic.append({'name': category.name, 'value': price})
 

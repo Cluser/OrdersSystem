@@ -67,7 +67,7 @@ export class PurchaseOffersComponent implements OnInit {
   }
 
   private calculateOffersPrices(offers: any): void {
-    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price, 0) )
+    offers.forEach((offer: any) => offer.totalPrice = Object.values(offer.items).reduce((acc: any,cur: any) => acc + cur.price * cur.quantity, 0) )
   }
 
   public openAddOfferModal(): void {

@@ -53,7 +53,6 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   public getItemsData(): void {
-    console.log(this.filter)
     this.spinner.show();
     this.api.item.getItems(this.filter, '', '', 1, this.pageSize).subscribe((response) => { this.grid = response, this.spinner.hide(); });
     this.columnDefs = [
