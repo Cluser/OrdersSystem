@@ -24,6 +24,7 @@ import { PurchaseItemsComponent } from './purchase-items/purchase-items.componen
 import { PurchaseItemsSearchComponent } from './purchase-items/purchase-items-search/purchase-items-search.component';
 import { PurchaseInquiriesSearchComponent } from './purchase-inquiries/purchase-inquiries-search/purchase-inquiries-search.component';
 import { PurchaseOffersSearchComponent } from './purchase-offers/purchase-offers-search/purchase-offers-search.component';
+import { PurchaseOrdersSearchComponent } from './purchase-orders/purchase-orders-search/purchase-orders-search.component';
 
 
 
@@ -45,7 +46,8 @@ import { PurchaseOffersSearchComponent } from './purchase-offers/purchase-offers
     PurchaseItemsComponent,
     PurchaseItemsSearchComponent,
     PurchaseInquiriesSearchComponent,
-    PurchaseOffersSearchComponent
+    PurchaseOffersSearchComponent,
+    PurchaseOrdersSearchComponent
   ],
   imports: [
     CommonModule,

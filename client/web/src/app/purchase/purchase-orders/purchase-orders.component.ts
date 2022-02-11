@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -6,6 +6,9 @@ import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalEditOrderComponent } from 'src/app/shared/modals/client-modal-edit-order/client-modal-edit-order.component';
 import { IOrder } from 'src/app/shared/models';
 import { currencyFormatter } from '../../shared/functions/formatters'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { PurchaseOrdersSearchComponent } from './purchase-orders-search/purchase-orders-search.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-orders',
@@ -18,19 +21,32 @@ export class PurchaseOrdersComponent implements OnInit {
   public rowData: any[] = [];
   public pageSize: number = 1000
 
-  public filter: string = '';
+  public filter: any = {};
   public selectedMenu: string = 'Items';
   public selectedRows: any[] = [];
 
-  constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
+  public faSearch = faSearch
+  public searchPopup: boolean = false;
+  @ViewChild(PurchaseOrdersSearchComponent) private purchaseOrdersSearchComponent = {} as PurchaseOrdersSearchComponent;
+
+  constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.setFilterFromUrl()
     this.getOrdersData()
+  }
+
+  public setFilterFromUrl(): void {
+    this.filter.id = this.route.snapshot.queryParamMap.getAll('id').map(Number);
+    this.filter.idDistributor = this.route.snapshot.queryParamMap.getAll('idDistributor').map(Number);
+    this.filter.idContactPerson = this.route.snapshot.queryParamMap.getAll('idContactPerson').map(Number);
+    this.filter.idUser = this.route.snapshot.queryParamMap.getAll('idUser').map(Number);
+    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(String);
   }
 
   public getOrdersData(): void {
     this.spinner.show();
-    this.api.order.getOrders({archived: false}, '', '', 1, this.pageSize).subscribe((response) => {
+    this.api.order.getOrders(this.filter, '', '', 1, this.pageSize).subscribe((response) => {
       this.rowData = response.items
       this.calculateOrdersPrices(this.rowData)
       this.spinner.hide()
@@ -67,6 +83,11 @@ export class PurchaseOrdersComponent implements OnInit {
       this.api.order.editOrder(order).subscribe();
     })
     this.selectedRows = [];
+    this.getOrdersData();
+  }
+
+  public changeFilter(filter: any) {
+    this.router.navigate(['/purchase/orders'], { queryParams: filter});
     this.getOrdersData();
   }
 }
