@@ -1,28 +1,26 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/api/api.service';
-import { ICategory, IProject } from 'src/app/shared/models';
+import { IContactPerson, IDistributor } from 'src/app/shared/models';
 
 @Component({
-  selector: 'app-purchase-items-search',
-  templateUrl: './purchase-items-search.component.html',
-  styleUrls: ['./purchase-items-search.component.scss']
+  selector: 'app-purchase-inquiries-search',
+  templateUrl: './purchase-inquiries-search.component.html',
+  styleUrls: ['./purchase-inquiries-search.component.scss']
 })
-export class PurchaseItemsSearchComponent implements OnInit {
+export class PurchaseInquiriesSearchComponent implements OnInit {
 
   @Input() filters: any = {};
   @Output() filtersChanged: EventEmitter<any> = new EventEmitter();
 
-  public projects: IProject[] = [];
-  public categories: ICategory[] = [];
+  public distributors: IDistributor[] = [];
+  public contactPersons: IContactPerson[] = [];
   public archiveStatus: Boolean[] = [];
-  public statuses: String[] = []
 
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    this.api.project.getProjects({}, 1, 1000).subscribe((projects) => this.projects = projects.items);
-    this.api.category.getCategories({}, 1, 1000).subscribe((categories) => this.categories = categories.items);
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.contactPerson.getContactPersons({}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
   public changeFilters(): void {

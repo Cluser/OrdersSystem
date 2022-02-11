@@ -37,21 +37,24 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.changeFilter({archived: false});
     this.setFilterFromUrl();
     this.getItemsData();
   }
 
   public setFilterFromUrl(): void {
+    this.filter.id = this.route.snapshot.queryParamMap.getAll('id').map(Number);
+    this.filter.name = this.route.snapshot.queryParamMap.getAll('name').map(String);
+    this.filter.model = this.route.snapshot.queryParamMap.getAll('model').map(String);
+    this.filter.quantity = this.route.snapshot.queryParamMap.getAll('quantity').map(Number);
     this.filter.idProject = this.route.snapshot.queryParamMap.getAll('idProject').map(Number);
     this.filter.idCategory = this.route.snapshot.queryParamMap.getAll('idCategory').map(Number);
-    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archiveStatus').map(String);
+    this.filter.archived = this.route.snapshot.queryParamMap.getAll('archived').map(String);
     this.filter.status = this.route.snapshot.queryParamMap.getAll('status').map(String);
   }
 
   public getItemsData(): void {
     this.spinner.show();
-    this.api.item.getItems(this.filter, '', '', 1, this.pageSize).subscribe((response) => { this.grid = response, this.spinner.hide();});
+    this.api.item.getItems(this.filter, '', '', 1, this.pageSize).subscribe((response) => { this.grid = response, this.spinner.hide(); });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },

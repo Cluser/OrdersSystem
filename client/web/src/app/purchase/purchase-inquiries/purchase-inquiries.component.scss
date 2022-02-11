@@ -34,3 +34,32 @@
     width: 100%;
     height: 100%;
 }
+
+.btn-search {
+    position: absolute;
+    width: 2%;
+    height: 60%;
+    left: 78%;
+    top: 0%;
+    background-color: transparent;
+    border-width: 0;
+    color: white;
+}
+
+.btn-search-selected {
+    @extend .btn-search;
+    color: #00ADB5;
+}
+
+.btn-search:hover {
+    color: #dad8d8;  
+}
+ 
+
+.search-popup {
+    position: absolute;
+    width: 20%;
+    height: 98%;
+    left: 80%;
+    top: 2%;
+}
