@@ -1,13 +1,13 @@
 import { IContactPerson, IDistributor, IItem, IUser } from ".";
 
 export interface IPInquiry {
-    items: IInquiry[];
-    previous_page: number;
-    next_page: number;
-    has_previous: boolean;
-    has_next: boolean;
-    total: number;
-    pages: number;
+    items?: IInquiry[];
+    previous_page?: number;
+    next_page?: number;
+    has_previous?: boolean;
+    has_next?: boolean;
+    total?: number;
+    pages?: number;
 }
 
 export interface IInquiry {

@@ -1,13 +1,13 @@
 import { IContactPerson, IDistributor, IUser } from ".";
 
 export interface IPOrder {
-    items: IOrder[];
-    previous_page: number;
-    next_page: number;
-    has_previous: boolean;
-    has_next: boolean;
-    total: number;
-    pages: number;
+    items?: IOrder[];
+    previous_page?: number;
+    next_page?: number;
+    has_previous?: boolean;
+    has_next?: boolean;
+    total?: number;
+    pages?: number;
 }
 
 export interface IOrder {

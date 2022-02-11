@@ -4,7 +4,7 @@ import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalEditOrderComponent } from 'src/app/shared/modals/client-modal-edit-order/client-modal-edit-order.component';
-import { IOrder } from 'src/app/shared/models';
+import { IOrder, IPOrder } from 'src/app/shared/models';
 import { currencyFormatter } from '../../shared/functions/formatters'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PurchaseOrdersSearchComponent } from './purchase-orders-search/purchase-orders-search.component';
@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PurchaseOrdersComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: IPOrder = {};
   public pageSize: number = 1000
 
   public filter: any = {};
@@ -47,8 +47,8 @@ export class PurchaseOrdersComponent implements OnInit {
   public getOrdersData(): void {
     this.spinner.show();
     this.api.order.getOrders(this.filter, '', '', 1, this.pageSize).subscribe((response) => {
-      this.rowData = response.items
-      this.calculateOrdersPrices(this.rowData)
+      this.grid = response
+      this.calculateOrdersPrices(this.grid.items)
       this.spinner.hide()
     });
     this.columnDefs = [

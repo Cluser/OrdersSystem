@@ -41,7 +41,7 @@ export class StatisticDistributorsComponent implements OnInit {
       distributors.items.forEach((distributor) => {
         let price = 0;
         this.api.order.getOrders({idDistributor: distributor.id}, '', '', 1, 1000).subscribe((orders) => {
-          orders.items.forEach((order) => {
+          orders.items?.forEach((order) => {
             order.items!.forEach((item) => {
               price = price + item.price!
             });
@@ -58,7 +58,7 @@ export class StatisticDistributorsComponent implements OnInit {
       this.api.category.getCategories({}, 1, 1000).subscribe((categories) => {
         categories.items.forEach((category) => {
           let price = 0;
-          orders.items.forEach((order) => {
+          orders.items?.forEach((order) => {
             order.items?.forEach((orderItem: any) => {
                 if (orderItem.item.idCategory === category.id) {
                   price = price + orderItem.price
@@ -78,7 +78,7 @@ export class StatisticDistributorsComponent implements OnInit {
     months.forEach((month) => {
       let price = 0;
       this.api.order.getOrders({}, start, end, 1, 1000).subscribe((orders) => {
-        orders.items.forEach((order) => {
+        orders.items?.forEach((order) => {
           if (order.dateAndTime?.startsWith(month)) {
             order.items?.forEach((item) => {
               price = price + item.price!

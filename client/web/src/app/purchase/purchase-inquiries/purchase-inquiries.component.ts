@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { PurchaseModalEditInquiryComponent } from 'src/app/shared/modals/client-modal-edit-inquiry/client-modal-edit-inquiry.component';
-import { IInquiry } from 'src/app/shared/models';
+import { IInquiry, IPInquiry } from 'src/app/shared/models';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PurchaseInquiriesSearchComponent } from './purchase-inquiries-search/purchase-inquiries-search.component';
 
@@ -20,7 +20,7 @@ import { PurchaseInquiriesSearchComponent } from './purchase-inquiries-search/pu
 export class PurchaseInquiriesComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: IPInquiry = {};
   public pageSize: number = 1000
 
   public filter: any = {};
@@ -50,7 +50,7 @@ export class PurchaseInquiriesComponent implements OnInit {
 
   public getInquiriesData(): void {
     this.spinner.show();
-    this.api.inquiry.getInquiries(this.filter, 1, this.pageSize).subscribe((response) => {this.rowData = response.items, this.spinner.hide()});
+    this.api.inquiry.getInquiries(this.filter, 1, this.pageSize).subscribe((response) => {this.grid = response, this.spinner.hide()});
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },

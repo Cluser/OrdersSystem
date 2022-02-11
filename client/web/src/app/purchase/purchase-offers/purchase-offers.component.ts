@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/shared/api/api.service';
 import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-modal-add-offer/client-modal-add-offer.component';
 import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
 import { PurchaseModalEditOfferComponent } from 'src/app/shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
-import { IOffer } from 'src/app/shared/models';
+import { IOffer, IPOffer } from 'src/app/shared/models';
 import { currencyFormatter } from '../../shared/functions/formatters'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PurchaseOffersSearchComponent } from './purchase-offers-search/purchase-offers-search.component';
@@ -20,7 +20,7 @@ import { PurchaseOffersSearchComponent } from './purchase-offers-search/purchase
 export class PurchaseOffersComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: IPOffer = {};
   public pageSize: number = 1000
 
   public filter: any = {};
@@ -51,8 +51,8 @@ export class PurchaseOffersComponent implements OnInit {
   public getOffersData(): void {
     this.spinner.show();
     this.api.offer.getOffers(this.filter, 1, this.pageSize).subscribe((response) => {
-      this.rowData = response.items
-      this.calculateOffersPrices(this.rowData)
+      this.grid = response
+      this.calculateOffersPrices(this.grid.items)
       this.spinner.hide()
     });
     this.columnDefs = [
