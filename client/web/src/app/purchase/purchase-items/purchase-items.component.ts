@@ -135,6 +135,39 @@ export class PurchaseItemsComponent implements OnInit {
     this.getItemsData();
   }
 
+  public findInquiries(): void {
+    let filter: any = {id: []};
+    this.selectedRows.forEach((item) => {
+      item.inquiries.forEach((inquiry: any) => {
+        filter.id.push(inquiry.inquiry_id)
+      })
+    })
+    if (filter.id.length == 0) filter.id.push(0)
+    this.router.navigate(['/purchase/inquiries'], { queryParams: filter});
+  }
+
+  public findOffers(): void {
+    let filter: any = {id: []};
+    this.selectedRows.forEach((item) => {
+      item.offers.forEach((offer: any) => {
+        filter.id.push(offer.offer_id)
+      })
+    })
+    if (filter.id.length == 0) filter.id.push(0)
+    this.router.navigate(['/purchase/offers'], { queryParams: filter});
+  }
+
+  public findOrders(): void {
+    let filter: any = {id: []};
+    this.selectedRows.forEach((item) => {
+      item.orders.forEach((order: any) => {
+        filter.id.push(order.order_id)
+      })
+    })
+    if (filter.id.length == 0) filter.id.push(0)
+    this.router.navigate(['/purchase/orders'], { queryParams: filter});
+  }
+
   @HostListener('document:keyup', ['$event'])
   private handleKeyboardEvent(event: KeyboardEvent) {
     if (event.ctrlKey) {

@@ -14,12 +14,11 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Offers", tags=["Offers"])
-async def get(id: Optional[int] = None, idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Offer]:
+async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Offer]:
     try:
-        parameters = { "id": id }
-        selectedParameters = {key: value for key, value in parameters.items() if value is not None}
-        filters = [getattr(models.Offer, attribute) == value for attribute, value in selectedParameters.items()]
+        filters = []
 
+        if (id): filters.append(models.Offer.id.in_(id))
         if (dateAndTimeStart): filters.append(models.Offer.dateAndTime >= dateAndTimeStart)
         if (dateAndTimeEnd): filters.append(models.Offer.dateAndTime <= dateAndTimeEnd)
         if (idDistributor): filters.append(models.Offer.idDistributor.in_(idDistributor))

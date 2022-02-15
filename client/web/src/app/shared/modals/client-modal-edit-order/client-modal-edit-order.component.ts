@@ -37,8 +37,8 @@ export class PurchaseModalEditOrderComponent implements OnInit {
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3, editable: true, valueFormatter: params => currencyFormatter(params), type: 'rightAligned' },
-      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
-      { field: 'status', headerName: 'Status', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true, type: 'rightAligned'},
+      { field: 'total',  headerName: 'Razem', sortable: true, valueGetter: 'getValue("price") * getValue("quantity")', valueFormatter: params => currencyFormatter(params), type: 'rightAligned' }
     ];
     this.rowData = this.order.items;
   }
