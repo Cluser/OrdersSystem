@@ -12,9 +12,6 @@ const routes: Routes = [
     component: PurchaseComponent,
     children: [
       { path: 'items', component: PurchaseItemsComponent },
-      // { path: 'items/:id/:idProject', component: PurchaseItemsComponent },
-      // { path: 'items/:id/:idProject/:idCategory', component: PurchaseItemsComponent },
-      // { path: 'items/:id/:idProject/:idCategory/:archiveStatus', component: PurchaseItemsComponent },
       { path: 'inquiries', component: PurchaseInquiriesComponent },
       { path: 'offers', component: PurchaseOffersComponent },
       { path: 'orders', component: PurchaseOrdersComponent },
