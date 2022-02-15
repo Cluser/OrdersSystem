@@ -38,6 +38,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
       { field: 'item.id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'item.category.name', headerName: 'Category', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true, cellStyle: (params) => this.cellFormating(params) },
       { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 1, editable: true, cellStyle: (params) => this.cellFormating(params) },
       { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },

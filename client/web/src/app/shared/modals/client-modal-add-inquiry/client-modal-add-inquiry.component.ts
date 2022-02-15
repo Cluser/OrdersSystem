@@ -38,7 +38,8 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
+      { field: 'category.name', headerName: 'Category', sortable: true, filter: true, resizable: true, flex: 3 },
+      { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true, type: 'rightAligned'},
       { field: 'project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];

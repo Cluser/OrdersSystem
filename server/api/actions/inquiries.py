@@ -27,6 +27,7 @@ async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[Lis
 
         inquiries = paginate(Db.session.query(models.Inquiry).options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item).joinedload(models.Item.project))
                                                 .options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item).joinedload(models.Item.user))
+                                                .options(joinedload(models.Inquiry.items).joinedload(models.ItemInquiry.item).joinedload(models.Item.category))
                                                 .options(joinedload(models.Inquiry.user))
                                                 .options(joinedload(models.Inquiry.distributor))
                                                 .options(joinedload(models.Inquiry.contactPerson))
