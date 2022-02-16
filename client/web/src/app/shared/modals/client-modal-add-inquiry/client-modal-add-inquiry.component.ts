@@ -34,7 +34,7 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
 
   public prepareGrid(): void {
     this.columnDefs = [
-      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
+      // { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
@@ -66,9 +66,13 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
     this.api.inquiry.addInquiry(inquiry).subscribe((inquiry: any) => {
 
 
-      this.selectedRows.forEach((row) => {
-        console.log(row)
-        let obj: IInquiryItem = { Item_id: row.id, inquiry_id: inquiry.id, quantity: Number(row.quantity), status: row.status }
+      // this.selectedRows.forEach((row) => {
+      //   console.log(row)
+      //   let obj: IInquiryItem = { Item_id: row.id, inquiry_id: inquiry.id, quantity: Number(row.quantity), status: row.status }
+      //   this.inquiryItems.push(obj)
+      // })
+      this.items.forEach((item: any) => {
+        let obj: IInquiryItem = { Item_id: item.id, inquiry_id: inquiry.id, quantity: Number(item.quantity), status: item.status }
         this.inquiryItems.push(obj)
       })
 
@@ -76,10 +80,6 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
         this.inquiryAddedEvent.emit();
         this.close();
       })
-    //   this.api.inquiryItem.addInquiryItems(this.items, inquiry, 5, 'sss').subscribe(() => {
-    //     this.inquiryAddedEvent.emit();
-    //     this.close();
-    //   })
     });
   }
 
