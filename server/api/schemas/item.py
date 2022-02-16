@@ -65,6 +65,8 @@ class ItemOffer(BaseModel):
     quantity: int
     price: float
     status: str
+    currency: str
+    
 
     class Config:
         orm_mode = True

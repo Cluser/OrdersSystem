@@ -41,6 +41,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
       { field: 'item.category.name', headerName: 'Category', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true, cellStyle: (params) => this.cellFormating(params) },
       { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 1, editable: true, cellStyle: (params) => this.cellFormating(params) },
+      { field: 'currency', headerName: 'Waluta', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
       { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
@@ -79,7 +80,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
     this.api.offer.addOffer(offer).subscribe((offer: any) => {
 
       this.selectedRows.forEach((row) => {
-        let obj: IOfferItem = { Item_id: row.item.id, offer_id: offer.id, price: Number(row.price), quantity: Number(row.quantity), status: row.status }
+        let obj: IOfferItem = { Item_id: row.item.id, offer_id: offer.id, price: Number(row.price), quantity: Number(row.quantity), currency: row.currency }
         this.offerItems.push(obj)
       })
 

@@ -42,6 +42,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
       { field: 'item.category.name', headerName: 'Category', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
       { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
+      { field: 'currency', headerName: 'Waluta', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
       { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];

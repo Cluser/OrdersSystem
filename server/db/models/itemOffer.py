@@ -10,5 +10,6 @@ class ItemOffer(Db.Base):
     offer_id = Column(ForeignKey('offers.id'))
     quantity = Column(Integer, nullable=False)
     price = Column(Float, nullable=False)
+    currency = Column(String, nullable=False)
     item = relationship('Item', back_populates="offers")
     offer = relationship('Offer', back_populates="items")

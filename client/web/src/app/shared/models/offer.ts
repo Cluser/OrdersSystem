@@ -29,5 +29,5 @@ export interface IOfferItem {
     offer_id?: number;
     quantity?: number;
     price?: number;
-    status?: string;
+    currency?: string;
 }
