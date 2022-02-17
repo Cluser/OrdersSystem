@@ -12,8 +12,8 @@ import {IAngularMyDpOptions, IMyRangeDateSelection, IMyDateModel} from 'angular-
 export class StatisticDistributorsComponent implements OnInit {
 
 
-  public chartData: any[] = [ ];
-  public chartDataCategory: any[] = [ ];
+  public chartData: any;
+  public chartDataCategory: any;
   public chartDataMonths: any[] = [ ];
   public chartDataItems: any[] = [ ];
   public model: any = null;
@@ -34,42 +34,15 @@ export class StatisticDistributorsComponent implements OnInit {
   ngOnInit(): void {
     this.getOrders();
     this.getCostByCategory();
+
   }
 
   private getOrders(): any {
-    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
-      distributors.items.forEach((distributor) => {
-        let price = 0;
-        this.api.order.getOrders({idDistributor: distributor.id}, '', '', 1, 1000).subscribe((orders) => {
-          orders.items?.forEach((order) => {
-            order.items!.forEach((item) => {
-              price = price + item.price!
-            });
-          });
-          this.chartData.push({ name: distributor.name!, value: price })
-          this.chartData = [...this.chartData]
-        });
-      });
-    })
+    this.api.statistic.getCostByDistributor().subscribe((statistic) => this.chartData = statistic)
   }
 
   private getCostByCategory(): any {
-    this.api.order.getOrders({}, '', '', 1, 1000).subscribe((orders) => {
-      this.api.category.getCategories({}, 1, 1000).subscribe((categories) => {
-        categories.items.forEach((category) => {
-          let price = 0;
-          orders.items?.forEach((order) => {
-            order.items?.forEach((orderItem: any) => {
-                if (orderItem.item.idCategory === category.id) {
-                  price = price + orderItem.price
-                }
-            })
-          })
-          this.chartDataCategory.push({ name: category.name!, value: price })
-          this.chartDataCategory = [...this.chartDataCategory]
-        })
-      })
-    })
+    this.api.statistic.getCostByCategory().subscribe((statistic) => this.chartDataCategory = statistic)
   }
 
   private getCostByMonth(start: string, end: string): any {

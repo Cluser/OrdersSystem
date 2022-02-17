@@ -13,7 +13,7 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
-@router.get("/StatisticsAllCosts", tags=["Statistics"])
+@router.get("/Statistics/AllCosts", tags=["Statistics"])
 async def getAllCosts():
        orderItems = Db.session.query(models.ItemOrder)
 
@@ -24,7 +24,7 @@ async def getAllCosts():
        return {'name': 'total', 'value': price}
 
 
-@router.get("/StatisticsAllOrderedItems", tags=["Statistics"])
+@router.get("/Statistics/AllOrderedItems", tags=["Statistics"])
 async def getCostByDistributor():
        orderItems = Db.session.query(models.ItemOrder)
 
@@ -37,7 +37,7 @@ async def getCostByDistributor():
 
 
 
-@router.get("/StatisticsByUserReq", tags=["Statistics"])
+@router.get("/Statistics/ByUserReq", tags=["Statistics"])
 async def getCostByDistributor():
        statistic = []
        users = Db.session.query(models.User)
@@ -50,7 +50,7 @@ async def getCostByDistributor():
        return statistic
 
 
-@router.get("/StatisticsByUser", tags=["Statistics"])
+@router.get("/Statistics/ByUser", tags=["Statistics"])
 async def getCostByDistributor():
        statistic = []
        users = Db.session.query(models.User)
@@ -64,7 +64,7 @@ async def getCostByDistributor():
 
 
 
-@router.get("/StatisticsByDistributor", tags=["Statistics"])
+@router.get("/Statistics/ByDistributor", tags=["Statistics"])
 async def getCostByDistributor():
        statistic = []
        distributors = Db.session.query(models.Distributor)
@@ -90,8 +90,20 @@ async def getCostByProject():
               statistic.append({'name': project.name, 'value': price})
        return statistic
 
+@router.get("/Statistics/ByCategory", tags=["Statistics"])
+async def getCostByDistributor():
+       statistic = []
+       categories = Db.session.query(models.Category)
+       for category in categories:
+              orderItems = Db.session.query(models.ItemOrder).filter(models.ItemOrder.item.has(models.Item.idCategory == category.id))
+              price = 0
+              for orderItem in orderItems:
+                     price = price + orderItem.price * orderItem.quantity
+              statistic.append({'name': category.name, 'value': price})
+       return statistic
 
-@router.get("/StatisticsByProjectCategory", tags=["Statistics"])
+
+@router.get("/Statistics/ByProjectCategory", tags=["Statistics"])
 async def getCostByProjectCategory(idProject: Optional[int] = None):
        statistic = []
 

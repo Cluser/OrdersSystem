@@ -16,9 +16,20 @@ export class Statistic {
     constructor(private httpClient: HttpClient) { 
     }
 
+    public getAllCosts(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + "/AllCosts");
+  }
   
     public getCostByProject(): Observable<IStatistic> {
         return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl);
+    }
+
+    public getCostByDistributor(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl+ "/ByDistributor");
+    }
+
+    public getCostByCategory(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl+ "/ByCategory");
     }
 
     public getCostByProjectCategory(idProject?: number): Observable<IStatistic> {
