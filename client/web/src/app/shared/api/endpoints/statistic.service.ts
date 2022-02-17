@@ -33,11 +33,15 @@ export class Statistic {
     }
   
     public getCostByProject(): Observable<IStatistic> {
-        return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl);
+        return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + "/ByProject");
     }
 
     public getCostByDistributor(): Observable<IStatistic> {
       return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl+ "/ByDistributor");
+    }
+
+    public getCostByContactPerson(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl+ "/ByContactPerson");
     }
 
     public getCostByCategory(): Observable<IStatistic> {

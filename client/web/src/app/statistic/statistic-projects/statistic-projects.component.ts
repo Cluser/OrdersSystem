@@ -14,6 +14,7 @@ export class StatisticProjectsComponent implements OnInit {
   public chartData2: any;
   public chartData3: any;
   public chartData4: any;
+  public chartData5: any;
 
 
   public locale: string = 'pl';
@@ -25,6 +26,7 @@ export class StatisticProjectsComponent implements OnInit {
     this.getCostByProjectCategory(2);
     this.getCostByUsers();
     this.getCostByUsersReq();
+    this.getCostByContactPerson();
   }
 
 
@@ -42,6 +44,10 @@ export class StatisticProjectsComponent implements OnInit {
 
   private getCostByUsersReq(): any {
     this.api.statistic.getCostByUserReq().subscribe((statistic) => this.chartData4 = statistic);
+  }
+
+  private getCostByContactPerson(): any {
+    this.api.statistic.getCostByContactPerson().subscribe((statistic) => this.chartData5 = statistic);
   }
 
   public onSelect(event: any) {

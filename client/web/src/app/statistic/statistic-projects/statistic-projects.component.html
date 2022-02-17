@@ -51,11 +51,26 @@
                 </ngx-charts-bar-vertical>
             </div>
 
-            <div class="col">
+            <!-- <div class="col">
                 <ngx-charts-bar-vertical 
                     [view]="[800,400]"
                     [results]="chartData4"
                     [xAxisLabel]="'Użytkownik'"
+                    [legendTitle]="'Legenda'"
+                    [yAxisLabel]="'Kwota'"
+                    [showXAxisLabel]="true"
+                    [showYAxisLabel]="true"
+                    [xAxis]="true"
+                    [yAxis]="true"
+                    [gradient]="true">
+                </ngx-charts-bar-vertical>
+            </div> -->
+
+            <div class="col">
+                <ngx-charts-bar-vertical 
+                    [view]="[800,400]"
+                    [results]="chartData5"
+                    [xAxisLabel]="'Sprzedawca'"
                     [legendTitle]="'Legenda'"
                     [yAxisLabel]="'Kwota'"
                     [showXAxisLabel]="true"
