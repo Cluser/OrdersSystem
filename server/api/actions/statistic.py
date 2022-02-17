@@ -78,7 +78,7 @@ async def getCostByDistributor():
 
 
 
-@router.get("/Statistics", tags=["Statistics"])
+@router.get("/Statistics/ByProject", tags=["Statistics"])
 async def getCostByProject():
        statistic = []
        projects = Db.session.query(models.Project)

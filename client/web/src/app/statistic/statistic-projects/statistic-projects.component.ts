@@ -11,7 +11,9 @@ export class StatisticProjectsComponent implements OnInit {
   public model: any = null;
 
   public chartData: any;
-  public chartData2: any
+  public chartData2: any;
+  public chartData3: any;
+  public chartData4: any;
 
 
   public locale: string = 'pl';
@@ -21,6 +23,8 @@ export class StatisticProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.getCostByProjects();
     this.getCostByProjectCategory(2);
+    this.getCostByUsers();
+    this.getCostByUsersReq();
   }
 
 
@@ -30,6 +34,14 @@ export class StatisticProjectsComponent implements OnInit {
 
   private getCostByProjectCategory(idProject: number): any {
     this.api.statistic.getCostByProjectCategory(idProject).subscribe((statistic) => this.chartData2 = statistic);
+  }
+
+  private getCostByUsers(): any {
+    this.api.statistic.getCostByUser().subscribe((statistic) => this.chartData3 = statistic);
+  }
+
+  private getCostByUsersReq(): any {
+    this.api.statistic.getCostByUserReq().subscribe((statistic) => this.chartData4 = statistic);
   }
 
   public onSelect(event: any) {

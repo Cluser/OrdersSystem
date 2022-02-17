@@ -18,7 +18,19 @@ export class Statistic {
 
     public getAllCosts(): Observable<IStatistic> {
       return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + "/AllCosts");
-  }
+    }
+
+    public getAllOrderedItems(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + "/AllOrderedItems");
+    }
+
+    public getCostByUserReq(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + "/ByUserReq");
+    }
+
+    public getCostByUser(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + "/ByUser");
+    }
   
     public getCostByProject(): Observable<IStatistic> {
         return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl);
