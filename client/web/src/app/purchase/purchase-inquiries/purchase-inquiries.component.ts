@@ -97,10 +97,11 @@ export class PurchaseInquiriesComponent implements OnInit {
   public archiveSelected(): void {
     this.selectedRows.forEach((inquiry) => {
       inquiry.archived = true;
-      this.api.inquiry.editInquiry(inquiry).subscribe();
+      this.api.inquiry.editInquiry(inquiry).subscribe(() => {
+        this.selectedRows = [];
+        this.getInquiriesData();
+      });
     })
-    this.selectedRows = [];
-    this.getInquiriesData();
   }
 
   private checkIfOfferAndOrderPosible(): void {

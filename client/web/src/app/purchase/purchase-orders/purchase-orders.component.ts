@@ -80,10 +80,11 @@ export class PurchaseOrdersComponent implements OnInit {
   public archiveSelected(): void {
     this.selectedRows.forEach((order) => {
       order.archived = true;
-      this.api.order.editOrder(order).subscribe();
+      this.api.order.editOrder(order).subscribe(() => {
+        this.selectedRows = [];
+        this.getOrdersData();
+      });
     })
-    this.selectedRows = [];
-    this.getOrdersData();
   }
 
   public changeFilter(filter: any) {

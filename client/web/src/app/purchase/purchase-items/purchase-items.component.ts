@@ -124,10 +124,11 @@ export class PurchaseItemsComponent implements OnInit {
   public archiveSelected(): void {
     this.selectedRows.forEach((item) => {
       item.archived = true;
-      this.api.item.editItem(item).subscribe();
+      this.api.item.editItem(item).subscribe(() => {
+        this.selectedRows = [];
+        this.getItemsData();
+      });
     })
-    this.selectedRows = [];
-    this.getItemsData();
   }
 
   public changeFilter(filter: any) {

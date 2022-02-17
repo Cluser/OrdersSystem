@@ -117,10 +117,11 @@ export class PurchaseOffersComponent implements OnInit {
   public archiveSelected(): void {
     this.selectedRows.forEach((offer) => {
       offer.archived = true;
-      this.api.offer.editOffer(offer).subscribe();
+      this.api.offer.editOffer(offer).subscribe(() => {
+        this.selectedRows = [];
+        this.getOffersData();
+      });
     })
-    this.selectedRows = [];
-    this.getOffersData();
   }
 
   public changeFilter(filter: any) {
