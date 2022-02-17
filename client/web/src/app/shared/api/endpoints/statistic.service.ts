@@ -36,7 +36,7 @@ export class Statistic {
       let params: any = {}
       params = Object.assign({ 'idProject': idProject })
 
-      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + 'ByProjectCategory', {params: params});
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl + '/ByProjectCategory', {params: params});
     }
 
 }
