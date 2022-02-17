@@ -48,6 +48,10 @@ export class Statistic {
       return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl+ "/ByCategory");
     }
 
+    public getCostByClient(): Observable<IStatistic> {
+      return this.httpClient.get<IStatistic>(this.statisticsEndpointUrl+ "/ByClient");
+    }
+
     public getCostByProjectCategory(idProject?: number): Observable<IStatistic> {
       let params: any = {}
       params = Object.assign({ 'idProject': idProject })

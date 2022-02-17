@@ -14,6 +14,7 @@ export class StatisticDistributorsComponent implements OnInit {
 
   public chartData: any;
   public chartDataCategory: any;
+  public chartDataClient: any;
   public chartDataMonths: any[] = [ ];
   public chartDataItems: any[] = [ ];
   public model: any = null;
@@ -34,7 +35,7 @@ export class StatisticDistributorsComponent implements OnInit {
   ngOnInit(): void {
     this.getOrders();
     this.getCostByCategory();
-
+    this.getCostByClient();
   }
 
   private getOrders(): any {
@@ -43,6 +44,10 @@ export class StatisticDistributorsComponent implements OnInit {
 
   private getCostByCategory(): any {
     this.api.statistic.getCostByCategory().subscribe((statistic) => this.chartDataCategory = statistic)
+  }
+
+  private getCostByClient(): any {
+    this.api.statistic.getCostByClient().subscribe((statistic) => this.chartDataClient = statistic)
   }
 
   private getCostByMonth(start: string, end: string): any {

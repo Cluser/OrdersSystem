@@ -114,6 +114,18 @@ async def getCostByDistributor():
               statistic.append({'name': category.name, 'value': price})
        return statistic
 
+@router.get("/Statistics/ByClient", tags=["Statistics"])
+async def getCostByDistributor():
+       statistic = []
+       clients = Db.session.query(models.Client)
+       for client in clients:
+              orderItems = Db.session.query(models.ItemOrder).filter(models.ItemOrder.item.has(models.Item.project.has(models.Project.idClient == client.id)))
+              price = 0
+              for orderItem in orderItems:
+                     price = price + orderItem.price * orderItem.quantity
+              statistic.append({'name': client.name, 'value': price})
+       return statistic
+
 
 @router.get("/Statistics/ByProjectCategory", tags=["Statistics"])
 async def getCostByProjectCategory(idProject: Optional[int] = None):
