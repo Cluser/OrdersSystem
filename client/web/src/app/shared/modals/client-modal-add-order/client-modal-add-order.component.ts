@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
 import { IContactPerson, IDistributor, IOrder, IOrderItem } from '../../models';
+import { currencyFormatter } from '../../functions/formatters';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public items: any[] = [];
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
+  public currency: string = "PLN";
 
 
   constructor(private api: ApiService) { }
@@ -41,8 +43,8 @@ export class PurchaseModalAddOrderComponent implements OnInit {
       { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.category.name', headerName: 'Category', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
-      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 1, editable: true},
-      { field: 'currency', headerName: 'Waluta', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
+      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 1, editable: true, valueFormatter: (params) => currencyFormatter(params, this.currency), type: 'rightAligned'},
+      { field: 'total',  headerName: 'Razem', sortable: true, valueGetter: 'getValue("price") * getValue("quantity")', valueFormatter: (params) => currencyFormatter(params, this.currency), type: 'rightAligned' },
       { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];

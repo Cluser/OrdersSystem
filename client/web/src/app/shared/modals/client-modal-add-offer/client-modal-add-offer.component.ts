@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../api/api.service';
 import { IContactPerson, IDistributor, IOffer, IOfferItem} from '../../models';
+import { currencyFormatter } from '../../functions/formatters';
 
 @Component({
   selector: 'app-client-modal-add-offer',
@@ -24,6 +25,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public offerItems: IOfferItem[] = [];
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
+  public currency: string = "PLN";
 
   constructor(private api: ApiService) { }
 
@@ -40,8 +42,8 @@ export class PurchaseModalAddOfferComponent implements OnInit {
       { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.category.name', headerName: 'Category', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'quantity', headerName: 'Ilość', sortable: true, filter: true, resizable: true, flex: 1, editable: true, cellStyle: (params) => this.cellFormating(params) },
-      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 1, editable: true, cellStyle: (params) => this.cellFormating(params) },
-      { field: 'currency', headerName: 'Waluta', sortable: true, filter: true, resizable: true, flex: 3, editable: true },
+      { field: 'price', headerName: 'Cena', sortable: true, filter: true, resizable: true, flex: 3, editable: true, valueFormatter: (params) => currencyFormatter(params, this.currency), type: 'rightAligned' },
+      { field: 'total',  headerName: 'Razem', sortable: true, valueGetter: 'getValue("price") * getValue("quantity")', valueFormatter: (params) => currencyFormatter(params, this.currency), type: 'rightAligned' },
       { field: 'item.project.name', headerName: 'Projekt', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.user.name', headerName: 'Zgłaszający', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
@@ -80,7 +82,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
     this.api.offer.addOffer(offer).subscribe((offer: any) => {
 
       this.selectedRows.forEach((row) => {
-        let obj: IOfferItem = { Item_id: row.item.id, offer_id: offer.id, price: Number(row.price), quantity: Number(row.quantity), currency: row.currency }
+        let obj: IOfferItem = { Item_id: row.item.id, offer_id: offer.id, price: Number(row.price), quantity: Number(row.quantity), currency: this.currency }
         this.offerItems.push(obj)
       })
 

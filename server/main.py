@@ -112,7 +112,7 @@ class Main:
     # Db.session.add_all(itemOffer)
     # Db.session.add_all(itemOrder)
 
-    Db.session.commit()     
+    # Db.session.commit()     
 
     api = Api()
 
