@@ -15,7 +15,7 @@ import { AdminModalEditCategoryComponent } from '../admin-modals/admin-modal-edi
 export class AdminCategoriesComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: any = {};
   public pageSize: number = 1000
 
   constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
@@ -26,7 +26,7 @@ export class AdminCategoriesComponent implements OnInit {
 
   public getCategoriesData(): void {
     this.spinner.show();
-    this.api.category.getCategories({}, 1, this.pageSize).subscribe((response) => { this.rowData = response.items; this.spinner.hide() });
+    this.api.category.getCategories({}, 1, this.pageSize).subscribe((response) => { this.grid = response; this.spinner.hide() });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc'  },

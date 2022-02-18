@@ -10,9 +10,9 @@
     <div class="grid">
         <ngx-spinner bdColor = "rgba(69,69,69,0.8)" size = "large" color = "#00ADB5" type = "ball-clip-rotate-pulse" [fullScreen] = "false"></ngx-spinner>
         <ag-grid-angular
-            style="width: 100%; height: 100%;"
+            style="width: 100%; height: 96%;"
             class="ag-theme-balham"
-            [rowData]="rowData"
+            [rowData]="grid.items"
             [columnDefs]="columnDefs"
             [pagination]="false"
             [paginationPageSize]="pageSize"
@@ -20,5 +20,9 @@
             [suppressRowDeselection]="true"
             (rowDoubleClicked)="openEditProjectModal($event.data)">
         </ag-grid-angular>
+
+        <div class="grid-pagination">
+            Strona: {{grid.pages}} | Liczba przedmiotów: {{grid.total}}
+        </div>
     </div>
 </div>

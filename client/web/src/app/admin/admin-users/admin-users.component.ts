@@ -12,7 +12,7 @@ import { ApiService } from 'src/app/shared/api/api.service';
 export class AdminUsersComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: any = {};
   public pageSize: number = 1000
 
   constructor(private api: ApiService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }

@@ -15,7 +15,7 @@ import { AdminModalEditProjectComponent } from '../admin-modals/admin-modal-edit
 export class AdminProjectsComponent implements OnInit {
 
   public columnDefs: ColDef[] = []
-  public rowData: any[] = [];
+  public grid: any = {};
   public pageSize: number = 1000
 
 
@@ -27,7 +27,7 @@ export class AdminProjectsComponent implements OnInit {
 
   public getProjectsData(): void {
     this.spinner.show();
-    this.api.project.getProjects({}, 1, this.pageSize).subscribe((response) => { this.rowData = response.items; this.spinner.hide() });
+    this.api.project.getProjects({}, 1, this.pageSize).subscribe((response) => { this.grid = response; this.spinner.hide() });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
