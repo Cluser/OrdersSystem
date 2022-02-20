@@ -8,6 +8,7 @@ class User(Db.Base):
 
     name = Column(String)
     surname = Column(String)
+    password = Column(String)
 
     item = relationship("Item", back_populates="user")
     inquiry = relationship("Inquiry", back_populates="user")
@@ -15,6 +16,7 @@ class User(Db.Base):
     order = relationship("Order", back_populates="user")
 
 
-    def __init__(self, name, surname):
+    def __init__(self, name, surname, password):
         self.name = name
         self.surname = surname
+        self.password = password

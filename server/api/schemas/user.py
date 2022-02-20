@@ -2,8 +2,9 @@ from pydantic import BaseModel
 
 class User(BaseModel):
     id: int
-    name: str
+    name: str 
     surname: str
+    password: str
 
     class Config:
         orm_mode = True
@@ -11,3 +12,4 @@ class User(BaseModel):
 class UserCreate(BaseModel):
     name: str
     surname: str
+    password: str

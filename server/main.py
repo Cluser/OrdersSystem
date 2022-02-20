@@ -55,7 +55,7 @@ class Main:
 
     user = []
     for x in range(1, 5):
-        user.append(User(name = faker.name(), surname = faker.name()))
+        user.append(User(name = faker.name(), surname = faker.name(), password = faker.password()))
 
 
 
