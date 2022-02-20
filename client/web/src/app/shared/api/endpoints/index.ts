@@ -12,3 +12,4 @@ export * from './category.service';
 export * from './contactPerson.service';
 export * from './statistic.service';
 export * from './authenticate.service';
+export * from './user.service'
