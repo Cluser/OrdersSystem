@@ -25,7 +25,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, page: Option
         return Categories
 
 @router.post("/Categories", tags=["Categories"])
-async def post(category: schemas.CategoryCreate) -> schemas.CategoryCreate:
+async def post(category: schemas.CategoryCreate, token: str = Depends(oauth2_scheme)) -> schemas.CategoryCreate:
     try:
         category = models.Category(**category.dict())
         Db.session.add(category)

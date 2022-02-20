@@ -4,7 +4,6 @@ class User(BaseModel):
     id: int
     name: str 
     surname: str
-    password: str
 
     class Config:
         orm_mode = True

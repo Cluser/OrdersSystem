@@ -9,3 +9,4 @@ export * from './user';
 export * from './category';
 export * from './contactPerson';
 export * from './statistic';
+export * from './authenticate';

@@ -11,3 +11,4 @@ export * from './orderItem.service';
 export * from './category.service';
 export * from './contactPerson.service';
 export * from './statistic.service';
+export * from './authenticate.service';
