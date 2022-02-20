@@ -44,6 +44,7 @@ class Api:
         api.include_router(actions.categories.router)
         api.include_router(actions.files.router)
         api.include_router(actions.statistic.router)
+        api.include_router(actions.users.router)
 
 
         uvicorn.run(api, host="0.0.0.0", port=8000)

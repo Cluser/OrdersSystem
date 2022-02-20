@@ -9,3 +9,4 @@ from .user import *
 from .contactPerson import *
 from .category import *
 from .file import *
+from .user import *

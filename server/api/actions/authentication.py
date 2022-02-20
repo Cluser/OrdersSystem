@@ -33,7 +33,7 @@ def createAccessToken(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def getCurrentUser(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -49,26 +49,11 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     user = Db.session.query(models.User).filter(models.User.name == username).first()
     if user is None:
         raise credentials_exception
-    return user
+    return user.name
 
 
-@router.post("/register", tags=["Authentication"])
-async def post(usr: schemas.UserCreate) -> schemas.UserCreate:
-    try:
-        user = models.User(**usr.dict())
-        user.password = getPasswordHash(usr.password)
-        Db.session.add(user)
-        Db.session.commit()
-        Db.session.refresh(user)
-    except:
-        Db.session.rollback()
-        raise
-    finally:
-        Db.session.close()
-        return "User created"
 
-
-@router.post("/login", tags=["Authentication"])
+@router.post("/token", tags=["Authentication"])
 async def login(data: OAuth2PasswordRequestForm = Depends()):
 
     user = Db.session.query(models.User).filter(models.User.name == data.username).first()
@@ -88,7 +73,6 @@ async def login(data: OAuth2PasswordRequestForm = Depends()):
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.get("/token", tags=["Authentication"])
-async def login(token: str = Depends(get_current_user)):
-
+@router.post("/sss", tags=["Authentication"])
+async def token(token: str = Depends(getCurrentUser)):
     return token

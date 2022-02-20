@@ -12,3 +12,9 @@ class UserCreate(BaseModel):
     name: str
     surname: str
     password: str
+
+class UserEdit(BaseModel):
+    id: int
+    name: str
+    surname: str
+    password: str
