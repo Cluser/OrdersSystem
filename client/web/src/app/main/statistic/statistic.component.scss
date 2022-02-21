@@ -1,0 +1,25 @@
+@import "../../shared/styles/global.scss";
+
+.statistic-section {
+    width: 100%;
+    height: 100%;
+    background-color: green;
+    position: relative;
+}
+
+.statistic-menu {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 2%;
+}
+
+
+.statistic-grid {
+    position: absolute;
+    left: 0%;
+    top: 2%;
+    width: 100%;
+    height: 98%;
+}

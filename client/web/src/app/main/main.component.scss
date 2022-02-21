@@ -1,0 +1,23 @@
+.main-section {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.main-section-menu {
+    width: 3%;
+    height: 100%;
+    top: 0%;
+    left: 0%;
+    position: absolute;
+    background-color: yellow;
+}
+
+.main-section-view {
+    width: 97%;
+    height: 100%;
+    top: 0%;
+    left: 3%;
+    position: absolute;
+    background-color: black;
+}
