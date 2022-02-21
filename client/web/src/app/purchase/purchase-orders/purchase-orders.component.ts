@@ -3,12 +3,13 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
-import { PurchaseModalEditOrderComponent } from 'src/app/shared/modals/client-modal-edit-order/client-modal-edit-order.component';
+import { PurchaseModalEditOrderComponent } from '../purchase-modals/purchase-modal-edit-order/purchase-modal-edit-order.component';
 import { IOrder, IPOrder } from 'src/app/shared/models';
 import { currencyFormatter } from '../../shared/functions/formatters'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PurchaseOrdersSearchComponent } from './purchase-orders-search/purchase-orders-search.component';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-purchase-orders',

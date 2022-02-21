@@ -4,9 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
-import { PurchaseModalAddOfferComponent } from 'src/app/shared/modals/client-modal-add-offer/client-modal-add-offer.component';
-import { PurchaseModalAddOrderComponent } from 'src/app/shared/modals/client-modal-add-order/client-modal-add-order.component';
-import { PurchaseModalEditOfferComponent } from 'src/app/shared/modals/client-modal-edit-offer/client-modal-edit-offer.component';
+import { PurchaseModalAddOfferComponent } from 'src/app/purchase/purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component';
+import { PurchaseModalAddOrderComponent } from 'src/app/purchase/purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component';
+import { PurchaseModalEditOfferComponent } from 'src/app/purchase/purchase-modals/purchase-modal-edit-offer/purchaset-modal-edit-offer.component';
 import { IOffer, IPOffer } from 'src/app/shared/models';
 import { currencyFormatter } from '../../shared/functions/formatters'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
