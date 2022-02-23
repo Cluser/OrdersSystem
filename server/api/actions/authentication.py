@@ -66,7 +66,7 @@ async def login(data: OAuth2PasswordRequestForm = Depends()):
 
     access_token_expires = timedelta(minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = createAccessToken(
-        data={"id": user.id, "name": user.name, "surname": user.surname}, expires_delta=access_token_expires
+        data={"iss": "test.com", "sub": user.id, "scopes": ["admin", "purchase"]}, expires_delta=access_token_expires
     )
 
 

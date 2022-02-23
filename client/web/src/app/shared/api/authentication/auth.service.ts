@@ -6,7 +6,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { IAuthenticate } from '../../models';
+import { CookieService } from 'ngx-cookie-service';
 import jwt_decode from "jwt-decode";
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +22,7 @@ export class AuthService {
     private headers = new HttpHeaders().set('Content-Type', 'application/json');
     private currentUser = {};
 
-    constructor(private http: HttpClient, public router: Router) { }
+    constructor(private http: HttpClient, public router: Router, private cookieService: CookieService) { }
 
     // Sign-in
     public signIn(user: Partial<IAuthenticate>) {
@@ -30,27 +33,30 @@ export class AuthService {
         params.append("password", user?.password);
 
         return this.http.post<Partial<IAuthenticate>>(this.authenticateEndpointUrl, params).subscribe((res: any) => {
-            sessionStorage.setItem('access_token', res.access_token)
+            this.cookieService.set('access_token', res.access_token);
             this.router.navigate(['main/purchase/items'])
         })
     }
 
     public getToken() {
-        return sessionStorage.getItem('access_token');
+        return this.cookieService.get('access_token');
     }
 
     public get isLoggedIn(): boolean {
-        let authToken = sessionStorage.getItem('access_token');
-        return (authToken !== null) ? true : false;
+        let authToken = this.cookieService.get('access_token');
+        console.log(authToken);
+        console.log(this.getUserData())
+        return (authToken.length > 0) ? true : false;
     }
 
     public getUserData() {
-        let token = sessionStorage.getItem('access_token')
-        // jwt_decode(token, { header: true });
+        const token = this.cookieService.get('access_token');
+        const decodedToken = jwt_decode(token)
+        return decodedToken;
     }
 
     public doLogout() {
-        let removeToken = sessionStorage.removeItem('access_token');
+        let removeToken = this.cookieService.get('access_token');
         if (removeToken == null) {
         this.router.navigate(['login']);
         }
