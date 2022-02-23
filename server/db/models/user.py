@@ -6,6 +6,7 @@ class User(Db.Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
 
+    email = Column(String)
     name = Column(String)
     surname = Column(String)
     password = Column(String)
@@ -16,7 +17,8 @@ class User(Db.Base):
     order = relationship("Order", back_populates="user")
 
 
-    def __init__(self, name, surname, password):
+    def __init__(self, email, name, surname, password):
+        self.email = email
         self.name = name
         self.surname = surname
         self.password = password

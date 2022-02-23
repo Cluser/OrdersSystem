@@ -44,6 +44,7 @@ async def post(user: schemas.UserCreate) -> schemas.UserCreate:
 async def put(user: schemas.UserEdit) -> schemas.UserEdit:
     try:
         Db.session.query(models.User).filter(models.User.id == user.id).update({
+            'email': user.email,
             'name': user.name,
             'surname': user.surname,
             'password': actions.getPasswordHash(user.password)

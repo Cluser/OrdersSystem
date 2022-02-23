@@ -30,8 +30,6 @@ export class AdminUsersComponent implements OnInit {
       { field: 'name', headerName: 'Imię', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'surname', headerName: 'Nazwisko', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'email', headerName: 'E-mail', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'address', headerName: 'Adres', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'description', headerName: 'Opis', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
   }
 
