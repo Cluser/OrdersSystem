@@ -79,7 +79,7 @@ export class PurchaseItemsComponent implements OnInit {
   public openAddInquiryModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddInquiryComponent, {size: 'xl'});
     modalRef.componentInstance.items = this.selectedRows;
-    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => this.router.navigate(['/purchase/inquiries']) );
+    modalRef.componentInstance.inquiryAddedEvent.subscribe(() => this.router.navigate(['/main/purchase/inquiries']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -90,7 +90,7 @@ export class PurchaseItemsComponent implements OnInit {
     this.selectedRows.forEach((row) => items.push({item: row}))
 
     modalRef.componentInstance.items = items;
-    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/purchase/offers']) );
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/main/purchase/offers']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -101,7 +101,7 @@ export class PurchaseItemsComponent implements OnInit {
     this.selectedRows.forEach((row) => items.push({item: row}))
 
     modalRef.componentInstance.items = items;
-    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/purchase/orders']) );
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/main/purchase/orders']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -132,7 +132,7 @@ export class PurchaseItemsComponent implements OnInit {
   }
 
   public changeFilter(filter: any) {
-    this.router.navigate(['/purchase/items'], { queryParams: filter});
+    this.router.navigate(['/main/purchase/items'], { queryParams: filter});
     this.getItemsData();
   }
 
@@ -144,7 +144,7 @@ export class PurchaseItemsComponent implements OnInit {
       })
     })
     if (filter.id.length == 0) filter.id.push(0)
-    this.router.navigate(['/purchase/inquiries'], { queryParams: filter});
+    this.router.navigate(['/main/purchase/inquiries'], { queryParams: filter});
   }
 
   public findOffers(): void {
@@ -155,7 +155,7 @@ export class PurchaseItemsComponent implements OnInit {
       })
     })
     if (filter.id.length == 0) filter.id.push(0)
-    this.router.navigate(['/purchase/offers'], { queryParams: filter});
+    this.router.navigate(['/main/purchase/offers'], { queryParams: filter});
   }
 
   public findOrders(): void {
@@ -166,7 +166,7 @@ export class PurchaseItemsComponent implements OnInit {
       })
     })
     if (filter.id.length == 0) filter.id.push(0)
-    this.router.navigate(['/purchase/orders'], { queryParams: filter});
+    this.router.navigate(['/main/purchase/orders'], { queryParams: filter});
   }
 
   @HostListener('document:keyup', ['$event'])

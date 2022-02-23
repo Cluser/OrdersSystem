@@ -1,23 +1,22 @@
 <div class="login-section">
-    <div class="center">
-        <h1>Login</h1>
-        <form method="post">
-        <div class="txt_field">
-            <input type="text" required>
-            <span></span>
-            <label>Użytkownik</label>
-        </div>
-        <div class="txt_field">
-            <input type="password" required>
-            <span></span>
-            <label>Hasło</label>
-        </div>
-        <div class="pass">Zapomniałeś hasła?</div>
-        <input type="submit" value="Login">
-        <div class="signup_link">
-            Not a member? <a href="#">Signup</a>
-        </div>
-        </form>
+    <div class="form">
+      
+        <h1>System zakupowy</h1>
+
+        <ul class="tab-group">
+          <li class="tab active"><a href="login">Logowanie</a></li>
+          <li class="tab"><a href="login">Rejestracja</a></li>
+        </ul>
+
+          <div>   
+            <form (ngSubmit)="login(user)">
+                <input id="email" type="text" name="email" #email="ngModel" required class="form-control input" [(ngModel)]="user.username" type="text" placeholder="E-mail">>
+                <input id="password" type="text" name="password" #password="ngModel" required class="form-control input" [(ngModel)]="user.password" type="password" placeholder="Hasło">
+              
+                <p class="forgot"><a href="login">Przypomnij hasło</a></p>
+              
+                <button class="button button-block" type="submit">Zaloguj</button>   
+            </form>
+          </div>
     </div>
 </div>
-

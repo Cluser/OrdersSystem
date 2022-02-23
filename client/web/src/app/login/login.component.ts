@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../shared/api/api.service';
+import { AuthService } from '../shared/api/authentication/auth.service';
 import { IAuthenticate, IUser } from '../shared/models';
 
 @Component({
@@ -9,15 +11,15 @@ import { IAuthenticate, IUser } from '../shared/models';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private api: ApiService,) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
-  user: Partial<IAuthenticate> = {}
+  public user: Partial<IAuthenticate> = {}
 
   ngOnInit(): void {
   }
 
   public login(user: Partial<IAuthenticate>): void {
-    this.api.authenticate.login(user).subscribe((respone) => console.log(respone));
+    this.auth.signIn(user)
   }
 
 }

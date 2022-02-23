@@ -89,7 +89,7 @@ export class PurchaseOrdersComponent implements OnInit {
   }
 
   public changeFilter(filter: any) {
-    this.router.navigate(['/purchase/orders'], { queryParams: filter});
+    this.router.navigate(['/main/purchase/orders'], { queryParams: filter});
     this.getOrdersData();
   }
 }

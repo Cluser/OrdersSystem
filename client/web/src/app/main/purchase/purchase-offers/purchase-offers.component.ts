@@ -76,7 +76,7 @@ export class PurchaseOffersComponent implements OnInit {
     modalRef.componentInstance.offer.idDistributor = this.selectedRows[0].idDistributor
     modalRef.componentInstance.offer.idContactPerson = this.selectedRows[0].idContactPerson
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/purchase/offers']) );
+    modalRef.componentInstance.offerAddedEvent.subscribe(() => this.router.navigate(['/main/purchase/offers']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -86,7 +86,7 @@ export class PurchaseOffersComponent implements OnInit {
     modalRef.componentInstance.order.idDistributor = this.selectedRows[0].idDistributor
     modalRef.componentInstance.order.idContactPerson = this.selectedRows[0].idContactPerson
     modalRef.componentInstance.items = this.selectedRows.flatMap((rows) => rows = rows.items)
-    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/purchase/orders']) );
+    modalRef.componentInstance.orderAddedEvent.subscribe(() => this.router.navigate(['/main/purchase/orders']) );
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
@@ -125,7 +125,7 @@ export class PurchaseOffersComponent implements OnInit {
   }
 
   public changeFilter(filter: any) {
-    this.router.navigate(['/purchase/offers'], { queryParams: filter});
+    this.router.navigate(['/main/purchase/offers'], { queryParams: filter});
     this.getOffersData();
   }
 }
