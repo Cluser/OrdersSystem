@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './shared/api/authentication/auth.interceptor';
+import { AuthGuard } from './shared/api/authentication/auth.guard';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { AuthInterceptor } from './shared/api/authentication/auth.interceptor';
     AppRoutingModule
   ],
   providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

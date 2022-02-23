@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { IAuthenticate } from '../../models';
+import jwt_decode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -29,22 +30,27 @@ export class AuthService {
         params.append("password", user?.password);
 
         return this.http.post<Partial<IAuthenticate>>(this.authenticateEndpointUrl, params).subscribe((res: any) => {
-            localStorage.setItem('access_token', res.access_token)
+            sessionStorage.setItem('access_token', res.access_token)
             this.router.navigate(['main/purchase/items'])
         })
     }
 
     public getToken() {
-        return localStorage.getItem('access_token');
+        return sessionStorage.getItem('access_token');
     }
 
     public get isLoggedIn(): boolean {
-        let authToken = localStorage.getItem('access_token');
+        let authToken = sessionStorage.getItem('access_token');
         return (authToken !== null) ? true : false;
     }
 
+    public getUserData() {
+        let token = sessionStorage.getItem('access_token')
+        // jwt_decode(token, { header: true });
+    }
+
     public doLogout() {
-        let removeToken = localStorage.removeItem('access_token');
+        let removeToken = sessionStorage.removeItem('access_token');
         if (removeToken == null) {
         this.router.navigate(['login']);
         }

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { AuthGuard } from './shared/api/authentication/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'main/purchase/items', pathMatch: 'prefix' },
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then(m => m.MainModule),
+    loadChildren: () => import('./main/main.module').then(m => m.MainModule), canActivate: [AuthGuard],
   },
   {
     path: 'login', 

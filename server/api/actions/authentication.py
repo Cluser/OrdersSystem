@@ -66,13 +66,8 @@ async def login(data: OAuth2PasswordRequestForm = Depends()):
 
     access_token_expires = timedelta(minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = createAccessToken(
-        data={"sub": user.name}, expires_delta=access_token_expires
+        data={"id": user.id, "name": user.name, "surname": user.surname}, expires_delta=access_token_expires
     )
 
 
     return {"access_token": access_token, "token_type": "bearer"}
-
-
-@router.post("/sss", tags=["Authentication"])
-async def token(token: str = Depends(getCurrentUser)):
-    return token
