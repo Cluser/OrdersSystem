@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
 import { IUser } from 'src/app/shared/models';
 import { AdminModalAddUserComponent } from '../admin-modals/admin-modal-add-user/admin-modal-add-user.component';
+import { AdminModalEditUserComponent } from '../admin-modals/admin-modal-edit-user/admin-modal-edit-user.component';
 
 @Component({
   selector: 'app-admin-users',
@@ -43,10 +44,10 @@ export class AdminUsersComponent implements OnInit {
 
   
   public openEditUserModal(user: IUser): void {
-    // const modalRef = this.modalService.open(AdminModalEditClientComponent);
-    // modalRef.componentInstance.client = client;
-    // modalRef.componentInstance.clientEditedEvent.subscribe(() => this.getClientsData());
-    // modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+    const modalRef = this.modalService.open(AdminModalEditUserComponent);
+    modalRef.componentInstance.user = user;
+    modalRef.componentInstance.userEditedEvent.subscribe(() => this.getUsersData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
 }

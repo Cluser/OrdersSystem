@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Dodawanie użytkownika</h4>
+    <h4 class="modal-title" id="modal-basic-title">Edytowanie użytkownika</h4>
     <button type="button" class="close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span></button>
 </div>
@@ -13,5 +13,5 @@
     <label for="email">E-mail</label>
     <input id="email" type="text" class="form-control" [(ngModel)]="this.user.email" type="text">
 
-    <button (click)="addUser(this.user)" type="submit" class="btn btn-primary w-100">Dodaj użytkownika</button>
+    <button (click)="editUser(this.user)" type="submit" class="btn btn-primary w-100">Edytuj użytkownika</button>
 </div>

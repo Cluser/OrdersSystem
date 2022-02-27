@@ -23,8 +23,8 @@ import { AdminModalEditCategoryComponent } from './admin-modals/admin-modal-edit
 import { AdminContactPersonsComponent } from './admin-contact-persons/admin-contact-persons.component';
 import { AdminModalAddContactPersonComponent } from './admin-modals/admin-modal-add-contact-person/admin-modal-add-contact-person.component';
 import { AdminModalEditContactPersonComponent } from './admin-modals/admin-modal-edit-contact-person/admin-modal-edit-contact-person.component';
-import { AuthGuard } from 'src/app/shared/api/authentication/auth.guard';
 import { AdminModalAddUserComponent } from './admin-modals/admin-modal-add-user/admin-modal-add-user.component';
+import { AdminModalEditUserComponent } from './admin-modals/admin-modal-edit-user/admin-modal-edit-user.component';
 
 
 
@@ -48,7 +48,8 @@ import { AdminModalAddUserComponent } from './admin-modals/admin-modal-add-user/
     AdminModalEditCategoryComponent,
     AdminModalAddContactPersonComponent,
     AdminModalEditContactPersonComponent,
-    AdminModalAddUserComponent
+    AdminModalAddUserComponent,
+    AdminModalEditUserComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +69,8 @@ import { AdminModalAddUserComponent } from './admin-modals/admin-modal-add-user/
     AdminModalEditCategoryComponent,
     AdminModalAddContactPersonComponent,
     AdminModalEditContactPersonComponent,
-    AdminModalAddUserComponent
+    AdminModalAddUserComponent,
+    AdminModalEditUserComponent
   ]
 })
 export class AdminModule { }

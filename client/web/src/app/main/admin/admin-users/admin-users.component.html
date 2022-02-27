@@ -17,7 +17,8 @@
             [pagination]="false"
             [paginationPageSize]="pageSize"
             [rowSelection]="'multiple'"
-            [suppressRowDeselection]="true">
+            [suppressRowDeselection]="true"
+            (rowDoubleClicked)="openEditUserModal($event.data)">>
         </ag-grid-angular>
 
         <div class="grid-pagination">
