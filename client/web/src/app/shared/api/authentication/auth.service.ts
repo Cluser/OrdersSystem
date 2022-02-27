@@ -44,8 +44,6 @@ export class AuthService {
 
     public get isLoggedIn(): boolean {
         let authToken = this.cookieService.get('access_token');
-        console.log(authToken);
-        console.log(this.getUserData())
         return (authToken.length > 0) ? true : false;
     }
 
@@ -56,10 +54,8 @@ export class AuthService {
     }
 
     public doLogout() {
-        let removeToken = this.cookieService.get('access_token');
-        if (removeToken == null) {
+        this.cookieService.set('access_token', '')
         this.router.navigate(['login']);
-        }
     }
 
     public handleError(error: HttpErrorResponse) {

@@ -4,7 +4,7 @@ import { MainComponent } from './main.component';
 import { MainRoutingModule } from './main-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { AvatarModule } from 'ngx-avatar';
 
 
 @NgModule({
@@ -15,7 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   imports: [
     CommonModule,
     MainRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AvatarModule
   ]
 })
 export class MainModule { }

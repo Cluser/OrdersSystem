@@ -1,7 +1,13 @@
 <div class="menu-section">
-    <button [routerLink]="'/main/admin/projects'" [ngClass]="{'btn-menu-selected': selectedMenu=='admin','btn-menu': selectedMenu!=='admin'}" (click)="selectMenu('admin')"><fa-icon [icon]="faSlidersH"></fa-icon></button>
-    <button [routerLink]="'/main/purchase/items'" [queryParams]="{archived: 'false'}" [ngClass]="{'btn-menu-selected': selectedMenu=='purchase','btn-menu': selectedMenu!=='purchase'}" (click)="selectMenu('purchase')"><fa-icon [icon]="faShoppingBasket"></fa-icon></button>
-    <button [routerLink]="'/main/statistic/distributors'" [ngClass]="{'btn-menu-selected': selectedMenu=='statistic','btn-menu': selectedMenu!=='statistic'}" (click)="selectMenu('statistic')"><fa-icon [icon]="faChartBar"></fa-icon></button>
-    <button [routerLink]="'/main/magasine/locations'" [ngClass]="{'btn-menu-selected': selectedMenu=='magasine','btn-menu': selectedMenu!=='magasine'}" (click)="selectMenu('magasine')"><fa-icon [icon]="faDatabase"></fa-icon></button>
+    <div class="navigation">
+        <button [routerLink]="'/main/admin/projects'" [ngClass]="{'btn-menu-selected': selectedMenu=='admin','btn-menu': selectedMenu!=='admin'}" (click)="selectMenu('admin')"><fa-icon [icon]="faSlidersH"></fa-icon></button>
+        <button [routerLink]="'/main/purchase/items'" [queryParams]="{archived: 'false'}" [ngClass]="{'btn-menu-selected': selectedMenu=='purchase','btn-menu': selectedMenu!=='purchase'}" (click)="selectMenu('purchase')"><fa-icon [icon]="faShoppingBasket"></fa-icon></button>
+        <button [routerLink]="'/main/statistic/distributors'" [ngClass]="{'btn-menu-selected': selectedMenu=='statistic','btn-menu': selectedMenu!=='statistic'}" (click)="selectMenu('statistic')"><fa-icon [icon]="faChartBar"></fa-icon></button>
+        <button [routerLink]="'/main/magasine/locations'" [ngClass]="{'btn-menu-selected': selectedMenu=='magasine','btn-menu': selectedMenu!=='magasine'}" (click)="selectMenu('magasine')"><fa-icon [icon]="faDatabase"></fa-icon></button>
+    </div>
+
+    <div class="avatar">
+        <ngx-avatar name="Jan Kowalski" size="45" [round]="true" (clickOnAvatar)="logout()" gravatarId="adde9b2b981a8083cf084c63ad86f753"></ngx-avatar>
+    </div>
 </div>
 

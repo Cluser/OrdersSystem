@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { faChartBar, faDatabase, faShoppingBasket, faSlidersH } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faDatabase, faShoppingBasket, faSlidersH, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/shared/api/authentication/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -15,11 +16,12 @@ export class MenuComponent implements OnInit {
   public faShoppingBasket = faShoppingBasket;
   public faChartBar = faChartBar
   public faDatabase = faDatabase
+  public faSignOutAlt = faSignOutAlt
 
   public selectedMenu: string = '';
   private routing$: Subscription;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private auth: AuthService) { 
     this.routing$ = this.checkRoutingChange()
   }
 
@@ -40,6 +42,10 @@ export class MenuComponent implements OnInit {
     if (menu.startsWith('/main/admin')) this.selectedMenu = 'admin';
     if (menu.startsWith('/main/purchase')) this.selectedMenu = 'purchase';
     if (menu.startsWith('/main/statistic')) this.selectedMenu = 'statistic';
+  }
+
+  public logout() {
+    this.auth.doLogout();
   }
   
 }
