@@ -3,6 +3,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ColDef } from 'ag-grid-community';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ApiService } from 'src/app/shared/api/api.service';
+import { IUser } from 'src/app/shared/models';
+import { AdminModalAddUserComponent } from '../admin-modals/admin-modal-add-user/admin-modal-add-user.component';
 
 @Component({
   selector: 'app-admin-users',
@@ -31,6 +33,20 @@ export class AdminUsersComponent implements OnInit {
       { field: 'surname', headerName: 'Nazwisko', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'email', headerName: 'E-mail', sortable: true, filter: true, resizable: true, flex: 3 },
     ];
+  }
+
+  public openAddUserModal(): void {
+    const modalRef = this.modalService.open(AdminModalAddUserComponent);
+    modalRef.componentInstance.userAddedEvent.subscribe(() => this.getUsersData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  
+  public openEditUserModal(user: IUser): void {
+    // const modalRef = this.modalService.open(AdminModalEditClientComponent);
+    // modalRef.componentInstance.client = client;
+    // modalRef.componentInstance.clientEditedEvent.subscribe(() => this.getClientsData());
+    // modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 
 }

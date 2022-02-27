@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Dodawanie klienta</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span></button>
+</div>
+<div class="modal-body">
+    <label for="name">Imię</label>
+    <input id="name" type="text" class="form-control" [(ngModel)]="this.user.name" type="text">
+
+    <label for="name">Nazwisko</label>
+    <input id="name" type="text" class="form-control" [(ngModel)]="this.user.surname" type="text">
+
+    <label for="email">E-mail</label>
+    <input id="email" type="text" class="form-control" [(ngModel)]="this.user.email" type="text">
+
+    <button (click)="addUser(this.user)" type="submit" class="btn btn-primary w-100">Dodaj klienta</button>
+</div>
