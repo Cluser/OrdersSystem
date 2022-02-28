@@ -50,13 +50,15 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
                 quantity = quantity + order.quantity
 
             statusPartialOrder = item.quantity > quantity > 0 
-            statusFullOrder = quantity >= item.quantity
+            statusFullOrder = quantity == item.quantity
+            statusMoreThanNeededOrder = quantity > item.quantity
 
             if statusNew: item.status = "Nowy"
             if statusWaitingForOffer: item.status = "Czekanie za ofertą"
             if statusWaitingForOrder: item.status = "Czekanie za zamówieniem"
-            if statusPartialOrder: item.status = "Częściowo zamówione"
-            if statusFullOrder: item.status = "Zamówione"
+            if statusPartialOrder: item.status = "Częściowo zamówiono"
+            if statusFullOrder: item.status = "Zamówiono"
+            if statusMoreThanNeededOrder: item.status = "Zamówiono nadmiarowo"
 
         if (status): items.items = [item for item in items.items if item.status in status]
         items.total = len(items.items)
