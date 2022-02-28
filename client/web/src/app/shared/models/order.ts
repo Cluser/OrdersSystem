@@ -28,7 +28,7 @@ export interface IOrderItem {
     order_id?: number;
     quantity?: number;
     price?: number;
-    status?: string;
+    currency?: string;
 }
 
 

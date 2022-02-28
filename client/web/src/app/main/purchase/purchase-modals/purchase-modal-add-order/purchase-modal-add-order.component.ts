@@ -74,7 +74,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
     this.api.order.addOrder(order).subscribe((order: any) => {
 
       this.selectedRows.forEach((row) => {
-        let obj: IOrderItem = { Item_id: row.item.id, order_id: order.id, price: Number(row.price), quantity: Number(row.quantity), status: row.status }
+        let obj: IOrderItem = { Item_id: row.item.id, order_id: order.id, price: Number(row.price), quantity: Number(row.quantity), currency: this.currency }
         this.orderItems.push(obj)
       })
 

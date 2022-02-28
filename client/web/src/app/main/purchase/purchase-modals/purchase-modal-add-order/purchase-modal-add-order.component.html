@@ -32,6 +32,14 @@
                 </div>
                 
             </div>
+
+            <div class="col">
+                <label for="currency">Waluta</label>
+                <select id="currency" class="form-control" name="currencyy" #currencyy="ngModel" required [(ngModel)]="this.currency">
+                    <option>PLN</option>
+                    <option>EUR</option>
+                </select>
+            </div>
         </div>
 
         <div class="row">

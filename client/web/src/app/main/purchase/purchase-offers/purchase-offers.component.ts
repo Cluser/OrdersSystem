@@ -62,7 +62,7 @@ export class PurchaseOffersComponent implements OnInit {
       { field: 'contactPerson.name', headerName: 'Sprzedawca', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'user.name', headerName: 'Użytkownik', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'dateAndTime', headerName: 'Data', sortable: true, filter: true, resizable: true, flex: 3 },
-      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3, valueFormatter: params => currencyFormatter(params), type: 'rightAligned' },
+      { field: 'totalPrice', headerName: 'Kwota', sortable: true, filter: true, resizable: true, flex: 3, valueFormatter: params => currencyFormatter(params, params.data.items[0].currency), type: 'rightAligned' },
     ];
   }
 
