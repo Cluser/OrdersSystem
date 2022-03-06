@@ -6,11 +6,11 @@ from os import getcwd, remove
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 
 
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Files", tags=["Files"])
 def download_file(name_file: str):
