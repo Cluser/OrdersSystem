@@ -9,7 +9,6 @@ from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Users", tags=["Users"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50,

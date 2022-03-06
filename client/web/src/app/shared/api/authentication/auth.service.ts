@@ -30,6 +30,7 @@ export class AuthService {
 
         params.append("username", user?.username);
         params.append("password", user?.password);
+        params.append("scope", "purchase")
 
         return this.http.post<Partial<IAuthenticate>>(this.authenticateEndpointUrl, params, { withCredentials: true }).subscribe((res: any) => {
             this.accessToken = res.access_token;

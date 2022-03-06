@@ -67,11 +67,9 @@ def cookie_extractor(access_token: str | None = Cookie(None)) -> str:
 
 def checkPermissions(scopes: SecurityScopes, decodedToken: str = Depends(decodeToken)):
     for scope in scopes.scopes:
-        if scope not in decodedToken.get("scopes"):
-            raise HTTPException(status_code=401, detail='Not enough permissions')
-    return decodedToken
-        
-
+        if scope in decodedToken.get("scopes"):
+            return decodedToken
+    raise HTTPException(status_code=401, detail='Not enough permissions')
 
 
 @router.post("/token", tags=["Authentication"])
