@@ -21,7 +21,7 @@ export class Category {
     let params: any = {}
     params = Object.assign(JSON.parse(JSON.stringify(category)), {'page': page, 'size': size})
 
-    return this.httpClient.get<IPCategory>(this.categoriesEndpointUrl, {params: params});
+    return this.httpClient.get<IPCategory>(this.categoriesEndpointUrl, {params: params, withCredentials: true});
   }
 
   public addCategory(category?: Partial<ICategory>): Observable<ICategory[]> {

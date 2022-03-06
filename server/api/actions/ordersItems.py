@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
@@ -11,10 +12,10 @@ from datetime import datetime
 
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/OrdersItems", tags=["OrdersItems"])
-async def get(Item_id: Optional[int] = None, order_id: Optional[int] = None, quantity: Optional[int] = None, price: Optional[int] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.ItemOrder]:
+async def get(Item_id: Optional[int] = None, order_id: Optional[int] = None, quantity: Optional[int] = None, price: Optional[int] = None, 
+                page: Optional[int] = 1, size: Optional[int] = 50, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.ItemOrder]:
     try:
         parameters = {"Item_id": Item_id, "order_id": order_id, 'quantity': quantity, 'price': price}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -30,7 +31,7 @@ async def get(Item_id: Optional[int] = None, order_id: Optional[int] = None, qua
         return OrdersItems
 
 @router.post("/OrdersItems", tags=["OrdersItems"])
-async def post(orderItems: List[schemas.OrderItemCreate]):
+async def post(orderItems: List[schemas.OrderItemCreate], decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])):
     try:
         OrderItems = []
         for orderItem in orderItems:

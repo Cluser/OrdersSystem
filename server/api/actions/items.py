@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
@@ -11,13 +12,12 @@ from datetime import datetime
 from sqlalchemy.dialects.postgresql import Any
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Items", tags=["Items to order"])
 async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optional[str] = None, status: Optional[List[str]] = Query(None), comment: Optional[str] = None, 
                 archived: Optional[List[bool]] = Query(None), dateAndTime: Optional[str] = None, quantity: Optional[int] = None, idCategory: Optional[List[int]] = Query(None), idProject: Optional[List[int]] = Query(None), 
                 dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None,
-                page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Item]:
+                page: Optional[int] = 1, size: Optional[int] = 50, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.Item]:
     try:
         parameters = {"id": id, "name": name, "model": model, "comment": comment, 'dateAndTime': dateAndTime, 'quantity': quantity }
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -71,7 +71,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, model: Optio
 
 
 @router.post("/Items", tags=["Items to order"])
-async def post(Item: schemas.ItemCreate) -> schemas.Item:
+async def post(Item: schemas.ItemCreate, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.Item:
     try:
         Item = models.Item(**Item.dict())
         Item.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -86,7 +86,7 @@ async def post(Item: schemas.ItemCreate) -> schemas.Item:
 
 
 @router.put("/Items", tags=["Items to order"])
-async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
+async def put(Item: schemas.ItemEdit, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.ItemEdit:
     try:
         Db.session.query(models.Item).filter(models.Item.id == Item.id).update({
             'name': Item.name,
@@ -108,7 +108,7 @@ async def put(Item: schemas.ItemEdit) -> schemas.ItemEdit:
 
 
 @router.delete("/Items/{id}", tags=["Items to order"])
-async def delete(id: int):
+async def delete(id: int, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])):
     try:
         Db.session.query(models.Item).filter(models.Item.id == id).delete()
         Db.session.commit()

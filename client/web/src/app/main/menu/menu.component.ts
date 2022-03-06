@@ -45,7 +45,7 @@ export class MenuComponent implements OnInit {
   }
 
   public logout() {
-    this.auth.doLogout();
+    this.auth.logout();
   }
   
 }

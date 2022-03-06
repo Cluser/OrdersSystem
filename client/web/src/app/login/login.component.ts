@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(user: Partial<IAuthenticate>): void {
-    this.auth.signIn(user)
+    this.auth.login(user)
   }
 
 }

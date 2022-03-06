@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordBearer
 from db.general import *
 from db import models
 from api import schemas, actions
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
@@ -11,7 +12,8 @@ router = APIRouter()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Users", tags=["Users"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.User]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50,
+                decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.User]:
     try:
         parameters = {"id": id, "name": name}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -25,7 +27,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, page: Option
         return Users
 
 @router.post("/Users", tags=["Users"])
-async def post(user: schemas.UserCreate) -> schemas.UserCreate:
+async def post(user: schemas.UserCreate, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.UserCreate:
     try:
         User = models.User(**user.dict())
         User.password = actions.getPasswordHash(user.password)
@@ -41,7 +43,7 @@ async def post(user: schemas.UserCreate) -> schemas.UserCreate:
 
 
 @router.put("/Users", tags=["Users"])
-async def put(user: schemas.UserEdit) -> schemas.UserEdit:
+async def put(user: schemas.UserEdit, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.UserEdit:
     try:
         Db.session.query(models.User).filter(models.User.id == user.id).update({
             'email': user.email,
@@ -58,7 +60,7 @@ async def put(user: schemas.UserEdit) -> schemas.UserEdit:
         return user
 
 @router.delete("/Users/{id}", tags=["Users"])
-async def delete(id: int):
+async def delete(id: int, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])):
     try:
         Db.session.query(models.User).filter(models.User.id == id).delete()
         Db.session.commit()

@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from . import actions
 import uvicorn
 
@@ -23,7 +22,7 @@ class Api:
 
         api.add_middleware(
             CORSMiddleware,
-            allow_origins=["*"],
+            allow_origins=["https://127.0.0.1:4200"],
             allow_credentials=True,
             allow_methods=["*"],
             allow_headers=["*"],
@@ -45,7 +44,6 @@ class Api:
         api.include_router(actions.files.router)
         api.include_router(actions.statistic.router)
         api.include_router(actions.users.router)
-
 
         uvicorn.run(api, host="0.0.0.0", port=8000)
 

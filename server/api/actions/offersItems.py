@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
@@ -11,10 +12,9 @@ from datetime import datetime
 
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.post("/OffersItems", tags=["OffersItems"])
-async def post(offerItems: List[schemas.OfferItemCreate]) -> schemas.OfferItem:
+async def post(offerItems: List[schemas.OfferItemCreate], decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.OfferItem:
     try:
         OfferItems = []
         for offerItem in offerItems:

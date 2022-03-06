@@ -1,17 +1,18 @@
-from fastapi import Depends, APIRouter, Path, Query
+from fastapi import Depends, APIRouter
 from fastapi.security import OAuth2PasswordBearer
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Categories", tags=["Categories"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Category]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50, 
+                decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.Category]:
     try:
         parameters = {"id": id, "name": name}
         selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -25,7 +26,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, page: Option
         return Categories
 
 @router.post("/Categories", tags=["Categories"])
-async def post(category: schemas.CategoryCreate, token: str = Depends(oauth2_scheme)) -> schemas.CategoryCreate:
+async def post(category: schemas.CategoryCreate, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN])) -> schemas.CategoryCreate:
     try:
         category = models.Category(**category.dict())
         Db.session.add(category)
@@ -39,7 +40,7 @@ async def post(category: schemas.CategoryCreate, token: str = Depends(oauth2_sch
         return category
 
 @router.put("/Categories", tags=["Categories"])
-async def put(category: schemas.CategoryEdit) -> schemas.CategoryEdit:
+async def put(category: schemas.CategoryEdit, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN])) -> schemas.CategoryEdit:
     try:
         Db.session.query(models.Category).filter(models.Category.id == category.id).update({
             'name': category.name
@@ -53,7 +54,7 @@ async def put(category: schemas.CategoryEdit) -> schemas.CategoryEdit:
         return category
 
 @router.delete("/Categories/{id}", tags=["Categories"])
-async def delete(id: int):
+async def delete(id: int, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN])):
     try:
         Db.session.query(models.Category).filter(models.Category.id == id).delete()
         Db.session.commit()

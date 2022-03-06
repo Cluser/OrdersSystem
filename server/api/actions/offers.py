@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
@@ -11,10 +12,11 @@ from datetime import datetime
 
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Offers", tags=["Offers"])
-async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Offer]:
+async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), 
+                dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), 
+                page: Optional[int] = 1, size: Optional[int] = 50, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.Offer]:
     try:
         filters = []
 
@@ -40,7 +42,7 @@ async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[Lis
         return offers
 
 @router.post("/Offers", tags=["Offers"])
-async def post(offer: schemas.OfferCreate) -> schemas.Offer:
+async def post(offer: schemas.OfferCreate, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.Offer:
     try:
         offer = models.Offer(**offer.dict())
         offer.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -55,7 +57,7 @@ async def post(offer: schemas.OfferCreate) -> schemas.Offer:
         return offer
 
 @router.put("/Offers", tags=["Offers"])
-async def put(offer: schemas.OfferEdit) -> schemas.OfferEdit:
+async def put(offer: schemas.OfferEdit, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.OfferEdit:
     try:
         Db.session.query(models.Offer).filter(models.Offer.id == offer.id).update({
             'idUser': offer.idUser,

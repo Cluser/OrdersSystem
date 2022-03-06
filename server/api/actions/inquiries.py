@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
@@ -11,10 +12,11 @@ from datetime import datetime
 
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Inquiries", tags=["Inquiries"])
-async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Inquiry]:
+async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[List[int]] = Query(None), idContactPerson: Optional[List[int]] = Query(None), 
+                dateAndTimeStart: Optional[str] = None, dateAndTimeEnd: Optional[str] = None, archived: Optional[List[bool]] = Query(None), 
+                page: Optional[int] = 1, size: Optional[int] = 50, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.Inquiry]:
     try:
         filters = []
 
@@ -40,7 +42,7 @@ async def get(id: Optional[List[int]] = Query(None), idDistributor: Optional[Lis
         return inquiries
 
 @router.post("/Inquiries", tags=["Inquiries"])
-async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
+async def post(inquiry: schemas.InquiryCreate, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.Inquiry:
     try:
         inquiry = models.Inquiry(**inquiry.dict())
         inquiry.dateAndTime = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -55,7 +57,7 @@ async def post(inquiry: schemas.InquiryCreate) -> schemas.Inquiry:
         return inquiry
 
 @router.put("/Inquiries", tags=["Inquiries"])
-async def put(inquiry: schemas.InquiryEdit) -> schemas.InquiryEdit:
+async def put(inquiry: schemas.InquiryEdit, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> schemas.InquiryEdit:
     try:
         Db.session.query(models.Inquiry).filter(models.Inquiry.id == inquiry.id).update({
             'idUser': inquiry.idUser,
@@ -72,7 +74,7 @@ async def put(inquiry: schemas.InquiryEdit) -> schemas.InquiryEdit:
         return inquiry
 
 @router.delete("/Inquiries/{id}", tags=["Inquiries"])
-async def delete(id: int):
+async def delete(id: int, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])):
     try:
         Db.session.query(models.Inquiry).filter(models.Inquiry.id == id).delete()
         Db.session.commit()

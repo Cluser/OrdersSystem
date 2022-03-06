@@ -4,16 +4,17 @@ from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
 from datetime import datetime
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @router.get("/Clients", tags=["Clients"])
-async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, email: Optional[str] = None, phone: Optional[str] = None, description: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50) -> List[schemas.Client]:
+async def get(id: Optional[int] = None, name: Optional[str] = None, address: Optional[str] = None, email: Optional[str] = None, phone: Optional[str] = None, 
+                description: Optional[str] = None, page: Optional[int] = 1, size: Optional[int] = 50, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.Client]:
         try:
             parameters = {"id": id, "name": name, "address": address, "email": email, "phone": phone, "description": description}
             selectedParameters = {key: value for key, value in parameters.items() if value is not None}
@@ -27,7 +28,7 @@ async def get(id: Optional[int] = None, name: Optional[str] = None, address: Opt
             return Clients
 
 @router.post("/Clients", tags=["Clients"])
-async def post(client: schemas.ClientCreate) -> schemas.Client:
+async def post(client: schemas.ClientCreate,decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN])) -> schemas.Client:
     try:
         client = models.Client(**client.dict())
         Db.session.add(client)
@@ -41,7 +42,7 @@ async def post(client: schemas.ClientCreate) -> schemas.Client:
         return client
 
 @router.put("/Clients", tags=["Clients"])
-async def put(client: schemas.ClientEdit) -> schemas.ClientEdit:
+async def put(client: schemas.ClientEdit, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN])) -> schemas.ClientEdit:
     try:
         Db.session.query(models.Client).filter(models.Client.id == client.id).update({
             'name': client.name,
@@ -59,7 +60,7 @@ async def put(client: schemas.ClientEdit) -> schemas.ClientEdit:
         return client
 
 @router.delete("/Clients", tags=["Clients"])
-async def delete(id: int):
+async def delete(id: int, decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN])):
     try:
         Db.session.query(models.Client).filter(models.Client.id == id).delete()
         Db.session.commit()

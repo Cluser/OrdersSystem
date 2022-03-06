@@ -4,17 +4,17 @@ from sqlalchemy.orm import joinedload, joinedload_all
 from db.general import *
 from db import models
 from api import schemas
+from api.actions.authentication import Permission, Security, checkPermissions
 from typing import List, Optional
 from sqlalchemy import and_
 from sqlalchemy_pagination import paginate
 from datetime import datetime
 
 router = APIRouter()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 @router.get("/Statistics/AllCosts", tags=["Statistics"])
-async def getAllCosts():
+async def getAllCosts(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        orderItems = Db.session.query(models.ItemOrder)
 
        price = 0
@@ -25,7 +25,7 @@ async def getAllCosts():
 
 
 @router.get("/Statistics/AllOrderedItems", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        orderItems = Db.session.query(models.ItemOrder)
 
        count = 0
@@ -38,7 +38,7 @@ async def getCostByDistributor():
 
 
 @router.get("/Statistics/ByUserReq", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        users = Db.session.query(models.User)
        for user in users:
@@ -51,7 +51,7 @@ async def getCostByDistributor():
 
 
 @router.get("/Statistics/ByUser", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        users = Db.session.query(models.User)
        for user in users:
@@ -65,7 +65,7 @@ async def getCostByDistributor():
 
 
 @router.get("/Statistics/ByDistributor", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        distributors = Db.session.query(models.Distributor)
        for distributor in distributors:
@@ -77,7 +77,7 @@ async def getCostByDistributor():
        return statistic
 
 @router.get("/Statistics/ByContactPerson", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        contactPersons = Db.session.query(models.ContactPerson)
        for contactPerson in contactPersons:
@@ -91,7 +91,7 @@ async def getCostByDistributor():
 
 
 @router.get("/Statistics/ByProject", tags=["Statistics"])
-async def getCostByProject():
+async def getCostByProject(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        projects = Db.session.query(models.Project)
        for project in projects:
@@ -103,7 +103,7 @@ async def getCostByProject():
        return statistic
 
 @router.get("/Statistics/ByCategory", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        categories = Db.session.query(models.Category)
        for category in categories:
@@ -115,7 +115,7 @@ async def getCostByDistributor():
        return statistic
 
 @router.get("/Statistics/ByClient", tags=["Statistics"])
-async def getCostByDistributor():
+async def getCostByDistributor(decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
        clients = Db.session.query(models.Client)
        for client in clients:
