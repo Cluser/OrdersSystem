@@ -1,13 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../../models/user';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { IAuthenticate } from '../../models';
 import { CookieService } from 'ngx-cookie-service';
-import jwt_decode from "jwt-decode";
 
 
 @Injectable({
@@ -34,7 +31,6 @@ export class AuthService {
 
         return this.http.post<Partial<IAuthenticate>>(this.authenticateEndpointUrl, params, { withCredentials: true }).subscribe((res: any) => {
             this.accessToken = res.access_token;
-            console.log(this.accessToken);
             this.router.navigate(['main/purchase/items'])
         })
     }
@@ -43,11 +39,18 @@ export class AuthService {
         if (this.accessToken) return this.accessToken; else return ""        
     }
 
-    public get isLoggedIn(): boolean {
-        // let authToken = this.cookieService.get('access_token');
-        // return (authToken) ? true : false;
-        return true;
+    private tokenExpired(token: string) {
+        const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+        var now = new Date;
+        var utc_timestamp = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() , 
+              now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
+        return (Math.floor(utc_timestamp / 1000)) >= expiry;
     }
+
+    public get isLoggedIn(): boolean {
+        return (this.tokenExpired(this.accessToken)) ? false : true
+    }
+
 
     public logout() {
         return this.http.post(this.apiUrl + '/logout', {}, { withCredentials: true }).subscribe((res: any) => {
