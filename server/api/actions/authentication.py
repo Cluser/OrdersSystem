@@ -38,7 +38,7 @@ def getPasswordHash(password):
     return pwd_context.hash(password)
 
 
-def createAccessToken(data: dict, expires_delta: timedelta | None = None):
+def createToken(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -59,10 +59,15 @@ async def decodeToken(token: str = Depends(oauth2_scheme)):
 
     return decodedToken
 
-def cookie_extractor(access_token: str | None = Cookie(None)) -> str:
-    if not access_token:
-        raise HTTPException(status_code=401, detail="Invalid token")
-    return access_token
+def cookieExtractor(refresh_token: str | None = Cookie(None)) -> str:
+    try:
+        extractedToken = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms= [settings.ALGORITHM])
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail='Token expired')
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail='Invalid token')
+
+    return extractedToken
 
 
 def checkPermissions(scopes: SecurityScopes, decodedToken: str = Depends(decodeToken)):
@@ -76,20 +81,33 @@ def checkPermissions(scopes: SecurityScopes, decodedToken: str = Depends(decodeT
 async def token(data: OAuth2PasswordRequestForm = Depends()):
 
     verifiedUser = verifyUser(data.username)
-    verifiedPassword = verifyPassword(data.password, verifiedUser.password)
-
     if not verifiedUser: raise HTTPException(status_code=400, detail="Incorrect username or password")
+
+    verifiedPassword = verifyPassword(data.password, verifiedUser.password)
     if not verifiedPassword: raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     idSession = 5
-    token_expires = timedelta(minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = createAccessToken(data={"iss": "test.com", "sub": str(verifiedUser.id), "scopes": data.scopes}, expires_delta=token_expires)
-    refresh_token = createAccessToken(data={"iss": "test.com", "sub": idSession, "scopes": data.scopes}, expires_delta=token_expires)
+    access_token_expires = timedelta(minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = createToken(data={"iss": "test.com", "sub": str(verifiedUser.id), "scopes": data.scopes}, expires_delta=access_token_expires)
+
+    refresh_token_expires = timedelta(minutes = settings.REFRESH_TOKEN_EXPIRE_MINUTES)
+    refresh_token = createToken(data={"iss": "test.com", "sub": idSession, "scopes": data.scopes}, expires_delta=refresh_token_expires)
 
     response = JSONResponse({"access_token": access_token, "token_type": "bearer"})
-    response.set_cookie(key="refresh_token", value=refresh_token, expires=100, max_age=100, httponly=True, samesite="none", secure=True, domain="127.0.0.1")
+    response.set_cookie(key="refresh_token", value=refresh_token, expires=settings.REFRESH_TOKEN_EXPIRE_MINUTES*60, max_age=settings.REFRESH_TOKEN_EXPIRE_MINUTES*60, httponly=True, samesite="none", secure=True, domain="127.0.0.1")
     return response
 
+@router.post("/refreshToken", tags=["Authentication"])
+async def refreshToken(refresh_token: str = Depends(cookieExtractor)):
+    access_token_expires = timedelta(minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = createToken(data={"iss": "test.com", "sub": str(1), "scopes": refresh_token.get("scopes")}, expires_delta=access_token_expires)
+
+    refresh_token_expires = timedelta(minutes = settings.REFRESH_TOKEN_EXPIRE_MINUTES)
+    refresh_token = createToken(data={"iss": "test.com", "sub": 4, "scopes": refresh_token.get("scopes")}, expires_delta=refresh_token_expires)
+    
+    response = JSONResponse({"access_token": access_token, "token_type": "bearer"})
+    response.set_cookie(key="refresh_token", value=refresh_token, expires=settings.REFRESH_TOKEN_EXPIRE_MINUTES*60, max_age=settings.REFRESH_TOKEN_EXPIRE_MINUTES*60, httponly=True, samesite="none", secure=True, domain="127.0.0.1")
+    return response
 
 
 @router.post("/login", tags=["Authentication"])

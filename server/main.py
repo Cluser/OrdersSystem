@@ -90,12 +90,12 @@ class Main:
 
     itemOffer = []
     for x in range(1, 500):
-       itemOffer.append(ItemOffer(Item_id = randrange(1, 500), offer_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999)))
+       itemOffer.append(ItemOffer(Item_id = randrange(1, 500), offer_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), currency = "PLN"))
 
 
     itemOrder = []
     for x in range(1, 500):
-       itemOrder.append(ItemOrder(Item_id = randrange(1, 500), order_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999)))
+       itemOrder.append(ItemOrder(Item_id = randrange(1, 500), order_id = randrange(1, 10), quantity = randrange(1, 10), price = randrange(10, 9999), currency = "PLN"))
 
 
     Db.session.add_all(client)

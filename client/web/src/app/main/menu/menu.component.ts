@@ -45,7 +45,6 @@ export class MenuComponent implements OnInit {
   }
 
   public logout() {
-    this.auth.logout();
+    this.auth.logout().subscribe(x => this.router.navigate(['login']));
   }
-  
 }

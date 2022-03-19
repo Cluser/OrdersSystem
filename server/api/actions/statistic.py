@@ -128,7 +128,7 @@ async def getCostByDistributor(decodedToken: str = Security(checkPermissions, sc
 
 
 @router.get("/Statistics/ByProjectCategory", tags=["Statistics"])
-async def getCostByProjectCategory(idProject: Optional[int] = None):
+async def getCostByProjectCategory(idProject: Optional[int] = None, decodedToken: str = Security(checkPermissions, scopes = [Permission.STATISTICS])):
        statistic = []
 
        categories = Db.session.query(models.Category)

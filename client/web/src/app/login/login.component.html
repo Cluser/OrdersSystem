@@ -9,9 +9,9 @@
         </ul>
 
           <div>   
-            <form (ngSubmit)="login(user)">
-                <input id="email" type="text" name="email" #email="ngModel" required class="form-control input" [(ngModel)]="user.username" type="text" placeholder="E-mail">>
-                <input id="password" type="text" name="password" #password="ngModel" required class="form-control input" [(ngModel)]="user.password" type="password" placeholder="Hasło">
+            <form (ngSubmit)="login(authData)">
+                <input id="email" type="text" name="email" #email="ngModel" required class="form-control input" [(ngModel)]="authData.username" type="text" placeholder="E-mail">>
+                <input id="password" type="text" name="password" #password="ngModel" required class="form-control input" [(ngModel)]="authData.password" type="password" placeholder="Hasło">
               
                 <p class="forgot"><a href="login">Przypomnij hasło</a></p>
               

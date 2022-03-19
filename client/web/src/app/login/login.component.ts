@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../shared/api/api.service';
 import { AuthService } from '../shared/api/authentication/auth.service';
-import { IAuthenticate, IUser } from '../shared/models';
+import { IAuthenticate } from '../shared/models';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +10,18 @@ import { IAuthenticate, IUser } from '../shared/models';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  public user: Partial<IAuthenticate> = {}
+  public authData: Partial<IAuthenticate> = {}
 
   ngOnInit(): void {
   }
 
-  public login(user: Partial<IAuthenticate>): void {
-    this.auth.login(user)
+  public login(authData: Partial<IAuthenticate>): void {
+    this.authService.login(authData).subscribe(response => {
+      this.authService.accessToken = response.access_token;
+      this.router.navigate(['main/purchase/items'])
+    })
   }
 
 }
