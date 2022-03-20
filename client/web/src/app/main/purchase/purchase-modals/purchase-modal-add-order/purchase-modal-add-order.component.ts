@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { ApiService } from '../../../../shared/api/api.service';
-import { IContactPerson, IDistributor, IOrder, IOrderItem } from '../../../../shared/models';
+import { IContactPerson, IDistributor, IOrder, IOrderItem, IUser } from '../../../../shared/models';
 import { currencyFormatter } from '../../../../shared/functions/formatters';
+import { AuthService } from 'src/app/shared/api/authentication/auth.service';
 
 
 @Component({
@@ -25,14 +26,16 @@ export class PurchaseModalAddOrderComponent implements OnInit {
   public items: any[] = [];
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
+  public user: IUser = {}
   public currency: string = "PLN";
 
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
     this.prepareGrid();
     this.getDistributors();
+    this.getUser();
   }
 
   public prepareGrid(): void {
@@ -68,8 +71,12 @@ export class PurchaseModalAddOrderComponent implements OnInit {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
+  private getUser(): void {
+    this.authService.getLoggedInUser().subscribe((user) => this.user = user)
+  }
+
   public addOrder(order: IOrder): void {
-    order.idUser = 1;
+    order.idUser = this.user.id;
     order.archived = false;
     this.api.order.addOrder(order).subscribe((order: any) => {
 

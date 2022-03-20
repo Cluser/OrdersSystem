@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
+import { AuthService } from 'src/app/shared/api/authentication/auth.service';
 import { ApiService } from '../../../../shared/api/api.service';
-import { IContactPerson, IDistributor, IInquiry, IInquiryItem } from '../../../../shared/models';
+import { IContactPerson, IDistributor, IInquiry, IInquiryItem, IUser } from '../../../../shared/models';
 
 @Component({
   selector: 'app-purchase-modal-add-inquiry',
@@ -23,13 +24,15 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
   public inquiryItems: IInquiryItem[] = [];
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
+  public user: IUser = {}
 
 
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
     this.prepareGrid();
     this.getDistributors();
+    this.getUser();
   }
 
   public prepareGrid(): void {
@@ -60,8 +63,12 @@ export class PurchaseModalAddInquiryComponent implements OnInit {
     this.api.contactPerson.getContactPersons({idDistributor: idDistributor}, 1, 1000).subscribe((contactPersons) => this.contactPersons = contactPersons.items);
   }
 
+  private getUser(): void {
+    this.authService.getLoggedInUser().subscribe((user) => this.user = user)
+  }
+
   public addInquiry(inquiry: IInquiry): void {
-    inquiry.idUser = 1;
+    inquiry.idUser = this.user.id;
     inquiry.archived = false;
     this.api.inquiry.addInquiry(inquiry).subscribe((inquiry: any) => {
 
