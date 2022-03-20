@@ -26,14 +26,14 @@ export class AuthInterceptor implements HttpInterceptor {
                 }),
                 catchError((err) => {
                     this.authService.accessTokenRefresh = false;
+                    this.router.navigate(['/login'])
                     this.authService.logout();
-                    return throwError(err);
+                    return throwError(() => err);
                 })
             )
 
         };
         return this.refreshTokenSubject.pipe(
-            filter(token => token !== null),
             take(1),
             switchMap(() => next.handle(this.setHeader(req)))
         );
