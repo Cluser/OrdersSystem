@@ -32,7 +32,7 @@ export class PurchaseInquiriesSearchComponent implements OnInit {
     if (index === -1) { array.push(value); } else { array.splice(index, 1); }
   }
 
-  public checkFilter(array: any[], value: any): boolean {
+  public checkFilter(array: any[] = [], value: any): boolean {
     let exist = false;
     array.forEach((element) => { if (element == value) { exist = true} })
 

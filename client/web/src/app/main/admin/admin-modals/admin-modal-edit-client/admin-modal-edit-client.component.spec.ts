@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminModalEditClientComponent } from './admin-modal-edit-client.component';
@@ -8,6 +9,7 @@ describe('AdminModalEditClientComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ AdminModalEditClientComponent ]
     })
     .compileComponents();

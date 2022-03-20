@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StatisticProjectsComponent } from './statistic-projects.component';
@@ -8,6 +9,7 @@ describe('StatisticProjectsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ StatisticProjectsComponent ]
     })
     .compileComponents();

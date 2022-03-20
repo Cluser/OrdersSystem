@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PurchaseItemsSearchComponent } from './purchase-items-search.component';
@@ -8,6 +9,7 @@ describe('PurchaseItemsSearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       declarations: [ PurchaseItemsSearchComponent ]
     })
     .compileComponents();

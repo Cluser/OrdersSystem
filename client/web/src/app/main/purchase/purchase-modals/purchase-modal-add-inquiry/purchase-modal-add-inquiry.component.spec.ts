@@ -1,4 +1,7 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PurchaseModalAddInquiryComponent } from './purchase-modal-add-inquiry.component';
 
@@ -8,6 +11,7 @@ describe('PurchaseModalAddInquiryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [ RouterTestingModule, HttpClientTestingModule, FormsModule ],
       declarations: [ PurchaseModalAddInquiryComponent ]
     })
     .compileComponents();
