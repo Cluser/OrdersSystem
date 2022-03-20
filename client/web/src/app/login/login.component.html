@@ -12,10 +12,13 @@
             <form (ngSubmit)="login(authData)">
                 <input id="email" type="text" name="email" #email="ngModel" required class="form-control input" [(ngModel)]="authData.username" type="text" placeholder="E-mail">>
                 <input id="password" type="text" name="password" #password="ngModel" required class="form-control input" [(ngModel)]="authData.password" type="password" placeholder="Hasło">
-              
+                <div class="wrongAuthData" *ngIf="wrongAuthData">Nieprawidłowy login lub hasło</div>
                 <p class="forgot"><a href="login">Przypomnij hasło</a></p>
-              
-                <button class="button button-block" type="submit">Zaloguj</button>   
+                <button class="button button-block test" type="submit" >
+                  <span>Zaloguj</span>
+                  <ngx-spinner bdColor = "rgb(26,177,136)" size = "default" color = "#ffffff" type = "ball-fall" [fullScreen] = "false"><p style="color: white"></p></ngx-spinner>
+                </button>   
+                
             </form>
           </div>
     </div>
