@@ -40,7 +40,7 @@ export class PurchaseModalAddOrderComponent implements OnInit {
 
   public prepareGrid(): void {
     this.columnDefs = [
-      { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
+      // { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       { field: 'item.id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
       { field: 'item.name', headerName: 'Nazwa', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'item.model', headerName: 'Model', sortable: true, filter: true, resizable: true, flex: 3 },
