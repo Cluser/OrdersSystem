@@ -9,9 +9,11 @@ import { PurchaseModalAddItemComponent } from '../purchase-modals/purchase-modal
 import { PurchaseModalAddOfferComponent } from '../purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component';
 import { PurchaseModalAddOrderComponent } from '../purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component';
 import { PurchaseModalEditItemComponent } from '../purchase-modals/purchase-modal-edit-item/purchase-modal-edit-item.component';
+import { PurchaseModalImportItemsComponent } from '../purchase-modals/purchase-modal-import-items/purchase-modal-import-items.component';
 import { IItem, IPItem } from 'src/app/shared/models';
 import { PurchaseItemsSearchComponent } from './purchase-items-search/purchase-items-search.component';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-purchase-items',
@@ -73,6 +75,12 @@ export class PurchaseItemsComponent implements OnInit {
   public openAddItemModal(): void {
     const modalRef = this.modalService.open(PurchaseModalAddItemComponent);
     modalRef.componentInstance.itemAddedEvent.subscribe(() => this.getItemsData());
+    modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
+  }
+
+  public openImportItemsModal(): void {
+    const modalRef = this.modalService.open(PurchaseModalImportItemsComponent);
+    modalRef.componentInstance.itemsImportedEvent.subscribe(() => this.getItemsData());
     modalRef.componentInstance.closeEvent.subscribe(() => this.modalService.dismissAll());
   }
 

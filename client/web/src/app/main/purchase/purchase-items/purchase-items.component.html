@@ -8,6 +8,7 @@
         <button class="btn-lower-menu" (click)="findInquiries()" *ngIf="selectedRows.length > 0">Znajdź zapytania</button>
         <button class="btn-lower-menu" (click)="findOffers()" *ngIf="selectedRows.length > 0">Znajdź oferty</button>
         <button class="btn-lower-menu" (click)="findOrders()" *ngIf="selectedRows.length > 0">Znajdź zamówienia</button>
+        <button class="btn-lower-menu" (click)="openImportItemsModal()">Importuj przedmioty</button>
 
         <button class="btn-search" (click)="searchPopup = !searchPopup"><fa-icon [icon]="faSearch"></fa-icon></button>
         <input class="search-input" type="text" (input)="search(filter)">

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { PurchaseRoutingModule } from './purchase-routing.module';
 import { PurchaseComponent } from '../purchase/purchase.component';
@@ -25,6 +26,7 @@ import { PurchaseItemsSearchComponent } from './purchase-items/purchase-items-se
 import { PurchaseInquiriesSearchComponent } from './purchase-inquiries/purchase-inquiries-search/purchase-inquiries-search.component';
 import { PurchaseOffersSearchComponent } from './purchase-offers/purchase-offers-search/purchase-offers-search.component';
 import { PurchaseOrdersSearchComponent } from './purchase-orders/purchase-orders-search/purchase-orders-search.component';
+import { PurchaseModalImportItemsComponent } from './purchase-modals/purchase-modal-import-items/purchase-modal-import-items.component';
 
 
 
@@ -47,7 +49,8 @@ import { PurchaseOrdersSearchComponent } from './purchase-orders/purchase-orders
     PurchaseItemsSearchComponent,
     PurchaseInquiriesSearchComponent,
     PurchaseOffersSearchComponent,
-    PurchaseOrdersSearchComponent
+    PurchaseOrdersSearchComponent,
+    PurchaseModalImportItemsComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +58,8 @@ import { PurchaseOrdersSearchComponent } from './purchase-orders/purchase-orders
     PurchaseRoutingModule,
     AgGridModule.withComponents([]),
     NgxSpinnerModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxDropzoneModule
   ],
   entryComponents: [
     PurchaseModalAddItemComponent,
@@ -64,7 +68,8 @@ import { PurchaseOrdersSearchComponent } from './purchase-orders/purchase-orders
     PurchaseModalAddOfferComponent,
     PurchaseModalAddOrderComponent,
     PurchaseModalEditOfferComponent,
-    PurchaseModalEditOrderComponent
+    PurchaseModalEditOrderComponent,
+    PurchaseModalImportItemsComponent
   ]
 })
 export class PurchaseModule { }
