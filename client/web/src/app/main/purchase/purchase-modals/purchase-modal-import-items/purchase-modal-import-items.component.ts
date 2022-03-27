@@ -46,8 +46,7 @@ export class PurchaseModalImportItemsComponent implements OnInit {
   }
 
   public onSelect(event: any) {
-    this.files.push(...event.addedFiles);
-
+    this.files[0] = event.addedFiles[0]
   }
 
   public onRemove(event: any) {
@@ -61,7 +60,6 @@ export class PurchaseModalImportItemsComponent implements OnInit {
     reader.readAsArrayBuffer(file);
     reader.onload = (e: any) => {
 
-      // upload file
       const binarystr = new Uint8Array(e.target.result);
       const wb: excel.WorkBook = excel.read(binarystr, { type: 'array', raw: true, cellFormula: false });
       console.log(wb.Sheets)
@@ -70,8 +68,7 @@ export class PurchaseModalImportItemsComponent implements OnInit {
       let ws = wb.Sheets[wsname]
       ws['!ref'] = "B9:I50"
       const data: any = excel.utils.sheet_to_json(ws);
-      console.log(data) 
-
+      
       data.forEach((x: any) => {
         let item: Partial<IItem> = {
           name: x["PRODUCENT"] + " " + x["OZNACZENIE 3"],
@@ -83,10 +80,11 @@ export class PurchaseModalImportItemsComponent implements OnInit {
           idUser: this.user.id
         }
 
-        this.api.item.addItems(item).subscribe(() => {
-          this.itemsImportedEvent.emit();
-        });
+        this.api.item.addItems(item).subscribe();
+
       })
+      this.itemsImportedEvent.emit();
+      this.close();
     }
   }
 

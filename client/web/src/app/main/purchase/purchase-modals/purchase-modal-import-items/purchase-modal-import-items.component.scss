@@ -1,5 +1,10 @@
 @import "../../../../shared/styles/global.scss";
 
+ngx-dropzone {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 ngx-dropzone-preview {
     padding: 0 !important;
     margin: 0 !important;

@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Dodawanie przedmiotu</h4>
+    <h4 class="modal-title" id="modal-basic-title">Importowanie przedmiotów</h4>
     <button type="button" class="close" aria-label="Close" (click)="close()">
     <span aria-hidden="true">&times;</span></button>
 </div>
@@ -28,10 +28,10 @@
           </div>
         </div>
 
-        <ngx-dropzone (change)="onSelect($event)">
-            <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        <ngx-dropzone (change)="onSelect($event)" [multiple]="false" accept=".xlsx">
+            <ngx-dropzone-label>Przeciągnij plik .xlsx z częściami wyeksportowany z EPlana lub Inventora</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngFor="let file of files" [removable]="true" (removed)="onRemove(file)">
+                <ngx-dropzone-label>{{ file.name }} ({{ file.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
         </ngx-dropzone>
 

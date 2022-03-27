@@ -34,7 +34,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
         };
         return this.refreshTokenSubject.pipe(
-            take(1),
             switchMap(() => next.handle(this.setHeader(req)))
         );
 
