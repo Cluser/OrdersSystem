@@ -29,7 +29,7 @@ export class AdminUsersComponent implements OnInit {
     this.api.user.getUsers({}, 1, this.pageSize).subscribe((response) => { this.grid = response; this.spinner.hide() });
     this.columnDefs = [
       { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
-      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1 },
+      { field: 'id', headerName: 'id', sortable: true, filter: true, resizable: true, flex: 1, sort: 'desc' },
       { field: 'name', headerName: 'Imię', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'surname', headerName: 'Nazwisko', sortable: true, filter: true, resizable: true, flex: 3 },
       { field: 'email', headerName: 'E-mail', sortable: true, filter: true, resizable: true, flex: 3 },
