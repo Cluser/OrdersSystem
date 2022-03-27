@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
       map(response => response.access_token),
       tap(response => { 
         this.authService.accessToken = response;
-        this.router.navigate(['main/purchase/items'])
+        this.router.navigate(['main/purchase/items'], { queryParams: { archived: false }})
       }),
       finalize(() => this.spinner.hide()),
       catchError(error => throwError(() => {
