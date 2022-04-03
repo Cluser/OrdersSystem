@@ -1,36 +1,62 @@
 <div class="purchase-offers-section">
-    <div class="lower-menu">
-        <button class="btn-lower-menu"></button>
-        <button class="btn-lower-menu"></button>
-        <button class="btn-lower-menu"><span (click)="openAddOfferModal()" *ngIf="selectedRows.length > 0">Dodaj ofertę</span></button>
-        <button class="btn-lower-menu"><span (click)="openAddOrderModal()" *ngIf="this.orderPossible && selectedRows.length > 0">Dodaj zamówienie</span></button>
-        <button class="btn-lower-menu"><span (click)="archiveSelected()" *ngIf="selectedRows.length > 0">Zarchiwizuj</span></button>
-        
-        <button class="btn-search" (click)="searchPopup = !searchPopup"><fa-icon [icon]="faSearch"></fa-icon></button>
-        <input class="search-input" type="text">
-    </div>
-    
-    <div class="grid">
-        <ngx-spinner bdColor = "rgba(69,69,69,0.8)" size = "large" color = "#00ADB5" type = "ball-clip-rotate-pulse" [fullScreen] = "false"></ngx-spinner>
-        <ag-grid-angular
-            style="width: 100%; height: 96%;"
-            class="ag-theme-balham"
-            [rowData]="grid.items"
-            [columnDefs]="columnDefs"
-            [pagination]="false"
-            [paginationPageSize]="pageSize"
-            [rowSelection]="'multiple'"
-            [suppressRowDeselection]="true"
-            (rowDoubleClicked)="openEditOfferModal($event.data)"
-            (selectionChanged) = "onSelectionChanged($event)">
-        </ag-grid-angular>
+  <div class="lower-menu">
+    <button class="btn-lower-menu"></button>
+    <button class="btn-lower-menu"></button>
+    <button class="btn-lower-menu">
+      <span (click)="openAddOfferModal()" *ngIf="selectedRows.length > 0"
+        >Dodaj ofertę</span
+      >
+    </button>
+    <button class="btn-lower-menu">
+      <span
+        (click)="openAddOrderModal()"
+        *ngIf="this.orderPossible && selectedRows.length > 0"
+        >Dodaj zamówienie</span
+      >
+    </button>
+    <button class="btn-lower-menu">
+      <span (click)="openArchiveModal()" *ngIf="selectedRows.length > 0"
+        >Zarchiwizuj</span
+      >
+    </button>
 
-        <div class="grid-pagination">
-            Strona: {{grid.pages}} | Liczba ofert: {{grid.total}} | Zaznaczone oferty: {{selectedRows.length}}
-        </div>
-        <div class="search-popup" *ngIf="searchPopup">
-            <app-purchase-offers-search [filters]="filter" (filtersChanged)="changeFilter($event)"></app-purchase-offers-search>
-        </div>
+    <button class="btn-search" (click)="searchPopup = !searchPopup">
+      <fa-icon [icon]="faSearch"></fa-icon>
+    </button>
+    <input class="search-input" type="text" />
+  </div>
+
+  <div class="grid">
+    <ngx-spinner
+      bdColor="rgba(69,69,69,0.8)"
+      size="large"
+      color="#00ADB5"
+      type="ball-clip-rotate-pulse"
+      [fullScreen]="false"
+    ></ngx-spinner>
+    <ag-grid-angular
+      style="width: 100%; height: 96%"
+      class="ag-theme-balham"
+      [rowData]="grid.items"
+      [columnDefs]="columnDefs"
+      [pagination]="false"
+      [paginationPageSize]="pageSize"
+      [rowSelection]="'multiple'"
+      [suppressRowDeselection]="true"
+      (rowDoubleClicked)="openEditOfferModal($event.data)"
+      (selectionChanged)="onSelectionChanged($event)"
+    >
+    </ag-grid-angular>
+
+    <div class="grid-pagination">
+      Strona: {{ grid.pages }} | Liczba ofert: {{ grid.total }} | Zaznaczone
+      oferty: {{ selectedRows.length }}
     </div>
+    <div class="search-popup" *ngIf="searchPopup">
+      <app-purchase-offers-search
+        [filters]="filter"
+        (filtersChanged)="changeFilter($event)"
+      ></app-purchase-offers-search>
+    </div>
+  </div>
 </div>
-

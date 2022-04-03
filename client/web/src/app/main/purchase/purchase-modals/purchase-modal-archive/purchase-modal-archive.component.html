@@ -1,0 +1,11 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Archiwizacja</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>Czy na pewno zarchiwizować zaznaczone elementy?</p>
+  <button (click)="confirm()" class="btn btn-primary yes">Tak</button>
+  <button (click)="close()" class="btn btn-primary no">Nie</button>
+</div>

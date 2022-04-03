@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
@@ -27,8 +27,7 @@ import { PurchaseInquiriesSearchComponent } from './purchase-inquiries/purchase-
 import { PurchaseOffersSearchComponent } from './purchase-offers/purchase-offers-search/purchase-offers-search.component';
 import { PurchaseOrdersSearchComponent } from './purchase-orders/purchase-orders-search/purchase-orders-search.component';
 import { PurchaseModalImportItemsComponent } from './purchase-modals/purchase-modal-import-items/purchase-modal-import-items.component';
-
-
+import { PurchaseModalArchiveComponent } from './purchase-modals/purchase-modal-archive/purchase-modal-archive.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,8 @@ import { PurchaseModalImportItemsComponent } from './purchase-modals/purchase-mo
     PurchaseInquiriesSearchComponent,
     PurchaseOffersSearchComponent,
     PurchaseOrdersSearchComponent,
-    PurchaseModalImportItemsComponent
+    PurchaseModalImportItemsComponent,
+    PurchaseModalArchiveComponent,
   ],
   imports: [
     CommonModule,
@@ -59,7 +59,7 @@ import { PurchaseModalImportItemsComponent } from './purchase-modals/purchase-mo
     AgGridModule.withComponents([]),
     NgxSpinnerModule,
     FontAwesomeModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
   ],
   entryComponents: [
     PurchaseModalAddItemComponent,
@@ -69,7 +69,8 @@ import { PurchaseModalImportItemsComponent } from './purchase-modals/purchase-mo
     PurchaseModalAddOrderComponent,
     PurchaseModalEditOfferComponent,
     PurchaseModalEditOrderComponent,
-    PurchaseModalImportItemsComponent
-  ]
+    PurchaseModalImportItemsComponent,
+    PurchaseModalArchiveComponent,
+  ],
 })
-export class PurchaseModule { }
+export class PurchaseModule {}
