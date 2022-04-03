@@ -36,6 +36,11 @@ class OrderItemCreate(BaseModel):
     price: float
     currency: str
 
+class OrderItemEdit(BaseModel):
+    id: int
+    quantity: int
+    price: float
+
 class Order(BaseModel):
     id: int
     user: User

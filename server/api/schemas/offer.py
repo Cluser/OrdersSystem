@@ -37,6 +37,11 @@ class OfferItemCreate(BaseModel):
     price: float
     currency: str
 
+class OfferItemEdit(BaseModel):
+    id: int
+    quantity: int
+    price: float
+
 class Offer(BaseModel):
     id: int
     user: User

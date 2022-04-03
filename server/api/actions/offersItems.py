@@ -28,3 +28,20 @@ async def post(offerItems: List[schemas.OfferItemCreate], decodedToken: str = Se
     finally:
         Db.session.close()
         return OfferItems
+
+@router.put("/OffersItems", tags=["OrdersItems"])
+async def put(offerItems: List[schemas.OfferItemEdit], decodedToken: str = Security(checkPermissions, scopes = [Permission.ADMIN, Permission.PURCHASE])) -> List[schemas.OfferItemEdit]:
+    try:
+        for offerItem in offerItems:
+            Db.session.query(models.ItemOffer).filter(models.ItemOffer.id == offerItem.id).update({
+                'id': offerItem.id,
+                'price': offerItem.price,
+                'quantity': offerItem.quantity
+            }, synchronize_session = False)
+            Db.session.commit()
+    except:
+        Db.session.rollback()
+        raise
+    finally:
+        Db.session.close()
+        return offerItem

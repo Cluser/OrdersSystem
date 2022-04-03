@@ -33,6 +33,9 @@ class InquiryItemCreate(BaseModel):
     inquiry_id: int
     quantity: int
 
+class InquiryItemEdit(BaseModel):
+    id: int
+    quantity: int
 
 class Inquiry(BaseModel):
     id: int
