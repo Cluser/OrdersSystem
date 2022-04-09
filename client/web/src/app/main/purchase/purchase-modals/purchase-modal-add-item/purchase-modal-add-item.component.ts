@@ -2,15 +2,20 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { map, Observable, Subscription, take } from 'rxjs';
 import { AuthService } from 'src/app/shared/api/authentication/auth.service';
 import { ApiService } from '../../../../shared/api/api.service';
-import { ICategory, IDistributor, IItem, IProject, IUser } from '../../../../shared/models';
+import {
+  ICategory,
+  IDistributor,
+  IItem,
+  IProject,
+  IUser,
+} from '../../../../shared/models';
 
 @Component({
   selector: 'app-purchase-modal-add-item',
   templateUrl: './purchase-modal-add-item.component.html',
-  styleUrls: ['./purchase-modal-add-item.component.scss']
+  styleUrls: ['./purchase-modal-add-item.component.scss'],
 })
 export class PurchaseModalAddItemComponent implements OnInit {
-
   @Output() itemAddedEvent: EventEmitter<any> = new EventEmitter();
   @Output() closeEvent: EventEmitter<any> = new EventEmitter();
 
@@ -18,9 +23,9 @@ export class PurchaseModalAddItemComponent implements OnInit {
   public categories: ICategory[] = [];
   public projects: IProject[] = [];
   public distributors: IDistributor[] = [];
-  public user: IUser = {}
+  public user: IUser = {};
 
-  constructor(private api: ApiService, private authService: AuthService) { }
+  constructor(private api: ApiService, private authService: AuthService) {}
 
   ngOnInit() {
     this.getCategories();
@@ -30,20 +35,26 @@ export class PurchaseModalAddItemComponent implements OnInit {
   }
 
   private getCategories(): void {
-    this.api.category.getCategories({}, 1, 1000).subscribe((categories) => this.categories = categories.items);
+    this.api.category
+      .getCategories({}, 1, 1000)
+      .subscribe((categories) => (this.categories = categories.items));
   }
 
-
   private getProjects(): void {
-    this.api.project.getProjects({}, 1, 1000).subscribe((projects) => this.projects = projects.items);
+    this.api.project
+      .getProjects({}, 1, 1000)
+      .subscribe((projects) => (this.projects = projects.items));
   }
 
   private getDistributors(): void {
-    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => this.distributors = distributors.items);
+    this.api.distributor
+      .getDistributors({}, 1, 1000)
+      .subscribe((distributors) => (this.distributors = distributors.items));
   }
 
   private getUser(): void {
-    this.authService.getLoggedInUser().subscribe((user) => this.user = user)
+    this.authService.getLoggedInUser().subscribe((user) => (this.user = user));
+    console.log(this.user);
   }
 
   public addItem(item: IItem): void {
@@ -58,5 +69,4 @@ export class PurchaseModalAddItemComponent implements OnInit {
   public close(): void {
     this.closeEvent.emit();
   }
-
 }
