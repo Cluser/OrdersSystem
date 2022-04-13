@@ -20,7 +20,7 @@ This system is responsible for the purchasing process in a manufacturing company
 
 ## What to be done in the future?
 - Magasine module
-- Traceability implementation with QR codes scanning from phone
+- Traceability implementation with QR codes scanning by phone
 
 
 ## Images
