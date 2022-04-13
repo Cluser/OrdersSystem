@@ -5,7 +5,7 @@ This system is responsible for the purchasing process in a manufacturing company
 ## Software architecture
 :white_check_mark: Frontend - Angular 13 + AG Grid library
 
-:white_check_mark: Backend - Python + FastAPI library
+:white_check_mark: Backend - Python + FastAPI library + SQL Alchemy
 
 :white_check_mark: Database - SQLite
 
@@ -16,6 +16,7 @@ This system is responsible for the purchasing process in a manufacturing company
 - RxJs usage
 - Server side filtering
 - Server side pagination
+- Complicated 
 
 
 ## Images
