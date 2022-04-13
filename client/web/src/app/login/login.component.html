@@ -1,25 +1,23 @@
 <div class="login-section">
-    <div class="form">
-      
-        <h1>System zakupowy</h1>
+  <div class="form">
+    <h1>System zakupowy</h1>
 
-        <ul class="tab-group">
-          <li class="tab active"><a href="login">Logowanie</a></li>
-          <li class="tab"><a href="login">Rejestracja</a></li>
-        </ul>
+    <ul class="tab-group">
+      <li class="tab active"><a href="login">Logowanie</a></li>
+      <li class="tab"><a href="login">Rejestracja</a></li>
+    </ul>
 
-          <div>   
-            <form (ngSubmit)="login(authData)">
-                <input id="email" type="text" name="email" #email="ngModel" required class="form-control input" [(ngModel)]="authData.username" type="text" placeholder="E-mail">>
-                <input id="password" type="text" name="password" #password="ngModel" required class="form-control input" [(ngModel)]="authData.password" type="password" placeholder="Hasło">
-                <div class="wrongAuthData" *ngIf="wrongAuthData">Nieprawidłowy login lub hasło</div>
-                <p class="forgot"><a href="login">Przypomnij hasło</a></p>
-                <button class="button button-block test" type="submit" >
-                  <span>Zaloguj</span>
-                  <ngx-spinner bdColor = "rgb(26,177,136)" size = "default" color = "#ffffff" type = "ball-clip-rotate-pulse" [fullScreen] = "false"><p style="color: white"></p></ngx-spinner>
-                </button>   
-                
-            </form>
-          </div>
+    <div>
+      <form (ngSubmit)="login(authData)">
+        <input id="email" type="text" name="email" #email="ngModel" required class="form-control input" [(ngModel)]="authData.username" type="text" placeholder="E-mail" />>
+        <input id="password" type="text" name="password" #password="ngModel" required class="form-control input" [(ngModel)]="authData.password" type="password" placeholder="Hasło" />
+        <div class="wrongAuthData" *ngIf="wrongAuthData">Nieprawidłowy login lub hasło</div>
+        <p class="forgot"><a href="login">Przypomnij hasło</a></p>
+        <button class="button button-block test" type="submit">
+          <span>Zaloguj</span>
+          <ngx-spinner bdColor="rgb(26,177,136)" size="default" color="#ffffff" type="ball-clip-rotate-pulse" [fullScreen]="false"><p style="color: white"></p></ngx-spinner>
+        </button>
+      </form>
     </div>
+  </div>
 </div>

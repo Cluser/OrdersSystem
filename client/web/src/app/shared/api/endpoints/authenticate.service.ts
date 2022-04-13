@@ -1,21 +1,17 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IAuthenticate } from '../../models';
-import { environment } from 'src/environments/environment';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { IAuthenticate } from "../../models";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class Authenticate {
-
   private apiUrl: string = environment.apiUrl;
-  private authenticateEndpointUrl: string = this.apiUrl + '/token'
+  private authenticateEndpointUrl: string = this.apiUrl + "/token";
 
-
-  constructor(private httpClient: HttpClient) { 
-  }
-
+  constructor(private httpClient: HttpClient) {}
 
   public login(auth?: Partial<IAuthenticate>): Observable<IAuthenticate> {
     let params: any = new FormData();
@@ -25,5 +21,4 @@ export class Authenticate {
 
     return this.httpClient.post<IAuthenticate>(this.authenticateEndpointUrl, params);
   }
-
 }

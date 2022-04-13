@@ -1,8 +1,32 @@
 <div class="menu">
-    <button [routerLink]="'/main/admin/projects'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='projects','btn-upper-menu': selectedMenu!=='projects'}" (click)="selectMenu('projects')">Projekty</button>
-    <button [routerLink]="'/main/admin/users'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='users','btn-upper-menu': selectedMenu!=='users'}" (click)="selectMenu('users')">Użytkownicy</button>
-    <button [routerLink]="'/main/admin/clients'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='clients','btn-upper-menu': selectedMenu!=='clients'}" (click)="selectMenu('clients')">Klienci</button>
-    <button [routerLink]="'/main/admin/distributors'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='distributors','btn-upper-menu': selectedMenu!=='distributors'}" (click)="selectMenu('distributors')">Dystrybutorzy</button>
-    <button [routerLink]="'/main/admin/contact-persons'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='contact-persons','btn-upper-menu': selectedMenu!=='contact-persons'}" (click)="selectMenu('contact-persons')">Sprzedawcy</button>
-    <button [routerLink]="'/main/admin/categories'" [ngClass]="{'btn-upper-menu-selected': selectedMenu=='categories','btn-upper-menu': selectedMenu!=='categories'}" (click)="selectMenu('categories')">Kategorie</button>
+  <button [routerLink]="'/main/admin/projects'" [ngClass]="{ 'btn-upper-menu-selected': selectedMenu == 'projects', 'btn-upper-menu': selectedMenu !== 'projects' }" (click)="selectMenu('projects')">
+    Projekty
+  </button>
+  <button [routerLink]="'/main/admin/users'" [ngClass]="{ 'btn-upper-menu-selected': selectedMenu == 'users', 'btn-upper-menu': selectedMenu !== 'users' }" (click)="selectMenu('users')">
+    Użytkownicy
+  </button>
+  <button [routerLink]="'/main/admin/clients'" [ngClass]="{ 'btn-upper-menu-selected': selectedMenu == 'clients', 'btn-upper-menu': selectedMenu !== 'clients' }" (click)="selectMenu('clients')">
+    Klienci
+  </button>
+  <button
+    [routerLink]="'/main/admin/distributors'"
+    [ngClass]="{ 'btn-upper-menu-selected': selectedMenu == 'distributors', 'btn-upper-menu': selectedMenu !== 'distributors' }"
+    (click)="selectMenu('distributors')"
+  >
+    Dystrybutorzy
+  </button>
+  <button
+    [routerLink]="'/main/admin/contact-persons'"
+    [ngClass]="{ 'btn-upper-menu-selected': selectedMenu == 'contact-persons', 'btn-upper-menu': selectedMenu !== 'contact-persons' }"
+    (click)="selectMenu('contact-persons')"
+  >
+    Sprzedawcy
+  </button>
+  <button
+    [routerLink]="'/main/admin/categories'"
+    [ngClass]="{ 'btn-upper-menu-selected': selectedMenu == 'categories', 'btn-upper-menu': selectedMenu !== 'categories' }"
+    (click)="selectMenu('categories')"
+  >
+    Kategorie
+  </button>
 </div>
