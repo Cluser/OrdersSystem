@@ -18,4 +18,4 @@ This system is responsible for the purchasing process in a manufacturing company
 
 
 ## Images
-![alt text](https://imgur.com/a/vtjxWr1)
+![](https://imgur.com/a/vtjxWr1)
