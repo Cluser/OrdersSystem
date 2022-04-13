@@ -18,6 +18,10 @@ This system is responsible for the purchasing process in a manufacturing company
 - Server side pagination
 - Complicated table relationships in db
 
+## What to be done in the future?
+- Magasine module
+- Traceability implementation with QR codes scanning from phone
+
 
 ## Images
 ![](https://i.imgur.com/t2Mu0ho.png)
