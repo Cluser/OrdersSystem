@@ -18,5 +18,5 @@ This system is responsible for the purchasing process in a manufacturing company
 
 
 ## Images
-![](https://i.imgur.com/DJLWg4Q.png)
+![](https://i.imgur.com/Gsj12AN.png)
 ![](https://i.imgur.com/dvyBZzh.png)
