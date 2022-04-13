@@ -4,9 +4,7 @@ This system is responsible for the purchasing process in a manufacturing company
 
 ## Software architecture
 - Frontend - Angular 13 + AG Grid library
-
 - Backend - Python + FastAPI library + SQL Alchemy
-
 - Database - SQLite
 
 
