@@ -16,7 +16,7 @@ This system is responsible for the purchasing process in a manufacturing company
 - RxJs usage
 - Server side filtering
 - Server side pagination
-- Complicated database entity relationships
+- Complicated tables relationships in db
 
 
 ## Images
