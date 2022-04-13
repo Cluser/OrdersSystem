@@ -11,7 +11,7 @@ This system is responsible for the purchasing process in a manufacturing company
 
 
 ## What you can find here?
-- OAuth2 implementation 
+- OAuth2 implementation with guards
 - Lazy loading routing with query parameters
 - RxJs usage
 - Server side filtering
