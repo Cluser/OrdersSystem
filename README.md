@@ -10,5 +10,8 @@ This system is responsible for the purchasing process in a manufacturing company
 :white_check_mark: Database - SQLite
 
 
-
-
+## What you can find here?
+- OAuth2 implementation 
+- Lazy loading routing
+- RxJs usage
+- 
