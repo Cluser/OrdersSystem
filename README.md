@@ -14,7 +14,8 @@ This system is responsible for the purchasing process in a manufacturing company
 - OAuth2 implementation 
 - Lazy loading routing with query parameters
 - RxJs usage
-- Pagination
+- Server side filtering
+- Server side pagination
 
 
 ## Images
