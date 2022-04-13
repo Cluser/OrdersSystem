@@ -4,6 +4,7 @@ This system is responsible for the purchasing process in a manufacturing company
 
 ## Software architecture
 Backend built on python with FastApi library for REST API.
+
 Frontend build on Angular 13.
 
 
