@@ -9,7 +9,7 @@ This system is responsible for the purchasing process in a manufacturing company
 
 
 ## What you can find here?
-- OAuth2 implementation with access / refresh token and secure storage of them in cookie / memory
+- OAuth2 implementation with access / refresh token and secure storage of them in HttpOnly cookie / memory
 - Lazy loading routing with query parameters and guards
 - RxJs usage
 - Server side filtering
