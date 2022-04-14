@@ -12,6 +12,7 @@ This system is responsible for the purchasing process in a manufacturing company
 - OAuth2 implementation with access / refresh token and secure storage of them in HttpOnly cookie / memory
 - Lazy loading routing with query parameters and guards
 - RxJs usage
+- Forms with validation
 - Server side filtering
 - Server side pagination
 - Complicated table relationships in db
