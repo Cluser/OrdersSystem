@@ -3,15 +3,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { PurchaseModalAddOfferComponent } from "../purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component";
-import { PurchaseModalAddOrderComponent } from "../purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component";
-import { PurchaseModalEditOfferComponent } from "../purchase-modals/purchase-modal-edit-offer/purchaset-modal-edit-offer.component";
-import { IOffer, IPOffer } from "src/app/shared/models";
-import { currencyFormatter } from "../../../shared/functions/formatters";
+import { ApiService } from "@shared/api/api.service";
+import { PurchaseModalAddOfferComponent } from "@purchase/purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component";
+import { PurchaseModalAddOrderComponent } from "@purchase/purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component";
+import { PurchaseModalEditOfferComponent } from "@purchase/purchase-modals/purchase-modal-edit-offer/purchaset-modal-edit-offer.component";
+import { PurchaseOffersSearchComponent } from "@purchase/purchase-offers/purchase-offers-search/purchase-offers-search.component";
+import { PurchaseModalArchiveComponent } from "@purchase/purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
+import { IOffer, IPOffer } from "@shared/models";
+import { currencyFormatter } from "@shared/functions/formatters";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { PurchaseOffersSearchComponent } from "./purchase-offers-search/purchase-offers-search.component";
-import { PurchaseModalArchiveComponent } from "../purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
 
 @Component({
   selector: "app-purchase-offers",

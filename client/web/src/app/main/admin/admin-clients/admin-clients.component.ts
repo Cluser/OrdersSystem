@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { IClient } from "src/app/shared/models";
-import { AdminModalAddClientComponent } from "../admin-modals/admin-modal-add-client/admin-modal-add-client.component";
-import { AdminModalEditClientComponent } from "../admin-modals/admin-modal-edit-client/admin-modal-edit-client.component";
+import { ApiService } from "@shared/api/api.service";
+import { IClient } from "@shared/models";
+import { AdminModalAddClientComponent } from "@admin/admin-modals/admin-modal-add-client/admin-modal-add-client.component";
+import { AdminModalEditClientComponent } from "@admin/admin-modals/admin-modal-edit-client/admin-modal-edit-client.component";
 
 @Component({
   selector: "app-admin-clients",

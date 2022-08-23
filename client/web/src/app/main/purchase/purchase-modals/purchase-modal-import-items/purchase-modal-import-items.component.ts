@@ -1,14 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { NgxDropzoneModule } from 'ngx-dropzone';
-import { ApiService } from 'src/app/shared/api/api.service';
-import { AuthService } from 'src/app/shared/api/authentication/auth.service';
-import { ICategory, IItem, IProject, IUser } from 'src/app/shared/models';
-import * as excel from 'xlsx';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ApiService } from "@shared/api/api.service";
+import { AuthService } from "@shared/api/authentication/auth.service";
+import { ICategory, IItem, IProject, IUser } from "@shared/models";
+import * as excel from "xlsx";
 
 @Component({
-  selector: 'app-purchase-modal-import-items',
-  templateUrl: './purchase-modal-import-items.component.html',
-  styleUrls: ['./purchase-modal-import-items.component.scss'],
+  selector: "app-purchase-modal-import-items",
+  templateUrl: "./purchase-modal-import-items.component.html",
+  styleUrls: ["./purchase-modal-import-items.component.scss"],
 })
 export class PurchaseModalImportItemsComponent implements OnInit {
   @Output() itemsImportedEvent: EventEmitter<any> = new EventEmitter();
@@ -32,15 +31,11 @@ export class PurchaseModalImportItemsComponent implements OnInit {
   }
 
   private getCategories(): void {
-    this.api.category
-      .getCategories({}, 1, 1000)
-      .subscribe((categories) => (this.categories = categories.items));
+    this.api.category.getCategories({}, 1, 1000).subscribe((categories) => (this.categories = categories.items));
   }
 
   private getProjects(): void {
-    this.api.project
-      .getProjects({}, 1, 1000)
-      .subscribe((projects) => (this.projects = projects.items));
+    this.api.project.getProjects({}, 1, 1000).subscribe((projects) => (this.projects = projects.items));
   }
 
   private getUser(): void {
@@ -63,7 +58,7 @@ export class PurchaseModalImportItemsComponent implements OnInit {
     reader.onload = (e: any) => {
       const binarystr = new Uint8Array(e.target.result);
       const wb: excel.WorkBook = excel.read(binarystr, {
-        type: 'array',
+        type: "array",
         raw: true,
         cellFormula: false,
       });
@@ -71,14 +66,14 @@ export class PurchaseModalImportItemsComponent implements OnInit {
 
       const wsname = wb.SheetNames[0];
       let ws = wb.Sheets[wsname];
-      ws['!ref'] = 'B9:I50';
+      ws["!ref"] = "B9:I50";
       const data: any = excel.utils.sheet_to_json(ws);
 
       data.forEach((x: any) => {
         let item: Partial<IItem> = {
-          name: x['PRODUCENT'] + ' ' + x['OZNACZENIE 3'],
-          model: x['NUMER TYPU'],
-          quantity: x['ILOŚĆ SZTUK'],
+          name: x["PRODUCENT"] + " " + x["OZNACZENIE 3"],
+          model: x["NUMER TYPU"],
+          quantity: x["ILOŚĆ SZTUK"],
           archived: false,
           idCategory: this.selectedCategoryId,
           idProject: this.selectedProjectId,

@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { PurchaseModalEditOrderComponent } from "../purchase-modals/purchase-modal-edit-order/purchase-modal-edit-order.component";
-import { IOrder, IPOrder } from "src/app/shared/models";
-import { currencyFormatter } from "../../../shared/functions/formatters";
+import { ApiService } from "@shared/api/api.service";
+import { PurchaseModalEditOrderComponent } from "@purchase/purchase-modals/purchase-modal-edit-order/purchase-modal-edit-order.component";
+import { PurchaseModalArchiveComponent } from "@purchase/purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
+import { PurchaseOrdersSearchComponent } from "@purchase/purchase-orders/purchase-orders-search/purchase-orders-search.component";
+import { IOrder, IPOrder } from "@shared/models";
+import { currencyFormatter } from "@shared/functions/formatters";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { PurchaseOrdersSearchComponent } from "./purchase-orders-search/purchase-orders-search.component";
 import { ActivatedRoute, Router } from "@angular/router";
-import { PurchaseModalArchiveComponent } from "../purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
 
 @Component({
   selector: "app-purchase-orders",

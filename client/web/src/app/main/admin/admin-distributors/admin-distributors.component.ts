@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { IDistributor } from "src/app/shared/models";
-import { AdminModalAddDistributorComponent } from "../admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component";
-import { AdminModalEditDistributorComponent } from "../admin-modals/admin-modal-edit-distributor/admin-modal-edit-distributor.component";
+import { ApiService } from "@shared/api/api.service";
+import { IDistributor } from "@shared/models";
+import { AdminModalAddDistributorComponent } from "@admin/admin-modals/admin-modal-add-distributor/admin-modal-add-distributor.component";
+import { AdminModalEditDistributorComponent } from "@admin/admin-modals/admin-modal-edit-distributor/admin-modal-edit-distributor.component";
 
 @Component({
   selector: "app-admin-distributors",

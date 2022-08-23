@@ -1,16 +1,12 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
-import { ApiService } from '../../../../shared/api/api.service';
-import {
-  IContactPerson,
-  IDistributor,
-  IInquiry,
-} from '../../../../shared/models';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ColDef } from "ag-grid-community";
+import { ApiService } from "@shared/api/api.service";
+import { IContactPerson, IDistributor, IInquiry } from "@shared/models";
 
 @Component({
-  selector: 'app-purchase-modal-edit-inquiry',
-  templateUrl: './purchase-modal-edit-inquiry.component.html',
-  styleUrls: ['./purchase-modal-edit-inquiry.component.scss'],
+  selector: "app-purchase-modal-edit-inquiry",
+  templateUrl: "./purchase-modal-edit-inquiry.component.html",
+  styleUrls: ["./purchase-modal-edit-inquiry.component.scss"],
 })
 export class PurchaseModalEditInquiryComponent implements OnInit {
   @Output() inquiryEdditedEvent: EventEmitter<any> = new EventEmitter();
@@ -35,58 +31,58 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
     this.columnDefs = [
       // { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       {
-        field: 'item.id',
-        headerName: 'id',
+        field: "item.id",
+        headerName: "id",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 1,
       },
       {
-        field: 'item.name',
-        headerName: 'Nazwa',
+        field: "item.name",
+        headerName: "Nazwa",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'item.model',
-        headerName: 'Model',
+        field: "item.model",
+        headerName: "Model",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'item.category.name',
-        headerName: 'Category',
+        field: "item.category.name",
+        headerName: "Category",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'quantity',
-        headerName: 'Ilość',
+        field: "quantity",
+        headerName: "Ilość",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 1,
         editable: true,
-        type: 'rightAligned',
+        type: "rightAligned",
       },
       {
-        field: 'item.project.name',
-        headerName: 'Projekt',
+        field: "item.project.name",
+        headerName: "Projekt",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'item.user.name',
-        headerName: 'Zgłaszający',
+        field: "item.user.name",
+        headerName: "Zgłaszający",
         sortable: true,
         filter: true,
         resizable: true,
@@ -97,20 +93,14 @@ export class PurchaseModalEditInquiryComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.distributor
-      .getDistributors({}, 1, 1000)
-      .subscribe((distributors) => {
-        this.distributors = distributors.items;
-        this.getContactPersons(this.inquiry.idDistributor);
-      });
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
+      this.distributors = distributors.items;
+      this.getContactPersons(this.inquiry.idDistributor);
+    });
   }
 
   public getContactPersons(idDistributor?: number): void {
-    this.api.contactPerson
-      .getContactPersons({ idDistributor: idDistributor }, 1, 1000)
-      .subscribe(
-        (contactPersons) => (this.contactPersons = contactPersons.items)
-      );
+    this.api.contactPerson.getContactPersons({ idDistributor: idDistributor }, 1, 1000).subscribe((contactPersons) => (this.contactPersons = contactPersons.items));
   }
 
   public editInquiry(inquiry: IInquiry): void {

@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { IProject } from "src/app/shared/models";
-import { AdminModalAddProjectComponent } from "../admin-modals/admin-modal-add-project/admin-modal-add-project.component";
-import { AdminModalEditProjectComponent } from "../admin-modals/admin-modal-edit-project/admin-modal-edit-project.component";
+import { ApiService } from "@shared/api/api.service";
+import { IProject } from "@shared/models";
+import { AdminModalAddProjectComponent } from "@admin/admin-modals/admin-modal-add-project/admin-modal-add-project.component";
+import { AdminModalEditProjectComponent } from "@admin/admin-modals/admin-modal-edit-project/admin-modal-edit-project.component";
 
 @Component({
   selector: "app-admin-projects",

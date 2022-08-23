@@ -3,17 +3,17 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { PurchaseModalAddInquiryComponent } from "../purchase-modals/purchase-modal-add-inquiry/purchase-modal-add-inquiry.component";
-import { PurchaseModalAddItemComponent } from "../purchase-modals/purchase-modal-add-item/purchase-modal-add-item.component";
-import { PurchaseModalAddOfferComponent } from "../purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component";
-import { PurchaseModalAddOrderComponent } from "../purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component";
-import { PurchaseModalEditItemComponent } from "../purchase-modals/purchase-modal-edit-item/purchase-modal-edit-item.component";
-import { PurchaseModalImportItemsComponent } from "../purchase-modals/purchase-modal-import-items/purchase-modal-import-items.component";
-import { IItem, IPItem } from "src/app/shared/models";
-import { PurchaseItemsSearchComponent } from "./purchase-items-search/purchase-items-search.component";
+import { ApiService } from "@shared/api/api.service";
+import { PurchaseModalAddInquiryComponent } from "@purchase/purchase-modals/purchase-modal-add-inquiry/purchase-modal-add-inquiry.component";
+import { PurchaseModalAddItemComponent } from "@purchase/purchase-modals/purchase-modal-add-item/purchase-modal-add-item.component";
+import { PurchaseModalAddOfferComponent } from "@purchase/purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component";
+import { PurchaseModalAddOrderComponent } from "@purchase/purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component";
+import { PurchaseModalEditItemComponent } from "@purchase/purchase-modals/purchase-modal-edit-item/purchase-modal-edit-item.component";
+import { PurchaseModalImportItemsComponent } from "@purchase/purchase-modals/purchase-modal-import-items/purchase-modal-import-items.component";
+import { PurchaseItemsSearchComponent } from "@purchase/purchase-items/purchase-items-search/purchase-items-search.component";
+import { PurchaseModalArchiveComponent } from "@purchase/purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
+import { IItem, IPItem } from "@shared/models";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { PurchaseModalArchiveComponent } from "../purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
 
 @Component({
   selector: "app-purchase-items",

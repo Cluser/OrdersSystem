@@ -2,10 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { IUser } from "src/app/shared/models";
-import { AdminModalAddUserComponent } from "../admin-modals/admin-modal-add-user/admin-modal-add-user.component";
-import { AdminModalEditUserComponent } from "../admin-modals/admin-modal-edit-user/admin-modal-edit-user.component";
+import { ApiService } from "@shared/api/api.service";
+import { IUser } from "@shared/models";
+import { AdminModalAddUserComponent } from "@admin/admin-modals/admin-modal-add-user/admin-modal-add-user.component";
+import { AdminModalEditUserComponent } from "@admin/admin-modals/admin-modal-edit-user/admin-modal-edit-user.component";
 
 @Component({
   selector: "app-admin-users",

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ApiService } from "src/app/shared/api/api.service";
-import { IOrder } from "src/app/shared/models";
+import { ApiService } from "@shared/api/api.service";
+import { IOrder } from "@shared/models";
 import * as moment from "moment";
 import { IAngularMyDpOptions, IMyRangeDateSelection, IMyDateModel } from "angular-mydatepicker";
 

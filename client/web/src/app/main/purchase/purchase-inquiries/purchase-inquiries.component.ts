@@ -3,14 +3,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ColDef } from "ag-grid-community";
 import { NgxSpinnerService } from "ngx-spinner";
-import { ApiService } from "src/app/shared/api/api.service";
-import { PurchaseModalAddOfferComponent } from "../purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component";
-import { PurchaseModalAddOrderComponent } from "../purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component";
-import { PurchaseModalEditInquiryComponent } from "../purchase-modals/purchase-modal-edit-inquiry/purchase-modal-edit-inquiry.component";
-import { IInquiry, IPInquiry } from "src/app/shared/models";
+import { ApiService } from "@shared/api/api.service";
+import { PurchaseModalAddOfferComponent } from "@purchase/purchase-modals/purchase-modal-add-offer/purchase-modal-add-offer.component";
+import { PurchaseModalAddOrderComponent } from "@purchase/purchase-modals/purchase-modal-add-order/purchase-modal-add-order.component";
+import { PurchaseModalEditInquiryComponent } from "@purchase/purchase-modals/purchase-modal-edit-inquiry/purchase-modal-edit-inquiry.component";
+import { IInquiry, IPInquiry } from "@shared/models";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { PurchaseInquiriesSearchComponent } from "./purchase-inquiries-search/purchase-inquiries-search.component";
-import { PurchaseModalArchiveComponent } from "../purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
+import { PurchaseInquiriesSearchComponent } from "@purchase/purchase-inquiries/purchase-inquiries-search/purchase-inquiries-search.component";
+import { PurchaseModalArchiveComponent } from "@purchase/purchase-modals/purchase-modal-archive/purchase-modal-archive.component";
 
 @Component({
   selector: "app-purchase-inquiries",

@@ -1,20 +1,14 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
-import { ApiService } from '../../../../shared/api/api.service';
-import {
-  IContactPerson,
-  IDistributor,
-  IOffer,
-  IOfferItem,
-  IUser,
-} from '../../../../shared/models';
-import { currencyFormatter } from '../../../../shared/functions/formatters';
-import { AuthService } from 'src/app/shared/api/authentication/auth.service';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { ColDef } from "ag-grid-community";
+import { ApiService } from "@shared/api/api.service";
+import { IContactPerson, IDistributor, IOffer, IOfferItem, IUser } from "@shared/models";
+import { currencyFormatter } from "@shared/functions/formatters";
+import { AuthService } from "@shared/api/authentication/auth.service";
 
 @Component({
-  selector: 'app-purchase-modal-add-offer',
-  templateUrl: './purchase-modal-add-offer.component.html',
-  styleUrls: ['./purchase-modal-add-offer.component.scss'],
+  selector: "app-purchase-modal-add-offer",
+  templateUrl: "./purchase-modal-add-offer.component.html",
+  styleUrls: ["./purchase-modal-add-offer.component.scss"],
 })
 export class PurchaseModalAddOfferComponent implements OnInit {
   @Output() offerAddedEvent: EventEmitter<any> = new EventEmitter();
@@ -31,7 +25,7 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   public distributors: IDistributor[] = [];
   public contactPersons: IContactPerson[] = [];
   public user: IUser = {};
-  public currency: string = 'PLN';
+  public currency: string = "PLN";
 
   constructor(private api: ApiService, private authService: AuthService) {}
 
@@ -45,40 +39,40 @@ export class PurchaseModalAddOfferComponent implements OnInit {
     this.columnDefs = [
       // { checkboxSelection: true, flex: 0.5, headerCheckboxSelection: true },
       {
-        field: 'item.id',
-        headerName: 'id',
+        field: "item.id",
+        headerName: "id",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 1,
       },
       {
-        field: 'item.name',
-        headerName: 'Nazwa',
+        field: "item.name",
+        headerName: "Nazwa",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'item.model',
-        headerName: 'Model',
+        field: "item.model",
+        headerName: "Model",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'item.category.name',
-        headerName: 'Category',
+        field: "item.category.name",
+        headerName: "Category",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'quantity',
-        headerName: 'Ilość',
+        field: "quantity",
+        headerName: "Ilość",
         sortable: true,
         filter: true,
         resizable: true,
@@ -87,35 +81,35 @@ export class PurchaseModalAddOfferComponent implements OnInit {
         cellStyle: (params) => this.cellFormating(params),
       },
       {
-        field: 'price',
-        headerName: 'Cena',
+        field: "price",
+        headerName: "Cena",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
         editable: true,
         valueFormatter: (params) => currencyFormatter(params, this.currency),
-        type: 'rightAligned',
+        type: "rightAligned",
       },
       {
-        field: 'total',
-        headerName: 'Razem',
+        field: "total",
+        headerName: "Razem",
         sortable: true,
         valueGetter: 'getValue("price") * getValue("quantity")',
         valueFormatter: (params) => currencyFormatter(params, this.currency),
-        type: 'rightAligned',
+        type: "rightAligned",
       },
       {
-        field: 'item.project.name',
-        headerName: 'Projekt',
+        field: "item.project.name",
+        headerName: "Projekt",
         sortable: true,
         filter: true,
         resizable: true,
         flex: 3,
       },
       {
-        field: 'item.user.name',
-        headerName: 'Zgłaszający',
+        field: "item.user.name",
+        headerName: "Zgłaszający",
         sortable: true,
         filter: true,
         resizable: true,
@@ -130,11 +124,11 @@ export class PurchaseModalAddOfferComponent implements OnInit {
     // smthg wrong with re render
     switch (params.value) {
       case null:
-        return { backgroundColor: 'green' };
+        return { backgroundColor: "green" };
       case 2:
-        return { backgroundColor: 'yellow' };
+        return { backgroundColor: "yellow" };
       default:
-        return { backgroundColor: 'yellow' };
+        return { backgroundColor: "yellow" };
     }
   }
 
@@ -143,20 +137,14 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   }
 
   public getDistributors(): void {
-    this.api.distributor
-      .getDistributors({}, 1, 1000)
-      .subscribe((distributors) => {
-        this.distributors = distributors.items;
-        this.getContactPersons(this.offer.idDistributor);
-      });
+    this.api.distributor.getDistributors({}, 1, 1000).subscribe((distributors) => {
+      this.distributors = distributors.items;
+      this.getContactPersons(this.offer.idDistributor);
+    });
   }
 
   public getContactPersons(idDistributor?: number): void {
-    this.api.contactPerson
-      .getContactPersons({ idDistributor: idDistributor }, 1, 1000)
-      .subscribe(
-        (contactPersons) => (this.contactPersons = contactPersons.items)
-      );
+    this.api.contactPerson.getContactPersons({ idDistributor: idDistributor }, 1, 1000).subscribe((contactPersons) => (this.contactPersons = contactPersons.items));
   }
 
   private getUser(): void {
@@ -190,8 +178,6 @@ export class PurchaseModalAddOfferComponent implements OnInit {
   }
 
   public onSelectionChanged(selection: any): void {
-    this.selectedRows = selection.api
-      .getSelectedNodes()
-      .map((node: any) => node.data);
+    this.selectedRows = selection.api.getSelectedNodes().map((node: any) => node.data);
   }
 }
